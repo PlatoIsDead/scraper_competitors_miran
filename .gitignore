@@ -1,0 +1,22 @@
+# Data — company sensitive
+data/
+
+# Claude Code
+.claude/
+
+# Internal planning
+PRPs/
+INITIAL.md
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.env
+
+# OS
+.DS_Store
+*.Zone.Identifier
