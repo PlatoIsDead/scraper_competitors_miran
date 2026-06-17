@@ -12,7 +12,23 @@ from typing import TypedDict
 import pandas as pd
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
-from scraper import HEADERS, make_session
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/124.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "ru-RU,ru;q=0.9,en;q=0.8",
+}
+
+
+def make_session(base_url: str | None = None) -> requests.Session:
+    session = requests.Session()
+    session.headers.update(HEADERS)
+    if base_url:
+        session.headers.update({"Referer": base_url})
+    return session
 
 # Optional SOCKS5/HTTP proxy for providers that block direct connections.
 # Example: export SCRAPER_PROXY="socks5://127.0.0.1:1080"
