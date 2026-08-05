@@ -1,0 +1,37 @@
+﻿config_id,competitor_id,plan_id,cpu_model,cpu_sockets,cpu_cores_total,ram_gb,disks,price_value,currency,price_period,stock_count,match_score
+MIR-001,selectel,PL13-NVMe,Intel Xeon Silver 4214R,2,24,64,2×1000 ГБ NVMe + 2×2000 ГБ SSD,44000.0,RUB,month,1.0,80.0
+MIR-001,timeweb,"2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 96 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",Intel Xeon Silver 4214R,2,24,64,2×1000 ГБ NVMe + 2×2000 ГБ SSD,44880.0,RUB,month,,80.0
+MIR-002,selectel,PL13-NVMe,Intel Xeon Silver 4214R,2,24,64,2×1000 ГБ NVMe + 2×2000 ГБ SSD,44000.0,RUB,month,1.0,100.0
+MIR-002,timeweb,"2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 96 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",Intel Xeon Silver 4214R,2,24,64,2×1000 ГБ NVMe + 2×2000 ГБ SSD,44880.0,RUB,month,,100.0
+MIR-003,selectel,PL13-NVMe,Intel Xeon Silver 4214R,2,24,64,2×1000 ГБ NVMe + 2×2000 ГБ SSD,44000.0,RUB,month,1.0,100.0
+MIR-003,timeweb,"2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 96 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",Intel Xeon Silver 4214R,2,24,64,2×1000 ГБ NVMe + 2×2000 ГБ SSD,44880.0,RUB,month,,100.0
+MIR-005,selectel,PL23-NVMe,Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,51500.0,RUB,month,1.0,36.7
+MIR-005,timeweb,"2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 192 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,52530.0,RUB,month,,36.7
+MIR-005,reg_cloud,RD-56106,Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ SSD,98700.0,RUB,month,,78.3
+MIR-006,selectel,PL23-NVMe,Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,51500.0,RUB,month,1.0,80.0
+MIR-006,timeweb,"2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 192 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,52530.0,RUB,month,,80.0
+MIR-006,reg_cloud,RD-56106,Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ SSD,98700.0,RUB,month,,100.0
+MIR-007,selectel,PL23-NVMe,Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,51500.0,RUB,month,1.0,100.0
+MIR-007,timeweb,"2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 192 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,52530.0,RUB,month,,100.0
+MIR-008,selectel,PL22-NVMe,Intel Xeon Silver 4214,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,42500.0,RUB,month,1.0,100.0
+MIR-009,selectel,PL23-NVMe,Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,51500.0,RUB,month,1.0,100.0
+MIR-009,timeweb,"2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 192 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",Intel Xeon Silver 4214R,2,24,128,2×1000 ГБ NVMe + 2×2000 ГБ SSD,52530.0,RUB,month,,100.0
+MIR-009,selectel,PBL37-NVMe,Intel Xeon Silver 4214R,2,24,128,2×4000 ГБ NVMe,54400.0,RUB,month,1.0,40.0
+MIR-010,selectel,PBL37-NVMe,Intel Xeon Silver 4214R,2,24,128,2×4000 ГБ NVMe,54400.0,RUB,month,1.0,80.0
+MIR-020,reg_cloud,RD-55039,Intel Xeon Gold 5218R,2,40,64,2×480 ГБ SSD,33300.0,RUB,month,,100.0
+MIR-023,reg_cloud,RD-58700,Intel Xeon Gold 5218R,2,40,128,2×1000 ГБ SSD,38300.0,RUB,month,,100.0
+MIR-024,reg_cloud,RD-58699,Intel Xeon Gold 5218R,2,40,128,2×1000 ГБ NVMe,39300.0,RUB,month,,100.0
+MIR-032,reg_cloud,RD-55040,Intel Xeon Gold 6240R,2,48,256,2×8000 ГБ NVMe,90000.0,RUB,month,,40.0
+MIR-032,selectel,GL4-A100-NVLink-25GE,Intel Xeon Gold 6240R,2,48,256,2×1000 ГБ SSD + 2×4000 ГБ NVMe,297000.0,RUB,month,1.0,80.0
+MIR-037,timeweb,Silver 4314 / 64 / 1N,Intel Xeon Silver 4314,1,28,64,2×1000 ГБ NVMe,35120.0,RUB,month,,95.6
+MIR-038,timeweb,2 x Silver 4314 / 128 / 1N,Intel Xeon Silver 4314,2,32,128,2×1000 ГБ NVMe,51870.0,RUB,month,,100.0
+MIR-038,reg_cloud,RD-53937,Intel Xeon Silver 4314,2,32,128,2×8000 ГБ NVMe,61800.0,RUB,month,,0.0
+MIR-038,selectel,PL64-NVMe,Intel Xeon Silver 4314,2,32,128,2×2000 ГБ NVMe + 2×2000 ГБ SSD,62200.0,RUB,month,1.0,80.0
+MIR-038,reg_cloud,RD-56246,Intel Xeon Silver 4314,2,32,128,2×8000 ГБ NVMe + 2×1000 ГБ SSD,67700.0,RUB,month,,0.0
+MIR-042,reg_cloud,RD-55075,Intel Xeon Silver 4314,2,32,256,2×2000 ГБ SSD,107200.0,RUB,month,,100.0
+MIR-042,selectel,GL70-1-A100,Intel Xeon Silver 4314,2,32,256,2×480 ГБ SSD + 2×2000 ГБ SSD,118800.0,RUB,month,1.0,100.0
+MIR-043,selectel,PL65-NVMe-10GE,Intel Xeon Silver 4314,2,32,256,2×4000 ГБ NVMe,58400.0,RUB,month,1.0,80.0
+MIR-065,reg_cloud,RD-55129,Intel Xeon Gold 6348,2,56,512,2×8000 ГБ NVMe,95900.0,RUB,month,,100.0
+MIR-068,selectel,PL84-NVMe,Intel Xeon Gold 6336Y,2,48,256,2×2000 ГБ NVMe + 2×2000 ГБ SSD,92700.0,RUB,month,1.0,100.0
+MIR-068,timeweb,"2 x Intel Xeon Gold 6336Y (48 ядер, 2.4 ГГц, 96 потоков) / 256 DDR4 / 2 x 1.92 Тб NVMe + 2 x 1.92 Тб SSD",Intel Xeon Gold 6336Y,2,48,256,2×2000 ГБ NVMe + 2×2000 ГБ SSD,94560.0,RUB,month,,100.0
+MIR-068,reg_cloud,RD-53917,Intel Xeon Gold 6336Y,2,48,256,2×8000 ГБ NVMe,96600.0,RUB,month,,40.0

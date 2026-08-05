@@ -30,6 +30,14 @@ def selectel_flat():
 
 
 @pytest.fixture(scope="session")
+def timeweb_cloud_flat():
+    path = FIXTURES / "timeweb_cloud_nuxt.json"
+    if not path.exists():
+        pytest.skip("fixture timeweb_cloud_nuxt.json not captured yet")
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+@pytest.fixture(scope="session")
 def netrack_html():
     path = FIXTURES / "netrack_dedicated.html"
     if not path.exists():

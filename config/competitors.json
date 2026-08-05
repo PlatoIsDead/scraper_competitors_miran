@@ -1,0 +1,29 @@
+{
+  "competitors": [
+    {
+      "competitor_id": "selectel",
+      "name": "Селектел",
+      "url": "https://selectel.ru/services/dedicated/",
+      "currency": "RUB",
+      "price_period": "month",
+      "parsing_profile": "selectel_nuxt_cdn"
+    },
+    {
+      "competitor_id": "reg_cloud",
+      "name": "REG.Cloud",
+      "url": "https://reg.cloud/dedicated/",
+      "currency": "RUB",
+      "price_period": "month",
+      "parsing_profile": "regcloud_playwright"
+    },
+    {
+      "competitor_id": "timeweb",
+      "name": "Timeweb Cloud (Москва)",
+      "url": "https://timeweb.cloud/services/dedicated-server?location=msk",
+      "currency": "RUB",
+      "price_period": "month",
+      "parsing_profile": "timeweb_cloud_nuxt",
+      "extra": {"locations": ["msk"]}
+    }
+  ]
+}

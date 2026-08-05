@@ -10,6 +10,9 @@ from dedicated_scraper import (
     _parse_regcloud_html,
     _parse_1dedic_article,
     _parse_netrack_html,
+    _parse_selectel_flat,
+    _parse_storage_pool,
+    _parse_timeweb_cloud_nuxt,
     _parse_timeweb_html,
     _parse_hostkey_html,
     _parse_itlite_html,
@@ -425,6 +428,189 @@ class TestParseItliteHtml:
 
 
 # ── Integration tests (live network) ─────────────────────────────────
+
+# ── Extended fields (matching pipeline) ───────────────────────────────
+
+LEGACY_FIELDS = [
+    "provider", "cpu_model", "cpu_model_norm", "cpu_generation",
+    "ram_gb", "disk_count", "disk_size_gb", "disk_type",
+    "price_rub", "quantity_available", "scraped_at",
+]
+
+
+class TestSelectelExtendedFields:
+    def test_fixture_rows_have_extended_fields(self, selectel_flat):
+        rows = _parse_selectel_flat(selectel_flat, TODAY)
+        assert len(rows) >= 100
+        for row in rows:
+            assert row["plan_id"]
+            assert row["cpu_sockets"] >= 1
+            assert row["cpu_cores_total"] >= 1
+            assert len(row["disk_pools"]) >= 1
+            assert row["currency"] == "RUB"
+            assert row["price_period"] == "month"
+
+    def test_legacy_fields_unchanged(self, selectel_flat):
+        """Legacy 11 fields must survive the refactor byte-identical."""
+        rows = _parse_selectel_flat(selectel_flat, TODAY)
+        for row in rows:
+            for field in LEGACY_FIELDS:
+                assert field in row
+
+    def test_first_pool_matches_legacy_disk_fields(self, selectel_flat):
+        rows = _parse_selectel_flat(selectel_flat, TODAY)
+        for row in rows:
+            pool = row["disk_pools"][0]
+            assert pool["disk_count"] == row["disk_count"]
+            assert pool["disk_size_gb"] == row["disk_size_gb"]
+            assert pool["disk_type"] == row["disk_type"]
+
+    def test_cores_total_is_sockets_times_cores(self, selectel_flat):
+        rows = _parse_selectel_flat(selectel_flat, TODAY)
+        multi = [r for r in rows if r["cpu_sockets"] > 1]
+        assert multi, "fixture should contain dual-socket configs"
+        for row in multi:
+            assert row["cpu_cores_total"] % row["cpu_sockets"] == 0
+
+
+class TestRegcloudExtendedFields:
+    def test_plan_id_and_sockets(self):
+        html = f"""
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__title">Аренда сервера RD-56956</p>
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">2 × AMD EPYC 9334</p>
+          <p class="b-dedicated-servers-list-item-cloud__cpu-power">2.70 ГГц, 64 ядра, 128 потоков</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">512 ГБ DDR4 ECC</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 1000 ГБ SSD NVMe</p>
+          <p class="b-dedicated-servers-list-item-cloud__base-price">130\xa0985₽/мес</p>
+        </div>
+        """
+        rows = _parse_regcloud_html(html, TODAY)
+        assert len(rows) == 1
+        row = rows[0]
+        assert row["plan_id"] == "RD-56956"
+        assert row["cpu_sockets"] == 2
+        assert row["cpu_cores_total"] == 64
+        assert row["cpu_model"] == "AMD EPYC 9334"
+
+    def test_single_socket_default(self):
+        html = _make_regcloud_item(
+            "AMD EPYC 9334", "128 ГБ DDR4",
+            "2 x 1000 ГБ SSD NVMe", "base-price", "19\xa0100₽/мес"
+        )
+        rows = _parse_regcloud_html(html, TODAY)
+        assert rows[0]["cpu_sockets"] == 1
+
+    def test_multi_pool_glued_text(self):
+        """get_text(strip=True) glues pools; spaced extraction must split them."""
+        html = f"""
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">AMD EPYC 9334</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">512 ГБ DDR4</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">
+            <span>2 x 3.8 ТБ SSD SATA</span><span>2 x 12 ТБ HDD SATA</span><span>Аппаратный RAID</span>
+          </p>
+          <p class="b-dedicated-servers-list-item-cloud__base-price">100\xa0000₽/мес</p>
+        </div>
+        """
+        rows = _parse_regcloud_html(html, TODAY)
+        assert len(rows) == 1
+        pools = rows[0]["disk_pools"]
+        assert len(pools) == 2
+        assert pools[0] == {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 4000}
+        assert pools[1] == {"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 8000}
+
+    def test_pool_type_ssd_nvme_is_nvme(self):
+        html = _make_regcloud_item(
+            "AMD EPYC 9334", "128 ГБ DDR4",
+            "2 x 1.9 ТБ SSD NVMe U.2", "base-price", "50\xa0000₽/мес"
+        )
+        rows = _parse_regcloud_html(html, TODAY)
+        assert rows[0]["disk_pools"] == [
+            {"disk_type": "NVMe", "disk_count": 2, "disk_size_gb": 2000}
+        ]
+
+    def test_fixture_extended_fields(self, regcloud_html):
+        rows = _parse_regcloud_html(regcloud_html, TODAY)
+        assert all(r["cpu_sockets"] >= 1 for r in rows)
+        assert all(len(r["disk_pools"]) >= 1 for r in rows)
+        assert any(r["plan_id"].startswith("RD-") for r in rows)
+        assert any(len(r["disk_pools"]) > 1 for r in rows)
+
+
+# ── timeweb.cloud (_parse_timeweb_cloud_nuxt) ─────────────────────────
+
+class TestParseStoragePool:
+    def test_basic_gb_ssd(self):
+        assert _parse_storage_pool("2 x 480 ГБ SSD") == {
+            "disk_type": "SSD", "disk_count": 2, "disk_size_gb": 480
+        }
+
+    def test_tb_hdd(self):
+        assert _parse_storage_pool("2 x 1 ТБ HDD") == {
+            "disk_type": "HDD", "disk_count": 2, "disk_size_gb": 1000
+        }
+
+    def test_decimal_tb_nvme(self):
+        assert _parse_storage_pool("1 x 3.84 ТБ NVMe") == {
+            "disk_type": "NVMe", "disk_count": 1, "disk_size_gb": 4000
+        }
+
+    def test_no_count_defaults_to_one(self):
+        pool = _parse_storage_pool("480 ГБ SSD")
+        assert pool["disk_count"] == 1
+
+    def test_garbage_returns_none(self):
+        assert _parse_storage_pool("Аппаратный RAID") is None
+
+
+class TestParseTimewebCloudNuxt:
+    def test_fixture_msk_row_count(self, timeweb_cloud_flat):
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        assert 20 <= len(rows) <= 100
+
+    def test_fixture_all_required_fields(self, timeweb_cloud_flat):
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        for row in rows:
+            assert row["provider"] == "timeweb_cloud"
+            assert row["cpu_model"] != ""
+            assert row["ram_gb"] > 0
+            assert row["price_rub"] > 0
+            assert row["disk_type"] in ALLOWED_DISK_TYPES
+            assert row["plan_id"]
+            assert row["currency"] == "RUB"
+            assert row["price_period"] == "month"
+            assert len(row["disk_pools"]) >= 1
+
+    def test_dual_socket_parsed(self, timeweb_cloud_flat):
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        import re
+        dual = [r for r in rows if r["cpu_sockets"] == 2]
+        assert dual, "msk tariffs should contain dual-socket configs"
+        # socket prefix "2 x " must be stripped from the model
+        assert all(not re.match(r"^\d+\s*[xхX×]", r["cpu_model"]) for r in dual)
+
+    def test_multi_pool_present(self, timeweb_cloud_flat):
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        assert any(len(r["disk_pools"]) > 1 for r in rows)
+
+    def test_location_filter(self, timeweb_cloud_flat):
+        msk = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, ("msk",))
+        both = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, ("msk", "ru"))
+        assert len(both) > len(msk)
+
+    def test_uses_standard_price_not_discounted(self, timeweb_cloud_flat):
+        """priceNumber (стандартная цена), а не price (скидка за 12 мес)."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        assert all(float(r["price_rub"]) == int(r["price_rub"]) for r in rows)
+
+
+@pytest.mark.integration
+def test_scrape_timeweb_cloud_live():
+    from dedicated_scraper import scrape_timeweb_cloud
+    rows = scrape_timeweb_cloud()
+    assert len(rows) >= 20
+
 
 @pytest.mark.integration
 def test_scrape_miran_live():

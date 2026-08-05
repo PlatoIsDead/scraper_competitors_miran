@@ -5,10 +5,11 @@
 import os
 import re
 import json
+import time
 import requests
 import tls_client
 from datetime import date
-from typing import TypedDict
+from typing import NotRequired, TypedDict
 import pandas as pd
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
@@ -86,6 +87,23 @@ class ServerRow(TypedDict):
     price_rub: float
     quantity_available: int | None
     scraped_at: str
+    # Extended fields for the competitor-matching pipeline; legacy disk_*
+    # fields keep holding the FIRST pool for history.csv/pivot compatibility.
+    plan_id: NotRequired[str]
+    cpu_sockets: NotRequired[int]
+    cpu_cores_total: NotRequired[int]  # total across sockets, as sites publish
+    disk_pools: NotRequired[list[dict]]  # [{"disk_type","disk_count","disk_size_gb"}]
+    currency: NotRequired[str]
+    price_period: NotRequired[str]
+
+
+# history.csv schema is frozen to these columns; extended ServerRow fields
+# (incl. list-valued disk_pools, which would break drop_duplicates) never leak in.
+LEGACY_HISTORY_COLS = [
+    "provider", "cpu_model", "cpu_model_norm", "cpu_generation",
+    "ram_gb", "disk_count", "disk_size_gb", "disk_type",
+    "price_rub", "quantity_available", "scraped_at",
+]
 
 
 # ── Normalization functions ──────────────────────────────────────────
@@ -208,7 +226,8 @@ def scrape_miran() -> list[ServerRow]:
 def _scrape_with_playwright(
     url: str,
     provider: str,
-    wait_selector: str | None = None
+    wait_selector: str | None = None,
+    _retry_after_install: bool = True,
 ) -> str:
     """Returns page HTML after JS renders. Returns empty string on failure."""
     try:
@@ -250,6 +269,20 @@ def _scrape_with_playwright(
             browser.close()
             return html
     except Exception as e:
+        # Streamlit Cloud: пакет playwright есть, а браузер не скачан —
+        # ставим chromium на месте и повторяем один раз
+        if _retry_after_install and "Executable doesn't exist" in str(e):
+            print(f"[{provider}] Chromium не установлен — качаем (playwright install)...")
+            import subprocess
+            import sys
+            res = subprocess.run(
+                [sys.executable, "-m", "playwright", "install", "chromium"],
+                capture_output=True, text=True, timeout=300,
+            )
+            if res.returncode == 0:
+                return _scrape_with_playwright(
+                    url, provider, wait_selector, _retry_after_install=False)
+            print(f"[{provider}] playwright install не удался: {res.stderr[-300:]}")
         print(f"[{provider}] Playwright error: {e}")
         return ""
 
@@ -301,14 +334,151 @@ def _get_selectel_cdn_url() -> str | None:
         return None
 
 
-def scrape_selectel() -> list[ServerRow]:
-    """Scrape selectel.ru via their Nuxt CDN JSON payload.
+def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
+    """Один конфиг selectel (resolved payload или объект API) → ServerRow."""
+    # Price (monthly RUB)
+    price_collection = cfg.get("price_collection") or {}
+    rub = price_collection.get("RUB") or {}
+    price_rub = rub.get("month")
+    if not price_rub:
+        return None
 
+    # CPU
+    cpu_info = cfg.get("cpu") or {}
+    cpu_model = cpu_info.get("name", "")
+    if not cpu_model:
+        return None
+
+    # RAM — sum all entries (size × count)
+    ram_list = cfg.get("ram") or []
+    total_ram = sum(r.get("size", 0) * r.get("count", 1) for r in ram_list if isinstance(r, dict))
+    if total_ram == 0:
+        return None
+    ram_gb = normalize_ram_gb(total_ram)
+
+    # Disks — all pools; legacy disk_* fields keep the first one
+    disk_list = cfg.get("disk") or []
+    if not disk_list or not isinstance(disk_list[0], dict):
+        return None
+    disk_pools = [
+        {
+            "disk_type": normalize_disk_type(d.get("type", "HDD")),
+            "disk_count": d.get("count", 1),
+            "disk_size_gb": normalize_disk_gb(d.get("size", 0)),
+        }
+        for d in disk_list if isinstance(d, dict)
+    ]
+    first_disk = disk_list[0]
+    disk_count = first_disk.get("count", 1)
+    disk_size_raw = first_disk.get("size", 0)
+    disk_type_raw = first_disk.get("type", "HDD")  # e.g. "SSD SATA", "SSD NVMe M.2", "HDD SATA"
+    disk_size_gb = normalize_disk_gb(disk_size_raw)
+    disk_type = normalize_disk_type(disk_type_raw)
+
+    cpu_sockets = cpu_info.get("count") or 1
+    cores_per_cpu = cpu_info.get("cores_per_cpu") or 0
+
+    # Quantity: API отдаёт готовое поле quantity; в payload его не было — суммируем по локациям
+    quantity = cfg.get("quantity") or 0
+    if not quantity:
+        available = cfg.get("available") or []
+        quantity = sum(a.get("count", 0) for a in available if isinstance(a, dict))
+
+    return {
+        "provider": "selectel",
+        "cpu_model": cpu_model,
+        "cpu_model_norm": normalize_cpu_model(cpu_model),
+        "cpu_generation": extract_cpu_generation(cpu_model),
+        "ram_gb": ram_gb,
+        "disk_count": disk_count,
+        "disk_size_gb": disk_size_gb,
+        "disk_type": disk_type,
+        "price_rub": float(price_rub),
+        "quantity_available": quantity if quantity > 0 else None,
+        "scraped_at": today,
+        "plan_id": cfg.get("name") or "",
+        "cpu_sockets": cpu_sockets,
+        "cpu_cores_total": cpu_sockets * cores_per_cpu,
+        "disk_pools": disk_pools,
+        "currency": "RUB",
+        "price_period": "month",
+    }
+
+
+def _parse_selectel_flat(flat: list, today: str) -> list[ServerRow]:
+    """Build rows from the resolved Nuxt flat array. Pure function — used by tests."""
+    rows = []
+
+    # Find server config entries: dicts with cpu/ram/disk/price_collection keys
+    for i, item in enumerate(flat):
+        if not isinstance(item, dict):
+            continue
+        if not ("cpu" in item and "ram" in item and "disk" in item and "price_collection" in item):
+            continue
+
+        try:
+            cfg = _resolve_nuxt(flat, i)
+        except Exception:
+            continue
+
+        row = _selectel_cfg_to_row(cfg, today)
+        if row:
+            rows.append(row)
+
+    if not rows:
+        print("[selectel] JSON получен, но конфиги не распознаны")
+
+    return rows
+
+
+SELECTEL_PUB_API = "https://api.selectel.ru/servers/v2/pub/service/server"
+
+
+def _scrape_selectel_api() -> list[ServerRow]:
+    """Открытый API selectel: полный список готовых серверов одним запросом.
+
+    С 2026-08 страница /services/dedicated/ больше не кладёт конфиги в Nuxt-payload —
+    фронт берёт их отсюда же (servers/v2/pub/). Ретраи — из-за флапа исходящей сети WSL.
+    """
+    last_err = None
+    for attempt in range(3):
+        try:
+            r = requests.get(SELECTEL_PUB_API, timeout=25,
+                             headers={"User-Agent": HEADERS["User-Agent"]})
+            r.raise_for_status()
+            configs = r.json().get("result") or []
+            break
+        except Exception as e:
+            last_err = e
+            time.sleep(2 * (attempt + 1))
+    else:
+        print(f"[selectel] Ошибка запроса API: {last_err}")
+        return []
+
+    today = date.today().isoformat()
+    rows = []
+    for cfg in configs:
+        if not isinstance(cfg, dict) or not cfg.get("is_order"):
+            continue
+        row = _selectel_cfg_to_row(cfg, today)
+        if row:
+            rows.append(row)
+    return rows
+
+
+def scrape_selectel() -> list[ServerRow]:
+    """Scrape selectel.ru: сначала открытый API, при неудаче — старый Nuxt CDN payload.
+
+    Старый путь (актуален до 2026-08, оставлен как фолбэк):
     1. Fetch the page with tls-client (Chrome TLS fingerprint bypasses Cloudflare).
     2. Extract the CDN payload URL from <script id="__NUXT_DATA__" data-src="...">.
     3. Fetch the JSON from cdn.selectel.ru with plain requests (CDN is open).
     4. Parse with existing _resolve_nuxt decoder.
     """
+    rows = _scrape_selectel_api()
+    if rows:
+        return rows
+
     cdn_url = _get_selectel_cdn_url()
     if not cdn_url:
         print("[selectel] Не удалось получить CDN URL")
@@ -326,74 +496,7 @@ def scrape_selectel() -> list[ServerRow]:
         print("[selectel] Неожиданный формат CDN payload")
         return []
 
-    today = date.today().isoformat()
-    rows = []
-
-    # Find server config entries: dicts with cpu/ram/disk/price_collection keys
-    for i, item in enumerate(flat):
-        if not isinstance(item, dict):
-            continue
-        if not ("cpu" in item and "ram" in item and "disk" in item and "price_collection" in item):
-            continue
-
-        try:
-            cfg = _resolve_nuxt(flat, i)
-        except Exception:
-            continue
-
-        # Price (monthly RUB)
-        price_collection = cfg.get("price_collection") or {}
-        rub = price_collection.get("RUB") or {}
-        price_rub = rub.get("month")
-        if not price_rub:
-            continue
-
-        # CPU
-        cpu_info = cfg.get("cpu") or {}
-        cpu_model = cpu_info.get("name", "")
-        if not cpu_model:
-            continue
-
-        # RAM — sum all entries (size × count)
-        ram_list = cfg.get("ram") or []
-        total_ram = sum(r.get("size", 0) * r.get("count", 1) for r in ram_list if isinstance(r, dict))
-        if total_ram == 0:
-            continue
-        ram_gb = normalize_ram_gb(total_ram)
-
-        # Disk — use first entry
-        disk_list = cfg.get("disk") or []
-        if not disk_list or not isinstance(disk_list[0], dict):
-            continue
-        first_disk = disk_list[0]
-        disk_count = first_disk.get("count", 1)
-        disk_size_raw = first_disk.get("size", 0)
-        disk_type_raw = first_disk.get("type", "HDD")  # e.g. "SSD SATA", "SSD NVMe M.2", "HDD SATA"
-        disk_size_gb = normalize_disk_gb(disk_size_raw)
-        disk_type = normalize_disk_type(disk_type_raw)
-
-        # Quantity — sum across all locations
-        available = cfg.get("available") or []
-        quantity = sum(a.get("count", 0) for a in available if isinstance(a, dict))
-
-        rows.append({
-            "provider": "selectel",
-            "cpu_model": cpu_model,
-            "cpu_model_norm": normalize_cpu_model(cpu_model),
-            "cpu_generation": extract_cpu_generation(cpu_model),
-            "ram_gb": ram_gb,
-            "disk_count": disk_count,
-            "disk_size_gb": disk_size_gb,
-            "disk_type": disk_type,
-            "price_rub": float(price_rub),
-            "quantity_available": quantity if quantity > 0 else None,
-            "scraped_at": today,
-        })
-
-    if not rows:
-        print("[selectel] JSON получен, но конфиги не распознаны")
-
-    return rows
+    return _parse_selectel_flat(flat, date.today().isoformat())
 
 
 # ── 1dedic.ru scraper (Playwright scroll + HTML parsing) ─────────────
@@ -602,10 +705,28 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
             if not cpu_elem:
                 continue
             cpu_model = cpu_elem.get_text(strip=True)
-            # Strip leading socket count, e.g. "2 × AMD EPYC 9334" → "AMD EPYC 9334"
+            # Capture leading socket count, e.g. "2 × AMD EPYC 9334" → sockets=2
+            socket_match = re.match(r'^(\d+)\s*[×xX]\s*', cpu_model)
+            cpu_sockets = int(socket_match.group(1)) if socket_match else 1
             cpu_model = re.sub(r'^\d+\s*[×xX]\s*', '', cpu_model).strip()
             if not cpu_model:
                 continue
+
+            plan_id = ""
+            title_elem = item.find(class_="b-dedicated-servers-list-item-cloud__title")
+            if title_elem:
+                title_text = title_elem.get_text(strip=True)
+                rd_match = re.search(r"RD-\d+", title_text)
+                plan_id = rd_match.group(0) if rd_match else title_text
+
+            cpu_cores_total = 0
+            power_elem = item.find(class_="b-dedicated-servers-list-item-cloud__cpu-power")
+            if power_elem:
+                cores_match = re.search(
+                    r"(\d+)\s*яд", power_elem.get_text(" ", strip=True), re.I
+                )
+                if cores_match:
+                    cpu_cores_total = int(cores_match.group(1))
 
             ram_elem = item.find("p", class_="b-dedicated-servers-list-item-cloud__ram")
             if not ram_elem:
@@ -618,6 +739,25 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
 
             disk_elem = item.find("p", class_="b-dedicated-servers-list-item-cloud__hdds")
             disk_text = disk_elem.get_text(strip=True) if disk_elem else ""
+            # get_text(strip=True) glues adjacent pools ("…SSD SATA2 x 12 ТБ…"),
+            # so pools are extracted from a space-separated variant
+            disk_text_spaced = disk_elem.get_text(" ", strip=True) if disk_elem else ""
+            disk_pools = []
+            for pool_m in re.finditer(
+                # type tail is multi-word ("SSD NVMe U.2") — normalize_disk_type
+                # prioritises NVMe over SSD within it
+                r"(\d+)\s*[хxX×]\s*(\d+(?:[.,]\d+)?)\s*(ГБ|ТБ)"
+                r"((?:\s*(?:NVMe|SSD|HDD|SATA|U\.2|M\.2))*)",
+                disk_text_spaced, re.I
+            ):
+                pool_size = float(pool_m.group(2).replace(",", "."))
+                if "ТБ" in pool_m.group(3).upper():
+                    pool_size *= 1000
+                disk_pools.append({
+                    "disk_type": normalize_disk_type(pool_m.group(4) or ""),
+                    "disk_count": int(pool_m.group(1)),
+                    "disk_size_gb": normalize_disk_gb(int(pool_size)),
+                })
 
             # Bug B fix: support decimal TB sizes (e.g. "3.8 ТБ", "1.9 ТБ")
             disk_match = re.search(
@@ -668,6 +808,13 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
                 continue
             price_rub = float(re.sub(r"[\s\u00a0]", "", price_match.group(1)))
 
+            if not disk_pools and disk_size_gb:
+                disk_pools = [{
+                    "disk_type": disk_type,
+                    "disk_count": disk_count,
+                    "disk_size_gb": disk_size_gb,
+                }]
+
             rows.append({
                 "provider": "regcloud",
                 "cpu_model": cpu_model,
@@ -680,6 +827,12 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
                 "price_rub": price_rub,
                 "quantity_available": None,
                 "scraped_at": today,
+                "plan_id": plan_id,
+                "cpu_sockets": cpu_sockets,
+                "cpu_cores_total": cpu_cores_total,
+                "disk_pools": disk_pools,
+                "currency": "RUB",
+                "price_period": "month",
             })
 
         except Exception:
@@ -944,6 +1097,159 @@ def scrape_timeweb() -> list[ServerRow]:
     return []
 
 
+# ── timeweb.cloud scraper (inline __NUXT_DATA__ JSON) ─────────────────
+# Отдельный сайт Timeweb Cloud (ТЗ клиента: location=msk). Нужен только
+# matching-пайплайну (competitor_pipeline.py) — в scrape_all() не входит.
+
+def _parse_storage_pool(text: str) -> dict | None:
+    """Parse one storageList entry like '2 x 480 ГБ SSD' / '1 x 3.84 ТБ NVMe'."""
+    m = re.search(
+        r"(?:(\d+)\s*[хxX×]\s*)?(\d+(?:[.,]\d+)?)\s*(ГБ|ТБ|GB|TB)",
+        text, re.I
+    )
+    if not m:
+        return None
+    size = float(m.group(2).replace(",", "."))
+    if m.group(3).upper() in ("ТБ", "TB"):
+        size *= 1000
+    return {
+        # one storageList entry = one pool, so the whole string is safe for type
+        "disk_type": normalize_disk_type(text),
+        "disk_count": int(m.group(1) or 1),
+        "disk_size_gb": normalize_disk_gb(int(size)),
+    }
+
+
+def _parse_timeweb_cloud_nuxt(
+    flat: list, today: str, locations: tuple[str, ...] = ("msk",)
+) -> list[ServerRow]:
+    """Parse timeweb.cloud Nuxt flat array. Pure function — used by tests.
+
+    priceNumber = стандартная месячная цена; поле price — скидочная цена при
+    аренде на leaseTerm месяцев, для паритета с помесячными ценами конкурентов
+    не используется (решение подтвердить у клиента).
+    """
+    rows: list[ServerRow] = []
+    for i, item in enumerate(flat):
+        if not isinstance(item, dict):
+            continue
+        if not {"cpu", "presetId", "storageList"} <= item.keys():
+            continue
+        try:
+            cfg = _resolve_nuxt(flat, i)
+        except Exception:
+            continue
+
+        if cfg.get("location") not in locations:
+            continue
+
+        cpu_raw = (cfg.get("cpu") or "").strip()
+        if not cpu_raw:
+            continue
+        socket_match = re.match(r"^(\d+)\s*[хxX×]\s*", cpu_raw)
+        cpu_sockets = int(socket_match.group(1)) if socket_match else 1
+        cpu_model = re.sub(r"^\d+\s*[хxX×]\s*", "", cpu_raw).strip()
+
+        cpu_cores_total = cfg.get("cpuCount") or 0
+        if not cpu_cores_total:
+            cores_match = re.search(r"(\d+)\s*яд", cfg.get("cpuParams") or "", re.I)
+            if cores_match:
+                cpu_cores_total = int(cores_match.group(1))
+
+        ram_raw = cfg.get("memoryCount") or 0
+        if not ram_raw:
+            continue
+        ram_gb = normalize_ram_gb(int(ram_raw))
+
+        disk_pools = []
+        for pool_text in cfg.get("storageList") or []:
+            if not isinstance(pool_text, str):
+                continue
+            pool = _parse_storage_pool(pool_text)
+            if pool:
+                disk_pools.append(pool)
+        if not disk_pools:
+            continue
+
+        price = cfg.get("priceNumber")
+        if not price:
+            continue
+
+        rows.append({
+            "provider": "timeweb_cloud",
+            "cpu_model": cpu_model,
+            "cpu_model_norm": normalize_cpu_model(cpu_model),
+            "cpu_generation": extract_cpu_generation(cpu_model),
+            "ram_gb": ram_gb,
+            "disk_count": disk_pools[0]["disk_count"],
+            "disk_size_gb": disk_pools[0]["disk_size_gb"],
+            "disk_type": disk_pools[0]["disk_type"],
+            "price_rub": float(price),
+            "quantity_available": None,
+            "scraped_at": today,
+            "plan_id": cfg.get("name") or "",
+            "cpu_sockets": cpu_sockets,
+            "cpu_cores_total": cpu_cores_total,
+            "disk_pools": disk_pools,
+            "currency": "RUB",
+            "price_period": "month",
+        })
+
+    return rows
+
+
+def scrape_timeweb_cloud(locations: tuple[str, ...] = ("msk",)) -> list[ServerRow]:
+    """Scrape timeweb.cloud/services/dedicated-server (inline __NUXT_DATA__)."""
+    url = "https://timeweb.cloud/services/dedicated-server?location=msk"
+    today = date.today().isoformat()
+
+    html = None
+    try:
+        session = make_session(url)
+        if _PROXY:
+            session.proxies = {"http": _PROXY, "https": _PROXY}
+        r = session.get(url, timeout=25)
+        if r.status_code == 200:
+            html = r.text
+        else:
+            print(f"[timeweb_cloud] HTTP {r.status_code}, пробую tls_client")
+    except Exception as e:
+        print(f"[timeweb_cloud] requests не прошёл ({e}), пробую tls_client")
+
+    if html is None:
+        try:
+            kwargs: dict = {"timeout_seconds": 25}
+            if _PROXY:
+                kwargs["proxy"] = _PROXY
+            s = tls_client.Session(client_identifier="chrome_120")
+            r2 = s.get(url, **kwargs)
+            if r2.status_code != 200:
+                print(f"[timeweb_cloud] HTTP {r2.status_code}")
+                return []
+            html = r2.text
+        except Exception as e:
+            print(f"[timeweb_cloud] Ошибка загрузки: {e}")
+            return []
+
+    soup = BeautifulSoup(html, "lxml")
+    nuxt_el = soup.find(id="__NUXT_DATA__")
+    if not nuxt_el or not nuxt_el.string:
+        print("[timeweb_cloud] Элемент __NUXT_DATA__ не найден")
+        return []
+    try:
+        flat = json.loads(nuxt_el.string)
+    except Exception as e:
+        print(f"[timeweb_cloud] Ошибка разбора __NUXT_DATA__: {e}")
+        return []
+    if not isinstance(flat, list):
+        print("[timeweb_cloud] Неожиданный формат __NUXT_DATA__")
+        return []
+
+    rows = _parse_timeweb_cloud_nuxt(flat, today, locations)
+    print(f"[timeweb_cloud] Распарсено тарифов: {len(rows)} (локации: {', '.join(locations)})")
+    return rows
+
+
 # ── hostkey.ru scraper (static HTML cards) ────────────────────────────
 
 def _parse_hostkey_html(html: bytes | str, today: str) -> list[ServerRow]:
@@ -1159,6 +1465,8 @@ def save_history(df: pd.DataFrame) -> None:
     """Append to history.csv with deduplication."""
     if df.empty:
         return
+
+    df = df[[c for c in LEGACY_HISTORY_COLS if c in df.columns]].copy()
 
     os.makedirs(DATA_DIR, exist_ok=True)
 

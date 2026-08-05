@@ -1,0 +1,822 @@
+﻿provider,cpu_model,cpu_model_norm,cpu_generation,ram_gb,disk_count,disk_size_gb,disk_type,price_rub,quantity_available,scraped_at
+regcloud,2 × Intel Xeon E5-2420,2 × intel xeon e5-2420,Sandy Bridge EP,32,2,480,SSD,13840.0,,2026-05-25
+regcloud,Xeon E-2174G,xeon e-2174g,,32,2,1000,HDD,17100.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,32,2,240,SSD,22865.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4214R,2 × intel xeon silver 4214r,Cascade Lake,64,2,480,SSD,30800.0,,2026-05-25
+regcloud,Xeon W-2255,xeon w-2255,,128,2,480,SSD,60860.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5317,2 × intel xeon gold 5317,Skylake-SP,512,2,8000,HDD,126825.0,,2026-05-25
+regcloud,Xeon E3-1270,xeon e3-1270,Sandy Bridge,8,2,120,SSD,11790.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650,2 × intel xeon e5-2650,Sandy Bridge EP,32,2,2000,HDD,15660.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2620v2,2 × intel xeon e5-2620v2,Ivy Bridge EP,64,2,4000,HDD,17280.0,,2026-05-25
+regcloud,Xeon E3-1230v5,xeon e3-1230v5,Skylake,32,2,240,SSD,17460.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650,2 × intel xeon e5-2650,Sandy Bridge EP,128,2,4000,HDD,21200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,64,2,480,SSD,24820.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2640,2 × intel xeon e5-2640,Sandy Bridge EP,128,2,1000,SSD,27440.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2690v4,2 × intel xeon e5-2690v4,Broadwell EP,64,2,2000,HDD,30600.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4114,2 × intel xeon silver 4114,Skylake-SP,128,2,4000,HDD,31400.0,,2026-05-25
+regcloud,Xeon W-2265,xeon w-2265,,64,2,4000,HDD,31900.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650v2,2 × intel xeon e5-2650v2,Ivy Bridge EP,256,2,480,SSD,32470.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4316,2 × intel xeon silver 4316,Skylake-SP,128,2,480,SSD,42500.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6348,2 × intel xeon gold 6348,Skylake-SP,128,2,4000,HDD,63400.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9374F,2 × amd epyc 9374f,Genoa,128,2,8000,HDD,172100.0,,2026-05-25
+regcloud,Xeon E5-2620,xeon e5-2620,Sandy Bridge EP,32,2,2000,HDD,15130.0,,2026-05-25
+regcloud,Xeon E3-1270v3,xeon e3-1270v3,Haswell,8,2,8000,HDD,15500.0,,2026-05-25
+regcloud,Xeon E5-2650v3,xeon e5-2650v3,Haswell EP,64,2,2000,HDD,16150.0,,2026-05-25
+regcloud,Xeon E3-1245v5,xeon e3-1245v5,Skylake,16,2,240,SSD,17600.0,,2026-05-25
+regcloud,Xeon E-2286G,xeon e-2286g,,32,2,1000,SSD,18200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670,2 × intel xeon e5-2670,Sandy Bridge EP,64,2,1000,HDD,18640.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2640,2 × intel xeon e5-2640,Sandy Bridge EP,128,2,4000,HDD,21200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2620,2 × intel xeon e5-2620,Sandy Bridge EP,64,2,480,SSD,21335.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650v2,2 × intel xeon e5-2650v2,Ivy Bridge EP,64,2,4000,HDD,22015.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670,2 × intel xeon e5-2670,Sandy Bridge EP,64,2,240,SSD,22015.0,,2026-05-25
+regcloud,AMD Ryzen 7 7700,amd ryzen 7 7700,,32,2,1000,SSD,23700.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,128,2,8000,HDD,27710.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5320,2 × intel xeon gold 5320,Skylake-SP,128,2,480,SSD,57600.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6334,2 × intel xeon gold 6334,Skylake-SP,256,2,4000,HDD,76100.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9554,2 × amd epyc 9554,Genoa,1024,2,2000,SSD,292600.0,,2026-05-25
+miran,Intel Xeon E3-1230 V5,intel xeon e3-1230 v5,Skylake,16,2,2000,HDD,5368.0,,2026-05-25
+miran,Intel Xeon E3-1230 V6,intel xeon e3-1230 v6,Kaby Lake,32,2,2000,HDD,5856.0,,2026-05-25
+miran,Xeon E3-1240v6,xeon e3-1240v6,Kaby Lake,64,2,2000,HDD,11224.0,,2026-05-25
+miran,Xeon E3-1230v6,xeon e3-1230v6,Kaby Lake,64,1,0,HDD,11224.0,,2026-05-25
+miran,Intel Xeon E3-1230 V6,intel xeon e3-1230 v6,Kaby Lake,64,2,1000,SSD,13298.0,,2026-05-25
+miran,Intel Xeon E3-1230 V6,intel xeon e3-1230 v6,Kaby Lake,16,2,240,SSD,14274.0,,2026-05-25
+miran,Xeon E3-1230v6,xeon e3-1230v6,Kaby Lake,32,2,1000,NVMe,14500.0,,2026-05-25
+miran,Xeon E3-1230v5,xeon e3-1230v5,Skylake,64,2,2000,SSD,15494.0,,2026-05-25
+miran,AMD Ryzen 9 7950X,amd ryzen 9 7950x,,32,2,4000,SSD,29300.0,,2026-05-25
+miran,Intel Xeon Silver 4215R,intel xeon silver 4215r,Cascade Lake,128,2,1000,SSD,30300.0,,2026-05-25
+miran,Xeon E5 2630v3,xeon e5 2630v3,,128,4,2000,SSD,51866.0,,2026-05-25
+selectel,AMD Ryzen 5 2400G,amd ryzen 5 2400g,,32,2,480,SSD,6480.0,1.0,2026-05-25
+selectel,AMD Ryzen 5 3400G,amd ryzen 5 3400g,,32,2,480,SSD,5290.0,,2026-05-25
+selectel,AMD Ryzen 7 3700X,amd ryzen 7 3700x,,32,2,480,NVMe,10000.0,1.0,2026-05-25
+selectel,AMD Ryzen 5 5600G,amd ryzen 5 5600g,,64,2,1000,NVMe,12000.0,,2026-05-25
+selectel,AMD Ryzen 5 5600X,amd ryzen 5 5600x,,64,2,1000,NVMe,15500.0,5.0,2026-05-25
+selectel,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,64,2,1000,NVMe,16400.0,7.0,2026-05-25
+selectel,Intel Celeron,intel celeron,,8,1,120,SSD,1290.0,,2026-05-25
+selectel,Intel Core i7-6700,intel core i7-6700,,32,2,4000,HDD,5180.0,1.0,2026-05-25
+selectel,Intel Core i7-6700,intel core i7-6700,,32,2,480,SSD,5180.0,,2026-05-25
+selectel,Intel Core i7-6700,intel core i7-6700,,64,2,2000,HDD,5070.0,,2026-05-25
+selectel,Intel Core i7-6700,intel core i7-6700,,64,2,240,SSD,5180.0,,2026-05-25
+selectel,Intel Core i3-12100,intel core i3-12100,,16,1,480,NVMe,5290.0,,2026-05-25
+selectel,Intel Xeon L5630,intel xeon l5630,,16,4,1000,HDD,4900.0,,2026-05-25
+selectel,Intel Xeon L5630,intel xeon l5630,,16,2,480,SSD,19900.0,,2026-05-25
+selectel,Intel Core i7-6700,intel core i7-6700,,64,2,4000,HDD,6910.0,,2026-05-25
+selectel,Intel Core i7-6700,intel core i7-6700,,64,2,480,SSD,6910.0,,2026-05-25
+selectel,Intel Core i7-8700,intel core i7-8700,,32,2,2000,HDD,5180.0,,2026-05-25
+selectel,Intel Core i7-8700,intel core i7-8700,,32,2,480,SSD,15500.0,1.0,2026-05-25
+selectel,Intel Core i7-8700,intel core i7-8700,,64,2,2000,HDD,6040.0,1.0,2026-05-25
+selectel,Intel Core i7-8700,intel core i7-8700,,64,2,480,SSD,6370.0,5.0,2026-05-25
+selectel,Intel Core i5-10600,intel core i5-10600,,32,2,480,NVMe,9280.0,,2026-05-25
+selectel,Intel Core i5-10600,intel core i5-10600,,64,2,480,SSD,9820.0,2.0,2026-05-25
+selectel,Intel Core i3-12100,intel core i3-12100,,16,2,480,SSD,5290.0,1.0,2026-05-25
+selectel,Intel Core i5-12600,intel core i5-12600,,32,2,1000,NVMe,16000.0,1.0,2026-05-25
+selectel,Intel Core i3-12100,intel core i3-12100,,32,2,480,NVMe,7020.0,,2026-05-25
+selectel,Intel Core i3-14100,intel core i3-14100,,32,2,480,SSD,5940.0,1.0,2026-05-25
+selectel,Intel Core i3-14100,intel core i3-14100,,16,2,4000,NVMe,10200.0,61.0,2026-05-25
+selectel,Intel Core i3-14100,intel core i3-14100,,32,2,1000,NVMe,12800.0,,2026-05-25
+selectel,Intel Core i5-10600,intel core i5-10600,,64,2,1000,NVMe,35300.0,1.0,2026-05-25
+selectel,Intel Core i5-10600,intel core i5-10600,,32,2,480,SSD,19100.0,1.0,2026-05-25
+selectel,Intel Core i5-12600,intel core i5-12600,,64,2,1000,NVMe,11600.0,4.0,2026-05-25
+selectel,Intel Core i5-14500,intel core i5-14500,,64,2,1000,NVMe,13500.0,,2026-05-25
+selectel,Intel Core i9-9900K,intel core i9-9900k,,64,2,480,NVMe,19000.0,1.0,2026-05-25
+selectel,Intel Core i9-10900K,intel core i9-10900k,,64,2,1000,NVMe,22300.0,7.0,2026-05-25
+selectel,Intel Core i7-11700K,intel core i7-11700k,,128,2,1000,NVMe,19000.0,,2026-05-25
+selectel,Intel Core i7-11700K,intel core i7-11700k,,64,2,1000,NVMe,31100.0,3.0,2026-05-25
+selectel,Intel Core i9-12900K,intel core i9-12900k,,64,2,1000,NVMe,22100.0,8.0,2026-05-25
+selectel,Intel Core i9-14900KS,intel core i9-14900ks,,64,2,1000,NVMe,36700.0,29.0,2026-05-25
+selectel,Intel Core i9-13900K,intel core i9-13900k,,128,2,2000,NVMe,24800.0,7.0,2026-05-25
+selectel,Intel Core i9-13900K,intel core i9-13900k,,64,2,1000,NVMe,31800.0,4.0,2026-05-25
+selectel,Intel Core i9-14900KS,intel core i9-14900ks,,128,2,2000,NVMe,57000.0,4.0,2026-05-25
+selectel,Apple M1,apple m1,,16,1,240,NVMe,12000.0,2.0,2026-05-25
+selectel,Apple M2 Pro,apple m2 pro,,32,1,1000,NVMe,19100.0,,2026-05-25
+selectel,Apple M4 Pro,apple m4 pro,,32,1,2000,NVMe,23000.0,1.0,2026-05-25
+selectel,Broadcom BCM2711,broadcom bcm2711,,8,1,120,HDD,864.0,,2026-05-25
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,16,2,240,SSD,8640.0,6.0,2026-05-25
+selectel,Intel Xeon E3-1245v6,intel xeon e3-1245v6,Kaby Lake,32,2,480,SSD,8290.0,,2026-05-25
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,32,2,480,SSD,7770.0,,2026-05-25
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,32,2,8000,HDD,11000.0,,2026-05-25
+selectel,Intel Xeon E3-1270v5,intel xeon e3-1270v5,Skylake,32,2,480,SSD,8290.0,,2026-05-25
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,32,2,1000,SSD,9670.0,,2026-05-25
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,64,2,1000,SSD,11000.0,1.0,2026-05-25
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,64,2,1000,SSD,8550.0,,2026-05-25
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,64,2,480,SSD,12400.0,,2026-05-25
+selectel,Intel Xeon E3-1270v5,intel xeon e3-1270v5,Skylake,64,2,1000,SSD,15200.0,2.0,2026-05-25
+selectel,AMD EPYC 7351P,amd epyc 7351p,Milan,64,2,1000,SSD,24700.0,1.0,2026-05-25
+selectel,AMD EPYC 7402P,amd epyc 7402p,,128,2,2000,SSD,32200.0,1.0,2026-05-25
+selectel,AMD EPYC 7402P,amd epyc 7402p,,128,2,1000,NVMe,37300.0,2.0,2026-05-25
+selectel,AMD EPYC 7401,amd epyc 7401,,128,2,1000,SSD,53900.0,1.0,2026-05-25
+selectel,AMD EPYC 9274F,amd epyc 9274f,Genoa,256,2,4000,NVMe,76600.0,,2026-05-25
+selectel,AMD EPYC 7343,amd epyc 7343,Milan,256,2,1000,NVMe,71800.0,1.0,2026-05-25
+selectel,AMD EPYC 9754,amd epyc 9754,Genoa,512,2,4000,NVMe,160030.0,,2026-05-25
+selectel,AMD EPYC 9274F,amd epyc 9274f,Genoa,128,2,1000,NVMe,74500.0,22.0,2026-05-25
+selectel,AMD EPYC 9274F,amd epyc 9274f,Genoa,512,2,4000,NVMe,171700.0,13.0,2026-05-25
+selectel,AMD EPYC 9474F,amd epyc 9474f,Genoa,256,2,2000,NVMe,96100.0,19.0,2026-05-25
+selectel,AMD EPYC 7343,amd epyc 7343,Milan,128,2,1000,NVMe,58300.0,3.0,2026-05-25
+selectel,AMD EPYC 7513,amd epyc 7513,,256,2,2000,NVMe,69600.0,10.0,2026-05-25
+selectel,AMD EPYC 7513,amd epyc 7513,,512,2,2000,NVMe,96700.0,9.0,2026-05-25
+selectel,Ampere Altra Max M128-30,ampere altra max m128-30,,256,2,2000,NVMe,52900.0,3.0,2026-05-25
+selectel,Intel Xeon E5-1650v3,intel xeon e5-1650v3,Haswell EP,64,2,4000,HDD,10600.0,2.0,2026-05-25
+selectel,Intel Xeon E5-1650v3,intel xeon e5-1650v3,Haswell EP,64,2,480,SSD,13700.0,15.0,2026-05-25
+selectel,Intel Xeon E5-1650v4,intel xeon e5-1650v4,Broadwell EP,64,2,480,SSD,13800.0,27.0,2026-05-25
+selectel,Intel Xeon W-2133,intel xeon w-2133,,64,2,1000,NVMe,21300.0,1.0,2026-05-25
+selectel,Intel Xeon W-2133,intel xeon w-2133,,64,2,1000,SSD,19300.0,24.0,2026-05-25
+selectel,Intel Xeon W-2133,intel xeon w-2133,,128,2,1000,SSD,23800.0,18.0,2026-05-25
+selectel,AMD Ryzen 9 7950X,amd ryzen 9 7950x,,128,2,2000,NVMe,31800.0,,2026-05-25
+selectel,Intel Xeon E5-1650v4,intel xeon e5-1650v4,Broadwell EP,128,2,480,SSD,16500.0,3.0,2026-05-25
+selectel,Intel Xeon W-2255,intel xeon w-2255,,128,2,1000,NVMe,30200.0,3.0,2026-05-25
+selectel,Intel Xeon W-2255,intel xeon w-2255,,256,2,1000,NVMe,37200.0,31.0,2026-05-25
+selectel,Intel Xeon W-2255,intel xeon w-2255,,128,2,2000,NVMe,30200.0,6.0,2026-05-25
+selectel,AMD Ryzen 9 9950X,amd ryzen 9 9950x,,128,2,2000,NVMe,47710.0,50.0,2026-05-25
+selectel,AMD Ryzen 9 9950X,amd ryzen 9 9950x,,128,1,1000,NVMe,49140.0,7.0,2026-05-25
+selectel,AMD EPYC 9015,amd epyc 9015,Genoa,64,2,1000,NVMe,29500.0,,2026-05-25
+selectel,AMD EPYC 9135,amd epyc 9135,Genoa,256,2,2000,NVMe,52900.0,,2026-05-25
+selectel,Intel Silver 4516Y,intel silver 4516y,Skylake-SP,256,2,2000,NVMe,158600.0,3.0,2026-05-25
+selectel,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,64,2,480,SSD,22600.0,10.0,2026-05-25
+selectel,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,128,2,480,SSD,22600.0,1.0,2026-05-25
+selectel,Intel Xeon E5-2670v3,intel xeon e5-2670v3,Haswell EP,256,2,1000,SSD,40200.0,,2026-05-25
+selectel,Intel Xeon Gold 6240,intel xeon gold 6240,Skylake-SP,256,2,2000,SSD,48000.0,9.0,2026-05-25
+selectel,Intel Xeon Gold 6140,intel xeon gold 6140,Skylake-SP,128,2,1000,SSD,32200.0,,2026-05-25
+selectel,AMD EPYC 7452,amd epyc 7452,,128,2,2000,SSD,38800.0,1.0,2026-05-25
+selectel,AMD EPYC 7402P,amd epyc 7402p,,64,2,1000,NVMe,29000.0,,2026-05-25
+selectel,AMD EPYC 7513,amd epyc 7513,,64,2,2000,SSD,29000.0,23.0,2026-05-25
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,32,2,480,SSD,11700.0,3.0,2026-05-25
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,1000,NVMe,26800.0,5.0,2026-05-25
+selectel,Intel Xeon E5-1650v3,intel xeon e5-1650v3,Haswell EP,32,2,480,SSD,9670.0,1.0,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,16,2,480,SSD,10600.0,2.0,2026-05-25
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,32,2,2000,HDD,8530.0,2.0,2026-05-25
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,32,2,240,SSD,7990.0,3.0,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,8000,HDD,12800.0,,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,1000,NVMe,15100.0,,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,480,SSD,13900.0,3.0,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,4000,SSD,18100.0,1.0,2026-05-25
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,32,2,240,SSD,10600.0,5.0,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,64,2,1000,SSD,16500.0,5.0,2026-05-25
+selectel,Intel Xeon E3-1270v5,intel xeon e3-1270v5,Skylake,64,2,480,SSD,11400.0,2.0,2026-05-25
+selectel,Intel Xeon E-2386G,intel xeon e-2386g,,32,2,1000,NVMe,16800.0,20.0,2026-05-25
+selectel,Intel Xeon E-2386G,intel xeon e-2386g,,64,2,1000,NVMe,18100.0,1.0,2026-05-25
+selectel,Intel Xeon E-2386G,intel xeon e-2386g,,64,2,4000,NVMe,25000.0,,2026-05-25
+selectel,Intel Xeon E-2388G,intel xeon e-2388g,,64,2,1000,NVMe,21000.0,6.0,2026-05-25
+selectel,Intel Xeon E-2388G,intel xeon e-2388g,,128,2,4000,NVMe,30700.0,,2026-05-25
+selectel,Intel Xeon E-2456,intel xeon e-2456,,32,1,1000,NVMe,53400.0,4.0,2026-05-25
+selectel,Intel Xeon E-2456,intel xeon e-2456,,32,2,1000,NVMe,23700.0,21.0,2026-05-25
+selectel,Intel Xeon E-2488,intel xeon e-2488,,128,2,4000,NVMe,44620.0,5.0,2026-05-25
+selectel,AMD EPYC 9274F,amd epyc 9274f,Genoa,256,2,2000,NVMe,378000.0,,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,16,2,240,SSD,25400.0,11.0,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,1000,SSD,21100.0,,2026-05-25
+selectel,Intel Xeon E-2488,intel xeon e-2488,,64,2,2000,NVMe,53200.0,8.0,2026-05-25
+selectel,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,128,2,1000,SSD,194400.0,,2026-05-25
+selectel,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,256,2,1000,SSD,270000.0,,2026-05-25
+selectel,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,256,2,480,SSD,108000.0,1.0,2026-05-25
+selectel,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,512,2,1000,SSD,540000.0,,2026-05-25
+selectel,Intel Xeon 6767P,intel xeon 6767p,,1024,1,1000,NVMe,5500000.0,1.0,2026-05-25
+selectel,Intel Xeon Platinum 8558,intel xeon platinum 8558,Skylake-SP,1024,2,1000,NVMe,2900000.0,,2026-05-25
+selectel,Intel E5-2630v3,intel e5-2630v3,Haswell EP,128,4,1000,NVMe,33000.0,1.0,2026-05-25
+selectel,AMD EPYC 7343,amd epyc 7343,Milan,128,3,8000,NVMe,125500.0,1.0,2026-05-25
+selectel,Intel Xeon E-2456,intel xeon e-2456,,32,2,1000,SSD,18600.0,2.0,2026-05-25
+selectel,Intel Gold 6530,intel gold 6530,Skylake-SP,256,1,1000,NVMe,80300.0,1.0,2026-05-25
+selectel,Intel Silver 4314,intel silver 4314,Skylake-SP,64,8,8000,HDD,93900.0,4.0,2026-05-25
+selectel,Intel Xeon W-2255,intel xeon w-2255,,32,1,1000,SSD,40100.0,1.0,2026-05-25
+selectel,Intel Xeon E-2388G,intel xeon e-2388g,,64,1,480,SSD,14700.0,,2026-05-25
+selectel,Intel Gold 6244 (8x3.6 GHz HT),intel gold 6244 (8x3.6 ghz ht),Skylake-SP,256,1,8000,NVMe,58100.0,,2026-05-25
+selectel,Intel E3-1230,intel e3-1230,Sandy Bridge,16,1,8000,HDD,15000.0,,2026-05-25
+selectel,AMD EPYC 7513,amd epyc 7513,,64,1,480,SSD,60800.0,2.0,2026-05-25
+selectel,Intel Silver 4314,intel silver 4314,Skylake-SP,64,1,1000,NVMe,28500.0,,2026-05-25
+selectel,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,128,2,4000,NVMe,49500.0,,2026-05-25
+selectel,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,128,2,2000,SSD,27200.0,,2026-05-25
+selectel,AMD EPYC 7343,amd epyc 7343,Milan,64,2,480,NVMe,28700.0,1.0,2026-05-25
+selectel,Intel Gold 6240R,intel gold 6240r,Cascade Lake,256,2,4000,NVMe,319000.0,,2026-05-25
+selectel,Intel Xeon E5-1650v4,intel xeon e5-1650v4,Broadwell EP,64,1,480,SSD,23700.0,,2026-05-25
+selectel,Intel W-2255,intel w-2255,,128,1,4000,HDD,32900.0,,2026-05-25
+selectel,Intel E5-2630v3,intel e5-2630v3,Haswell EP,64,1,480,SSD,42300.0,,2026-05-25
+selectel,Intel Silver 4114,intel silver 4114,Skylake-SP,128,2,1000,SSD,71500.0,,2026-05-25
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,1,480,SSD,15562.0,,2026-05-25
+selectel,Intel Xeon E-2388G,intel xeon e-2388g,,16,1,1000,SSD,14417.0,,2026-05-25
+selectel,Intel Silver 4214R,intel silver 4214r,Cascade Lake,128,2,4000,HDD,36256.0,,2026-05-25
+selectel,Intel E3-1230v5,intel e3-1230v5,Skylake,16,1,8000,HDD,12226.0,1.0,2026-05-25
+selectel,AMD EPYC 7443P,amd epyc 7443p,,64,1,480,SSD,102440.0,1.0,2026-05-25
+selectel,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,64,2,480,SSD,22600.0,2.0,2026-05-25
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,480,SSD,27600.0,6.0,2026-05-25
+selectel,Intel Xeon Silver 4214,intel xeon silver 4214,Skylake-SP,64,2,1000,NVMe,31800.0,,2026-05-25
+selectel,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,64,2,1000,NVMe,40000.0,4.0,2026-05-25
+selectel,Intel Xeon Silver 4510,intel xeon silver 4510,Skylake-SP,128,2,2000,NVMe,37800.0,,2026-05-25
+selectel,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,128,2,480,SSD,21000.0,14.0,2026-05-25
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,128,2,480,SSD,30700.0,1.0,2026-05-25
+selectel,Intel Xeon Silver 4214,intel xeon silver 4214,Skylake-SP,128,2,1000,NVMe,38700.0,,2026-05-25
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,256,2,480,SSD,48300.0,,2026-05-25
+selectel,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,128,2,1000,NVMe,46900.0,8.0,2026-05-25
+selectel,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,64,2,1000,NVMe,32200.0,9.0,2026-05-25
+selectel,Intel Xeon Gold 6354,intel xeon gold 6354,Skylake-SP,256,2,4000,NVMe,53700.0,,2026-05-25
+selectel,Intel Xeon E5-2680v4,intel xeon e5-2680v4,Broadwell EP,256,2,1000,SSD,40200.0,2.0,2026-05-25
+selectel,Intel Xeon Gold 6140,intel xeon gold 6140,Skylake-SP,256,2,1000,SSD,70200.0,1.0,2026-05-25
+selectel,Intel Xeon Gold 6240,intel xeon gold 6240,Skylake-SP,256,2,1000,NVMe,75400.0,,2026-05-25
+selectel,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,256,2,1000,NVMe,52900.0,2.0,2026-05-25
+selectel,Intel Xeon Gold 6336Y,intel xeon gold 6336y,Skylake-SP,128,2,1000,NVMe,47000.0,3.0,2026-05-25
+selectel,Intel Xeon Gold 6140,intel xeon gold 6140,Skylake-SP,512,4,2000,SSD,200400.0,,2026-05-25
+selectel,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,128,2,2000,NVMe,56600.0,1.0,2026-05-25
+selectel,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,256,2,4000,NVMe,53100.0,2.0,2026-05-25
+selectel,Intel Xeon Gold 6354,intel xeon gold 6354,Skylake-SP,256,2,8000,NVMe,74500.0,11.0,2026-05-25
+selectel,Intel Xeon Gold 6336Y,intel xeon gold 6336y,Skylake-SP,256,2,2000,NVMe,84300.0,6.0,2026-05-25
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,16,2,240,SSD,29800.0,,2026-05-25
+selectel,Intel Xeon E5-1650,intel xeon e5-1650,Sandy Bridge EP,32,2,240,SSD,32100.0,8.0,2026-05-25
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,240,SSD,45600.0,1.0,2026-05-25
+selectel,Intel Xeon 6517P,intel xeon 6517p,,256,2,4000,NVMe,80600.0,7.0,2026-05-25
+selectel,Intel Xeon 6520P,intel xeon 6520p,,256,2,4000,NVMe,82200.0,9.0,2026-05-25
+selectel,Intel Xeon 6710E,intel xeon 6710e,,256,2,2000,NVMe,96500.0,3.0,2026-05-25
+selectel,Intel Xeon 6746E,intel xeon 6746e,,256,2,8000,NVMe,106900.0,4.0,2026-05-25
+regcloud,AMD EPYC 9474F,amd epyc 9474f,Genoa,1024,1,8000,SSD,1103300.0,,2026-05-25
+regcloud,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,32,2,1000,SSD,20100.0,,2026-05-25
+regcloud,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,64,2,1000,SSD,20100.0,,2026-05-25
+regcloud,AMD Ryzen 9 7950X,amd ryzen 9 7950x,,32,2,1000,SSD,20300.0,,2026-05-25
+regcloud,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,32,2,2000,SSD,20500.0,,2026-05-25
+regcloud,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,64,2,2000,SSD,21500.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4316,2 × intel xeon silver 4316,Skylake-SP,64,2,1000,SSD,41600.0,,2026-05-25
+regcloud,Xeon W-2275,xeon w-2275,,256,2,8000,HDD,74720.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9334,2 × amd epyc 9334,Genoa,256,2,2000,SSD,154710.0,,2026-05-25
+regcloud,AMD EPYC 9274F,amd epyc 9274f,Genoa,512,1,8000,SSD,588500.0,,2026-05-25
+regcloud,Xeon E3-1231v3,xeon e3-1231v3,Haswell,16,2,480,SSD,9520.0,,2026-05-25
+regcloud,Xeon E3-1230v3,xeon e3-1230v3,Haswell,16,2,4000,HDD,10350.0,,2026-05-25
+regcloud,Xeon E3-1270,xeon e3-1270,Sandy Bridge,16,2,2000,HDD,10530.0,,2026-05-25
+regcloud,Xeon E-2174G,xeon e-2174g,,16,2,240,SSD,11300.0,,2026-05-25
+regcloud,Xeon E3-1270,xeon e3-1270,Sandy Bridge,16,2,1000,SSD,11610.0,,2026-05-25
+regcloud,Xeon E3-1270,xeon e3-1270,Sandy Bridge,8,2,8000,HDD,11790.0,,2026-05-25
+regcloud,Xeon E5-2620,xeon e5-2620,Sandy Bridge EP,32,2,4000,HDD,12320.0,,2026-05-25
+regcloud,Xeon E3-1245v5,xeon e3-1245v5,Skylake,16,2,1000,HDD,12870.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670,2 × intel xeon e5-2670,Sandy Bridge EP,16,2,240,SSD,13430.0,,2026-05-25
+regcloud,Xeon E-2174G,xeon e-2174g,,16,2,480,SSD,13600.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2420,2 × intel xeon e5-2420,Sandy Bridge EP,32,2,2000,HDD,13840.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2620,2 × intel xeon e5-2620,Sandy Bridge EP,32,2,480,SSD,13855.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630,2 × intel xeon e5-2630,Sandy Bridge EP,64,2,480,SSD,14960.0,,2026-05-25
+regcloud,Xeon E5-2620,xeon e5-2620,Sandy Bridge EP,32,2,240,SSD,15130.0,,2026-05-25
+regcloud,Xeon E-2186G,xeon e-2186g,,32,2,240,SSD,15200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5620,2 × intel xeon e5620,,32,2,8000,HDD,15300.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630,2 × intel xeon e5-2630,Sandy Bridge EP,32,2,2000,HDD,15385.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2620v4,2 × intel xeon e5-2620v4,Broadwell EP,32,2,240,SSD,15480.0,,2026-05-25
+regcloud,Xeon E3-1270v3,xeon e3-1270v3,Haswell,8,2,240,SSD,15500.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v3,2 × intel xeon e5-2630v3,Haswell EP,32,2,240,SSD,15640.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650,2 × intel xeon e5-2650,Sandy Bridge EP,32,2,240,SSD,15660.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2620v2,2 × intel xeon e5-2620v2,Ivy Bridge EP,64,2,120,SSD,16080.0,,2026-05-25
+regcloud,2 × Intel Xeon E5645,2 × intel xeon e5645,,64,2,480,SSD,16100.0,,2026-05-25
+regcloud,Xeon E5-2650v3,xeon e5-2650v3,Haswell EP,64,2,240,SSD,16150.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630,2 × intel xeon e5-2630,Sandy Bridge EP,64,2,240,SSD,16915.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630,2 × intel xeon e5-2630,Sandy Bridge EP,64,2,1000,HDD,17040.0,,2026-05-25
+regcloud,Xeon E-2174G,xeon e-2174g,,32,2,480,SSD,17100.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2620v2,2 × intel xeon e5-2620v2,Ivy Bridge EP,64,2,480,SSD,17280.0,,2026-05-25
+regcloud,Xeon E3-1230v5,xeon e3-1230v5,Skylake,32,2,8000,HDD,17460.0,,2026-05-25
+regcloud,Xeon E3-1245v5,xeon e3-1245v5,Skylake,16,2,8000,HDD,17600.0,,2026-05-25
+regcloud,Xeon E-2286G,xeon e-2286g,,32,2,1000,HDD,18200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670,2 × intel xeon e5-2670,Sandy Bridge EP,64,2,2000,HDD,18320.0,,2026-05-25
+regcloud,Xeon E-2286G,xeon e-2286g,,16,2,1000,SSD,18600.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,32,2,480,SSD,18615.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670,2 × intel xeon e5-2670,Sandy Bridge EP,64,2,480,SSD,18640.0,,2026-05-25
+regcloud,Xeon E-2186G,xeon e-2186g,,64,2,1000,SSD,19300.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v3,2 × intel xeon e5-2630v3,Haswell EP,64,2,480,SSD,19530.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650v2,2 × intel xeon e5-2650v2,Ivy Bridge EP,64,2,240,SSD,19600.0,,2026-05-25
+regcloud,2 × Intel Xeon E5645,2 × intel xeon e5645,,64,1,8000,SSD,19635.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2620v2,2 × intel xeon e5-2620v2,Ivy Bridge EP,64,2,1000,HDD,20800.0,,2026-05-25
+regcloud,Xeon E-2286G,xeon e-2286g,,64,2,1000,SSD,21100.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2640,2 × intel xeon e5-2640,Sandy Bridge EP,128,2,480,SSD,21200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650,2 × intel xeon e5-2650,Sandy Bridge EP,128,2,480,SSD,21200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2620,2 × intel xeon e5-2620,Sandy Bridge EP,64,2,4000,HDD,21335.0,,2026-05-25
+regcloud,Xeon E-2286G,xeon e-2286g,,64,2,1000,HDD,22000.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670,2 × intel xeon e5-2670,Sandy Bridge EP,64,2,8000,HDD,22015.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650v2,2 × intel xeon e5-2650v2,Ivy Bridge EP,64,2,480,SSD,22015.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,32,2,8000,HDD,22865.0,,2026-05-25
+regcloud,Xeon E-2186G,xeon e-2186g,,64,1,8000,SSD,22900.0,,2026-05-25
+regcloud,AMD Ryzen 7 7700,amd ryzen 7 7700,,32,2,4000,HDD,23700.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4214R,2 × intel xeon silver 4214r,Cascade Lake,64,2,1000,SSD,24300.0,,2026-05-25
+regcloud,Xeon E-2288G,xeon e-2288g,,128,2,1000,SSD,24500.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,64,2,8000,HDD,24820.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,64,2,240,SSD,25400.0,,2026-05-25
+regcloud,Xeon E5-1650v4,xeon e5-1650v4,Broadwell EP,128,1,8000,SSD,25500.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,128,2,4000,HDD,25925.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,128,1,8000,SSD,26180.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4114,2 × intel xeon silver 4114,Skylake-SP,64,2,480,SSD,26200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2640,2 × intel xeon e5-2640,Sandy Bridge EP,128,4,4000,HDD,27440.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,128,2,480,SSD,27710.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650v3,2 × intel xeon e5-2650v3,Haswell EP,64,4,1000,HDD,28050.0,,2026-05-25
+regcloud,Xeon W-2275,xeon w-2275,,32,2,480,SSD,28500.0,,2026-05-25
+regcloud,Xeon E-2288G,xeon e-2288g,,128,1,8000,SSD,30300.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4114,2 × intel xeon silver 4114,Skylake-SP,64,2,1000,SSD,30500.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2690v4,2 × intel xeon e5-2690v4,Broadwell EP,64,2,240,SSD,30600.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650v4,2 × intel xeon e5-2650v4,Broadwell EP,128,2,1000,SSD,30600.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4214R,2 × intel xeon silver 4214r,Cascade Lake,64,2,1000,HDD,30800.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4114,2 × intel xeon silver 4114,Skylake-SP,128,2,480,SSD,31400.0,,2026-05-25
+regcloud,Xeon W-2265,xeon w-2265,,64,2,480,SSD,31900.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v4,2 × intel xeon e5-2630v4,Broadwell EP,256,1,8000,SSD,31960.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4314,2 × intel xeon silver 4314,Skylake-SP,64,2,480,SSD,32200.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670v3,2 × intel xeon e5-2670v3,Haswell EP,128,2,1000,SSD,32300.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650v2,2 × intel xeon e5-2650v2,Ivy Bridge EP,256,2,4000,HDD,32470.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670v3,2 × intel xeon e5-2670v3,Haswell EP,128,2,1000,HDD,32640.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2650v3,2 × intel xeon e5-2650v3,Haswell EP,128,1,8000,SSD,33100.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4314,2 × intel xeon silver 4314,Skylake-SP,32,2,240,SSD,33100.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5218R,2 × intel xeon gold 5218r,Cascade Lake,64,2,480,SSD,33300.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2690v4,2 × intel xeon e5-2690v4,Broadwell EP,256,2,1000,SSD,35020.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2630v3,2 × intel xeon e5-2630v3,Haswell EP,128,2,4000,HDD,36200.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4114,2 × intel xeon silver 4114,Skylake-SP,128,1,8000,SSD,36900.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4314,2 × intel xeon silver 4314,Skylake-SP,64,2,1000,SSD,37900.0,,2026-05-25
+regcloud,2 × Intel Xeon E5-2670v3,2 × intel xeon e5-2670v3,Haswell EP,128,4,1000,SSD,39100.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5218R,2 × intel xeon gold 5218r,Cascade Lake,128,2,1000,SSD,39300.0,,2026-05-25
+regcloud,Xeon W-2255,xeon w-2255,,64,2,8000,HDD,39400.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4316,2 × intel xeon silver 4316,Skylake-SP,64,1,8000,SSD,39800.0,,2026-05-25
+regcloud,Xeon W-2265,xeon w-2265,,64,2,2000,SSD,41100.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4316,2 × intel xeon silver 4316,Skylake-SP,128,2,2000,HDD,42500.0,,2026-05-25
+regcloud,Xeon E5-2630v3,xeon e5-2630v3,Haswell EP,512,1,8000,SSD,42585.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6326,2 × intel xeon gold 6326,Skylake-SP,256,2,480,SSD,47800.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5320,2 × intel xeon gold 5320,Skylake-SP,256,2,1000,SSD,52700.0,,2026-05-25
+regcloud,Xeon W-2265,xeon w-2265,,64,2,1000,SSD,56780.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5320,2 × intel xeon gold 5320,Skylake-SP,128,2,4000,HDD,57600.0,,2026-05-25
+regcloud,Xeon W-2255,xeon w-2255,,128,2,4000,HDD,60860.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4314,2 × intel xeon silver 4314,Skylake-SP,128,1,8000,SSD,61800.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6348,2 × intel xeon gold 6348,Skylake-SP,128,2,1000,SSD,63400.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4314,2 × intel xeon silver 4314,Skylake-SP,128,2,1000,SSD,67700.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6346,2 × intel xeon gold 6346,Skylake-SP,128,2,1000,SSD,69200.0,,2026-05-25
+regcloud,Xeon W-2265,xeon w-2265,,128,1,8000,SSD,69600.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5220,2 × intel xeon gold 5220,Skylake-SP,32,2,240,SSD,73000.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5320,2 × intel xeon gold 5320,Skylake-SP,256,2,480,HDD,73100.0,,2026-05-25
+regcloud,Xeon W-2275,xeon w-2275,,256,2,1000,SSD,73800.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6348,2 × intel xeon gold 6348,Skylake-SP,256,2,2000,SSD,75000.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6334,2 × intel xeon gold 6334,Skylake-SP,256,2,1000,SSD,76100.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4316,2 × intel xeon silver 4316,Skylake-SP,512,1,8000,SSD,77700.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6336Y,2 × intel xeon gold 6336y,Skylake-SP,256,2,8000,HDD,78800.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6346,2 × intel xeon gold 6346,Skylake-SP,256,2,1000,SSD,80800.0,,2026-05-25
+regcloud,Xeon W-2295,xeon w-2295,,128,2,1000,SSD,81000.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4214R,2 × intel xeon silver 4214r,Cascade Lake,128,2,1000,SSD,88830.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6240R,2 × intel xeon gold 6240r,Cascade Lake,256,1,8000,SSD,90000.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9474F,2 × amd epyc 9474f,Genoa,128,1,8000,SSD,92738.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6154,2 × intel xeon gold 6154,Skylake-SP,256,4,1000,SSD,93870.0,,2026-05-25
+regcloud,AMD Ryzen 9 9950X,amd ryzen 9 9950x,,128,2,2000,SSD,95000.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6336Y,2 × intel xeon gold 6336y,Skylake-SP,256,1,8000,SSD,96600.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4314,2 × intel xeon silver 4314,Skylake-SP,256,1,8000,SSD,107200.0,,2026-05-25
+regcloud,2 × Intel Xeon Silver 4214R,2 × intel xeon silver 4214r,Cascade Lake,512,1,8000,SSD,111600.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6348,2 × intel xeon gold 6348,Skylake-SP,512,1,8000,SSD,118235.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9334,2 × amd epyc 9334,Genoa,256,2,1000,SSD,119970.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6434,2 × intel xeon gold 6434,Skylake-SP,512,1,8000,SSD,120400.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6426Y,2 × intel xeon gold 6426y,Skylake-SP,256,2,1000,SSD,121500.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9534,2 × amd epyc 9534,Genoa,512,2,2000,SSD,123000.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5317,2 × intel xeon gold 5317,Skylake-SP,512,2,2000,SSD,126825.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6426Y,2 × intel xeon gold 6426y,Skylake-SP,512,1,8000,SSD,134000.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5220R,2 × intel xeon gold 5220r,Cascade Lake,512,1,8000,SSD,134000.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9174F,2 × amd epyc 9174f,Genoa,512,2,8000,HDD,134900.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6442Y,2 × intel xeon gold 6442y,Skylake-SP,256,2,2000,SSD,136800.0,,2026-05-25
+regcloud,AMD EPYC 9124,amd epyc 9124,Genoa,256,1,8000,SSD,144900.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6354,2 × intel xeon gold 6354,Skylake-SP,1024,1,8000,SSD,159440.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9534,2 × amd epyc 9534,Genoa,512,2,1000,SSD,170800.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9374F,2 × amd epyc 9374f,Genoa,1024,2,8000,HDD,172100.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6242R,2 × intel xeon gold 6242r,Cascade Lake,1024,1,8000,SSD,173430.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 5320,2 × intel xeon gold 5320,Skylake-SP,1024,2,4000,HDD,175800.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9274F,2 × amd epyc 9274f,Genoa,256,1,8000,SSD,183500.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6354,2 × intel xeon gold 6354,Skylake-SP,256,1,8000,SSD,199000.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6442Y,2 × intel xeon gold 6442y,Skylake-SP,512,1,8000,SSD,212600.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9274F,2 × amd epyc 9274f,Genoa,512,1,8000,SSD,241300.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9554,2 × amd epyc 9554,Genoa,1024,2,8000,HDD,292600.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9374F,2 × amd epyc 9374f,Genoa,512,1,8000,SSD,294210.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9174F,2 × amd epyc 9174f,Genoa,1024,1,8000,SSD,306500.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6348,2 × intel xeon gold 6348,Skylake-SP,1024,2,8000,HDD,324000.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9534,2 × amd epyc 9534,Genoa,1024,2,8000,HDD,325300.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9554,2 × amd epyc 9554,Genoa,512,1,8000,SSD,352260.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9334,2 × amd epyc 9334,Genoa,512,1,8000,SSD,496100.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9554,2 × amd epyc 9554,Genoa,1024,1,8000,SSD,532100.0,,2026-05-25
+regcloud,2 × Intel Xeon Gold 6434,2 × intel xeon gold 6434,Skylake-SP,512,2,2000,SSD,538400.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9274F,2 × amd epyc 9274f,Genoa,1024,2,8000,HDD,572900.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9474F,2 × amd epyc 9474f,Genoa,512,1,8000,SSD,874200.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9374F,2 × amd epyc 9374f,Genoa,1024,1,8000,SSD,1785400.0,,2026-05-25
+regcloud,2 ×  AMD EPYC 9474F,2 × amd epyc 9474f,Genoa,1024,1,8000,SSD,1886500.0,,2026-05-25
+regcloud,2 × Intel Xeon Platinum 8558,2 × intel xeon platinum 8558,Skylake-SP,1024,1,8000,SSD,2166500.0,,2026-05-25
+regcloud,2 × Intel Xeon 6 6767P,2 × intel xeon 6 6767p,,1024,1,8000,SSD,4090000.0,,2026-05-25
+miran,Intel Xeon E3-1230 V5,intel xeon e3-1230 v5,Skylake,16,2,2000,HDD,5368.0,,2026-06-01
+miran,Intel Xeon E3-1230 V5,intel xeon e3-1230 v5,Skylake,32,2,2000,HDD,5856.0,,2026-06-01
+miran,Intel Xeon E3-1230 V6,intel xeon e3-1230 v6,Kaby Lake,32,2,2000,HDD,5856.0,,2026-06-01
+miran,Xeon E3-1240v6,xeon e3-1240v6,Kaby Lake,64,2,2000,HDD,11224.0,,2026-06-01
+miran,Xeon E3-1230v6,xeon e3-1230v6,Kaby Lake,64,1,0,HDD,11224.0,,2026-06-01
+miran,Intel Xeon E3-1230 V6,intel xeon e3-1230 v6,Kaby Lake,16,2,240,SSD,14274.0,,2026-06-01
+miran,Xeon E3-1230v6,xeon e3-1230v6,Kaby Lake,32,2,1000,NVMe,14500.0,,2026-06-01
+miran,Xeon E3-1230v5,xeon e3-1230v5,Skylake,64,2,2000,SSD,15494.0,,2026-06-01
+miran,AMD Ryzen 9 7950X,amd ryzen 9 7950x,,32,2,4000,SSD,29300.0,,2026-06-01
+miran,Intel Xeon Silver 4215R,intel xeon silver 4215r,Cascade Lake,128,2,1000,SSD,30300.0,,2026-06-01
+miran,Xeon E5 2630v3,xeon e5 2630v3,,128,4,2000,SSD,51866.0,,2026-06-01
+selectel,AMD Ryzen 5 2400G,amd ryzen 5 2400g,,32,2,480,SSD,6480.0,1.0,2026-06-15
+selectel,AMD Ryzen 5 3400G,amd ryzen 5 3400g,,32,2,480,SSD,5290.0,,2026-06-15
+selectel,AMD Ryzen 7 3700X,amd ryzen 7 3700x,,32,2,480,NVMe,10000.0,1.0,2026-06-15
+selectel,AMD Ryzen 5 5600G,amd ryzen 5 5600g,,64,2,1000,NVMe,12000.0,,2026-06-15
+selectel,AMD Ryzen 5 5600X,amd ryzen 5 5600x,,64,2,1000,NVMe,15500.0,5.0,2026-06-15
+selectel,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,64,2,1000,NVMe,16400.0,7.0,2026-06-15
+selectel,Intel Celeron,intel celeron,,8,1,120,SSD,1290.0,,2026-06-15
+selectel,Intel Core i7-6700,intel core i7-6700,,32,2,4000,HDD,5180.0,1.0,2026-06-15
+selectel,Intel Core i7-6700,intel core i7-6700,,32,2,480,SSD,5180.0,,2026-06-15
+selectel,Intel Core i7-6700,intel core i7-6700,,64,2,2000,HDD,5070.0,,2026-06-15
+selectel,Intel Core i7-6700,intel core i7-6700,,64,2,240,SSD,5180.0,,2026-06-15
+selectel,Intel Core i3-12100,intel core i3-12100,,16,1,480,NVMe,5290.0,,2026-06-15
+selectel,Intel Xeon L5630,intel xeon l5630,,16,4,1000,HDD,4900.0,,2026-06-15
+selectel,Intel Xeon L5630,intel xeon l5630,,16,2,480,SSD,19900.0,,2026-06-15
+selectel,Intel Core i7-6700,intel core i7-6700,,64,2,4000,HDD,6910.0,,2026-06-15
+selectel,Intel Core i7-6700,intel core i7-6700,,64,2,480,SSD,6910.0,,2026-06-15
+selectel,Intel Core i7-8700,intel core i7-8700,,32,2,2000,HDD,5180.0,,2026-06-15
+selectel,Intel Core i7-8700,intel core i7-8700,,32,2,480,SSD,15500.0,1.0,2026-06-15
+selectel,Intel Core i7-8700,intel core i7-8700,,64,2,2000,HDD,6040.0,1.0,2026-06-15
+selectel,Intel Core i7-8700,intel core i7-8700,,64,2,480,SSD,6370.0,5.0,2026-06-15
+selectel,Intel Core i5-10600,intel core i5-10600,,32,2,480,NVMe,9280.0,,2026-06-15
+selectel,Intel Core i5-10600,intel core i5-10600,,64,2,480,SSD,9820.0,2.0,2026-06-15
+selectel,Intel Core i3-12100,intel core i3-12100,,16,2,480,SSD,5290.0,1.0,2026-06-15
+selectel,Intel Core i5-12600,intel core i5-12600,,32,2,1000,NVMe,16000.0,1.0,2026-06-15
+selectel,Intel Core i3-12100,intel core i3-12100,,32,2,480,NVMe,7020.0,,2026-06-15
+selectel,Intel Core i3-14100,intel core i3-14100,,32,2,480,SSD,5940.0,1.0,2026-06-15
+selectel,Intel Core i3-14100,intel core i3-14100,,16,2,4000,NVMe,10200.0,61.0,2026-06-15
+selectel,Intel Core i3-14100,intel core i3-14100,,32,2,1000,NVMe,12800.0,,2026-06-15
+selectel,Intel Core i5-10600,intel core i5-10600,,64,2,1000,NVMe,35300.0,1.0,2026-06-15
+selectel,Intel Core i5-10600,intel core i5-10600,,32,2,480,SSD,19100.0,1.0,2026-06-15
+selectel,Intel Core i5-12600,intel core i5-12600,,64,2,1000,NVMe,11600.0,4.0,2026-06-15
+selectel,Intel Core i5-14500,intel core i5-14500,,64,2,1000,NVMe,13500.0,,2026-06-15
+selectel,Intel Core i9-9900K,intel core i9-9900k,,64,2,480,NVMe,19000.0,1.0,2026-06-15
+selectel,Intel Core i9-10900K,intel core i9-10900k,,64,2,1000,NVMe,22300.0,7.0,2026-06-15
+selectel,Intel Core i7-11700K,intel core i7-11700k,,128,2,1000,NVMe,19000.0,,2026-06-15
+selectel,Intel Core i7-11700K,intel core i7-11700k,,64,2,1000,NVMe,31100.0,3.0,2026-06-15
+selectel,Intel Core i9-12900K,intel core i9-12900k,,64,2,1000,NVMe,22100.0,8.0,2026-06-15
+selectel,Intel Core i9-14900KS,intel core i9-14900ks,,64,2,1000,NVMe,36700.0,29.0,2026-06-15
+selectel,Intel Core i9-13900K,intel core i9-13900k,,128,2,2000,NVMe,24800.0,7.0,2026-06-15
+selectel,Intel Core i9-13900K,intel core i9-13900k,,64,2,1000,NVMe,31800.0,4.0,2026-06-15
+selectel,Intel Core i9-14900KS,intel core i9-14900ks,,128,2,2000,NVMe,57000.0,4.0,2026-06-15
+selectel,Apple M1,apple m1,,16,1,240,NVMe,12000.0,2.0,2026-06-15
+selectel,Apple M2 Pro,apple m2 pro,,32,1,1000,NVMe,19100.0,,2026-06-15
+selectel,Apple M4 Pro,apple m4 pro,,32,1,2000,NVMe,23000.0,1.0,2026-06-15
+selectel,Broadcom BCM2711,broadcom bcm2711,,8,1,120,HDD,864.0,,2026-06-15
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,16,2,240,SSD,8640.0,6.0,2026-06-15
+selectel,Intel Xeon E3-1245v6,intel xeon e3-1245v6,Kaby Lake,32,2,480,SSD,8290.0,,2026-06-15
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,32,2,480,SSD,7770.0,,2026-06-15
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,32,2,8000,HDD,11000.0,,2026-06-15
+selectel,Intel Xeon E3-1270v5,intel xeon e3-1270v5,Skylake,32,2,480,SSD,8290.0,,2026-06-15
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,32,2,1000,SSD,9670.0,,2026-06-15
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,64,2,1000,SSD,11000.0,1.0,2026-06-15
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,64,2,1000,SSD,8550.0,,2026-06-15
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,64,2,480,SSD,12400.0,,2026-06-15
+selectel,Intel Xeon E3-1270v5,intel xeon e3-1270v5,Skylake,64,2,1000,SSD,15200.0,2.0,2026-06-15
+selectel,AMD EPYC 7351P,amd epyc 7351p,Milan,64,2,1000,SSD,24700.0,1.0,2026-06-15
+selectel,AMD EPYC 7402P,amd epyc 7402p,,128,2,2000,SSD,32200.0,1.0,2026-06-15
+selectel,AMD EPYC 7402P,amd epyc 7402p,,128,2,1000,NVMe,37300.0,2.0,2026-06-15
+selectel,AMD EPYC 7401,amd epyc 7401,,128,2,1000,SSD,53900.0,1.0,2026-06-15
+selectel,AMD EPYC 9274F,amd epyc 9274f,Genoa,256,2,4000,NVMe,76600.0,,2026-06-15
+selectel,AMD EPYC 7343,amd epyc 7343,Milan,256,2,1000,NVMe,71800.0,1.0,2026-06-15
+selectel,AMD EPYC 9754,amd epyc 9754,Genoa,512,2,4000,NVMe,160030.0,,2026-06-15
+selectel,AMD EPYC 9274F,amd epyc 9274f,Genoa,128,2,1000,NVMe,74500.0,22.0,2026-06-15
+selectel,AMD EPYC 9274F,amd epyc 9274f,Genoa,512,2,4000,NVMe,171700.0,13.0,2026-06-15
+selectel,AMD EPYC 9474F,amd epyc 9474f,Genoa,256,2,2000,NVMe,96100.0,19.0,2026-06-15
+selectel,AMD EPYC 7343,amd epyc 7343,Milan,128,2,1000,NVMe,58300.0,3.0,2026-06-15
+selectel,AMD EPYC 7513,amd epyc 7513,,256,2,2000,NVMe,69600.0,10.0,2026-06-15
+selectel,AMD EPYC 7513,amd epyc 7513,,512,2,2000,NVMe,96700.0,9.0,2026-06-15
+selectel,Ampere Altra Max M128-30,ampere altra max m128-30,,256,2,2000,NVMe,52900.0,3.0,2026-06-15
+selectel,Intel Xeon E5-1650v3,intel xeon e5-1650v3,Haswell EP,64,2,4000,HDD,10600.0,2.0,2026-06-15
+selectel,Intel Xeon E5-1650v3,intel xeon e5-1650v3,Haswell EP,64,2,480,SSD,13700.0,15.0,2026-06-15
+selectel,Intel Xeon E5-1650v4,intel xeon e5-1650v4,Broadwell EP,64,2,480,SSD,13800.0,27.0,2026-06-15
+selectel,Intel Xeon W-2133,intel xeon w-2133,,64,2,1000,NVMe,21300.0,1.0,2026-06-15
+selectel,Intel Xeon W-2133,intel xeon w-2133,,64,2,1000,SSD,19300.0,24.0,2026-06-15
+selectel,Intel Xeon W-2133,intel xeon w-2133,,128,2,1000,SSD,23800.0,18.0,2026-06-15
+selectel,AMD Ryzen 9 7950X,amd ryzen 9 7950x,,128,2,2000,NVMe,31800.0,,2026-06-15
+selectel,Intel Xeon E5-1650v4,intel xeon e5-1650v4,Broadwell EP,128,2,480,SSD,16500.0,3.0,2026-06-15
+selectel,Intel Xeon W-2255,intel xeon w-2255,,128,2,1000,NVMe,30200.0,3.0,2026-06-15
+selectel,Intel Xeon W-2255,intel xeon w-2255,,256,2,1000,NVMe,37200.0,31.0,2026-06-15
+selectel,Intel Xeon W-2255,intel xeon w-2255,,128,2,2000,NVMe,30200.0,6.0,2026-06-15
+selectel,AMD Ryzen 9 9950X,amd ryzen 9 9950x,,128,2,2000,NVMe,47710.0,50.0,2026-06-15
+selectel,AMD Ryzen 9 9950X,amd ryzen 9 9950x,,128,1,1000,NVMe,49140.0,7.0,2026-06-15
+selectel,AMD EPYC 9015,amd epyc 9015,Genoa,64,2,1000,NVMe,29500.0,,2026-06-15
+selectel,AMD EPYC 9135,amd epyc 9135,Genoa,256,2,2000,NVMe,52900.0,,2026-06-15
+selectel,Intel Silver 4516Y,intel silver 4516y,Skylake-SP,256,2,2000,NVMe,158600.0,3.0,2026-06-15
+selectel,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,64,2,480,SSD,22600.0,10.0,2026-06-15
+selectel,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,128,2,480,SSD,22600.0,1.0,2026-06-15
+selectel,Intel Xeon E5-2670v3,intel xeon e5-2670v3,Haswell EP,256,2,1000,SSD,40200.0,,2026-06-15
+selectel,Intel Xeon Gold 6240,intel xeon gold 6240,Skylake-SP,256,2,2000,SSD,48000.0,9.0,2026-06-15
+selectel,Intel Xeon Gold 6140,intel xeon gold 6140,Skylake-SP,128,2,1000,SSD,32200.0,,2026-06-15
+selectel,AMD EPYC 7452,amd epyc 7452,,128,2,2000,SSD,38800.0,1.0,2026-06-15
+selectel,AMD EPYC 7402P,amd epyc 7402p,,64,2,1000,NVMe,29000.0,,2026-06-15
+selectel,AMD EPYC 7513,amd epyc 7513,,64,2,2000,SSD,29000.0,23.0,2026-06-15
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,32,2,480,SSD,11700.0,3.0,2026-06-15
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,1000,NVMe,26800.0,5.0,2026-06-15
+selectel,Intel Xeon E5-1650v3,intel xeon e5-1650v3,Haswell EP,32,2,480,SSD,9670.0,1.0,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,16,2,480,SSD,10600.0,2.0,2026-06-15
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,32,2,2000,HDD,8530.0,2.0,2026-06-15
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,32,2,240,SSD,7990.0,3.0,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,8000,HDD,12800.0,,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,1000,NVMe,15100.0,,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,480,SSD,13900.0,3.0,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,4000,SSD,18100.0,1.0,2026-06-15
+selectel,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,32,2,240,SSD,10600.0,5.0,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,64,2,1000,SSD,16500.0,5.0,2026-06-15
+selectel,Intel Xeon E3-1270v5,intel xeon e3-1270v5,Skylake,64,2,480,SSD,11400.0,2.0,2026-06-15
+selectel,Intel Xeon E-2386G,intel xeon e-2386g,,32,2,1000,NVMe,16800.0,20.0,2026-06-15
+selectel,Intel Xeon E-2386G,intel xeon e-2386g,,64,2,1000,NVMe,18100.0,1.0,2026-06-15
+selectel,Intel Xeon E-2386G,intel xeon e-2386g,,64,2,4000,NVMe,25000.0,,2026-06-15
+selectel,Intel Xeon E-2388G,intel xeon e-2388g,,64,2,1000,NVMe,21000.0,6.0,2026-06-15
+selectel,Intel Xeon E-2388G,intel xeon e-2388g,,128,2,4000,NVMe,30700.0,,2026-06-15
+selectel,Intel Xeon E-2456,intel xeon e-2456,,32,1,1000,NVMe,53400.0,4.0,2026-06-15
+selectel,Intel Xeon E-2456,intel xeon e-2456,,32,2,1000,NVMe,23700.0,21.0,2026-06-15
+selectel,Intel Xeon E-2488,intel xeon e-2488,,128,2,4000,NVMe,44620.0,5.0,2026-06-15
+selectel,AMD EPYC 9274F,amd epyc 9274f,Genoa,256,2,2000,NVMe,378000.0,,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,16,2,240,SSD,25400.0,11.0,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,2,1000,SSD,21100.0,,2026-06-15
+selectel,Intel Xeon E-2488,intel xeon e-2488,,64,2,2000,NVMe,53200.0,8.0,2026-06-15
+selectel,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,128,2,1000,SSD,194400.0,,2026-06-15
+selectel,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,256,2,1000,SSD,270000.0,,2026-06-15
+selectel,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,256,2,480,SSD,108000.0,1.0,2026-06-15
+selectel,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,512,2,1000,SSD,540000.0,,2026-06-15
+selectel,Intel Xeon 6767P,intel xeon 6767p,,1024,1,1000,NVMe,5500000.0,1.0,2026-06-15
+selectel,Intel Xeon Platinum 8558,intel xeon platinum 8558,Skylake-SP,1024,2,1000,NVMe,2900000.0,,2026-06-15
+selectel,Intel E5-2630v3,intel e5-2630v3,Haswell EP,128,4,1000,NVMe,33000.0,1.0,2026-06-15
+selectel,AMD EPYC 7343,amd epyc 7343,Milan,128,3,8000,NVMe,125500.0,1.0,2026-06-15
+selectel,Intel Xeon E-2456,intel xeon e-2456,,32,2,1000,SSD,18600.0,2.0,2026-06-15
+selectel,Intel Gold 6530,intel gold 6530,Skylake-SP,256,1,1000,NVMe,80300.0,1.0,2026-06-15
+selectel,Intel Silver 4314,intel silver 4314,Skylake-SP,64,8,8000,HDD,93900.0,4.0,2026-06-15
+selectel,Intel Xeon W-2255,intel xeon w-2255,,32,1,1000,SSD,40100.0,1.0,2026-06-15
+selectel,Intel Xeon E-2388G,intel xeon e-2388g,,64,1,480,SSD,14700.0,,2026-06-15
+selectel,Intel Gold 6244 (8x3.6 GHz HT),intel gold 6244 (8x3.6 ghz ht),Skylake-SP,256,1,8000,NVMe,58100.0,,2026-06-15
+selectel,Intel E3-1230,intel e3-1230,Sandy Bridge,16,1,8000,HDD,15000.0,,2026-06-15
+selectel,AMD EPYC 7513,amd epyc 7513,,64,1,480,SSD,60800.0,2.0,2026-06-15
+selectel,Intel Silver 4314,intel silver 4314,Skylake-SP,64,1,1000,NVMe,28500.0,,2026-06-15
+selectel,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,128,2,4000,NVMe,49500.0,,2026-06-15
+selectel,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,128,2,2000,SSD,27200.0,,2026-06-15
+selectel,AMD EPYC 7343,amd epyc 7343,Milan,64,2,480,NVMe,28700.0,1.0,2026-06-15
+selectel,Intel Gold 6240R,intel gold 6240r,Cascade Lake,256,2,4000,NVMe,319000.0,,2026-06-15
+selectel,Intel Xeon E5-1650v4,intel xeon e5-1650v4,Broadwell EP,64,1,480,SSD,23700.0,,2026-06-15
+selectel,Intel W-2255,intel w-2255,,128,1,4000,HDD,32900.0,,2026-06-15
+selectel,Intel E5-2630v3,intel e5-2630v3,Haswell EP,64,1,480,SSD,42300.0,,2026-06-15
+selectel,Intel Silver 4114,intel silver 4114,Skylake-SP,128,2,1000,SSD,71500.0,,2026-06-15
+selectel,Intel Xeon E-2236,intel xeon e-2236,,32,1,480,SSD,15562.0,,2026-06-15
+selectel,Intel Xeon E-2388G,intel xeon e-2388g,,16,1,1000,SSD,14417.0,,2026-06-15
+selectel,Intel Silver 4214R,intel silver 4214r,Cascade Lake,128,2,4000,HDD,36256.0,,2026-06-15
+selectel,Intel E3-1230v5,intel e3-1230v5,Skylake,16,1,8000,HDD,12226.0,1.0,2026-06-15
+selectel,AMD EPYC 7443P,amd epyc 7443p,,64,1,480,SSD,102440.0,1.0,2026-06-15
+selectel,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,64,2,480,SSD,22600.0,2.0,2026-06-15
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,480,SSD,27600.0,6.0,2026-06-15
+selectel,Intel Xeon Silver 4214,intel xeon silver 4214,Skylake-SP,64,2,1000,NVMe,31800.0,,2026-06-15
+selectel,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,64,2,1000,NVMe,40000.0,4.0,2026-06-15
+selectel,Intel Xeon Silver 4510,intel xeon silver 4510,Skylake-SP,128,2,2000,NVMe,37800.0,,2026-06-15
+selectel,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,128,2,480,SSD,21000.0,14.0,2026-06-15
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,128,2,480,SSD,30700.0,1.0,2026-06-15
+selectel,Intel Xeon Silver 4214,intel xeon silver 4214,Skylake-SP,128,2,1000,NVMe,38700.0,,2026-06-15
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,256,2,480,SSD,48300.0,,2026-06-15
+selectel,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,128,2,1000,NVMe,46900.0,8.0,2026-06-15
+selectel,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,64,2,1000,NVMe,32200.0,9.0,2026-06-15
+selectel,Intel Xeon Gold 6354,intel xeon gold 6354,Skylake-SP,256,2,4000,NVMe,53700.0,,2026-06-15
+selectel,Intel Xeon E5-2680v4,intel xeon e5-2680v4,Broadwell EP,256,2,1000,SSD,40200.0,2.0,2026-06-15
+selectel,Intel Xeon Gold 6140,intel xeon gold 6140,Skylake-SP,256,2,1000,SSD,70200.0,1.0,2026-06-15
+selectel,Intel Xeon Gold 6240,intel xeon gold 6240,Skylake-SP,256,2,1000,NVMe,75400.0,,2026-06-15
+selectel,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,256,2,1000,NVMe,52900.0,2.0,2026-06-15
+selectel,Intel Xeon Gold 6336Y,intel xeon gold 6336y,Skylake-SP,128,2,1000,NVMe,47000.0,3.0,2026-06-15
+selectel,Intel Xeon Gold 6140,intel xeon gold 6140,Skylake-SP,512,4,2000,SSD,200400.0,,2026-06-15
+selectel,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,128,2,2000,NVMe,56600.0,1.0,2026-06-15
+selectel,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,256,2,4000,NVMe,53100.0,2.0,2026-06-15
+selectel,Intel Xeon Gold 6354,intel xeon gold 6354,Skylake-SP,256,2,8000,NVMe,74500.0,11.0,2026-06-15
+selectel,Intel Xeon Gold 6336Y,intel xeon gold 6336y,Skylake-SP,256,2,2000,NVMe,84300.0,6.0,2026-06-15
+selectel,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,16,2,240,SSD,29800.0,,2026-06-15
+selectel,Intel Xeon E5-1650,intel xeon e5-1650,Sandy Bridge EP,32,2,240,SSD,32100.0,8.0,2026-06-15
+selectel,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,240,SSD,45600.0,1.0,2026-06-15
+selectel,Intel Xeon 6517P,intel xeon 6517p,,256,2,4000,NVMe,80600.0,7.0,2026-06-15
+selectel,Intel Xeon 6520P,intel xeon 6520p,,256,2,4000,NVMe,82200.0,9.0,2026-06-15
+selectel,Intel Xeon 6710E,intel xeon 6710e,,256,2,2000,NVMe,96500.0,3.0,2026-06-15
+selectel,Intel Xeon 6746E,intel xeon 6746e,,256,2,8000,NVMe,106900.0,4.0,2026-06-15
+1dedic,Ryzen 9 5950X,ryzen 9 5950x,,32,2,1000,NVMe,14000.0,,2026-06-15
+1dedic,Xeon 2xE5-2620v4,xeon 2xe5-2620v4,Broadwell EP,16,2,240,SSD,12415.0,,2026-06-15
+1dedic,Xeon 2xE5-2640v4,xeon 2xe5-2640v4,Broadwell EP,32,1,1000,SSD,19206.0,,2026-06-15
+1dedic,Core i9-10900K,core i9-10900k,,32,2,480,NVMe,10927.0,,2026-06-15
+1dedic,Ryzen 7 9700X,ryzen 7 9700x,,32,1,480,NVMe,12389.0,,2026-06-15
+1dedic,Core i9-9900K,core i9-9900k,,16,1,480,NVMe,9238.0,,2026-06-15
+1dedic,Xeon E3-1270v6,xeon e3-1270v6,Kaby Lake,64,2,4000,NVMe,16110.0,,2026-06-15
+1dedic,Xeon 2xE5-2620v4,xeon 2xe5-2620v4,Broadwell EP,64,2,1000,SSD,16368.0,,2026-06-15
+1dedic,Xeon E3-1231v3,xeon e3-1231v3,Haswell,16,2,480,SSD,5679.0,,2026-06-15
+1dedic,Xeon 2xE5-2630v2,xeon 2xe5-2630v2,Ivy Bridge EP,128,2,1000,SSD,18732.0,,2026-06-15
+regcloud,AMD EPYC 9474F,amd epyc 9474f,Genoa,512,2,8000,SSD,239700.0,,2026-06-15
+regcloud,AMD EPYC 9474F,amd epyc 9474f,Genoa,1024,2,4000,NVMe,1103300.0,,2026-06-15
+regcloud,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,480,SSD,19900.0,,2026-06-15
+regcloud,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,64,2,1000,NVMe,20100.0,,2026-06-15
+regcloud,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,32,2,1000,NVMe,20100.0,,2026-06-15
+regcloud,AMD Ryzen 9 7950X,amd ryzen 9 7950x,,32,2,1000,NVMe,20300.0,,2026-06-15
+regcloud,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,32,2,2000,NVMe,20500.0,,2026-06-15
+regcloud,AMD Ryzen 7 7700X,amd ryzen 7 7700x,,64,2,2000,NVMe,21500.0,,2026-06-15
+regcloud,AMD Ryzen 9 7950X,amd ryzen 9 7950x,,64,2,2000,NVMe,22300.0,,2026-06-15
+regcloud,Intel Xeon Silver 4316,intel xeon silver 4316,Skylake-SP,64,2,1000,NVMe,41600.0,,2026-06-15
+regcloud,Xeon W-2275,xeon w-2275,,256,2,4000,SSD,93400.0,,2026-06-15
+regcloud,AMD EPYC 9334,amd epyc 9334,Genoa,256,2,2000,NVMe,171900.0,,2026-06-15
+regcloud,Xeon E3-1270v3,xeon e3-1270v3,Haswell,16,2,480,SSD,10100.0,,2026-06-15
+regcloud,Xeon E3-1270,xeon e3-1270,Sandy Bridge,16,2,1000,SSD,12900.0,,2026-06-15
+regcloud,Xeon E5-2620,xeon e5-2620,Sandy Bridge EP,32,2,4000,HDD,15400.0,,2026-06-15
+regcloud,Xeon E3-1245v5,xeon e3-1245v5,Skylake,16,2,240,SSD,14300.0,,2026-06-15
+regcloud,Intel Xeon E5-2420,intel xeon e5-2420,Sandy Bridge EP,32,2,480,SSD,17300.0,,2026-06-15
+regcloud,Intel Xeon E5-2620,intel xeon e5-2620,Sandy Bridge EP,32,2,480,SSD,16300.0,,2026-06-15
+regcloud,Intel Xeon E5-2620v2,intel xeon e5-2620v2,Ivy Bridge EP,64,2,480,SSD,18100.0,,2026-06-15
+regcloud,Intel Xeon E5-2630,intel xeon e5-2630,Sandy Bridge EP,64,2,480,SSD,18700.0,,2026-06-15
+regcloud,Xeon E5-2620,xeon e5-2620,Sandy Bridge EP,32,2,240,SSD,17800.0,,2026-06-15
+regcloud,Intel Xeon E5620,intel xeon e5620,,32,2,240,SSD,18000.0,,2026-06-15
+regcloud,Intel Xeon E5-2630,intel xeon e5-2630,Sandy Bridge EP,32,2,240,SSD,18100.0,,2026-06-15
+regcloud,Intel Xeon E5-2620v4,intel xeon e5-2620v4,Broadwell EP,32,2,240,SSD,17200.0,,2026-06-15
+regcloud,Xeon E3-1270v3,xeon e3-1270v3,Haswell,8,2,8000,SSD,15500.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,32,2,240,SSD,18400.0,,2026-06-15
+regcloud,Intel Xeon E5-2650,intel xeon e5-2650,Sandy Bridge EP,32,2,2000,SSD,17400.0,,2026-06-15
+regcloud,Intel Xeon E5-2620v2,intel xeon e5-2620v2,Ivy Bridge EP,64,2,120,SSD,20100.0,,2026-06-15
+regcloud,Intel Xeon E5645,intel xeon e5645,,64,2,480,SSD,16100.0,,2026-06-15
+regcloud,Xeon E5-2650v3,xeon e5-2650v3,Haswell EP,64,2,2000,SSD,19000.0,,2026-06-15
+regcloud,Intel Xeon E5-2630,intel xeon e5-2630,Sandy Bridge EP,64,2,1000,SSD,21300.0,,2026-06-15
+regcloud,Xeon E-2174G,xeon e-2174g,,32,2,1000,SSD,17100.0,,2026-06-15
+regcloud,Intel Xeon E5-2620v2,intel xeon e5-2620v2,Ivy Bridge EP,64,2,4000,SSD,21600.0,,2026-06-15
+regcloud,Xeon E3-1230v5,xeon e3-1230v5,Skylake,32,2,8000,SSD,19400.0,,2026-06-15
+regcloud,Xeon E3-1245v5,xeon e3-1245v5,Skylake,16,2,8000,SSD,17600.0,,2026-06-15
+regcloud,Intel Xeon E5-2670,intel xeon e5-2670,Sandy Bridge EP,64,2,2000,SSD,22900.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,32,2,480,SSD,21900.0,,2026-06-15
+regcloud,Intel Xeon E5-2650v2,intel xeon e5-2650v2,Ivy Bridge EP,64,2,480,SSD,21900.0,,2026-06-15
+regcloud,Intel Xeon E5-2670,intel xeon e5-2670,Sandy Bridge EP,64,2,480,SSD,23300.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,64,2,480,SSD,21700.0,,2026-06-15
+regcloud,Intel Xeon E5-2650v2,intel xeon e5-2650v2,Ivy Bridge EP,64,2,2000,SSD,24500.0,,2026-06-15
+regcloud,Intel Xeon E5645,intel xeon e5645,,64,2,2000,SSD,23100.0,,2026-06-15
+regcloud,Intel Xeon E5-2620v2,intel xeon e5-2620v2,Ivy Bridge EP,64,2,1000,SSD,20800.0,,2026-06-15
+regcloud,Intel Xeon E5-2650,intel xeon e5-2650,Sandy Bridge EP,128,2,4000,SSD,26500.0,,2026-06-15
+regcloud,Intel Xeon E5-2640,intel xeon e5-2640,Sandy Bridge EP,128,2,480,SSD,26500.0,,2026-06-15
+regcloud,Intel Xeon E5-2620,intel xeon e5-2620,Sandy Bridge EP,64,2,4000,SSD,25100.0,,2026-06-15
+regcloud,Xeon E-2286G,xeon e-2286g,,64,2,1000,SSD,22000.0,,2026-06-15
+regcloud,Intel Xeon E5-2670,intel xeon e5-2670,Sandy Bridge EP,64,2,8000,SSD,25900.0,,2026-06-15
+regcloud,Intel Xeon E5-2650v2,intel xeon e5-2650v2,Ivy Bridge EP,64,2,4000,SSD,25900.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,32,2,8000,SSD,26900.0,,2026-06-15
+regcloud,Xeon E-2186G,xeon e-2186g,,64,2,2000,SSD,22900.0,,2026-06-15
+regcloud,AMD Ryzen 7 7700,amd ryzen 7 7700,,32,2,1000,SSD,23700.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,128,2,4000,HDD,28000.0,,2026-06-15
+regcloud,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,64,2,1000,SSD,24300.0,,2026-06-15
+regcloud,Xeon E-2288G,xeon e-2288g,,128,2,1000,SSD,24500.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,64,2,8000,SSD,25400.0,,2026-06-15
+regcloud,Xeon E5-1650v4,xeon e5-1650v4,Broadwell EP,128,2,2000,SSD,25500.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,128,2,4000,SSD,30500.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,128,2,2000,SSD,30800.0,,2026-06-15
+regcloud,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,4000,SSD,26200.0,,2026-06-15
+regcloud,Intel Xeon E5-2640,intel xeon e5-2640,Sandy Bridge EP,128,4,4000,SSD,34300.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,128,2,8000,SSD,32600.0,,2026-06-15
+regcloud,Intel Xeon E5-2650v3,intel xeon e5-2650v3,Haswell EP,64,4,1000,HDD,33000.0,,2026-06-15
+regcloud,Xeon W-2275,xeon w-2275,,32,2,480,SSD,28500.0,,2026-06-15
+regcloud,Xeon E-2288G,xeon e-2288g,,128,2,4000,SSD,30300.0,,2026-06-15
+regcloud,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,64,2,1000,NVMe,30500.0,,2026-06-15
+regcloud,Intel Xeon E5-2690v4,intel xeon e5-2690v4,Broadwell EP,64,2,240,SSD,34000.0,,2026-06-15
+regcloud,Intel Xeon E5-2650v4,intel xeon e5-2650v4,Broadwell EP,128,2,2000,SSD,34000.0,,2026-06-15
+regcloud,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,64,2,480,SSD,30800.0,,2026-06-15
+regcloud,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,128,2,4000,SSD,31400.0,,2026-06-15
+regcloud,Xeon W-2265,xeon w-2265,,64,2,480,SSD,31900.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v4,intel xeon e5-2630v4,Broadwell EP,256,2,2000,SSD,37600.0,,2026-06-15
+regcloud,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,64,2,480,SSD,32200.0,,2026-06-15
+regcloud,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,128,2,2000,SSD,32400.0,,2026-06-15
+regcloud,Intel Xeon E5-2650v2,intel xeon e5-2650v2,Ivy Bridge EP,256,2,480,SSD,38200.0,,2026-06-15
+regcloud,Intel Xeon E5-2670v3,intel xeon e5-2670v3,Haswell EP,128,2,1000,SSD,38400.0,,2026-06-15
+regcloud,Intel Xeon E5-2650v3,intel xeon e5-2650v3,Haswell EP,128,2,2000,SSD,33100.0,,2026-06-15
+regcloud,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,32,2,240,SSD,33100.0,,2026-06-15
+regcloud,Intel Xeon Gold 5218R,intel xeon gold 5218r,Cascade Lake,64,2,480,SSD,33300.0,,2026-06-15
+regcloud,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,128,2,4000,SSD,36200.0,,2026-06-15
+regcloud,Intel Xeon Silver 4114,intel xeon silver 4114,Skylake-SP,128,2,4000,NVMe,36900.0,,2026-06-15
+regcloud,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,64,2,1000,SSD,37900.0,,2026-06-15
+regcloud,Intel Xeon Gold 5218R,intel xeon gold 5218r,Cascade Lake,128,2,1000,SSD,38300.0,,2026-06-15
+regcloud,Intel Xeon E5-2670v3,intel xeon e5-2670v3,Haswell EP,128,4,1000,SSD,39100.0,,2026-06-15
+regcloud,Intel Xeon Gold 5218R,intel xeon gold 5218r,Cascade Lake,128,2,1000,NVMe,39300.0,,2026-06-15
+regcloud,Xeon W-2255,xeon w-2255,,64,2,8000,SSD,39400.0,,2026-06-15
+regcloud,Intel Xeon Silver 4316,intel xeon silver 4316,Skylake-SP,64,2,4000,SSD,39800.0,,2026-06-15
+regcloud,Xeon W-2265,xeon w-2265,,64,2,2000,NVMe,41100.0,,2026-06-15
+regcloud,Intel Xeon Silver 4316,intel xeon silver 4316,Skylake-SP,128,2,480,SSD,42500.0,,2026-06-15
+regcloud,Xeon E5-2630v3,xeon e5-2630v3,Haswell EP,512,2,2000,SSD,50100.0,,2026-06-15
+regcloud,Intel Xeon Gold 6326,intel xeon gold 6326,Skylake-SP,256,2,480,SSD,47800.0,,2026-06-15
+regcloud,Xeon W-2265,xeon w-2265,,64,2,1000,SSD,66800.0,,2026-06-15
+regcloud,Intel Xeon Gold 5320,intel xeon gold 5320,Skylake-SP,128,2,480,SSD,57600.0,,2026-06-15
+regcloud,Xeon W-2255,xeon w-2255,,128,2,480,SSD,71600.0,,2026-06-15
+regcloud,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,128,2,8000,NVMe,61800.0,,2026-06-15
+regcloud,Intel Xeon Gold 6348,intel xeon gold 6348,Skylake-SP,128,2,4000,SSD,63400.0,,2026-06-15
+regcloud,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,128,2,1000,NVMe,67700.0,,2026-06-15
+regcloud,Intel Xeon Gold 6346,intel xeon gold 6346,Skylake-SP,128,2,1000,SSD,69200.0,,2026-06-15
+regcloud,Xeon W-2265,xeon w-2265,,128,2,2000,SSD,69600.0,,2026-06-15
+regcloud,Intel Xeon Gold 5220,intel xeon gold 5220,Skylake-SP,32,4,4000,SSD,73000.0,,2026-06-15
+regcloud,Intel Xeon Gold 5320,intel xeon gold 5320,Skylake-SP,256,2,480,SSD,73100.0,,2026-06-15
+regcloud,Xeon W-2275,xeon w-2275,,256,2,1000,SSD,73800.0,,2026-06-15
+regcloud,Intel Xeon Gold 6334,intel xeon gold 6334,Skylake-SP,256,2,1000,SSD,76100.0,,2026-06-15
+regcloud,Intel Xeon Silver 4316,intel xeon silver 4316,Skylake-SP,512,2,8000,NVMe,77700.0,,2026-06-15
+regcloud,Intel Xeon Gold 6336Y,intel xeon gold 6336y,Skylake-SP,256,2,2000,SSD,78800.0,,2026-06-15
+regcloud,Xeon W-2295,xeon w-2295,,128,2,1000,NVMe,81000.0,,2026-06-15
+regcloud,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,128,2,1000,SSD,98700.0,,2026-06-15
+regcloud,Intel Xeon Gold 6240R,intel xeon gold 6240r,Cascade Lake,256,2,8000,NVMe,90000.0,,2026-06-15
+regcloud,Intel Xeon Gold 6154,intel xeon gold 6154,Skylake-SP,256,4,1000,SSD,104300.0,,2026-06-15
+regcloud,Intel Xeon Gold 6348,intel xeon gold 6348,Skylake-SP,512,2,8000,NVMe,95900.0,,2026-06-15
+regcloud,Intel Xeon Gold 6336Y,intel xeon gold 6336y,Skylake-SP,256,2,8000,NVMe,96600.0,,2026-06-15
+regcloud,Intel Xeon Silver 4314,intel xeon silver 4314,Skylake-SP,256,2,2000,SSD,107200.0,,2026-06-15
+regcloud,Intel Xeon Silver 4214R,intel xeon silver 4214r,Cascade Lake,512,2,2000,SSD,139500.0,,2026-06-15
+regcloud,Intel Xeon Gold 6348,intel xeon gold 6348,Skylake-SP,512,2,4000,SSD,139100.0,,2026-06-15
+regcloud,AMD EPYC 9334,amd epyc 9334,Genoa,256,2,1000,NVMe,133300.0,,2026-06-15
+regcloud,Intel Xeon Gold 6434,intel xeon gold 6434,Skylake-SP,512,2,4000,NVMe,120400.0,,2026-06-15
+regcloud,Intel Xeon Gold 6426Y,intel xeon gold 6426y,Skylake-SP,256,2,1000,NVMe,121500.0,,2026-06-15
+regcloud,AMD EPYC 9534,amd epyc 9534,Genoa,512,2,2000,NVMe,123000.0,,2026-06-15
+regcloud,Intel Xeon Gold 5317,intel xeon gold 5317,Skylake-SP,512,2,2000,NVMe,169100.0,,2026-06-15
+regcloud,Intel Xeon Gold 6426Y,intel xeon gold 6426y,Skylake-SP,512,2,4000,NVMe,134000.0,,2026-06-15
+regcloud,Intel Xeon Gold 5220R,intel xeon gold 5220r,Cascade Lake,512,2,2000,SSD,167500.0,,2026-06-15
+regcloud,AMD EPYC 9174F,amd epyc 9174f,Genoa,512,2,8000,NVMe,134900.0,,2026-06-15
+regcloud,Intel Xeon Gold 6442Y,intel xeon gold 6442y,Skylake-SP,256,2,2000,NVMe,136800.0,,2026-06-15
+regcloud,AMD EPYC 9124,amd epyc 9124,Genoa,256,2,2000,NVMe,144900.0,,2026-06-15
+regcloud,Intel Xeon Gold 6354,intel xeon gold 6354,Skylake-SP,1024,2,2000,SSD,199300.0,,2026-06-15
+regcloud,AMD EPYC 9534,amd epyc 9534,Genoa,512,2,1000,NVMe,170800.0,,2026-06-15
+regcloud,AMD EPYC 9374F,amd epyc 9374f,Genoa,128,2,2000,NVMe,172100.0,,2026-06-15
+regcloud,Intel Xeon Gold 6242R,intel xeon gold 6242r,Cascade Lake,1024,2,2000,SSD,192700.0,,2026-06-15
+regcloud,Intel Xeon Gold 5320,intel xeon gold 5320,Skylake-SP,1024,2,4000,NVMe,175800.0,,2026-06-15
+regcloud,AMD EPYC 9274F,amd epyc 9274f,Genoa,256,2,2000,NVMe,183500.0,,2026-06-15
+regcloud,Intel Xeon Gold 6354,intel xeon gold 6354,Skylake-SP,256,2,2000,NVMe,199000.0,,2026-06-15
+regcloud,Intel Xeon Gold 6442Y,intel xeon gold 6442y,Skylake-SP,512,2,8000,NVMe,212600.0,,2026-06-15
+regcloud,AMD EPYC 9334,amd epyc 9334,Genoa,512,2,4000,NVMe,268000.0,,2026-06-15
+regcloud,AMD EPYC 9274F,amd epyc 9274f,Genoa,512,2,4000,NVMe,241300.0,,2026-06-15
+regcloud,AMD EPYC 9554,amd epyc 9554,Genoa,1024,2,2000,NVMe,292600.0,,2026-06-15
+regcloud,AMD EPYC 9374F,amd epyc 9374f,Genoa,512,2,8000,NVMe,326900.0,,2026-06-15
+regcloud,AMD EPYC 9174F,amd epyc 9174f,Genoa,1024,2,8000,NVMe,306500.0,,2026-06-15
+regcloud,Intel Xeon Gold 6348,intel xeon gold 6348,Skylake-SP,1024,2,8000,NVMe,324000.0,,2026-06-15
+regcloud,AMD EPYC 9534,amd epyc 9534,Genoa,1024,2,4000,NVMe,325300.0,,2026-06-15
+regcloud,AMD EPYC 9554,amd epyc 9554,Genoa,512,2,4000,NVMe,391400.0,,2026-06-15
+regcloud,AMD EPYC 9334,amd epyc 9334,Genoa,512,2,2000,NVMe,496100.0,,2026-06-15
+regcloud,AMD EPYC 9554,amd epyc 9554,Genoa,1024,2,8000,NVMe,532100.0,,2026-06-15
+regcloud,Intel Xeon Gold 6434,intel xeon gold 6434,Skylake-SP,512,2,2000,NVMe,538400.0,,2026-06-15
+regcloud,AMD EPYC 9274F,amd epyc 9274f,Genoa,1024,2,8000,SSD,548900.0,,2026-06-15
+regcloud,AMD EPYC 9274F,amd epyc 9274f,Genoa,1024,2,8000,NVMe,572900.0,,2026-06-15
+regcloud,AMD EPYC 9474F,amd epyc 9474f,Genoa,512,2,2000,NVMe,874200.0,,2026-06-15
+regcloud,AMD EPYC 9374F,amd epyc 9374f,Genoa,1024,2,8000,NVMe,1785400.0,,2026-06-15
+regcloud,AMD EPYC 9474F,amd epyc 9474f,Genoa,1024,2,8000,NVMe,1886500.0,,2026-06-15
+regcloud,Intel Xeon Platinum 8558,intel xeon platinum 8558,Skylake-SP,1024,2,8000,NVMe,2166500.0,,2026-06-15
+regcloud,Intel Xeon 6 6767P,intel xeon 6 6767p,,1024,2,8000,NVMe,4090000.0,,2026-06-15
+timeweb,Intel Xeon E3-12xx,intel xeon e3-12xx,Sandy Bridge,32,2,1000,SSD,5670.0,,2026-06-15
+timeweb,Intel Xeon E3-1240,intel xeon e3-1240,Sandy Bridge,8,2,1000,HDD,5841.0,,2026-06-15
+timeweb,Intel Xeon E3-1240,intel xeon e3-1240,Sandy Bridge,16,2,480,SSD,7326.0,,2026-06-15
+timeweb,Intel Xeon E3-1286v3,intel xeon e3-1286v3,Haswell,32,2,480,SSD,8118.0,,2026-06-15
+timeweb,AMD EPYC 3151,amd epyc 3151,,32,2,8000,HDD,8820.0,,2026-06-15
+timeweb,Intel Xeon E-2236,intel xeon e-2236,,16,2,480,SSD,9603.0,,2026-06-15
+timeweb,Intel Xeon E3-1230,intel xeon e3-1230,Sandy Bridge,32,2,240,SSD,10440.0,,2026-06-15
+timeweb,Intel Xeon E3-1286v3,intel xeon e3-1286v3,Haswell,32,2,2000,SSD,10791.0,,2026-06-15
+timeweb,Intel Xeon E3-1230v5,intel xeon e3-1230v5,Skylake,64,2,1000,SSD,10890.0,,2026-06-15
+timeweb,Intel Xeon E3-1270v5,intel xeon e3-1270v5,Skylake,64,2,480,SSD,10890.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,32,2,480,SSD,11520.0,,2026-06-15
+timeweb,Intel Xeon E3-1230v6,intel xeon e3-1230v6,Kaby Lake,8,2,1000,HDD,11870.0,,2026-06-15
+timeweb,Intel Xeon E3-1230v6,intel xeon e3-1230v6,Kaby Lake,16,2,240,SSD,11979.0,,2026-06-15
+timeweb,Xeon E5-2620,xeon e5-2620,Sandy Bridge EP,32,2,480,SSD,12771.0,,2026-06-15
+timeweb,Intel Xeon E3-1270v5,intel xeon e3-1270v5,Skylake,64,2,1000,SSD,13590.0,,2026-06-15
+timeweb,Core i9-9900K,core i9-9900k,,32,2,480,SSD,14355.0,,2026-06-15
+timeweb,Intel Xeon E-2244G,intel xeon e-2244g,,16,2,480,SSD,15048.0,,2026-06-15
+timeweb,Xeon E5-2680,xeon e5-2680,Sandy Bridge EP,64,2,480,SSD,15939.0,,2026-06-15
+timeweb,Intel Xeon E3-1230v6,intel xeon e3-1230v6,Kaby Lake,16,2,4000,SSD,17325.0,,2026-06-15
+timeweb,Intel Xeon E-2288G,intel xeon e-2288g,,64,2,1000,SSD,17325.0,,2026-06-15
+timeweb,Intel Xeon E-2244G,intel xeon e-2244g,,32,2,1000,NVMe,17919.0,,2026-06-15
+timeweb,Intel Xeon E-2336,intel xeon e-2336,,32,2,480,SSD,18171.0,,2026-06-15
+timeweb,Intel Xeon E-2336,intel xeon e-2336,,64,2,480,SSD,19224.0,,2026-06-15
+timeweb,Intel Xeon E-2244G,intel xeon e-2244g,,64,2,1000,NVMe,19305.0,,2026-06-15
+timeweb,Intel Xeon E-2336,intel xeon e-2336,,32,2,1000,NVMe,20745.0,,2026-06-15
+timeweb,Intel Xeon E-2388G,intel xeon e-2388g,,64,2,1000,NVMe,20889.0,,2026-06-15
+timeweb,Intel Xeon E-2336,intel xeon e-2336,,128,2,480,SSD,20943.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,32,2,1000,NVMe,21681.0,,2026-06-15
+timeweb,Intel Xeon E-2336,intel xeon e-2336,,64,2,1000,NVMe,21789.0,,2026-06-15
+timeweb,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,64,2,480,SSD,22320.0,,2026-06-15
+timeweb,Intel Xeon E5-2630v3,intel xeon e5-2630v3,Haswell EP,128,2,480,SSD,22320.0,,2026-06-15
+timeweb,Intel Xeon E-2388G,intel xeon e-2388g,,128,2,2000,NVMe,23384.0,,2026-06-15
+timeweb,Intel Xeon E-2336,intel xeon e-2336,,128,2,1000,NVMe,23535.0,,2026-06-15
+timeweb,Ryzen 7950X,ryzen 7950x,,128,2,2000,NVMe,23940.0,,2026-06-15
+timeweb,Intel Xeon E5-1650v4,intel xeon e5-1650v4,Broadwell EP,64,2,1000,NVMe,24552.0,,2026-06-15
+timeweb,AMD Ryzen 9950x,amd ryzen 9950x,,128,2,2000,NVMe,26460.0,,2026-06-15
+timeweb,Intel Xeon E5-1650v4,intel xeon e5-1650v4,Broadwell EP,128,2,4000,NVMe,29007.0,,2026-06-15
+timeweb,Intel Xeon W-2255,intel xeon w-2255,,128,2,2000,NVMe,29880.0,,2026-06-15
+timeweb,AMD Ryzen 9,amd ryzen 9,,128,2,1000,NVMe,29970.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,128,2,480,SSD,30330.0,,2026-06-15
+timeweb,Intel Xeon Gold,intel xeon gold,,64,2,1000,NVMe,31383.0,,2026-06-15
+timeweb,AMD EPYC 7402,amd epyc 7402,,128,2,1000,NVMe,33363.0,,2026-06-15
+timeweb,Intel Xeon E-2236,intel xeon e-2236,,32,2,1000,SSD,35541.0,,2026-06-15
+timeweb,EPYC 7542,epyc 7542,,256,2,2000,NVMe,36540.0,,2026-06-15
+timeweb,Intel Xeon W-2255,intel xeon w-2255,,256,2,1000,NVMe,36810.0,,2026-06-15
+timeweb,AMD EPYC 7452,amd epyc 7452,,128,2,2000,SSD,38340.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,64,2,480,SSD,39006.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,64,2,1000,NVMe,39600.0,,2026-06-15
+timeweb,AMD EPYC 7343,amd epyc 7343,Milan,128,2,1000,NVMe,39600.0,,2026-06-15
+timeweb,Intel Xeon W-3345,intel xeon w-3345,,256,2,4000,NVMe,45045.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,64,2,240,SSD,45090.0,,2026-06-15
+timeweb,Intel Xeon Gold,intel xeon gold,,128,2,1000,NVMe,46530.0,,2026-06-15
+timeweb,EPYC 7451,epyc 7451,,256,4,2000,SSD,46620.0,,2026-06-15
+timeweb,Intel Xeon E-2236,intel xeon e-2236,,16,2,240,SSD,46629.0,,2026-06-15
+timeweb,Intel Xeon Gold,intel xeon gold,,256,2,2000,SSD,47520.0,,2026-06-15
+timeweb,AMD Ryzen 9,amd ryzen 9,,128,2,2000,NVMe,48600.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,32,12,8000,HDD,50391.0,,2026-06-15
+timeweb,AMD EPYC 7401,amd epyc 7401,,128,2,1000,SSD,53280.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,128,2,1000,NVMe,54054.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,128,2,2000,NVMe,54054.0,,2026-06-15
+timeweb,EPYC 9124,epyc 9124,Genoa,256,2,1000,NVMe,56700.0,,2026-06-15
+timeweb,EPYC 7742,epyc 7742,,256,2,4000,NVMe,56700.0,,2026-06-15
+timeweb,EPYC 7542,epyc 7542,,512,2,2000,NVMe,61740.0,,2026-06-15
+timeweb,AMD EPYC 7702,amd epyc 7702,,512,2,2000,NVMe,62874.0,,2026-06-15
+timeweb,AMD EPYC 9354,amd epyc 9354,Genoa,256,2,4000,NVMe,65520.0,,2026-06-15
+timeweb,Intel Xeon Gold,intel xeon gold,,128,2,2000,NVMe,68409.0,,2026-06-15
+timeweb,AMD EPYC 7513,amd epyc 7513,,256,2,2000,NVMe,68850.0,,2026-06-15
+timeweb,Intel Xeon W7-3455,intel xeon w7-3455,,256,2,2000,NVMe,69795.0,,2026-06-15
+timeweb,AMD EPYC 7343,amd epyc 7343,Milan,256,2,1000,NVMe,71010.0,,2026-06-15
+timeweb,EPYC 7402,epyc 7402,,256,2,1000,NVMe,71379.0,,2026-06-15
+timeweb,AMD EPYC 9354,amd epyc 9354,Genoa,256,2,2000,NVMe,71820.0,,2026-06-15
+timeweb,EPYC 7742,epyc 7742,,512,2,2000,NVMe,71820.0,,2026-06-15
+timeweb,AMD EPYC 9274F,amd epyc 9274f,Genoa,256,2,4000,NVMe,73710.0,,2026-06-15
+timeweb,AMD EPYC 9274F,amd epyc 9274f,Genoa,128,2,1000,NVMe,73710.0,,2026-06-15
+timeweb,Intel Xeon Gold,intel xeon gold,,256,2,8000,NVMe,73710.0,,2026-06-15
+timeweb,EPYC 7502,epyc 7502,,512,2,4000,NVMe,79101.0,,2026-06-15
+timeweb,Intel Xeon Silver,intel xeon silver,,256,10,8000,HDD,80388.0,,2026-06-15
+timeweb,Intel Xeon 6520P,intel xeon 6520p,,256,2,4000,NVMe,81360.0,,2026-06-15
+timeweb,Intel Xeon Gold,intel xeon gold,,256,2,2000,NVMe,83430.0,,2026-06-15
+timeweb,AMD EPYC 9654,amd epyc 9654,Genoa,256,2,4000,NVMe,90684.0,,2026-06-15
+timeweb,AMD EPYC 9474F,amd epyc 9474f,Genoa,256,2,2000,NVMe,95130.0,,2026-06-15
+timeweb,Intel Xeon 6710E,intel xeon 6710e,,256,2,2000,NVMe,95490.0,,2026-06-15
+timeweb,AMD EPYC 7513,amd epyc 7513,,512,2,2000,NVMe,95670.0,,2026-06-15
+timeweb,Intel Xeon 6746E,intel xeon 6746e,,256,2,8000,NVMe,105750.0,,2026-06-15
+timeweb,Intel Xeon Gold,intel xeon gold,,512,2,8000,NVMe,108108.0,,2026-06-15
+timeweb,AMD EPYC 9354,amd epyc 9354,Genoa,512,2,2000,NVMe,119700.0,,2026-06-15
+timeweb,AMD EPYC 9354,amd epyc 9354,Genoa,512,2,4000,NVMe,119700.0,,2026-06-15
+timeweb,Xeon Gold,xeon gold,,512,2,8000,NVMe,125136.0,,2026-06-15
+timeweb,EPYC 9354,epyc 9354,Genoa,1024,2,4000,NVMe,157500.0,,2026-06-15
+timeweb,AMD EPYC 9274F,amd epyc 9274f,Genoa,512,2,4000,NVMe,169920.0,,2026-06-15
