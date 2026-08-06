@@ -38,23 +38,22 @@ def load_history() -> pd.DataFrame:
 
 
 
-def style_pivot(pivot: pd.DataFrame):
-    """Style pivot table with color coding."""
+def style_pivot(pivot: pd.DataFrame, display_cols: list[str]):
+    """Style pivot table with color coding (config columns intact)."""
     price_cols = [c for c in PROVIDERS if c in pivot.columns]
 
     def highlight_row(row):
         """Highlight min green, max red, NaN grey."""
-        values = row[price_cols]
-        valid = values.dropna()
+        valid = row.dropna()
         if len(valid) == 0:
             # All NaN
-            return ["color: #9e9e9e;" for _ in price_cols]
+            return ["color: #9e9e9e;" for _ in row]
 
         min_val = valid.min()
         max_val = valid.max()
 
         styles = []
-        for v in values:
+        for v in row:
             if pd.isna(v):
                 styles.append("color: #9e9e9e;")
             elif v == min_val:
@@ -65,8 +64,9 @@ def style_pivot(pivot: pd.DataFrame):
                 styles.append("")
         return styles
 
-    styled = pivot[price_cols].style.apply(highlight_row, axis=1, subset=price_cols)
-    styled = styled.format(na_rep="—", precision=0, thousands=" ", decimal=",")
+    styled = pivot[display_cols].style.apply(highlight_row, axis=1, subset=price_cols)
+    styled = styled.format(na_rep="—", precision=0, thousands=" ", decimal=",",
+                           subset=price_cols)
     return styled
 
 
@@ -169,8 +169,9 @@ if sel_prov:
 
 # ── Tabs ─────────────────────────────────────────────────────────────
 
-tab1, tab2, tab3, tab4 = st.tabs(
-    ["Сравнение цен", "Динамика запасов", "Все данные", "Конкуренты vs Миран"]
+# Отчёт по ТЗ — первым и по умолчанию; легаси-сравнение провайдеров после
+tab4, tab1, tab2, tab3 = st.tabs(
+    ["Конкуренты vs Миран", "Сравнение цен", "Динамика запасов", "Все данные"]
 )
 
 
@@ -188,7 +189,7 @@ with tab1:
 
         # Display pivot with styled prices
         st.dataframe(
-            pivot[display_cols],
+            style_pivot(pivot, display_cols),
             use_container_width=True,
             hide_index=True,
             column_config={
