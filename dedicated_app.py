@@ -67,7 +67,16 @@ def style_competitor_wide(df: pd.DataFrame, price_cols: list[str]):
         return styles
 
     styled = df.style.apply(highlight_row, axis=1, subset=price_cols)
-    return styled.format(na_rep="—", precision=0, thousands=" ", subset=price_cols)
+    styled = styled.format(na_rep="—", precision=0, thousands=" ", subset=price_cols)
+    # stock/match_count — float из-за NaN: без precision=0 рисуются как 1.000000
+    int_cols = [c for c in df.columns
+                if c.endswith("_stock_count") or c.endswith("_match_count")]
+    if int_cols:
+        styled = styled.format(na_rep="—", precision=0, subset=int_cols)
+    text_cols = [c for c in df.columns if c.endswith("_plan_id")]
+    if text_cols:
+        styled = styled.format(na_rep="—", subset=text_cols)
+    return styled
 
 
 # ── Page ─────────────────────────────────────────────────────────────
