@@ -5,5 +5,11 @@
   "disk_rule": "gte",
   "disk_tolerance_pct": 30,
   "disk_type_must_match": true,
-  "score_weights": {"cpu": 0.20, "cores": 0.35, "ram": 0.25, "disk": 0.20}
+  "score_weights": {
+    "cpu": 0.2,
+    "cores": 0.35,
+    "ram": 0.25,
+    "disk": 0.2
+  },
+  "disk_type_allow_upgrade": true
 }

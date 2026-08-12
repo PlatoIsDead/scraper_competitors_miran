@@ -44,6 +44,8 @@ class MatchingRules:
     disk_tolerance_pct: float
     disk_type_must_match: bool
     score_weights: dict
+    # NVMe закрывает требование SSD (лучший тип = апгрейд), обратное — нет
+    disk_type_allow_upgrade: bool = False
 
 
 @dataclass(frozen=True)
@@ -172,6 +174,7 @@ def load_matching_rules(path: Path = MATCHING_JSON) -> MatchingRules:
         disk_tolerance_pct=tolerances["disk_tolerance_pct"],
         disk_type_must_match=_require(data, "disk_type_must_match", bool, path),
         score_weights=dict(weights),
+        disk_type_allow_upgrade=bool(data.get("disk_type_allow_upgrade", False)),
     )
 
 

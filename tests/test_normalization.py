@@ -31,7 +31,7 @@ def test_normalize_disk_gb():
 
 
 def test_normalize_ram_gb():
-    """Test RAM snapping to power-of-2 standards."""
+    """Test RAM snapping: only near-misses snap, standards stay themselves."""
     assert normalize_ram_gb(63) == 64
     assert normalize_ram_gb(64) == 64
     assert normalize_ram_gb(65) == 64
@@ -41,6 +41,22 @@ def test_normalize_ram_gb():
     assert normalize_ram_gb(31) == 32
     assert normalize_ram_gb(32) == 32
     assert normalize_ram_gb(33) == 32
+
+
+def test_normalize_ram_gb_six_channel_sizes():
+    """96/192/384/768 — легальные серверные объёмы, НЕ прилипают к степеням двойки.
+
+    Регрессия: selectel PL13-NVMe (96 ГБ, 8×12) превращался в 64 ГБ и ложно
+    матчился с 64-гиговыми эталонами Миран."""
+    assert normalize_ram_gb(96) == 96
+    assert normalize_ram_gb(192) == 192
+    assert normalize_ram_gb(384) == 384
+    assert normalize_ram_gb(768) == 768
+    assert normalize_ram_gb(48) == 48
+    assert normalize_ram_gb(24) == 24
+    # near-miss к новым стандартам тоже прилипает
+    assert normalize_ram_gb(95) == 96
+    assert normalize_ram_gb(100) == 96
 
 
 def test_extract_cpu_generation():

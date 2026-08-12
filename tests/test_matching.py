@@ -146,6 +146,34 @@ class TestDisksMatch:
         )
         assert not ok
 
+    def test_upgrade_nvme_satisfies_ssd_requirement(self):
+        """PCL67-кейс: эталон SSD, оффер NVMe того же объёма — матч при апгрейде."""
+        rules = MatchingRules(**{**RULES.__dict__, "disk_type_allow_upgrade": True})
+        ok, _ = disks_match(
+            REF.disk_pools,
+            ({"disk_type": "NVMe", "disk_count": 2, "disk_size_gb": 960},),
+            rules,
+        )
+        assert ok
+
+    def test_upgrade_is_one_way_ssd_never_satisfies_nvme(self):
+        rules = MatchingRules(**{**RULES.__dict__, "disk_type_allow_upgrade": True})
+        ok, _ = disks_match(
+            (DiskPool("NVMe", 2, 960),),
+            ({"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 960},),
+            rules,
+        )
+        assert not ok
+
+    def test_upgrade_ssd_satisfies_hdd_requirement(self):
+        rules = MatchingRules(**{**RULES.__dict__, "disk_type_allow_upgrade": True})
+        ok, _ = disks_match(
+            (DiskPool("HDD", 2, 2000),),
+            ({"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 2000},),
+            rules,
+        )
+        assert ok
+
     def test_tolerance_rule_smaller_within_pct_passes(self):
         rules = MatchingRules(**{**RULES.__dict__, "disk_rule": "tolerance"})
         ok, _ = disks_match(

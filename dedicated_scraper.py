@@ -42,7 +42,7 @@ DATA_DIR = "data"
 HISTORY_CSV = os.path.join(DATA_DIR, "history.csv")
 
 DISK_STANDARDS = [120, 240, 480, 1000, 2000, 4000, 8000]
-RAM_STANDARDS = [8, 16, 32, 64, 128, 256, 512, 1024]
+RAM_STANDARDS = [8, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384, 512, 768, 1024]
 
 # CPU generation lookup (order matters — more specific rules first)
 CPU_GEN_RULES = [
@@ -114,8 +114,15 @@ def normalize_disk_gb(raw_gb: int) -> int:
 
 
 def normalize_ram_gb(raw_gb: int) -> int:
-    """Snap to nearest standard RAM size."""
-    return min(RAM_STANDARDS, key=lambda s: abs(s - raw_gb))
+    """Snap to a standard RAM size only when the deviation is small (63/65 → 64).
+
+    Серверные объёмы не только степени двойки: 96/192/384/768 — легальные
+    6-канальные конфиги, их нельзя «прилипать» к 64/128/256 (ломает matching).
+    """
+    nearest = min(RAM_STANDARDS, key=lambda s: abs(s - raw_gb))
+    if abs(nearest - raw_gb) <= max(2, raw_gb * 0.05):
+        return nearest
+    return int(raw_gb)
 
 
 def extract_cpu_generation(model: str) -> str:
@@ -378,11 +385,12 @@ def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
     cpu_sockets = cpu_info.get("count") or 1
     cores_per_cpu = cpu_info.get("cores_per_cpu") or 0
 
-    # Quantity: API отдаёт готовое поле quantity; в payload его не было — суммируем по локациям
-    quantity = cfg.get("quantity") or 0
-    if not quantity:
-        available = cfg.get("available") or []
-        quantity = sum(a.get("count", 0) for a in available if isinstance(a, dict))
+    # Quantity: сумма available[].count по всем ДЦ (= бейдж «N шт.» на сайте).
+    # Поле quantity API — константа 1 (мин. заказ), НЕ наличие — фолбэк, если available нет.
+    available = cfg.get("available") or []
+    quantity = sum(a.get("count", 0) for a in available if isinstance(a, dict))
+    if not available:
+        quantity = cfg.get("quantity") or 0
 
     return {
         "provider": "selectel",

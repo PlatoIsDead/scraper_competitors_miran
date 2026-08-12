@@ -90,13 +90,26 @@ def _pool_type(pool) -> str:
     return pool["disk_type"] if isinstance(pool, dict) else pool.disk_type
 
 
+# Иерархия «качества» типа: апгрейд = оффер строго выше по рангу
+DISK_TYPE_RANK = {"HDD": 0, "SSD": 1, "NVMe": 2}
+
+
+def _disk_type_ok(ref_type: str, offer_type: str, rules: MatchingRules) -> bool:
+    if not rules.disk_type_must_match or offer_type == ref_type:
+        return True
+    if rules.disk_type_allow_upgrade:
+        return DISK_TYPE_RANK.get(offer_type, -1) > DISK_TYPE_RANK.get(ref_type, 99)
+    return False
+
+
 def disks_match(
     ref_pools, offer_pools, rules: MatchingRules
 ) -> tuple[bool, float]:
     """Жадное сопоставление пулов по убыванию ёмкости.
 
-    Каждому эталонному пулу ищется свободный пул оффера с тем же типом
-    (NVMe ≠ SSD) и ёмкостью по disk_rule. Лишние пулы оффера не мешают.
+    Каждому эталонному пулу ищется свободный пул оффера с подходящим типом
+    (тот же; при disk_type_allow_upgrade NVMe закрывает SSD/HDD, SSD — HDD)
+    и ёмкостью по disk_rule. Лишние пулы оффера не мешают.
     Возвращает (прошёл ли гейт, среднее отклонение ёмкости в %).
     """
     if not ref_pools or not offer_pools:
@@ -113,7 +126,7 @@ def disks_match(
         for j, offer_pool in enumerate(offer_sorted):
             if used[j]:
                 continue
-            if rules.disk_type_must_match and _pool_type(offer_pool) != _pool_type(ref_pool):
+            if not _disk_type_ok(_pool_type(ref_pool), _pool_type(offer_pool), rules):
                 continue
             offer_cap = _pool_capacity(offer_pool)
             if rules.disk_rule == "gte":
