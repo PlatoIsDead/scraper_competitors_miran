@@ -1,27 +1,348 @@
 {
-  "generated_from": "Март_26_SilverGold",
-  "generated_at": "2026-07-29",
+  "generated_from": "Parser.xlsx / Данные",
+  "generated_at": "2026-08-17",
   "configs": [
     {
       "config_id": "MIR-001",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
-      "ram_gb": 64,
+      "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 8,
       "disk_pools": [
         {
-          "disk_type": "SSD",
+          "disk_type": "HDD",
           "disk_count": 2,
-          "disk_size_gb": 1000
+          "disk_size_gb": 3000
         }
       ],
-      "source_row": 5
+      "miran_price": 7100.0,
+      "source_row": 3
     },
     {
       "config_id": "MIR-002",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
+      "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 8200.0,
+      "source_row": 4
+    },
+    {
+      "config_id": "MIR-003",
+      "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 7200.0,
+      "source_row": 5
+    },
+    {
+      "config_id": "MIR-004",
+      "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 3000
+        }
+      ],
+      "miran_price": 8550.0,
+      "source_row": 6
+    },
+    {
+      "config_id": "MIR-005",
+      "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 8200.0,
+      "source_row": 7
+    },
+    {
+      "config_id": "MIR-006",
+      "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 9150.0,
+      "source_row": 8
+    },
+    {
+      "config_id": "MIR-007",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 3000
+        }
+      ],
+      "miran_price": 8800.0,
+      "source_row": 10
+    },
+    {
+      "config_id": "MIR-008",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 8400.0,
+      "source_row": 11
+    },
+    {
+      "config_id": "MIR-009",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 9400.0,
+      "source_row": 12
+    },
+    {
+      "config_id": "MIR-010",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 10900.0,
+      "source_row": 13
+    },
+    {
+      "config_id": "MIR-011",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 13100.0,
+      "source_row": 14
+    },
+    {
+      "config_id": "MIR-012",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 4000
+        }
+      ],
+      "miran_price": 16700.0,
+      "source_row": 15
+    },
+    {
+      "config_id": "MIR-013",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 6000
+        }
+      ],
+      "miran_price": 10900.0,
+      "source_row": 16
+    },
+    {
+      "config_id": "MIR-014",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 8000
+        }
+      ],
+      "miran_price": 11600.0,
+      "source_row": 17
+    },
+    {
+      "config_id": "MIR-015",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 11600.0,
+      "source_row": 18
+    },
+    {
+      "config_id": "MIR-016",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 13900.0,
+      "source_row": 19
+    },
+    {
+      "config_id": "MIR-017",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 512
+        }
+      ],
+      "miran_price": 10300.0,
+      "source_row": 20
+    },
+    {
+      "config_id": "MIR-018",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 4,
+          "disk_size_gb": 512
+        }
+      ],
+      "miran_price": 12100.0,
+      "source_row": 21
+    },
+    {
+      "config_id": "MIR-019",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 10000
+        }
+      ],
+      "miran_price": 15250.0,
+      "source_row": 22
+    },
+    {
+      "config_id": "MIR-020",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 512
+        }
+      ],
+      "miran_price": 11900.0,
+      "source_row": 23
+    },
+    {
+      "config_id": "MIR-021",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 13300.0,
+      "source_row": 24
+    },
+    {
+      "config_id": "MIR-022",
+      "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
       "ram_gb": 64,
       "disk_pools": [
         {
@@ -30,13 +351,302 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 6
+      "miran_price": 15500.0,
+      "source_row": 25
     },
     {
-      "config_id": "MIR-003",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
+      "config_id": "MIR-023",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 3000
+        }
+      ],
+      "miran_price": 8800.0,
+      "source_row": 27
+    },
+    {
+      "config_id": "MIR-024",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 9400.0,
+      "source_row": 28
+    },
+    {
+      "config_id": "MIR-025",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 10900.0,
+      "source_row": 29
+    },
+    {
+      "config_id": "MIR-026",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 6000
+        }
+      ],
+      "miran_price": 10900.0,
+      "source_row": 30
+    },
+    {
+      "config_id": "MIR-027",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 3000
+        }
+      ],
+      "miran_price": 9650.0,
+      "source_row": 31
+    },
+    {
+      "config_id": "MIR-028",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 10250.0,
+      "source_row": 32
+    },
+    {
+      "config_id": "MIR-029",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 4,
+          "disk_size_gb": 512
+        }
+      ],
+      "miran_price": 12100.0,
+      "source_row": 33
+    },
+    {
+      "config_id": "MIR-030",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 11600.0,
+      "source_row": 34
+    },
+    {
+      "config_id": "MIR-031",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 3000
+        }
+      ],
+      "miran_price": 11200.0,
+      "source_row": 35
+    },
+    {
+      "config_id": "MIR-032",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 11900.0,
+      "source_row": 36
+    },
+    {
+      "config_id": "MIR-033",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 13300.0,
+      "source_row": 37
+    },
+    {
+      "config_id": "MIR-034",
+      "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 9150.0,
+      "source_row": 38
+    },
+    {
+      "config_id": "MIR-035",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 12700.0,
+      "source_row": 40
+    },
+    {
+      "config_id": "MIR-036",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 12100.0,
+      "source_row": 41
+    },
+    {
+      "config_id": "MIR-037",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 13400.0,
+      "source_row": 42
+    },
+    {
+      "config_id": "MIR-038",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 13900.0,
+      "source_row": 43
+    },
+    {
+      "config_id": "MIR-039",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 13400.0,
+      "source_row": 44
+    },
+    {
+      "config_id": "MIR-040",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 14900.0,
+      "source_row": 45
+    },
+    {
+      "config_id": "MIR-041",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
       "ram_gb": 64,
       "disk_pools": [
         {
@@ -45,13 +655,610 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 7
+      "miran_price": 15250.0,
+      "source_row": 46
     },
     {
-      "config_id": "MIR-004",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
+      "config_id": "MIR-042",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 17700.0,
+      "source_row": 47
+    },
+    {
+      "config_id": "MIR-043",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 18200.0,
+      "source_row": 48
+    },
+    {
+      "config_id": "MIR-044",
+      "cpu_model": "Intel Xeon E-2234",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 21250.0,
+      "source_row": 49
+    },
+    {
+      "config_id": "MIR-045",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 11000.0,
+      "source_row": 51
+    },
+    {
+      "config_id": "MIR-046",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 11600.0,
+      "source_row": 52
+    },
+    {
+      "config_id": "MIR-047",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 13200.0,
+      "source_row": 53
+    },
+    {
+      "config_id": "MIR-048",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 4000
+        }
+      ],
+      "miran_price": 19400.0,
+      "source_row": 54
+    },
+    {
+      "config_id": "MIR-049",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 13450.0,
+      "source_row": 55
+    },
+    {
+      "config_id": "MIR-050",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 16500.0,
+      "source_row": 56
+    },
+    {
+      "config_id": "MIR-051",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 10000
+        }
+      ],
+      "miran_price": 15150.0,
+      "source_row": 57
+    },
+    {
+      "config_id": "MIR-052",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 13200.0,
+      "source_row": 58
+    },
+    {
+      "config_id": "MIR-053",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 14500.0,
+      "source_row": 59
+    },
+    {
+      "config_id": "MIR-054",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 17400.0,
+      "source_row": 60
+    },
+    {
+      "config_id": "MIR-055",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 17700.0,
+      "source_row": 61
+    },
+    {
+      "config_id": "MIR-056",
+      "cpu_model": "Intel Xeon E-2236",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 20750.0,
+      "source_row": 62
+    },
+    {
+      "config_id": "MIR-057",
+      "cpu_model": "Intel Xeon E-2246G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 512
+        },
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 13200.0,
+      "source_row": 64
+    },
+    {
+      "config_id": "MIR-058",
+      "cpu_model": "Intel Xeon E-2246G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 13800.0,
+      "source_row": 65
+    },
+    {
+      "config_id": "MIR-059",
+      "cpu_model": "Intel Xeon E-2246G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 512
+        },
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 14500.0,
+      "source_row": 66
+    },
+    {
+      "config_id": "MIR-060",
+      "cpu_model": "Intel Xeon E-2246G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 4,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 15750.0,
+      "source_row": 67
+    },
+    {
+      "config_id": "MIR-061",
+      "cpu_model": "Intel Xeon E-2246G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 15100.0,
+      "source_row": 68
+    },
+    {
+      "config_id": "MIR-062",
+      "cpu_model": "Intel Xeon E-2274G",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 12700.0,
+      "source_row": 70
+    },
+    {
+      "config_id": "MIR-063",
+      "cpu_model": "Intel Xeon E-2274G",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 14000.0,
+      "source_row": 71
+    },
+    {
+      "config_id": "MIR-064",
+      "cpu_model": "Intel Xeon E-2274G",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        },
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 15000.0,
+      "source_row": 72
+    },
+    {
+      "config_id": "MIR-065",
+      "cpu_model": "Intel Xeon E-2274G",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 14000.0,
+      "source_row": 73
+    },
+    {
+      "config_id": "MIR-066",
+      "cpu_model": "Intel Xeon E-2274G",
+      "cpu_cores_per_socket": 4,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 18300.0,
+      "source_row": 74
+    },
+    {
+      "config_id": "MIR-067",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 12100.0,
+      "source_row": 76
+    },
+    {
+      "config_id": "MIR-068",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 16,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 13400.0,
+      "source_row": 77
+    },
+    {
+      "config_id": "MIR-069",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 12700.0,
+      "source_row": 78
+    },
+    {
+      "config_id": "MIR-070",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 14000.0,
+      "source_row": 79
+    },
+    {
+      "config_id": "MIR-071",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 14500.0,
+      "source_row": 80
+    },
+    {
+      "config_id": "MIR-072",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 17600.0,
+      "source_row": 81
+    },
+    {
+      "config_id": "MIR-073",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 14000.0,
+      "source_row": 82
+    },
+    {
+      "config_id": "MIR-074",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        },
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 15000.0,
+      "source_row": 83
+    },
+    {
+      "config_id": "MIR-075",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 15600.0,
+      "source_row": 84
+    },
+    {
+      "config_id": "MIR-076",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 17700.0,
+      "source_row": 85
+    },
+    {
+      "config_id": "MIR-077",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 15900.0,
+      "source_row": 86
+    },
+    {
+      "config_id": "MIR-078",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
       "ram_gb": 64,
       "disk_pools": [
         {
@@ -60,13 +1267,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 8
+      "miran_price": 18900.0,
+      "source_row": 87
     },
     {
-      "config_id": "MIR-005",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
+      "config_id": "MIR-079",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -75,28 +1283,35 @@
           "disk_size_gb": 480
         }
       ],
-      "source_row": 9
+      "miran_price": 17000.0,
+      "source_row": 88
     },
     {
-      "config_id": "MIR-006",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
+      "config_id": "MIR-080",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
       "ram_gb": 128,
       "disk_pools": [
         {
           "disk_type": "SSD",
           "disk_count": 2,
+          "disk_size_gb": 480
+        },
+        {
+          "disk_type": "HDD",
+          "disk_count": 2,
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 10
+      "miran_price": 17700.0,
+      "source_row": 89
     },
     {
-      "config_id": "MIR-007",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
+      "config_id": "MIR-081",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -105,43 +1320,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 11
+      "miran_price": 21350.0,
+      "source_row": 90
     },
     {
-      "config_id": "MIR-008",
-      "cpu_model": "Intel Xeon Silver 4214",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
-      "ram_gb": 128,
-      "disk_pools": [
-        {
-          "disk_type": "NVMe",
-          "disk_count": 2,
-          "disk_size_gb": 1000
-        }
-      ],
-      "source_row": 12
-    },
-    {
-      "config_id": "MIR-009",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
-      "ram_gb": 128,
-      "disk_pools": [
-        {
-          "disk_type": "NVMe",
-          "disk_count": 2,
-          "disk_size_gb": 1000
-        }
-      ],
-      "source_row": 13
-    },
-    {
-      "config_id": "MIR-010",
-      "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 12,
+      "config_id": "MIR-082",
+      "cpu_model": "Intel Xeon E-2278G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -150,13 +1336,702 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 14
+      "miran_price": 22570.0,
+      "source_row": 91
     },
     {
-      "config_id": "MIR-011",
+      "config_id": "MIR-083",
+      "cpu_model": "Intel Xeon E-2356G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 16500.0,
+      "source_row": 93
+    },
+    {
+      "config_id": "MIR-084",
+      "cpu_model": "Intel Xeon E-2356G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 20000.0,
+      "source_row": 94
+    },
+    {
+      "config_id": "MIR-085",
+      "cpu_model": "Intel Xeon E-2356G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 23000.0,
+      "source_row": 95
+    },
+    {
+      "config_id": "MIR-086",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 14600.0,
+      "source_row": 97
+    },
+    {
+      "config_id": "MIR-087",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 16200.0,
+      "source_row": 98
+    },
+    {
+      "config_id": "MIR-088",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 16500.0,
+      "source_row": 99
+    },
+    {
+      "config_id": "MIR-089",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 17600.0,
+      "source_row": 100
+    },
+    {
+      "config_id": "MIR-090",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 19900.0,
+      "source_row": 101
+    },
+    {
+      "config_id": "MIR-091",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 18100.0,
+      "source_row": 102
+    },
+    {
+      "config_id": "MIR-092",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 21100.0,
+      "source_row": 103
+    },
+    {
+      "config_id": "MIR-093",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 20500.0,
+      "source_row": 104
+    },
+    {
+      "config_id": "MIR-094",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 22600.0,
+      "source_row": 105
+    },
+    {
+      "config_id": "MIR-095",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 20750.0,
+      "source_row": 106
+    },
+    {
+      "config_id": "MIR-096",
+      "cpu_model": "Intel Xeon E-2378G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 23800.0,
+      "source_row": 107
+    },
+    {
+      "config_id": "MIR-097",
+      "cpu_model": "Intel Xeon E-2386G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 109
+    },
+    {
+      "config_id": "MIR-098",
+      "cpu_model": "Intel Xeon E-2386G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 110
+    },
+    {
+      "config_id": "MIR-099",
+      "cpu_model": "Intel Xeon E-2386G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 111
+    },
+    {
+      "config_id": "MIR-100",
+      "cpu_model": "Intel Xeon E-2386G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 112
+    },
+    {
+      "config_id": "MIR-101",
+      "cpu_model": "Intel Xeon E-2386G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 4000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 113
+    },
+    {
+      "config_id": "MIR-102",
+      "cpu_model": "Intel Xeon E-2386G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 4000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 114
+    },
+    {
+      "config_id": "MIR-103",
+      "cpu_model": "Intel Xeon E-2386G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 115
+    },
+    {
+      "config_id": "MIR-104",
+      "cpu_model": "Intel Xeon E-2386G",
+      "cpu_cores_per_socket": 6,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 116
+    },
+    {
+      "config_id": "MIR-105",
+      "cpu_model": "Intel Xeon E-2388G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 118
+    },
+    {
+      "config_id": "MIR-106",
+      "cpu_model": "Intel Xeon E-2388G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 119
+    },
+    {
+      "config_id": "MIR-107",
+      "cpu_model": "Intel Xeon E-2388G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 120
+    },
+    {
+      "config_id": "MIR-108",
+      "cpu_model": "Intel Xeon E-2388G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 121
+    },
+    {
+      "config_id": "MIR-109",
+      "cpu_model": "Intel Xeon E-2388G",
+      "cpu_cores_per_socket": 8,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 4000
+        }
+      ],
+      "miran_price": null,
+      "source_row": 122
+    },
+    {
+      "config_id": "MIR-110",
+      "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_cores_per_socket": 16,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 23700.0,
+      "source_row": 124
+    },
+    {
+      "config_id": "MIR-111",
+      "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_cores_per_socket": 16,
+      "cpu_sockets": 1,
+      "ram_gb": 32,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 23100.0,
+      "source_row": 125
+    },
+    {
+      "config_id": "MIR-112",
+      "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_cores_per_socket": 16,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 25300.0,
+      "source_row": 126
+    },
+    {
+      "config_id": "MIR-113",
+      "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_cores_per_socket": 16,
+      "cpu_sockets": 1,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 27100.0,
+      "source_row": 127
+    },
+    {
+      "config_id": "MIR-114",
+      "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_cores_per_socket": 16,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 27700.0,
+      "source_row": 128
+    },
+    {
+      "config_id": "MIR-115",
+      "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_cores_per_socket": 16,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 29500.0,
+      "source_row": 129
+    },
+    {
+      "config_id": "MIR-116",
+      "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_cores_per_socket": 16,
+      "cpu_sockets": 1,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 30700.0,
+      "source_row": 130
+    },
+    {
+      "config_id": "MIR-117",
       "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 32208.0,
+      "source_row": 132
+    },
+    {
+      "config_id": "MIR-118",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1900
+        }
+      ],
+      "miran_price": 34526.0,
+      "source_row": 133
+    },
+    {
+      "config_id": "MIR-119",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 39894.0,
+      "source_row": 134
+    },
+    {
+      "config_id": "MIR-120",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 64,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 42944.0,
+      "source_row": 135
+    },
+    {
+      "config_id": "MIR-121",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 480
+        }
+      ],
+      "miran_price": 33550.0,
+      "source_row": 136
+    },
+    {
+      "config_id": "MIR-122",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 35136.0,
+      "source_row": 137
+    },
+    {
+      "config_id": "MIR-123",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "SSD",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 37210.0,
+      "source_row": 138
+    },
+    {
+      "config_id": "MIR-124",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 41114.0,
+      "source_row": 139
+    },
+    {
+      "config_id": "MIR-125",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 2000
+        }
+      ],
+      "miran_price": 44164.0,
+      "source_row": 141
+    },
+    {
+      "config_id": "MIR-126",
+      "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -170,13 +2045,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 15
+      "miran_price": 49654.0,
+      "source_row": 142
     },
     {
-      "config_id": "MIR-012",
+      "config_id": "MIR-127",
       "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -185,28 +2061,30 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 16
+      "miran_price": 48678.0,
+      "source_row": 143
     },
     {
-      "config_id": "MIR-013",
+      "config_id": "MIR-128",
       "cpu_model": "Intel Xeon Silver 4214R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
           "disk_type": "SSD",
           "disk_count": 2,
-          "disk_size_gb": 2000
+          "disk_size_gb": 1900
         }
       ],
-      "source_row": 17
+      "miran_price": 41358.0,
+      "source_row": 144
     },
     {
-      "config_id": "MIR-014",
+      "config_id": "MIR-129",
       "cpu_model": "Intel Xeon Silver 4215R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 8,
+      "cpu_sockets": 2,
       "ram_gb": 64,
       "disk_pools": [
         {
@@ -215,13 +2093,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 19
+      "miran_price": 34160.0,
+      "source_row": 146
     },
     {
-      "config_id": "MIR-015",
+      "config_id": "MIR-130",
       "cpu_model": "Intel Xeon Silver 4215R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 8,
+      "cpu_sockets": 2,
       "ram_gb": 96,
       "disk_pools": [
         {
@@ -230,13 +2109,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 20
+      "miran_price": 37820.0,
+      "source_row": 147
     },
     {
-      "config_id": "MIR-016",
+      "config_id": "MIR-131",
       "cpu_model": "Intel Xeon Silver 4215R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 8,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -245,13 +2125,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 21
+      "miran_price": 43188.0,
+      "source_row": 148
     },
     {
-      "config_id": "MIR-017",
+      "config_id": "MIR-132",
       "cpu_model": "Intel Xeon Silver 4215R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 8,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -260,13 +2141,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 22
+      "miran_price": 50630.0,
+      "source_row": 149
     },
     {
-      "config_id": "MIR-018",
+      "config_id": "MIR-133",
       "cpu_model": "Intel Xeon Silver 4215R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 8,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -280,13 +2162,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 23
+      "miran_price": 51728.0,
+      "source_row": 150
     },
     {
-      "config_id": "MIR-019",
+      "config_id": "MIR-134",
       "cpu_model": "Intel Xeon Silver 4215R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 8,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -300,13 +2183,14 @@
           "disk_size_gb": 480
         }
       ],
-      "source_row": 24
+      "miran_price": 49288.0,
+      "source_row": 151
     },
     {
-      "config_id": "MIR-020",
+      "config_id": "MIR-135",
       "cpu_model": "Intel Xeon Gold 5218R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 20,
+      "cpu_sockets": 2,
       "ram_gb": 64,
       "disk_pools": [
         {
@@ -315,13 +2199,14 @@
           "disk_size_gb": 480
         }
       ],
-      "source_row": 26
+      "miran_price": 40870.0,
+      "source_row": 153
     },
     {
-      "config_id": "MIR-021",
+      "config_id": "MIR-136",
       "cpu_model": "Intel Xeon Gold 5218R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 20,
+      "cpu_sockets": 2,
       "ram_gb": 64,
       "disk_pools": [
         {
@@ -330,13 +2215,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 27
+      "miran_price": 42456.0,
+      "source_row": 154
     },
     {
-      "config_id": "MIR-022",
+      "config_id": "MIR-137",
       "cpu_model": "Intel Xeon Gold 5218R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 20,
+      "cpu_sockets": 2,
       "ram_gb": 64,
       "disk_pools": [
         {
@@ -345,13 +2231,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 28
+      "miran_price": 48434.0,
+      "source_row": 155
     },
     {
-      "config_id": "MIR-023",
+      "config_id": "MIR-138",
       "cpu_model": "Intel Xeon Gold 5218R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 20,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -360,13 +2247,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 29
+      "miran_price": 45140.0,
+      "source_row": 156
     },
     {
-      "config_id": "MIR-024",
+      "config_id": "MIR-139",
       "cpu_model": "Intel Xeon Gold 5218R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 20,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -375,13 +2263,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 30
+      "miran_price": 52948.0,
+      "source_row": 157
     },
     {
-      "config_id": "MIR-025",
+      "config_id": "MIR-140",
       "cpu_model": "Intel Xeon Gold 5218R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 20,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -390,13 +2279,14 @@
           "disk_size_gb": 480
         }
       ],
-      "source_row": 31
+      "miran_price": 46726.0,
+      "source_row": 158
     },
     {
-      "config_id": "MIR-026",
+      "config_id": "MIR-141",
       "cpu_model": "Intel Xeon Gold 5218R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 20,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -405,28 +2295,30 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 32
+      "miran_price": 49288.0,
+      "source_row": 159
     },
     {
-      "config_id": "MIR-027",
+      "config_id": "MIR-142",
       "cpu_model": "Intel Xeon Gold 5218R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 20,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
           "disk_type": "SSD",
           "disk_count": 2,
-          "disk_size_gb": 2000
+          "disk_size_gb": 1900
         }
       ],
-      "source_row": 33
+      "miran_price": 56486.0,
+      "source_row": 160
     },
     {
-      "config_id": "MIR-028",
+      "config_id": "MIR-143",
       "cpu_model": "Intel Xeon Gold 6240",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 18,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -435,13 +2327,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 35
+      "miran_price": 51240.0,
+      "source_row": 162
     },
     {
-      "config_id": "MIR-029",
+      "config_id": "MIR-144",
       "cpu_model": "Intel Xeon Gold 6240",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 18,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -455,13 +2348,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 36
+      "miran_price": 60024.0,
+      "source_row": 163
     },
     {
-      "config_id": "MIR-030",
+      "config_id": "MIR-145",
       "cpu_model": "Intel Xeon Gold 6240",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 18,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -470,13 +2364,14 @@
           "disk_size_gb": 480
         }
       ],
-      "source_row": 37
+      "miran_price": 46726.0,
+      "source_row": 164
     },
     {
-      "config_id": "MIR-031",
+      "config_id": "MIR-146",
       "cpu_model": "Intel Xeon Gold 6240",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 18,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -485,13 +2380,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 38
+      "miran_price": 48068.0,
+      "source_row": 165
     },
     {
-      "config_id": "MIR-032",
+      "config_id": "MIR-147",
       "cpu_model": "Intel Xeon Gold 6240R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 24,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -500,13 +2396,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 39
+      "miran_price": 64050.0,
+      "source_row": 166
     },
     {
-      "config_id": "MIR-033",
+      "config_id": "MIR-148",
       "cpu_model": "Intel Xeon Gold 6240",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 18,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -515,13 +2412,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 40
+      "miran_price": 54168.0,
+      "source_row": 167
     },
     {
-      "config_id": "MIR-034",
+      "config_id": "MIR-149",
       "cpu_model": "Intel Xeon Gold 6240R",
+      "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
-      "cpu_cores_per_socket": 18,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -530,13 +2428,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 41
+      "miran_price": 61854.0,
+      "source_row": 168
     },
     {
-      "config_id": "MIR-035",
+      "config_id": "MIR-150",
       "cpu_model": "Intel Xeon Gold 6240R",
+      "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
-      "cpu_cores_per_socket": 18,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -550,13 +2449,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 42
+      "miran_price": 65880.0,
+      "source_row": 169
     },
     {
-      "config_id": "MIR-036",
+      "config_id": "MIR-151",
       "cpu_model": "Intel Xeon Gold 6240R",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 24,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -565,13 +2465,14 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 43
+      "miran_price": 87108.0,
+      "source_row": 170
     },
     {
-      "config_id": "MIR-037",
+      "config_id": "MIR-152",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 64,
       "disk_pools": [
         {
@@ -580,13 +2481,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 48
+      "miran_price": 41968.0,
+      "source_row": 175
     },
     {
-      "config_id": "MIR-038",
+      "config_id": "MIR-153",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -595,13 +2497,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 49
+      "miran_price": 43066.0,
+      "source_row": 176
     },
     {
-      "config_id": "MIR-039",
+      "config_id": "MIR-154",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -615,13 +2518,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 50
+      "miran_price": 47824.0,
+      "source_row": 177
     },
     {
-      "config_id": "MIR-040",
+      "config_id": "MIR-155",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -630,13 +2534,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 51
+      "miran_price": 44530.0,
+      "source_row": 178
     },
     {
-      "config_id": "MIR-041",
+      "config_id": "MIR-156",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -645,13 +2550,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 52
+      "miran_price": 44164.0,
+      "source_row": 179
     },
     {
-      "config_id": "MIR-042",
+      "config_id": "MIR-157",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -660,13 +2566,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 53
+      "miran_price": 48068.0,
+      "source_row": 180
     },
     {
-      "config_id": "MIR-043",
+      "config_id": "MIR-158",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -675,13 +2582,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 54
+      "miran_price": 49288.0,
+      "source_row": 181
     },
     {
-      "config_id": "MIR-044",
+      "config_id": "MIR-159",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -690,13 +2598,14 @@
           "disk_size_gb": 4000
         }
       ],
-      "source_row": 55
+      "miran_price": 56608.0,
+      "source_row": 182
     },
     {
-      "config_id": "MIR-045",
+      "config_id": "MIR-160",
       "cpu_model": "Intel Xeon Silver 4314",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 768,
       "disk_pools": [
         {
@@ -705,13 +2614,14 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 56
+      "miran_price": 65636.0,
+      "source_row": 183
     },
     {
-      "config_id": "MIR-046",
+      "config_id": "MIR-161",
       "cpu_model": "Intel Xeon Gold 5317",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -720,13 +2630,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 58
+      "miran_price": 49044.0,
+      "source_row": 185
     },
     {
-      "config_id": "MIR-047",
+      "config_id": "MIR-162",
       "cpu_model": "Intel Xeon Gold 5317",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -735,13 +2646,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 59
+      "miran_price": 52094.0,
+      "source_row": 186
     },
     {
-      "config_id": "MIR-048",
+      "config_id": "MIR-163",
       "cpu_model": "Intel Xeon Gold 5317",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 12,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -750,13 +2662,14 @@
           "disk_size_gb": 4000
         }
       ],
-      "source_row": 60
+      "miran_price": 57950.0,
+      "source_row": 187
     },
     {
-      "config_id": "MIR-049",
+      "config_id": "MIR-164",
       "cpu_model": "Intel Xeon Gold 5320",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 26,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -770,13 +2683,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 62
+      "miran_price": 53924.0,
+      "source_row": 189
     },
     {
-      "config_id": "MIR-050",
+      "config_id": "MIR-165",
       "cpu_model": "Intel Xeon Gold 5320",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 26,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -785,13 +2699,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 63
+      "miran_price": 52948.0,
+      "source_row": 190
     },
     {
-      "config_id": "MIR-051",
+      "config_id": "MIR-166",
       "cpu_model": "Intel Xeon Gold 5320",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 26,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -800,13 +2715,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 64
+      "miran_price": 55998.0,
+      "source_row": 191
     },
     {
-      "config_id": "MIR-052",
+      "config_id": "MIR-167",
       "cpu_model": "Intel Xeon Gold 6326",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -820,13 +2736,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 66
+      "miran_price": 52704.0,
+      "source_row": 193
     },
     {
-      "config_id": "MIR-053",
+      "config_id": "MIR-168",
       "cpu_model": "Intel Xeon Gold 6326",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -835,13 +2752,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 67
+      "miran_price": 51728.0,
+      "source_row": 194
     },
     {
-      "config_id": "MIR-054",
+      "config_id": "MIR-169",
       "cpu_model": "Intel Xeon Gold 6326",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -850,13 +2768,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 68
+      "miran_price": 54778.0,
+      "source_row": 195
     },
     {
-      "config_id": "MIR-055",
+      "config_id": "MIR-170",
       "cpu_model": "Intel Xeon Gold 6326",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -865,13 +2784,14 @@
           "disk_size_gb": 4000
         }
       ],
-      "source_row": 69
+      "miran_price": 60634.0,
+      "source_row": 196
     },
     {
-      "config_id": "MIR-056",
+      "config_id": "MIR-171",
       "cpu_model": "Intel Xeon Gold 6326",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 768,
       "disk_pools": [
         {
@@ -880,13 +2800,14 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 70
+      "miran_price": 73200.0,
+      "source_row": 197
     },
     {
-      "config_id": "MIR-057",
+      "config_id": "MIR-172",
       "cpu_model": "Intel Xeon Gold 6338",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -895,13 +2816,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 72
+      "miran_price": 54900.0,
+      "source_row": 199
     },
     {
-      "config_id": "MIR-058",
+      "config_id": "MIR-173",
       "cpu_model": "Intel Xeon Gold 6338",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -910,13 +2832,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 73
+      "miran_price": 57950.0,
+      "source_row": 200
     },
     {
-      "config_id": "MIR-059",
+      "config_id": "MIR-174",
       "cpu_model": "Intel Xeon Gold 6338",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -925,13 +2848,14 @@
           "disk_size_gb": 4000
         }
       ],
-      "source_row": 74
+      "miran_price": 63928.0,
+      "source_row": 201
     },
     {
-      "config_id": "MIR-060",
+      "config_id": "MIR-175",
       "cpu_model": "Intel Xeon Gold 6338",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 768,
       "disk_pools": [
         {
@@ -940,13 +2864,14 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 75
+      "miran_price": 76494.0,
+      "source_row": 202
     },
     {
-      "config_id": "MIR-061",
+      "config_id": "MIR-176",
       "cpu_model": "Intel Xeon Gold 6348",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 28,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -960,13 +2885,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 78
+      "miran_price": 59170.0,
+      "source_row": 205
     },
     {
-      "config_id": "MIR-062",
+      "config_id": "MIR-177",
       "cpu_model": "Intel Xeon Gold 6348",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 28,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -975,13 +2901,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 79
+      "miran_price": 58438.0,
+      "source_row": 206
     },
     {
-      "config_id": "MIR-063",
+      "config_id": "MIR-178",
       "cpu_model": "Intel Xeon Gold 6348",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 28,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -990,13 +2917,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 80
+      "miran_price": 61488.0,
+      "source_row": 207
     },
     {
-      "config_id": "MIR-064",
+      "config_id": "MIR-179",
       "cpu_model": "Intel Xeon Gold 6348",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 28,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -1005,13 +2933,14 @@
           "disk_size_gb": 4000
         }
       ],
-      "source_row": 81
+      "miran_price": 67344.0,
+      "source_row": 208
     },
     {
-      "config_id": "MIR-065",
+      "config_id": "MIR-180",
       "cpu_model": "Intel Xeon Gold 6348",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 28,
+      "cpu_sockets": 2,
       "ram_gb": 512,
       "disk_pools": [
         {
@@ -1020,13 +2949,14 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 82
+      "miran_price": 75030.0,
+      "source_row": 209
     },
     {
-      "config_id": "MIR-066",
+      "config_id": "MIR-181",
       "cpu_model": "Intel Xeon Gold 6348",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 28,
+      "cpu_sockets": 2,
       "ram_gb": 768,
       "disk_pools": [
         {
@@ -1035,43 +2965,14 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 83
+      "miran_price": 79788.0,
+      "source_row": 210
     },
     {
-      "config_id": "MIR-067",
-      "cpu_model": "Intel Xeon Gold 6336Y",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 24,
-      "ram_gb": 192,
-      "disk_pools": [
-        {
-          "disk_type": "SSD",
-          "disk_count": 2,
-          "disk_size_gb": 1000
-        }
-      ],
-      "source_row": 85
-    },
-    {
-      "config_id": "MIR-068",
-      "cpu_model": "Intel Xeon Gold 6336Y",
-      "cpu_sockets": 2,
-      "cpu_cores_per_socket": 24,
-      "ram_gb": 256,
-      "disk_pools": [
-        {
-          "disk_type": "NVMe",
-          "disk_count": 2,
-          "disk_size_gb": 2000
-        }
-      ],
-      "source_row": 86
-    },
-    {
-      "config_id": "MIR-069",
+      "config_id": "MIR-182",
       "cpu_model": "Intel Xeon Silver 4516Y+",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 24,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -1085,13 +2986,30 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 93
+      "miran_price": 55754.0,
+      "source_row": 215
     },
     {
-      "config_id": "MIR-070",
+      "config_id": "MIR-183",
       "cpu_model": "Intel Xeon Silver 4516Y+",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 24,
+      "cpu_sockets": 2,
+      "ram_gb": 128,
+      "disk_pools": [
+        {
+          "disk_type": "NVMe",
+          "disk_count": 2,
+          "disk_size_gb": 1000
+        }
+      ],
+      "miran_price": 52780.0,
+      "source_row": 216
+    },
+    {
+      "config_id": "MIR-184",
+      "cpu_model": "Intel Xeon Silver 4516Y+",
+      "cpu_cores_per_socket": 24,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -1100,13 +3018,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 94
+      "miran_price": 54656.0,
+      "source_row": 217
     },
     {
-      "config_id": "MIR-071",
+      "config_id": "MIR-185",
       "cpu_model": "Intel Xeon Silver 4516Y+",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 24,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -1115,13 +3034,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 95
+      "miran_price": 57706.0,
+      "source_row": 218
     },
     {
-      "config_id": "MIR-072",
+      "config_id": "MIR-186",
       "cpu_model": "Intel Xeon Silver 4516Y+",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 24,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -1130,13 +3050,14 @@
           "disk_size_gb": 4000
         }
       ],
-      "source_row": 96
+      "miran_price": 63440.0,
+      "source_row": 219
     },
     {
-      "config_id": "MIR-073",
+      "config_id": "MIR-187",
       "cpu_model": "Intel Xeon Silver 4516Y+",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 24,
+      "cpu_sockets": 2,
       "ram_gb": 768,
       "disk_pools": [
         {
@@ -1145,13 +3066,14 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 97
+      "miran_price": 76128.0,
+      "source_row": 220
     },
     {
-      "config_id": "MIR-074",
+      "config_id": "MIR-188",
       "cpu_model": "Intel Xeon Gold 6526Y",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -1160,13 +3082,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 99
+      "miran_price": 80866.0,
+      "source_row": 222
     },
     {
-      "config_id": "MIR-075",
+      "config_id": "MIR-189",
       "cpu_model": "Intel Xeon Gold 6526Y",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -1175,13 +3098,14 @@
           "disk_size_gb": 4000
         }
       ],
-      "source_row": 100
+      "miran_price": 86620.0,
+      "source_row": 223
     },
     {
-      "config_id": "MIR-076",
+      "config_id": "MIR-190",
       "cpu_model": "Intel Xeon Gold 6526Y",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 16,
+      "cpu_sockets": 2,
       "ram_gb": 768,
       "disk_pools": [
         {
@@ -1190,13 +3114,14 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 101
+      "miran_price": 99308.0,
+      "source_row": 224
     },
     {
-      "config_id": "MIR-077",
+      "config_id": "MIR-191",
       "cpu_model": "Intel Xeon Gold 6530",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 128,
       "disk_pools": [
         {
@@ -1210,13 +3135,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 103
+      "miran_price": 60878.0,
+      "source_row": 226
     },
     {
-      "config_id": "MIR-078",
+      "config_id": "MIR-192",
       "cpu_model": "Intel Xeon Gold 6530",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 192,
       "disk_pools": [
         {
@@ -1225,13 +3151,14 @@
           "disk_size_gb": 1000
         }
       ],
-      "source_row": 104
+      "miran_price": 59780.0,
+      "source_row": 227
     },
     {
-      "config_id": "MIR-079",
+      "config_id": "MIR-193",
       "cpu_model": "Intel Xeon Gold 6530",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 256,
       "disk_pools": [
         {
@@ -1240,13 +3167,14 @@
           "disk_size_gb": 2000
         }
       ],
-      "source_row": 105
+      "miran_price": 62830.0,
+      "source_row": 228
     },
     {
-      "config_id": "MIR-080",
+      "config_id": "MIR-194",
       "cpu_model": "Intel Xeon Gold 6530",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 384,
       "disk_pools": [
         {
@@ -1255,13 +3183,14 @@
           "disk_size_gb": 4000
         }
       ],
-      "source_row": 106
+      "miran_price": 68808.0,
+      "source_row": 229
     },
     {
-      "config_id": "MIR-081",
+      "config_id": "MIR-195",
       "cpu_model": "Intel Xeon Gold 6530",
-      "cpu_sockets": 2,
       "cpu_cores_per_socket": 32,
+      "cpu_sockets": 2,
       "ram_gb": 768,
       "disk_pools": [
         {
@@ -1270,27 +3199,24 @@
           "disk_size_gb": 8000
         }
       ],
-      "source_row": 107
+      "miran_price": 81374.0,
+      "source_row": 230
     },
     {
-      "config_id": "MIR-082",
-      "cpu_model": "Intel Xeon Gold 6448Y",
-      "cpu_sockets": 2,
+      "config_id": "MIR-196",
+      "cpu_model": "Intel Xeon Gold 6538Y+",
       "cpu_cores_per_socket": 32,
-      "ram_gb": 384,
+      "cpu_sockets": 2,
+      "ram_gb": 128,
       "disk_pools": [
         {
           "disk_type": "NVMe",
           "disk_count": 2,
-          "disk_size_gb": 4000
-        },
-        {
-          "disk_type": "HDD",
-          "disk_count": 2,
-          "disk_size_gb": 8000
+          "disk_size_gb": 2000
         }
       ],
-      "source_row": 111
+      "miran_price": 116998.0,
+      "source_row": 233
     }
   ]
 }

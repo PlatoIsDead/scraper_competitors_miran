@@ -30,6 +30,17 @@ def test_normalize_disk_gb():
     assert normalize_disk_gb(250) == 240
 
 
+def test_normalize_disk_gb_far_values_stay():
+    """Далёкие от сетки размеры не прилипают: 1.6 ТБ ≠ 2 ТБ, 6 ТБ ≠ 4 ТБ.
+    Эквивалентность маркетинговых размеров решает disk_classes.json."""
+    assert normalize_disk_gb(1600) == 1600
+    assert normalize_disk_gb(1500) == 1500
+    assert normalize_disk_gb(3000) == 3000
+    assert normalize_disk_gb(6000) == 6000
+    assert normalize_disk_gb(10000) == 10000
+    assert normalize_disk_gb(15360) == 15360
+
+
 def test_normalize_ram_gb():
     """Test RAM snapping: only near-misses snap, standards stay themselves."""
     assert normalize_ram_gb(63) == 64

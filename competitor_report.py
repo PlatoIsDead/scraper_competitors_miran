@@ -74,6 +74,7 @@ def build_wide_df(
             "cpu_cores_per_socket": ref.cpu_cores_per_socket,
             "ram_gb": ref.ram_gb,
             "disks": format_disk_pools(ref.disk_pools),
+            "miran_price": ref.miran_price,
         }
         by_competitor: dict[str, list[MatchResult]] = {}
         for m in matches.get(ref.config_id, []):

@@ -205,6 +205,131 @@ class TestDisksMatch:
         assert ok
 
 
+class TestDisksMatchByClass:
+    """Правила ТЗ 2026-08: размеры эквивалентны в пределах класса
+    (960 ≈ 1000 ≈ 1 ТБ), количество дисков учитывается строго."""
+
+    CLASSES = {960: 960, 1000: 960, 1900: 1900, 1920: 1900, 2000: 1900}
+    RULES_CLASS = MatchingRules(**{**RULES.__dict__, "disk_rule": "class"})
+
+    def _pools(self, *specs):
+        return tuple(
+            {"disk_type": t, "disk_count": c, "disk_size_gb": s}
+            for t, c, s in specs
+        )
+
+    def test_client_example_split_pools_equal(self):
+        # 2×960 + 8×1000 = 10×1ТБ (один класс, суммы совпадают)
+        ok, dev = disks_match(
+            self._pools(("SSD", 2, 960), ("SSD", 8, 1000)),
+            self._pools(("SSD", 10, 1000)),
+            self.RULES_CLASS, self.CLASSES,
+        )
+        assert ok and dev == 0.0
+
+    def test_client_example_mixed_split_equal(self):
+        # 2×960 + 8×1000 = 2×960 + 8×1ТБ
+        ok, _ = disks_match(
+            self._pools(("SSD", 2, 960), ("SSD", 8, 1000)),
+            self._pools(("SSD", 2, 960), ("SSD", 8, 1000)),
+            self.RULES_CLASS, self.CLASSES,
+        )
+        assert ok
+
+    def test_client_example_count_shortfall_fails(self):
+        # 2×960 + 8×1000 ≠ 2×960
+        ok, _ = disks_match(
+            self._pools(("SSD", 2, 960), ("SSD", 8, 1000)),
+            self._pools(("SSD", 2, 960)),
+            self.RULES_CLASS, self.CLASSES,
+        )
+        assert not ok
+
+    def test_extra_offer_disks_fail(self):
+        # оффер с лишними дисками = другая конфигурация
+        ok, _ = disks_match(
+            self._pools(("SSD", 2, 960)),
+            self._pools(("SSD", 2, 960), ("SSD", 8, 1000)),
+            self.RULES_CLASS, self.CLASSES,
+        )
+        assert not ok
+
+    def test_different_class_fails(self):
+        # 1 ТБ и 2 ТБ — разные классы
+        ok, _ = disks_match(
+            self._pools(("SSD", 2, 1000)),
+            self._pools(("SSD", 2, 2000)),
+            self.RULES_CLASS, self.CLASSES,
+        )
+        assert not ok
+
+    def test_class_variants_equal(self):
+        # 1920 ≈ 1900 ≈ 2000 — один класс из файла сопоставления
+        ok, _ = disks_match(
+            self._pools(("SSD", 2, 1920)),
+            self._pools(("SSD", 2, 2000)),
+            self.RULES_CLASS, self.CLASSES,
+        )
+        assert ok
+
+    def test_upgrade_nvme_covers_ssd(self):
+        rules = MatchingRules(
+            **{**self.RULES_CLASS.__dict__, "disk_type_allow_upgrade": True}
+        )
+        ok, _ = disks_match(
+            self._pools(("SSD", 2, 960)),
+            self._pools(("NVMe", 2, 1000)),
+            rules, self.CLASSES,
+        )
+        assert ok
+
+    def test_upgrade_one_way_only(self):
+        rules = MatchingRules(
+            **{**self.RULES_CLASS.__dict__, "disk_type_allow_upgrade": True}
+        )
+        ok, _ = disks_match(
+            self._pools(("NVMe", 2, 960)),
+            self._pools(("SSD", 2, 960)),
+            rules, self.CLASSES,
+        )
+        assert not ok
+
+    def test_upgrade_does_not_starve_nvme_demand(self):
+        # NVMe-диски оффера сперва закрывают NVMe-требование, SSD — апгрейдом
+        rules = MatchingRules(
+            **{**self.RULES_CLASS.__dict__, "disk_type_allow_upgrade": True}
+        )
+        ok, _ = disks_match(
+            self._pools(("SSD", 2, 960), ("NVMe", 2, 960)),
+            self._pools(("NVMe", 4, 960)),
+            rules, self.CLASSES,
+        )
+        assert ok
+
+    def test_unknown_size_identity_class(self):
+        # размера нет в словаре классов — совпадает только сам с собой
+        ok, _ = disks_match(
+            self._pools(("HDD", 2, 6000)),
+            self._pools(("HDD", 2, 6000)),
+            self.RULES_CLASS, self.CLASSES,
+        )
+        assert ok
+        ok, _ = disks_match(
+            self._pools(("HDD", 2, 6000)),
+            self._pools(("HDD", 2, 8000)),
+            self.RULES_CLASS, self.CLASSES,
+        )
+        assert not ok
+
+
+class TestStrictRam:
+    def test_zero_tolerance_requires_exact(self):
+        rules = MatchingRules(**{**RULES.__dict__, "ram_tolerance_pct": 0})
+        assert match_offer(REF, _offer(ram_gb=64), rules, SPECS) is not None
+        assert match_offer(REF, _offer(ram_gb=63), rules, SPECS) is None
+        assert match_offer(REF, _offer(ram_gb=96), rules, SPECS) is None
+
+
 class TestMatchOffer:
     def test_perfect_match_scores_100(self):
         m = match_offer(REF, _offer(), RULES, SPECS)
@@ -236,6 +361,12 @@ class TestMatchOffer:
 
     def test_wrong_cpu_rejected(self):
         assert match_offer(REF, _offer(cpu_model="AMD EPYC 9334"), RULES, SPECS) is None
+
+    def test_socket_count_mismatch_rejected(self):
+        # 1 × Silver 4214R не закрывает эталон 2 × Silver 4214R,
+        # даже если опубликованные ядра пролезают в допуск
+        offer = _offer(cpu_sockets=1, cpu_cores_total=20)
+        assert match_offer(REF, offer, RULES, SPECS) is None
 
 
 class TestMatchAll:

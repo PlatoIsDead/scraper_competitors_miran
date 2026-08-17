@@ -40,12 +40,14 @@ def run_competitor_pipeline() -> int:
     from competitor_pipeline import run as pipeline_run
     from competitor_report import DEFAULT_REPORTS_DIR
     from config_loader import (
-        COMPETITORS_JSON, CPU_SPECS_JSON, MATCHING_JSON, MIRAN_CONFIGS_JSON,
+        COMPETITORS_JSON, CPU_SPECS_JSON, DISK_CLASSES_JSON,
+        MATCHING_JSON, MIRAN_CONFIGS_JSON,
     )
     args = argparse.Namespace(
         no_scrape=False, xlsx=True, out_dir=DEFAULT_REPORTS_DIR,
         configs=MIRAN_CONFIGS_JSON, competitors=COMPETITORS_JSON,
         matching=MATCHING_JSON, cpu_specs=CPU_SPECS_JSON,
+        disk_classes=DISK_CLASSES_JSON,
     )
     args.out_dir.mkdir(parents=True, exist_ok=True)
     return pipeline_run(args)
@@ -111,7 +113,9 @@ else:
     pretty_date = f"{date_tag[6:8]}.{date_tag[4:6]}.{date_tag[:4]}" if len(date_tag) == 8 else date_tag
     st.caption(f"Отчёт от {pretty_date} · конфигураций: {len(wide_df)}")
 
-    price_cols = [c for c in wide_df.columns if c.endswith("_price")]
+    # miran_price — цена эталона, не конкурента: в маску совпадений не входит
+    price_cols = [c for c in wide_df.columns
+                  if c.endswith("_price") and c != "miran_price"]
     matched_mask = wide_df[price_cols].notna().any(axis=1)
 
     only_matched = st.checkbox(
@@ -122,7 +126,7 @@ else:
 
     # Компактный вид: эталон + цена/тариф/наличие по каждому конкуренту
     base_cols = ["config_id", "cpu_model", "cpu_sockets",
-                 "cpu_cores_per_socket", "ram_gb", "disks"]
+                 "cpu_cores_per_socket", "ram_gb", "disks", "miran_price"]
     detail_cols = []
     for c in price_cols:
         cid = c[:-len("_price")]
@@ -139,6 +143,7 @@ else:
         "cpu_cores_per_socket": "Ядер/сокет",
         "ram_gb": "RAM (ГБ)",
         "disks": "Диски",
+        "miran_price": "Миран: ₽/мес",
     }
     for c in price_cols:
         cid = c[:-len("_price")]
@@ -147,8 +152,10 @@ else:
         col_config[f"{cid}_stock_count"] = f"{cid}: в наличии"
         col_config[f"{cid}_match_count"] = f"{cid}: матчей"
 
+    # Миран участвует в подсветке минимальной цены наравне с конкурентами
+    highlight_cols = [c for c in ["miran_price"] if c in show.columns] + price_cols
     st.dataframe(
-        style_competitor_wide(show, price_cols),
+        style_competitor_wide(show, highlight_cols),
         use_container_width=True,
         hide_index=True,
         column_config=col_config,

@@ -1,8 +1,8 @@
 {
   "cpu_match_mode": "model",
   "cores_tolerance_pct": 25,
-  "ram_tolerance_pct": 25,
-  "disk_rule": "gte",
+  "ram_tolerance_pct": 0,
+  "disk_rule": "class",
   "disk_tolerance_pct": 30,
   "disk_type_must_match": true,
   "score_weights": {

@@ -59,7 +59,7 @@ class TestProjectConfigsLoad:
 
     def test_matching(self):
         rules = load_matching_rules(PROJECT_CONFIG / "matching.json")
-        assert rules.disk_rule in ("gte", "tolerance")
+        assert rules.disk_rule in ("gte", "tolerance", "class")
 
     def test_cpu_specs_with_aliases(self):
         specs = load_cpu_specs(PROJECT_CONFIG / "cpu_specs.json")

@@ -12,6 +12,7 @@ COMPETITORS_JSON = CONFIG_DIR / "competitors.json"
 MATCHING_JSON = CONFIG_DIR / "matching.json"
 CPU_SPECS_JSON = CONFIG_DIR / "cpu_specs.json"
 MIRAN_CONFIGS_JSON = CONFIG_DIR / "miran_configs.json"
+DISK_CLASSES_JSON = CONFIG_DIR / "disk_classes.json"
 
 KNOWN_PARSING_PROFILES = {
     "selectel_nuxt_cdn",
@@ -21,7 +22,8 @@ KNOWN_PARSING_PROFILES = {
 
 ALLOWED_DISK_TYPES = {"HDD", "SSD", "NVMe"}
 ALLOWED_CPU_MATCH_MODES = {"exact", "model", "family"}
-ALLOWED_DISK_RULES = {"gte", "tolerance"}
+# class — эквивалентность размеров по config/disk_classes.json, количество строго
+ALLOWED_DISK_RULES = {"gte", "tolerance", "class"}
 
 
 @dataclass(frozen=True)
@@ -72,6 +74,7 @@ class ReferenceConfig:
     cpu_cores_per_socket: int
     ram_gb: int
     disk_pools: tuple
+    miran_price: float | None = None  # «Миран по калькулятору»; None — цены нет
 
     @property
     def cpu_cores_total(self) -> int:
@@ -152,7 +155,8 @@ def load_matching_rules(path: Path = MATCHING_JSON) -> MatchingRules:
     tolerances = {}
     for key in ("cores_tolerance_pct", "ram_tolerance_pct", "disk_tolerance_pct"):
         val = _require(data, key, float, path)
-        if not 0 < val <= 100:
+        # 0 = строгое совпадение (жёсткий RAM по ТЗ клиента)
+        if not 0 <= val <= 100:
             raise ValueError(f"{path}: {key} должен быть числом от 0 до 100")
         tolerances[key] = val
     weights = _require(data, "score_weights", dict, path)
@@ -200,6 +204,56 @@ def load_cpu_specs(path: Path = CPU_SPECS_JSON) -> dict[str, CpuSpec]:
     return specs
 
 
+def load_disk_classes(path: Path = DISK_CLASSES_JSON) -> dict[int, int]:
+    """config/disk_classes.json → словарь «размер ГБ → канонический размер класса».
+
+    Группы из разных секций (SSD/NVMe/HDD), пересекающиеся по размеру,
+    склеиваются транзитивно: 960 ≈ 1000 в любой секции. Канон = минимум группы.
+    Размер, которого нет в словаре, образует собственный класс (identity).
+    """
+    data = _load_json(path)
+    groups = _require(data, "groups", list, path)
+    if not groups:
+        raise ValueError(f"{path}: список «groups» пуст")
+
+    # union-find по размерам
+    parent: dict[int, int] = {}
+
+    def find(x: int) -> int:
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    for idx, group in enumerate(groups):
+        disk_type = _require(group, "disk_type", str, path, f"groups[{idx}]")
+        if disk_type not in ALLOWED_DISK_TYPES:
+            raise ValueError(
+                f"{path} (groups[{idx}]): disk_type «{disk_type}» не поддерживается; "
+                f"доступны: {', '.join(sorted(ALLOWED_DISK_TYPES))}"
+            )
+        sizes = _require(group, "sizes_gb", list, path, f"groups[{idx}]")
+        if not sizes:
+            raise ValueError(f"{path} (groups[{idx}]): sizes_gb пуст")
+        clean = []
+        for size in sizes:
+            if not isinstance(size, int) or isinstance(size, bool) or size <= 0:
+                raise ValueError(
+                    f"{path} (groups[{idx}]): размер «{size}» должен быть "
+                    "положительным целым числом ГБ"
+                )
+            parent.setdefault(size, size)
+            clean.append(size)
+        for size in clean[1:]:
+            parent[find(size)] = find(clean[0])
+
+    canon: dict[int, int] = {}
+    for size in parent:
+        root = find(size)
+        canon[root] = min(canon.get(root, root), size)
+    return {size: canon[find(size)] for size in parent}
+
+
 def load_reference_configs(path: Path = MIRAN_CONFIGS_JSON) -> list[ReferenceConfig]:
     data = _load_json(path)
     items = _require(data, "configs", list, path)
@@ -233,6 +287,13 @@ def load_reference_configs(path: Path = MIRAN_CONFIGS_JSON) -> list[ReferenceCon
                 raise ValueError(
                     f"{path} ({cfg_id}): {int_key} должно быть положительным"
                 )
+        price = item.get("miran_price")
+        if price is not None and (
+            not isinstance(price, (int, float)) or isinstance(price, bool)
+        ):
+            raise ValueError(
+                f"{path} ({cfg_id}): miran_price должно быть числом или null"
+            )
         configs.append(ReferenceConfig(
             config_id=cfg_id,
             cpu_model=_require(item, "cpu_model", str, path, cfg_id),
@@ -240,5 +301,6 @@ def load_reference_configs(path: Path = MIRAN_CONFIGS_JSON) -> list[ReferenceCon
             cpu_cores_per_socket=item["cpu_cores_per_socket"],
             ram_gb=item["ram_gb"],
             disk_pools=tuple(pools),
+            miran_price=float(price) if price is not None else None,
         ))
     return configs

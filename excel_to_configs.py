@@ -1,12 +1,15 @@
-# Разовый конвертер: ручной лист клиентского воркбука → config/miran_configs.json.
-# После генерации файл ведётся руками; конвертер нужен только для пересоздания.
+# Разовый конвертер: data/Parser.xlsx клиента → config/miran_configs.json
+# и config/disk_classes.json. После генерации файлы ведутся руками;
+# конвертер нужен только для пересоздания при обновлении Parser.xlsx.
 #
 # Использование:
-#   python excel_to_configs.py [--sheet "Март_26_SilverGold"] [--out config/miran_configs.json] [--dry-run]
+#   python excel_to_configs.py [--xlsx data/Parser.xlsx] [--out config/miran_configs.json]
+#                              [--classes-out config/disk_classes.json] [--dry-run]
 #
-# Замечание о размерах дисков: normalize_disk_gb снапит к стандартной сетке
-# (960→1000, 3840→4000). Офферы конкурентов проходят тот же нормализатор,
-# поэтому обе стороны matching сравниваются в одинаковой сетке.
+# Лист «Данные»: Кол-во CPU | CPU | RAM | HDD | Миран по калькулятору.
+# Лист «Сопоставление дисков»: секции по типу диска (SSD / NVME / SATA),
+# каждая строка = группа эквивалентных размеров (960 ГБ ≈ 1 ТБ);
+# колонки «ГБ» и «ТБ» из шапки листа задают единицу измерения.
 
 import argparse
 import json
@@ -21,59 +24,20 @@ from dedicated_scraper import normalize_disk_gb, normalize_disk_type
 
 log = logging.getLogger("excel_to_configs")
 
-DEFAULT_XLSX = Path("data") / "Сравнение стоимости DS.xlsx"
+DEFAULT_XLSX = Path("data") / "Parser.xlsx"
 DEFAULT_OUT = Path("config") / "miran_configs.json"
+DEFAULT_CLASSES_OUT = Path("config") / "disk_classes.json"
+
+DATA_SHEET = "Данные"
+MAPPING_SHEET = "Сопоставление дисков"
 
 # multiplication signs seen in the workbook: ×, x, X, х (cyrillic), *
 _MULT = r"[×xXх*]"
 
-_RAM_RE = re.compile(r"^\s*(\d+)\s*ГБ", re.I)
-_SOCKETS_RE = re.compile(rf"^\s*(\d+)\s*{_MULT}\s*")
-_CORES_RE = re.compile(r"(\d+)\s*яд", re.I)  # «12 ядер», «12 ядра»
 _DISK_SEG_RE = re.compile(
     rf"(\d+)\s*{_MULT}\s*(\d+(?:[.,]\d+)?)\s*(ГБ|ТБ|GB|TB)?\s*(NVME|NVMe|SSD|HDD)?",
     re.I,
 )
-# модель = текст до первого «N ГГц» / «(@» / «(»
-_MODEL_CUT_RE = re.compile(r"\s*(?:\d+[.,]\d*\s*ГГц|\(@|\().*$", re.I)
-
-
-def parse_ref_cpu(text: str, cpu_aliases: dict) -> dict | None:
-    """'2 × Intel Xeon Silver 4214R 2.4 ГГц, 12 ядер 24 потока'
-    → {cpu_model, cpu_sockets, cpu_cores_per_socket}. None, если не похоже на CPU."""
-    if not text or not isinstance(text, str):
-        return None
-    sockets_m = _SOCKETS_RE.match(text)
-    sockets = int(sockets_m.group(1)) if sockets_m else 1
-    body = _SOCKETS_RE.sub("", text, count=1)
-
-    cores_m = _CORES_RE.search(body)
-    cores_per_socket = int(cores_m.group(1)) if cores_m else 0
-
-    model_raw = _MODEL_CUT_RE.sub("", body).strip(" ,;")
-    model_raw = re.sub(r"\s+", " ", model_raw)
-    if not model_raw:
-        return None
-
-    # канонизация голых моделей («5317», «Silver 4314») через алиасы словаря
-    spec = cpu_aliases.get(model_raw.lower())
-    if spec:
-        model = spec["canonical"]
-        if not cores_per_socket:
-            cores_per_socket = spec["cores"]
-    else:
-        model = model_raw
-        log.warning("Модель CPU не найдена в cpu_specs.json: «%s»", model_raw)
-
-    if not cores_per_socket:
-        log.warning("Не удалось определить ядра для «%s»", text.strip())
-        return None
-
-    return {
-        "cpu_model": model,
-        "cpu_sockets": sockets,
-        "cpu_cores_per_socket": cores_per_socket,
-    }
 
 
 def parse_ref_disks(text: str) -> list[dict]:
@@ -114,58 +78,82 @@ def parse_ref_disks(text: str) -> list[dict]:
     return pools
 
 
-def pick_sheet(wb) -> str:
-    """Первый лист, который не «Лист …» и не «*_auto*» — ручные листы идут
-    от новых к старым."""
-    for name in wb.sheetnames:
-        if name.startswith("Лист"):
-            continue
-        if "_auto" in name:
-            continue
-        return name
-    raise ValueError("В воркбуке не найден ручной лист с конфигурациями")
+def resolve_cpu(model_raw: str, cpu_aliases: dict) -> dict | None:
+    """Модель из колонки CPU → {cpu_model, cpu_cores_per_socket} по cpu_specs.
+    Ядер в Parser.xlsx нет — модель обязана быть в словаре."""
+    model = re.sub(r"\s+", " ", str(model_raw).strip())
+    if not model:
+        return None
+    spec = cpu_aliases.get(model.lower())
+    if not spec:
+        log.warning("Модель CPU не найдена в cpu_specs.json: «%s» — пропуск", model)
+        return None
+    return {"cpu_model": spec["canonical"], "cpu_cores_per_socket": spec["cores"]}
 
 
-def convert(xlsx_path: Path, sheet: str | None, cpu_aliases: dict) -> dict:
+def convert(xlsx_path: Path, cpu_aliases: dict, sheet: str = DATA_SHEET) -> dict:
+    """Лист «Данные» → структура miran_configs.json (с ценой Миран)."""
     wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
     try:
-        sheet_name = sheet or pick_sheet(wb)
-        if sheet_name not in wb.sheetnames:
-            raise ValueError(f"Лист «{sheet_name}» не найден в {xlsx_path}")
-        ws = wb[sheet_name]
+        if sheet not in wb.sheetnames:
+            raise ValueError(f"Лист «{sheet}» не найден в {xlsx_path}")
+        ws = wb[sheet]
 
         configs = []
         skipped = 0
+        seen_keys: dict[tuple, str] = {}
         for row_idx, row in enumerate(
-            ws.iter_rows(min_row=1, max_col=3, values_only=True), start=1
+            ws.iter_rows(min_row=1, max_col=5, values_only=True), start=1
         ):
-            cpu_cell, ram_cell, disk_cell = (list(row) + [None] * 3)[:3]
-            ram_m = _RAM_RE.match(str(ram_cell)) if ram_cell else None
-            if not ram_m:
+            sockets_cell, cpu_cell, ram_cell, disk_cell, price_cell = (
+                list(row) + [None] * 5
+            )[:5]
+            # содержательная строка: есть модель, RAM числом и диски;
+            # шапка, пустые строки и строки-поколения отсеиваются здесь
+            if cpu_cell is None or not isinstance(ram_cell, (int, float)) \
+                    or not disk_cell:
                 skipped += 1
                 continue
-            cpu = parse_ref_cpu(str(cpu_cell or ""), cpu_aliases)
+            cpu = resolve_cpu(cpu_cell, cpu_aliases)
             if not cpu:
-                log.warning("Строка %d: не удалось разобрать CPU «%s» — пропуск",
+                log.warning("Строка %d: CPU «%s» не распознан — пропуск",
                             row_idx, cpu_cell)
                 continue
-            pools = parse_ref_disks(str(disk_cell or ""))
+            pools = parse_ref_disks(str(disk_cell))
             if not pools:
                 log.warning("Строка %d: не удалось разобрать диски «%s» — пропуск",
                             row_idx, disk_cell)
                 continue
+            sockets = int(sockets_cell) if isinstance(sockets_cell, (int, float)) else 1
+            price = float(price_cell) if isinstance(price_cell, (int, float)) else None
+            if price is None:
+                log.warning("Строка %d: нет цены Миран (%s, %s ГБ, %s)",
+                            row_idx, cpu["cpu_model"], int(ram_cell), disk_cell)
+            key = (
+                cpu["cpu_model"], sockets, int(ram_cell),
+                tuple(sorted((p["disk_type"], p["disk_count"], p["disk_size_gb"])
+                             for p in pools)),
+            )
+            if key in seen_keys:
+                log.warning("Строка %d: дубликат конфигурации (уже %s) — пропуск",
+                            row_idx, seen_keys[key])
+                continue
+            config_id = f"MIR-{len(configs) + 1:03d}"
+            seen_keys[key] = config_id
             configs.append({
-                "config_id": f"MIR-{len(configs) + 1:03d}",
+                "config_id": config_id,
                 **cpu,
-                "ram_gb": int(ram_m.group(1)),
+                "cpu_sockets": sockets,
+                "ram_gb": int(ram_cell),
                 "disk_pools": pools,
+                "miran_price": price,
                 "source_row": row_idx,
             })
 
         log.info("Лист «%s»: конфигураций %d, пропущено строк %d",
-                 sheet_name, len(configs), skipped)
+                 sheet, len(configs), skipped)
         return {
-            "generated_from": sheet_name,
+            "generated_from": f"{xlsx_path.name} / {sheet}",
             "generated_at": date.today().isoformat(),
             "configs": configs,
         }
@@ -173,22 +161,60 @@ def convert(xlsx_path: Path, sheet: str | None, cpu_aliases: dict) -> dict:
         wb.close()
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Конвертация ручного листа воркбука в config/miran_configs.json"
-    )
-    parser.add_argument("--xlsx", type=Path, default=DEFAULT_XLSX)
-    parser.add_argument("--sheet", default=None,
-                        help="имя листа (по умолчанию — новейший ручной)")
-    parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
-    parser.add_argument("--dry-run", action="store_true",
-                        help="показать результат без записи файла")
-    args = parser.parse_args()
+def convert_disk_classes(xlsx_path: Path, sheet: str = MAPPING_SHEET) -> dict:
+    """Лист «Сопоставление дисков» → структура disk_classes.json.
 
-    logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+    Строка с текстом = заголовок секции (тип диска), числовая строка = группа
+    эквивалентных размеров. Единица колонки (ГБ/ТБ) — из первой строки листа.
+    """
+    wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
+    try:
+        if sheet not in wb.sheetnames:
+            raise ValueError(f"Лист «{sheet}» не найден в {xlsx_path}")
+        ws = wb[sheet]
+        rows = list(ws.iter_rows(values_only=True))
+        if not rows:
+            raise ValueError(f"{xlsx_path}: лист «{sheet}» пуст")
 
+        # шапка: какие колонки в ГБ, какие в ТБ
+        tb_cols = {i for i, v in enumerate(rows[0])
+                   if isinstance(v, str) and v.strip().upper() in ("ТБ", "TB")}
+
+        groups = []
+        current_type: str | None = None
+        for row in rows[1:]:
+            texts = [v for v in row if isinstance(v, str) and v.strip()]
+            if texts:
+                current_type = normalize_disk_type(" ".join(texts))
+                continue
+            sizes = set()
+            for i, v in enumerate(row):
+                if not isinstance(v, (int, float)):
+                    continue
+                sizes.add(round(v * 1000) if i in tb_cols else int(v))
+            if not sizes:
+                continue
+            if current_type is None:
+                log.warning("Группа размеров %s до заголовка типа — пропуск",
+                            sorted(sizes))
+                continue
+            groups.append({
+                "disk_type": current_type,
+                "sizes_gb": sorted(sizes),
+            })
+
+        log.info("Лист «%s»: групп эквивалентности %d", sheet, len(groups))
+        return {
+            "generated_from": f"{xlsx_path.name} / {sheet}",
+            "generated_at": date.today().isoformat(),
+            "groups": groups,
+        }
+    finally:
+        wb.close()
+
+
+def load_cpu_aliases(specs_path: Path = Path("config") / "cpu_specs.json") -> dict:
     cpu_aliases: dict = {}
-    specs_path = Path("config") / "cpu_specs.json"
     if specs_path.exists():
         raw = json.loads(specs_path.read_text(encoding="utf-8"))
         for key, item in raw.items():
@@ -197,8 +223,25 @@ def main() -> None:
                 cpu_aliases.setdefault(alias.lower(), item)
     else:
         log.warning("%s не найден — канонизация моделей CPU отключена", specs_path)
+    return cpu_aliases
 
-    result = convert(args.xlsx, args.sheet, cpu_aliases)
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="Конвертация Parser.xlsx в config/miran_configs.json "
+                    "и config/disk_classes.json"
+    )
+    parser.add_argument("--xlsx", type=Path, default=DEFAULT_XLSX)
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--classes-out", type=Path, default=DEFAULT_CLASSES_OUT)
+    parser.add_argument("--dry-run", action="store_true",
+                        help="показать результат без записи файлов")
+    args = parser.parse_args()
+
+    logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+
+    result = convert(args.xlsx, load_cpu_aliases())
+    classes = convert_disk_classes(args.xlsx)
 
     if args.dry_run:
         for cfg in result["configs"]:
@@ -206,11 +249,14 @@ def main() -> None:
                 f"{p['disk_count']}×{p['disk_size_gb']} ГБ {p['disk_type']}"
                 for p in cfg["disk_pools"]
             )
+            price_txt = (f"{cfg['miran_price']:.0f} ₽"
+                         if cfg["miran_price"] is not None else "—")
             print(f"{cfg['config_id']} (строка {cfg['source_row']}): "
                   f"{cfg['cpu_sockets']} × {cfg['cpu_model']} "
                   f"({cfg['cpu_cores_per_socket']} ядер), "
-                  f"{cfg['ram_gb']} ГБ, {pools_txt}")
-        print(f"\nВсего: {len(result['configs'])} конфигураций (файл не записан)")
+                  f"{cfg['ram_gb']} ГБ, {pools_txt}, Миран {price_txt}")
+        print(f"\nВсего: {len(result['configs'])} конфигураций, "
+              f"{len(classes['groups'])} групп дисков (файлы не записаны)")
         return
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -218,6 +264,10 @@ def main() -> None:
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(f"Записано {len(result['configs'])} конфигураций в {args.out}")
+    args.classes_out.write_text(
+        json.dumps(classes, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print(f"Записано {len(classes['groups'])} групп дисков в {args.classes_out}")
 
 
 if __name__ == "__main__":

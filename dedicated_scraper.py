@@ -109,8 +109,16 @@ LEGACY_HISTORY_COLS = [
 # ── Normalization functions ──────────────────────────────────────────
 
 def normalize_disk_gb(raw_gb: int) -> int:
-    """Snap to nearest standard disk size."""
-    return min(DISK_STANDARDS, key=lambda s: abs(s - raw_gb))
+    """Snap to a standard disk size only when the deviation is small (960 → 1000).
+
+    Безусловный снап к сетке ломал matching: 1600 (1.6 ТБ) прилипал к 2000,
+    6000 — к 4000, 15360 — к 8000. Эквивалентность «маркетинговых» размеров
+    (960 ≈ 1 ТБ) теперь решает config/disk_classes.json, а не сетка.
+    """
+    nearest = min(DISK_STANDARDS, key=lambda s: abs(s - raw_gb))
+    if abs(nearest - raw_gb) <= raw_gb * 0.05:
+        return nearest
+    return int(raw_gb)
 
 
 def normalize_ram_gb(raw_gb: int) -> int:

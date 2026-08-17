@@ -2,6 +2,7 @@
 # Чистые функции без I/O — вся конфигурация приходит параметрами.
 
 import re
+from collections import Counter
 from dataclasses import dataclass
 
 from config_loader import CpuSpec, MatchingRules, ReferenceConfig
@@ -102,18 +103,76 @@ def _disk_type_ok(ref_type: str, offer_type: str, rules: MatchingRules) -> bool:
     return False
 
 
-def disks_match(
-    ref_pools, offer_pools, rules: MatchingRules
-) -> tuple[bool, float]:
-    """Жадное сопоставление пулов по убыванию ёмкости.
+def _class_counter(pools, size_classes: dict[int, int]) -> Counter:
+    """Пулы → счётчик дисков по (тип, канонический размер класса)."""
+    counter: Counter = Counter()
+    for pool in pools:
+        if isinstance(pool, dict):
+            t, c, s = pool["disk_type"], pool["disk_count"], pool["disk_size_gb"]
+        else:
+            t, c, s = pool.disk_type, pool.disk_count, pool.disk_size_gb
+        counter[(t, size_classes.get(s, s))] += c
+    return counter
 
-    Каждому эталонному пулу ищется свободный пул оффера с подходящим типом
-    (тот же; при disk_type_allow_upgrade NVMe закрывает SSD/HDD, SSD — HDD)
-    и ёмкостью по disk_rule. Лишние пулы оффера не мешают.
+
+def _disks_match_by_class(
+    ref_pools, offer_pools, rules: MatchingRules, size_classes: dict[int, int]
+) -> tuple[bool, float]:
+    """Диски по ТЗ: размеры эквивалентны в пределах класса (960 ≈ 1 ТБ),
+    количество учитывается строго — 2×960 + 8×1000 = 10×1ТБ, но ≠ 2×960.
+
+    Пулы обеих сторон схлопываются в счётчики (тип, класс) → количество;
+    2×960 ГБ SSD и 8×1 ТБ SSD — один класс, поэтому дробление на пулы
+    не мешает. Требуется точное покрытие в обе стороны: лишние диски
+    оффера = другая конфигурация. При disk_type_allow_upgrade дефицит
+    класса закрывается лучшим типом (NVMe → SSD → HDD, односторонне).
+    """
+    ref_cnt = _class_counter(ref_pools, size_classes)
+    offer_cnt = _class_counter(offer_pools, size_classes)
+
+    # эталонные требования от лучшего типа к худшему, чтобы NVMe-диски оффера
+    # не ушли на закрытие SSD-требований раньше NVMe-требований
+    for (ref_type, cls), need in sorted(
+        ref_cnt.items(), key=lambda kv: -DISK_TYPE_RANK.get(kv[0][0], -1)
+    ):
+        take = min(offer_cnt[(ref_type, cls)], need)
+        offer_cnt[(ref_type, cls)] -= take
+        need -= take
+        if need and rules.disk_type_allow_upgrade:
+            ref_rank = DISK_TYPE_RANK.get(ref_type, 99)
+            for offer_type, rank in sorted(
+                DISK_TYPE_RANK.items(), key=lambda kv: kv[1]
+            ):
+                if rank <= ref_rank:
+                    continue
+                take = min(offer_cnt[(offer_type, cls)], need)
+                offer_cnt[(offer_type, cls)] -= take
+                need -= take
+        if need:
+            return False, 0.0
+
+    if any(offer_cnt.values()):
+        return False, 0.0
+    return True, 0.0
+
+
+def disks_match(
+    ref_pools, offer_pools, rules: MatchingRules,
+    size_classes: dict[int, int] | None = None,
+) -> tuple[bool, float]:
+    """Дисковый гейт. disk_rule="class" — строгое совпадение по классам
+    эквивалентности (см. _disks_match_by_class); gte/tolerance — жадное
+    сопоставление пулов по убыванию ёмкости, лишние пулы оффера не мешают.
+
     Возвращает (прошёл ли гейт, среднее отклонение ёмкости в %).
     """
     if not ref_pools or not offer_pools:
         return False, 0.0
+
+    if rules.disk_rule == "class":
+        return _disks_match_by_class(
+            ref_pools, offer_pools, rules, size_classes or {}
+        )
 
     ref_sorted = sorted(ref_pools, key=_pool_capacity, reverse=True)
     offer_sorted = sorted(offer_pools, key=_pool_capacity, reverse=True)
@@ -149,10 +208,16 @@ def match_offer(
     offer: CompetitorOffer,
     rules: MatchingRules,
     specs: dict[str, CpuSpec],
+    size_classes: dict[int, int] | None = None,
 ) -> MatchResult | None:
     """Все гейты (CPU, ядра, RAM, диски) → MatchResult, иначе None."""
     cpu_ok, cpu_penalty = cpu_matches(ref, offer, specs, rules)
     if not cpu_ok:
+        return None
+
+    # Жёсткий CPU по ТЗ: количество процессоров тоже должно совпадать —
+    # иначе 1 × Silver 4314 закрывал бы эталон 2 × Silver 4314 через допуск ядер
+    if offer.cpu_sockets != ref.cpu_sockets:
         return None
 
     # Ядра: суммарные vs суммарные; фолбэк — словарь моделей
@@ -177,7 +242,9 @@ def match_offer(
         return None
     ram_dev = _deviation_pct(ref.ram_gb, offer.ram_gb)
 
-    disks_ok, disk_dev = disks_match(ref.disk_pools, offer.disk_pools, rules)
+    disks_ok, disk_dev = disks_match(
+        ref.disk_pools, offer.disk_pools, rules, size_classes
+    )
     if not disks_ok:
         return None
 
@@ -206,13 +273,14 @@ def match_all(
     offers: list[CompetitorOffer],
     rules: MatchingRules,
     specs: dict[str, CpuSpec],
+    size_classes: dict[int, int] | None = None,
 ) -> dict[str, list[MatchResult]]:
     """config_id → все подходящие офферы, отсортированные по цене (дешевле первее),
     при равной цене — выше score."""
     results: dict[str, list[MatchResult]] = {ref.config_id: [] for ref in refs}
     for ref in refs:
         for offer in offers:
-            m = match_offer(ref, offer, rules, specs)
+            m = match_offer(ref, offer, rules, specs, size_classes)
             if m:
                 results[ref.config_id].append(m)
         results[ref.config_id].sort(

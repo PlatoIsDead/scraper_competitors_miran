@@ -111,7 +111,7 @@ class TestParse1dedicArticle:
         assert row["disk_type"] == "NVMe"
         assert row["price_rub"] == 14000.0
 
-    def test_single_disk_ssd_snaps(self):
+    def test_single_disk_ssd_no_far_snap(self):
         art = _make_1dedic_article(
             "Intel Xeon E3-1230 V5 3.4 ГГц, 4 ядра",
             "16 Гб", "750 Гб SSD", "5 368"
@@ -119,7 +119,7 @@ class TestParse1dedicArticle:
         row = _parse_1dedic_article(art, TODAY)
         assert row is not None
         assert row["disk_count"] == 1
-        assert row["disk_size_gb"] == 1000  # 750 snaps to nearest standard
+        assert row["disk_size_gb"] == 750  # 750 далеко от сетки — не снапится
         assert row["disk_type"] == "SSD"
 
     def test_tb_disk(self):
@@ -266,7 +266,7 @@ class TestParseRegcloudHtml:
         rows = _parse_regcloud_html(html, TODAY)
         assert len(rows) == 1
         assert rows[0]["disk_count"] == 2
-        assert rows[0]["disk_size_gb"] == 4000  # 3800 snaps to 4000
+        assert rows[0]["disk_size_gb"] == 3800  # 3800 ≈ 4000 решает disk_classes
         assert rows[0]["disk_type"] == "NVMe"
 
     def test_decimal_tb_19(self):
@@ -275,7 +275,7 @@ class TestParseRegcloudHtml:
             "2 x 1.9 ТБ SSD NVMe", "base-price", "50\xa0000₽/мес"
         )
         rows = _parse_regcloud_html(html, TODAY)
-        assert rows[0]["disk_size_gb"] == 2000  # 1900 snaps to 2000
+        assert rows[0]["disk_size_gb"] == 1900  # 1900 ≈ 2000 решает disk_classes
 
     def test_missing_disk_size_skips_row(self):
         html = _make_regcloud_item(
@@ -517,8 +517,8 @@ class TestRegcloudExtendedFields:
         assert len(rows) == 1
         pools = rows[0]["disk_pools"]
         assert len(pools) == 2
-        assert pools[0] == {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 4000}
-        assert pools[1] == {"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 8000}
+        assert pools[0] == {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 3800}
+        assert pools[1] == {"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 12000}
 
     def test_pool_type_ssd_nvme_is_nvme(self):
         html = _make_regcloud_item(
@@ -527,7 +527,7 @@ class TestRegcloudExtendedFields:
         )
         rows = _parse_regcloud_html(html, TODAY)
         assert rows[0]["disk_pools"] == [
-            {"disk_type": "NVMe", "disk_count": 2, "disk_size_gb": 2000}
+            {"disk_type": "NVMe", "disk_count": 2, "disk_size_gb": 1900}
         ]
 
     def test_fixture_extended_fields(self, regcloud_html):

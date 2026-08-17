@@ -17,11 +17,13 @@ from competitor_report import DEFAULT_REPORTS_DIR, write_reports
 from config_loader import (
     COMPETITORS_JSON,
     CPU_SPECS_JSON,
+    DISK_CLASSES_JSON,
     MATCHING_JSON,
     MIRAN_CONFIGS_JSON,
     Competitor,
     load_competitors,
     load_cpu_specs,
+    load_disk_classes,
     load_matching_rules,
     load_reference_configs,
 )
@@ -95,6 +97,7 @@ def run(args) -> int:
     rules = load_matching_rules(args.matching)
     specs = load_cpu_specs(args.cpu_specs)
     refs = load_reference_configs(args.configs)
+    size_classes = load_disk_classes(args.disk_classes)
     log.info("Эталонных конфигураций: %d, конкурентов: %d",
              len(refs), len(competitors))
 
@@ -132,7 +135,7 @@ def run(args) -> int:
         log.error("Ни один конкурент не дал данных — отчёты не сформированы")
         return 1
 
-    matches = match_all(refs, all_offers, rules, specs)
+    matches = match_all(refs, all_offers, rules, specs, size_classes)
     matched_configs = sum(1 for results in matches.values() if results)
     total_matches = sum(len(results) for results in matches.values())
     log.info("Конфигураций с совпадениями: %d из %d (всего матчей: %d)",
@@ -164,6 +167,7 @@ def main() -> None:
     parser.add_argument("--competitors", type=Path, default=COMPETITORS_JSON)
     parser.add_argument("--matching", type=Path, default=MATCHING_JSON)
     parser.add_argument("--cpu-specs", type=Path, default=CPU_SPECS_JSON)
+    parser.add_argument("--disk-classes", type=Path, default=DISK_CLASSES_JSON)
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args()
 

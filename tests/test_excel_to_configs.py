@@ -6,65 +6,61 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from excel_to_configs import convert, parse_ref_cpu, parse_ref_disks, pick_sheet
+from excel_to_configs import (
+    convert,
+    convert_disk_classes,
+    parse_ref_disks,
+    resolve_cpu,
+)
 
 ALIASES = {
     "intel xeon silver 4214r": {"canonical": "Intel Xeon Silver 4214R", "cores": 12},
     "silver 4314": {"canonical": "Intel Xeon Silver 4314", "cores": 16},
-    "5317": {"canonical": "Intel Xeon Gold 5317", "cores": 12},
-    "6336y": {"canonical": "Intel Xeon Gold 6336Y", "cores": 24},
-    "6448y": {"canonical": "Intel Xeon Gold 6448Y", "cores": 32},
+    "gold 5317": {"canonical": "Intel Xeon Gold 5317", "cores": 12},
+    "e3-1231v3": {"canonical": "Intel Xeon E3-1231v3", "cores": 4},
+    "intel xeon e-2386g": {"canonical": "Intel Xeon E-2386G", "cores": 6},
 }
 
 
-class TestParseRefCpu:
-    def test_full_model_with_cores(self):
-        cpu = parse_ref_cpu(
-            "2 × Intel Xeon Silver 4214R 2.4 ГГц, 12 ядер 24 потока", ALIASES
-        )
+class TestResolveCpu:
+    def test_full_model(self):
+        cpu = resolve_cpu("Intel Xeon Silver 4214R", ALIASES)
         assert cpu == {
             "cpu_model": "Intel Xeon Silver 4214R",
-            "cpu_sockets": 2,
             "cpu_cores_per_socket": 12,
         }
 
-    def test_star_separator_and_comma_freq(self):
-        cpu = parse_ref_cpu(
-            "2 * Silver 4314 (@2,4 - 3,4, 16 ядер, 32 потока)", ALIASES
-        )
-        assert cpu["cpu_model"] == "Intel Xeon Silver 4314"
-        assert cpu["cpu_sockets"] == 2
-        assert cpu["cpu_cores_per_socket"] == 16
+    def test_short_alias(self):
+        assert resolve_cpu("Silver 4314", ALIASES)["cpu_model"] == \
+            "Intel Xeon Silver 4314"
 
-    def test_bare_model_resolved_via_alias(self):
-        cpu = parse_ref_cpu("2 * 5317 (@3,0 - 3,6, 12 ядер, 24 потока)", ALIASES)
-        assert cpu["cpu_model"] == "Intel Xeon Gold 5317"
+    def test_extra_whitespace_collapsed(self):
+        assert resolve_cpu("  Gold   5317 ", ALIASES)["cpu_model"] == \
+            "Intel Xeon Gold 5317"
 
-    def test_typo_otoka_still_parses_cores(self):
-        # опечатка воркбука «64 отока» не мешает: ядра берутся по «32 ядра»
-        cpu = parse_ref_cpu("2 * 6336Y (2,4 - 3,6, 24 ядра, 48 потоков)", ALIASES)
-        assert cpu["cpu_cores_per_socket"] == 24
-
-    def test_unknown_model_kept_raw(self):
-        cpu = parse_ref_cpu("2 * 9999X (@2,0, 8 ядер, 16 потоков)", ALIASES)
-        assert cpu["cpu_model"] == "9999X"
-
-    def test_no_cores_returns_none(self):
-        assert parse_ref_cpu("2 поколение Intel", ALIASES) is None
+    def test_unknown_model_returns_none(self):
+        assert resolve_cpu("3 покеоление Intel", ALIASES) is None
 
     def test_empty_returns_none(self):
-        assert parse_ref_cpu("", ALIASES) is None
+        assert resolve_cpu("", ALIASES) is None
 
 
 class TestParseRefDisks:
     def test_simple_gb_ssd(self):
         assert parse_ref_disks("2 * 960 ГБ SSD") == [
             {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 1000}
-        ]  # 960 снапится к 1000
+        ]  # 960 близко к 1000 (≤5%) — снапится
 
-    def test_decimal_tb(self):
+    def test_decimal_tb_stays(self):
+        # 1.9 ТБ = 1900: до 2000 больше 5% — размер сохраняется,
+        # эквивалентность 1900 ≈ 2000 решает disk_classes.json
         assert parse_ref_disks("2 * 1.9 ТБ SSD") == [
-            {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 2000}
+            {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 1900}
+        ]
+
+    def test_sata_maps_to_hdd(self):
+        assert parse_ref_disks("2 x 3 ТБ SATA") == [
+            {"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 3000}
         ]
 
     def test_no_space_tb_nvme(self):
@@ -85,13 +81,10 @@ class TestParseRefDisks:
     def test_latin_tb(self):
         assert parse_ref_disks("2 * 2 TB NVME")[0]["disk_size_gb"] == 2000
 
-    def test_pathological_row_111(self):
-        # кириллическая «х» и отсутствующая единица (10 → ТБ)
-        pools = parse_ref_disks("2 x 3,84 TB NVMe + 2 х 10 HDD")
-        assert len(pools) == 2
-        assert pools[0] == {"disk_type": "NVMe", "disk_count": 2, "disk_size_gb": 4000}
-        assert pools[1]["disk_type"] == "HDD"
-        assert pools[1]["disk_size_gb"] == 8000  # 10 ТБ снапится к 8000 (край сетки)
+    def test_missing_unit_10_means_tb(self):
+        # кириллическая «х» и отсутствующая единица (10 → ТБ), без снапа
+        pools = parse_ref_disks("2 х 10 HDD")
+        assert pools == [{"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 10000}]
 
     def test_empty(self):
         assert parse_ref_disks("") == []
@@ -100,52 +93,83 @@ class TestParseRefDisks:
 @pytest.fixture
 def workbook(tmp_path):
     wb = openpyxl.Workbook()
-    default = wb.active
-    default.title = "Лист 65"
-    auto = wb.create_sheet("Июнь_26_auto")
-    auto.append(["CPU", "RAM", "HDD"])
-    ws = wb.create_sheet("Март_26_Тест")
+    ws = wb.active
+    ws.title = "Данные"
     rows = [
-        ["CPU", "RAM", "HDD"],
-        ["2 поколение Intel", None, None],
-        ["2 × Intel Xeon Silver 4214R 2.4 ГГц, 12 ядер 24 потока",
-         "64 ГБ", "2 * 960 ГБ SSD"],
-        ["2 * 5317 (@3,0 - 3,6, 12 ядер, 24 потока)", "192 ГБ", "2 * 1 ТБ NVME"],
-        ["2 * 6346 (@3,1 -3,6, 16 ядер, 32 потока)", "узнать цену закупки", None],
-        ["2 * Silver 4314 (@2,4 - 3,4, 16 ядер, 32 потока)", "128 ГБ",
-         "2 * 480 ГБ SSD + 2 * 2 ТБ SSD"],
-        ["Скидки", None, None],
+        ["Кол-во CPU", "CPU", "RAM", "HDD", "Миран по калькулятору"],
+        [None, None, None, None, None],
+        [1, "E3-1231v3", 16, "2 * 480 ГБ SSD", 8200],
+        [2, "Intel Xeon Silver 4214R", 64, "2 * 960 ГБ SSD", 21000],
+        [None, "3 покеоление Intel", None, None, None],
+        [2, "Silver 4314", 128, "2 * 480 ГБ SSD + 2 * 2 ТБ SSD", 35000],
+        [1, "Intel Xeon E-2386G", 64, "2 * 1 ТБ NVME", None],
+        [2, "Intel Xeon Silver 4214R", 64, "2 * 960 ГБ SSD", 22222],
     ]
     for row in rows:
         ws.append(row)
-    # ручной лист должен идти раньше — переносим в начало после «Лист 65»
-    wb.move_sheet("Март_26_Тест", offset=-(len(wb.sheetnames) - 2))
-    path = tmp_path / "test.xlsx"
+
+    mapping = wb.create_sheet("Сопоставление дисков")
+    map_rows = [
+        ["ГБ", "ГБ", None, "ТБ", "ТБ"],
+        ["SSD", "SSD SATA", None, None, None],
+        [960, 1000, None, 0.96, 1],
+        [None, None, None, None, None],
+        ["NVME", "SSD NVME", None, None, None],
+        [375, None, None, None, None],
+        ["SATA", "HDD", None, None, None],
+        [1000, None, None, 1, None],
+    ]
+    for row in map_rows:
+        mapping.append(row)
+
+    path = tmp_path / "Parser.xlsx"
     wb.save(path)
     return path
 
 
 class TestConvert:
-    def test_sheet_autopick_skips_list_and_auto(self, workbook):
-        wb = openpyxl.load_workbook(workbook, read_only=True)
-        assert pick_sheet(wb) == "Март_26_Тест"
-        wb.close()
-
     def test_convert_produces_expected_configs(self, workbook):
-        result = convert(workbook, None, ALIASES)
+        result = convert(workbook, ALIASES)
         configs = result["configs"]
-        assert len(configs) == 3  # заголовок/поколение/«узнать цену»/футер отсеяны
+        # шапка/пустая/поколение отсеяны, последняя строка — дубликат
+        assert len(configs) == 4
         assert configs[0]["config_id"] == "MIR-001"
-        assert configs[0]["cpu_model"] == "Intel Xeon Silver 4214R"
-        assert configs[0]["ram_gb"] == 64
-        assert configs[1]["cpu_model"] == "Intel Xeon Gold 5317"
+        assert configs[0]["cpu_model"] == "Intel Xeon E3-1231v3"
+        assert configs[0]["cpu_sockets"] == 1
+        assert configs[0]["cpu_cores_per_socket"] == 4
+        assert configs[0]["ram_gb"] == 16
+        assert configs[0]["miran_price"] == 8200.0
+        assert configs[1]["cpu_sockets"] == 2
         assert len(configs[2]["disk_pools"]) == 2
-        assert result["generated_from"] == "Март_26_Тест"
+
+    def test_config_without_price_kept(self, workbook):
+        configs = convert(workbook, ALIASES)["configs"]
+        assert configs[3]["cpu_model"] == "Intel Xeon E-2386G"
+        assert configs[3]["miran_price"] is None
+
+    def test_duplicate_config_skipped(self, workbook):
+        configs = convert(workbook, ALIASES)["configs"]
+        prices = [c["miran_price"] for c in configs
+                  if c["cpu_model"] == "Intel Xeon Silver 4214R"]
+        assert prices == [21000.0]  # вторая строка-дубликат (22222) не попала
 
     def test_source_rows_recorded(self, workbook):
-        configs = convert(workbook, None, ALIASES)["configs"]
-        assert [c["source_row"] for c in configs] == [3, 4, 6]
+        configs = convert(workbook, ALIASES)["configs"]
+        assert [c["source_row"] for c in configs] == [3, 4, 6, 7]
 
-    def test_explicit_missing_sheet_raises(self, workbook):
+    def test_missing_sheet_raises(self, workbook):
         with pytest.raises(ValueError, match="не найден"):
-            convert(workbook, "Нет_такого", ALIASES)
+            convert(workbook, ALIASES, sheet="Нет_такого")
+
+
+class TestConvertDiskClasses:
+    def test_groups_by_section_and_units(self, workbook):
+        groups = convert_disk_classes(workbook)["groups"]
+        assert {"disk_type": "SSD", "sizes_gb": [960, 1000]} in groups
+        assert {"disk_type": "NVMe", "sizes_gb": [375]} in groups
+        assert {"disk_type": "HDD", "sizes_gb": [1000]} in groups
+        assert len(groups) == 3
+
+    def test_missing_sheet_raises(self, workbook):
+        with pytest.raises(ValueError, match="не найден"):
+            convert_disk_classes(workbook, sheet="Нет_такого")
