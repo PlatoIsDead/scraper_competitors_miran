@@ -12,6 +12,8 @@ from dedicated_scraper import (
     _parse_netrack_html,
     _parse_selectel_flat,
     _parse_storage_pool,
+    _precustom_to_cfg,
+    _selectel_cfg_to_row,
     _parse_timeweb_cloud_nuxt,
     _parse_timeweb_html,
     _parse_hostkey_html,
@@ -436,6 +438,96 @@ LEGACY_FIELDS = [
     "ram_gb", "disk_count", "disk_size_gb", "disk_type",
     "price_rub", "quantity_available", "scraped_at",
 ]
+
+
+class TestSelectelPrecustom:
+    """Сборка линейки PCL* (calculator/precustom + items) — зеркало
+    фронта selectel: цена = сумма компонентов, наличие = min по складу."""
+
+    ITEMS = {
+        219: {"id": 219, "model": "cpu", "enable": True, "is_hidden": False,
+              "name": "Intel Silver 4214R (12x2.4 GHz HT)",
+              "price": {"rub": 6460.0}, "quantity": 10, "spte": 0,
+              "param": {"core": 12}},
+        48: {"id": 48, "model": "ram", "enable": True, "is_hidden": False,
+             "name": "16 GB DDR4", "price": {"rub": 1280.0},
+             "quantity": 100, "spte": 4, "param": {"size": 16}},
+        125: {"id": 125, "model": "disk", "enable": True, "is_hidden": False,
+              "name": "960 GB SSD NVMe", "price": {"rub": 2420.0},
+              "quantity": 50, "spte": 0,
+              "param": {"type": "ssd", "size": 960, "interface": "NVMe"}},
+        85: {"id": 85, "model": "pcie", "enable": True, "is_hidden": False,
+             "name": "2 × 10 GE", "price": {"rub": 3920.0},
+             "quantity": 30, "spte": 0, "param": {"type": "network_10"}},
+        163: {"id": 163, "model": "case", "enable": True, "is_hidden": False,
+              "name": "815TQC", "price": {"rub": 11500.0},
+              "quantity": 6, "spte": 0, "param": {}},
+        500: {"id": 500, "model": "pcie", "enable": True, "is_hidden": False,
+              "name": "RTX A5000", "price": {"rub": 30000.0},
+              "quantity": 5, "spte": 0, "param": {"type": "gpu"}},
+    }
+    CONFIG = [
+        {"id": 219, "count": 2}, {"id": 48, "count": 4},
+        {"id": 125, "count": 2}, {"id": 85, "count": 1},
+        {"id": 73, "count": 1},  # плата — отсутствует в items
+        {"id": 163, "count": 1},
+    ]
+
+    def test_full_config_priced_as_component_sum(self):
+        # без отсутствующей платы 73: наличие = 0 → конфиг не выводится,
+        # как и на сайте
+        pre = {"name": "PCL67-NVMe-10GE", "config": self.CONFIG}
+        assert _precustom_to_cfg(pre, self.ITEMS) is None
+
+    def test_all_components_present(self):
+        cfg_list = [c for c in self.CONFIG if c["id"] != 73]
+        pre = {"name": "PCL-TEST", "config": cfg_list}
+        cfg = _precustom_to_cfg(pre, self.ITEMS)
+        assert cfg is not None
+        # 2×6460 + 4×1280 + 2×2420 + 3920 + 11500 = 38300
+        assert cfg["price_collection"]["RUB"]["month"] == 38300.0
+        assert cfg["cpu"] == {"name": "Intel Silver 4214R (12x2.4 GHz HT)",
+                              "count": 2, "cores_per_cpu": 12}
+        assert cfg["ram"] == [{"count": 4, "size": 16}]
+        assert cfg["disk"] == [{"count": 2, "size": 960, "type": "ssd NVMe"}]
+        # склад: min(10//2, 96//4, 50//2, 30//1, 6//1) = 5
+        assert cfg["quantity"] == 5
+
+    def test_row_via_common_builder(self):
+        cfg_list = [c for c in self.CONFIG if c["id"] != 73]
+        cfg = _precustom_to_cfg({"name": "PCL-TEST", "config": cfg_list},
+                                self.ITEMS)
+        row = _selectel_cfg_to_row(cfg, TODAY)
+        assert row["plan_id"] == "PCL-TEST"
+        assert row["provider"] == "selectel"
+        assert row["ram_gb"] == 64
+        assert row["disk_pools"] == [
+            {"disk_type": "NVMe", "disk_count": 2, "disk_size_gb": 1000}]
+        assert row["price_rub"] == 38300.0
+        assert row["cpu_sockets"] == 2
+        assert row["cpu_cores_total"] == 24
+        assert row["quantity_available"] == 5
+
+    def test_gpu_config_skipped(self):
+        cfg_list = [c for c in self.CONFIG if c["id"] != 73]
+        cfg_list.append({"id": 500, "count": 1})
+        assert _precustom_to_cfg({"name": "GPU", "config": cfg_list},
+                                 self.ITEMS) is None
+
+    def test_alt_config_format(self):
+        # второй формат API: [{"219": 2}, {"48": 4}, ...]
+        alt = [{str(c["id"]): c["count"]} for c in self.CONFIG
+               if c["id"] != 73]
+        cfg = _precustom_to_cfg({"name": "ALT", "config": alt}, self.ITEMS)
+        assert cfg is not None
+        assert cfg["price_collection"]["RUB"]["month"] == 38300.0
+
+    def test_disabled_item_excluded_from_price(self):
+        items = {k: dict(v) for k, v in self.ITEMS.items()}
+        items[85] = {**items[85], "enable": False}
+        cfg_list = [c for c in self.CONFIG if c["id"] != 73]
+        cfg = _precustom_to_cfg({"name": "PCL-TEST", "config": cfg_list}, items)
+        assert cfg["price_collection"]["RUB"]["month"] == 38300.0 - 3920.0
 
 
 class TestSelectelExtendedFields:

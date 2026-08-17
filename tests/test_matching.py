@@ -95,6 +95,19 @@ class TestCanonicalCpu:
     def test_unknown_passthrough_normalized(self):
         assert canonical_cpu("  AMD  EPYC 9999 ", SPECS) == "amd epyc 9999"
 
+    def test_intel_without_xeon_resolves(self):
+        # selectel непоследователен: «Intel Silver 4214R» без «Xeon»
+        assert canonical_cpu("Intel Silver 4214R", SPECS) == \
+            "intel xeon silver 4214r"
+
+    def test_frequency_tail_stripped(self):
+        assert canonical_cpu("Intel Silver 4214R (12x2.4 GHz HT)", SPECS) == \
+            "intel xeon silver 4214r"
+
+    def test_unknown_model_fallback_drops_tail(self):
+        assert canonical_cpu("Intel Gold 9999 (8x3.6 GHz HT)", SPECS) == \
+            "intel gold 9999"
+
 
 class TestCpuMatches:
     def test_same_model_via_alias(self):

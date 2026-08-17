@@ -482,6 +482,144 @@ def _scrape_selectel_api() -> list[ServerRow]:
     return rows
 
 
+SELECTEL_CALC_PRECUSTOM = "https://api.selectel.ru/servers/v2/pub/calculator/precustom"
+SELECTEL_CALC_ITEMS = "https://api.selectel.ru/servers/v2/pub/calculator/items"
+
+
+def _fetch_selectel_calc(url: str):
+    """calculator/* отвечают только Chrome TLS-fingerprint (tls_client);
+    plain requests висит в ReadTimeout навсегда. Ретраи — флап сети WSL."""
+    last_err = None
+    for attempt in range(3):
+        try:
+            s = tls_client.Session(client_identifier="chrome_120")
+            r = s.get(url, timeout_seconds=30)
+            if r.status_code != 200:
+                raise RuntimeError(f"HTTP {r.status_code}")
+            return r.json()
+        except Exception as e:
+            last_err = e
+            time.sleep(2 * (attempt + 1))
+    print(f"[selectel] Ошибка calculator API {url}: {last_err}")
+    return None
+
+
+def _precustom_config_components(config: list) -> list[dict]:
+    """Компоненты конфига в едином виде [{id, count}]. Второй формат API —
+    список словарей {"<id>": count} (зеркало функций M/q фронта selectel)."""
+    comps = []
+    for entry in config or []:
+        if isinstance(entry, dict) and "id" in entry:
+            comps.append({"id": int(entry["id"]), "count": int(entry.get("count") or 0)})
+        elif isinstance(entry, dict) and len(entry) == 1:
+            (cid, count), = entry.items()
+            comps.append({"id": int(cid), "count": int(count)})
+    return comps
+
+
+def _precustom_available(comps: list[dict], items_by_id: dict) -> int:
+    """Наличие конфига = min по компонентам floor((quantity − spte) / нужно).
+    Компонент без записи в items → 0 (зеркало функции F фронта selectel —
+    сайт такие конфиги не показывает вовсе)."""
+    need: dict[int, int] = {}
+    for c in comps:
+        need[c["id"]] = need.get(c["id"], 0) + c["count"]
+    result = None
+    for cid, cnt in need.items():
+        if cnt <= 0:
+            continue
+        item = items_by_id.get(cid)
+        avail = (item["quantity"] - item.get("spte", 0)) if item else 0
+        fit = avail // cnt
+        result = fit if result is None else min(result, fit)
+    return result or 0
+
+
+def _precustom_to_cfg(pre: dict, items_by_id: dict) -> dict | None:
+    """Один конфиг calculator/precustom → dict в форме service/server
+    (для повторного использования _selectel_cfg_to_row).
+
+    Зеркало функции сборки фронта selectel (чанк seidoPrecustomServersStore):
+    цена = сумма price.rub × count по компонентам, найденным в items,
+    с enable и без is_hidden; ненайденные ПРОПУСКАЮТСЯ (как на сайте).
+    Конфиги с GPU не выводим — эталоны Миран без GPU, сравнение цен
+    с GPU-сервером было бы некорректным.
+    """
+    comps = _precustom_config_components(pre.get("config"))
+    if not comps:
+        return None
+
+    total = 0.0
+    cpu = None
+    ram: list[dict] = []
+    disks: list[dict] = []
+    has_gpu = False
+    for comp in comps:
+        item = items_by_id.get(comp["id"])
+        count = comp["count"]
+        if not item or not count or not item.get("enable") or item.get("is_hidden"):
+            continue
+        model = item.get("model")
+        param = item.get("param") or {}
+        if model == "pcie":
+            model = param.get("type")
+        total += (item.get("price", {}).get("rub") or 0) * count
+        if model == "cpu":
+            cpu = {"name": item["name"], "count": count,
+                   "cores_per_cpu": param.get("core") or 0}
+        elif model == "gpu":
+            has_gpu = True
+        elif model == "ram":
+            ram.append({"count": count, "size": param.get("size") or 0})
+        elif model == "disk":
+            disk_type = param.get("type") or ""
+            if param.get("interface"):
+                disk_type = f"{disk_type} {param['interface']}"
+            disks.append({"count": count, "size": param.get("size") or 0,
+                          "type": disk_type or "unknown"})
+
+    # как на сайте: без CPU/RAM/дисков конфиг не собирается
+    if not cpu or not ram or not disks or has_gpu:
+        return None
+    available = _precustom_available(comps, items_by_id)
+    if available <= 0:
+        return None  # сайт фильтрует available_count > 0 — не показывается
+
+    return {
+        "name": pre.get("name") or "",
+        "cpu": cpu,
+        "ram": ram,
+        "disk": disks,
+        "price_collection": {"RUB": {"month": total}},
+        "quantity": available,
+    }
+
+
+def _scrape_selectel_precustom() -> list[ServerRow]:
+    """Линейка «Configurable Pre-Build» (PCL*): собирается фронтом из
+    calculator/precustom + calculator/items, в service/server её нет."""
+    precustom = _fetch_selectel_calc(SELECTEL_CALC_PRECUSTOM)
+    items = _fetch_selectel_calc(SELECTEL_CALC_ITEMS)
+    if not isinstance(precustom, list) or not isinstance(items, list):
+        return []
+    items_by_id = {i["id"]: i for i in items
+                   if isinstance(i, dict) and i.get("id") is not None}
+    today = date.today().isoformat()
+    rows = []
+    for pre in precustom:
+        if not isinstance(pre, dict):
+            continue
+        cfg = _precustom_to_cfg(pre, items_by_id)
+        if not cfg:
+            continue
+        row = _selectel_cfg_to_row(cfg, today)
+        if row:
+            rows.append(row)
+    print(f"[selectel] Precustom (PCL*): {len(rows)} из {len(precustom)} "
+          "конфигов доступны и собраны")
+    return rows
+
+
 def scrape_selectel() -> list[ServerRow]:
     """Scrape selectel.ru: сначала открытый API, при неудаче — старый Nuxt CDN payload.
 
@@ -493,6 +631,10 @@ def scrape_selectel() -> list[ServerRow]:
     """
     rows = _scrape_selectel_api()
     if rows:
+        try:
+            rows.extend(_scrape_selectel_precustom())
+        except Exception as e:
+            print(f"[selectel] Precustom-линейка недоступна: {e}")
         return rows
 
     cdn_url = _get_selectel_cdn_url()

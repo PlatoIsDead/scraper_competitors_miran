@@ -39,10 +39,26 @@ FAMILY_MATCH_PENALTY = 15.0  # штраф score при совпадении то
 
 
 def canonical_cpu(model: str, specs: dict[str, CpuSpec]) -> str:
-    """Нормализованный ключ модели: через словарь алиасов, иначе как есть."""
+    """Нормализованный ключ модели: через словарь алиасов, иначе как есть.
+
+    Selectel непоследователен: «Intel Silver 4214R» рядом с «Intel Xeon
+    Silver 4214R», плюс хвосты частоты «(8x3.6 GHz HT)» — пробуем варианты
+    без скобок и с восстановленным «Xeon», прежде чем сдаться.
+    """
     norm = re.sub(r"\s+", " ", model.strip().lower()).rstrip(".,;")
-    spec = specs.get(norm)
-    return spec.canonical.lower() if spec else norm
+    candidates = [norm]
+    stripped = re.sub(r"\s*\(.*$", "", norm).strip()
+    if stripped and stripped != norm:
+        candidates.append(stripped)
+    for cand in list(candidates):
+        if cand.startswith("intel ") and not cand.startswith("intel xeon"):
+            candidates.append("intel xeon " + cand[len("intel "):])
+    for cand in candidates:
+        spec = specs.get(cand)
+        if spec:
+            return spec.canonical.lower()
+    # фолбэк без хвоста в скобках: «gold 6244 (8x3.6 ghz ht)» ≡ «gold 6244»
+    return stripped or norm
 
 
 def cpu_matches(

@@ -1,14 +1,15 @@
 ﻿config_id,competitor_id,plan_id,cpu_model,cpu_sockets,cpu_cores_total,ram_gb,disks,price_value,currency,price_period,stock_count,match_score
 MIR-045,selectel,EL09-SSD,Intel Xeon E-2236,1,6,16,2×480 ГБ SSD,11600.0,RUB,month,1.0,100.0
 MIR-045,timeweb,E-2236 / 16 / 480,Intel Xeon E-2236,1,6,16,2×480 ГБ SSD,11960.0,RUB,month,,100.0
-MIR-046,selectel,EL11-SSD,Intel Xeon E-2236,1,6,32,2×480 ГБ SSD,12800.0,RUB,month,20.0,100.0
+MIR-046,selectel,EL11-SSD,Intel Xeon E-2236,1,6,32,2×480 ГБ SSD,12800.0,RUB,month,19.0,100.0
 MIR-046,selectel,EL11-SSD-10GE,Intel Xeon E-2236,1,6,32,2×480 ГБ SSD,14000.0,RUB,month,5.0,100.0
 MIR-047,selectel,EL12-NVMe,Intel Xeon E-2236,1,6,32,2×1000 ГБ NVMe,16600.0,RUB,month,,100.0
 MIR-047,selectel,GL12-1-A2,Intel Xeon E-2236,1,6,32,2×1000 ГБ SSD,23200.0,RUB,month,1.0,100.0
 MIR-048,selectel,EL13-SSD,Intel Xeon E-2236,1,6,32,2×4000 ГБ SSD,19900.0,RUB,month,,100.0
 MIR-049,selectel,EL12-NVMe,Intel Xeon E-2236,1,6,32,2×1000 ГБ NVMe,16600.0,RUB,month,,100.0
 MIR-051,selectel,EL12-HDD,Intel Xeon E-2236,1,6,32,2×10000 ГБ HDD,14000.0,RUB,month,,100.0
-MIR-053,selectel,EL21-SSD,Intel Xeon E-2236,1,6,64,2×1000 ГБ SSD,16600.0,RUB,month,25.0,100.0
+MIR-053,selectel,EL21-SSD,Intel Xeon E-2236,1,6,64,2×1000 ГБ SSD,16600.0,RUB,month,26.0,100.0
+MIR-053,selectel,PCL33-NVMe,Intel Xeon E-2236 (6x3.4 GHz HT),1,6,64,2×1000 ГБ NVMe,28250.0,RUB,month,3.0,100.0
 MIR-097,selectel,EL42-NVMe,Intel Xeon E-2386G,1,6,32,2×1000 ГБ NVMe,18400.0,RUB,month,17.0,100.0
 MIR-098,selectel,EL43-NVMe,Intel Xeon E-2386G,1,6,64,2×1000 ГБ NVMe,19900.0,RUB,month,1.0,100.0
 MIR-100,selectel,EL43-NVMe,Intel Xeon E-2386G,1,6,64,2×1000 ГБ NVMe,19900.0,RUB,month,1.0,100.0
@@ -28,3 +29,4 @@ MIR-151,reg_cloud,RD-55040,Intel Xeon Gold 6240R,2,48,384,2×8000 ГБ NVMe,9000
 MIR-153,timeweb,2 x Silver 4314 / 128 / 1N,Intel Xeon Silver 4314,2,32,128,2×1000 ГБ NVMe,51870.0,RUB,month,,100.0
 MIR-157,reg_cloud,RD-55075,Intel Xeon Silver 4314,2,32,256,2×1900 ГБ SSD,107200.0,RUB,month,,100.0
 MIR-180,reg_cloud,RD-55129,Intel Xeon Gold 6348,2,56,512,2×8000 ГБ NVMe,95900.0,RUB,month,,100.0
+MIR-192,selectel,PCL07-NVMe,Intel Gold 6530 (32x2.1 GHz HT),2,64,192,2×1000 ГБ NVMe,121240.0,RUB,month,4.0,100.0
