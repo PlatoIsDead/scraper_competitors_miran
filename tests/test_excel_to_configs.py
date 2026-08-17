@@ -162,6 +162,50 @@ class TestConvert:
             convert(workbook, ALIASES, sheet="Нет_такого")
 
 
+class TestApplyParserUpload:
+    def test_upload_writes_both_configs(self, workbook, tmp_path, monkeypatch):
+        import io
+        import json
+
+        import excel_to_configs as e2c
+        import dedicated_app
+
+        out = tmp_path / "miran_configs.json"
+        classes_out = tmp_path / "disk_classes.json"
+        monkeypatch.setattr(e2c, "DEFAULT_OUT", out)
+        monkeypatch.setattr(e2c, "DEFAULT_CLASSES_OUT", classes_out)
+        monkeypatch.setattr(dedicated_app, "DATA_DIR", str(tmp_path))
+        # реальный словарь CPU: фикстура использует модели из cpu_specs.json
+        n_cfg, n_groups, warns = dedicated_app.apply_parser_upload(
+            io.BytesIO(workbook.read_bytes())
+        )
+        assert n_cfg == 4 and n_groups == 3
+        assert json.loads(out.read_text(encoding="utf-8"))["configs"]
+        assert json.loads(classes_out.read_text(encoding="utf-8"))["groups"]
+        assert (tmp_path / "Parser.xlsx").exists()
+        assert any("дубликат" in w for w in warns)
+
+    def test_upload_without_mapping_sheet_rejected(self, tmp_path, monkeypatch):
+        import io
+
+        import openpyxl
+
+        import excel_to_configs as e2c
+        import dedicated_app
+        import pytest
+
+        monkeypatch.setattr(e2c, "DEFAULT_OUT", tmp_path / "m.json")
+        monkeypatch.setattr(e2c, "DEFAULT_CLASSES_OUT", tmp_path / "d.json")
+        monkeypatch.setattr(dedicated_app, "DATA_DIR", str(tmp_path))
+        wb = openpyxl.Workbook()
+        wb.active.title = "Данные"
+        buf = io.BytesIO()
+        wb.save(buf)
+        with pytest.raises(ValueError):
+            dedicated_app.apply_parser_upload(io.BytesIO(buf.getvalue()))
+        assert not (tmp_path / "m.json").exists()
+
+
 class TestConvertDiskClasses:
     def test_groups_by_section_and_units(self, workbook):
         groups = convert_disk_classes(workbook)["groups"]

@@ -68,6 +68,51 @@ def load_all_offers() -> pd.DataFrame:
     return pd.DataFrame(rows_out)
 
 
+def apply_parser_upload(uploaded) -> tuple[int, int, list[str]]:
+    """Загруженный Parser.xlsx → config/miran_configs.json + disk_classes.json.
+
+    Сначала полный разбор во временном файле, запись конфигов — только при
+    успехе обоих листов. Возвращает (конфигов, групп дисков, предупреждения).
+    """
+    import logging
+
+    from excel_to_configs import (
+        DEFAULT_CLASSES_OUT, DEFAULT_OUT,
+        convert, convert_disk_classes, load_cpu_aliases,
+    )
+
+    tmp_path = Path(DATA_DIR) / "Parser_upload.xlsx"
+    tmp_path.write_bytes(uploaded.getbuffer())
+
+    warnings: list[str] = []
+
+    class _Collect(logging.Handler):
+        def emit(self, record):
+            if record.levelno >= logging.WARNING:
+                warnings.append(record.getMessage())
+
+    log = logging.getLogger("excel_to_configs")
+    handler = _Collect()
+    log.addHandler(handler)
+    try:
+        result = convert(tmp_path, load_cpu_aliases())
+        classes = convert_disk_classes(tmp_path)
+    finally:
+        log.removeHandler(handler)
+
+    if not result["configs"]:
+        raise ValueError("в листе «Данные» не распознано ни одной конфигурации")
+
+    DEFAULT_OUT.write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    DEFAULT_CLASSES_OUT.write_text(
+        json.dumps(classes, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    tmp_path.replace(Path(DATA_DIR) / "Parser.xlsx")
+    return len(result["configs"]), len(classes["groups"]), warnings
+
+
 def run_competitor_pipeline() -> int:
     """Живой прогон matching-пайплайна (тот же код, что CLI)."""
     import argparse
@@ -136,6 +181,46 @@ with st.sidebar:
             st.rerun()
         else:
             st.error("Ни один конкурент не дал данных — см. лог в data/reports/")
+
+    st.divider()
+    uploaded = st.file_uploader(
+        "Обновить эталон (Parser.xlsx)",
+        type=["xlsx"],
+        help="Файл с листами «Данные» и «Сопоставление дисков» — "
+             "как ведёт Светлана. Заменяет текущие эталонные конфигурации.",
+    )
+    if uploaded is not None:
+        import hashlib
+        digest = hashlib.md5(uploaded.getbuffer()).hexdigest()
+        if st.session_state.get("parser_digest") != digest:
+            try:
+                n_cfg, n_groups, warns = apply_parser_upload(uploaded)
+            except ValueError as e:
+                st.session_state["parser_status"] = ("error", f"Файл не принят: {e}")
+            except Exception as e:
+                st.session_state["parser_status"] = (
+                    "error", f"Не удалось разобрать файл: {e}")
+            else:
+                st.session_state["parser_status"] = (
+                    "success",
+                    f"Эталон обновлён: {n_cfg} конфигураций, {n_groups} групп "
+                    "дисков. Нажми «Запустить сравнение», чтобы пересчитать отчёт.",
+                )
+                st.session_state["parser_warnings"] = warns
+                st.cache_data.clear()
+            st.session_state["parser_digest"] = digest
+        status = st.session_state.get("parser_status")
+        if status:
+            (st.success if status[0] == "success" else st.error)(status[1])
+        warns = st.session_state.get("parser_warnings") or []
+        if warns and status and status[0] == "success":
+            shown = "\n".join(f"• {w}" for w in warns[:10])
+            more = f"\n… и ещё {len(warns) - 10}" if len(warns) > 10 else ""
+            st.warning(f"Предупреждения разбора:\n\n{shown}{more}")
+    st.caption(
+        "⚠️ В облаке обновление живёт до перезапуска приложения; "
+        "постоянное — коммитом Parser.xlsx в репозиторий."
+    )
 
 st.subheader("Цены конкурентов по эталонным конфигурациям Миран")
 
