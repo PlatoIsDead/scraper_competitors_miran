@@ -3,6 +3,8 @@
 # при необходимости он в git-истории (до коммита с этой строкой).
 # All UI text in Russian (Cyrillic)
 
+import json
+
 import streamlit as st
 import pandas as pd
 from pathlib import Path
@@ -32,6 +34,38 @@ def load_competitor_reports() -> tuple[pd.DataFrame, pd.DataFrame, str]:
     long_path = REPORTS_DIR / f"matches_{date_tag}.csv"
     long = pd.read_csv(long_path) if long_path.exists() else pd.DataFrame()
     return wide, long, date_tag
+
+
+@st.cache_data(ttl=60)
+def load_all_offers() -> pd.DataFrame:
+    """Все предложения конкурентов из свежайших raw-JSON скрейпа —
+    целиком, без фильтра matching."""
+    from competitor_report import format_disk_pools
+
+    rows_out = []
+    for provider in ("selectel", "regcloud", "timeweb_cloud"):
+        files = sorted(Path(DATA_DIR).glob(f"{provider}_2*.json"))
+        if not files:
+            continue
+        for r in json.loads(files[-1].read_text(encoding="utf-8")):
+            pools = r.get("disk_pools") or [{
+                "disk_type": r.get("disk_type"),
+                "disk_count": r.get("disk_count"),
+                "disk_size_gb": r.get("disk_size_gb"),
+            }]
+            rows_out.append({
+                "provider": provider,
+                "plan_id": r.get("plan_id") or "",
+                "cpu_model": r.get("cpu_model"),
+                "cpu_sockets": r.get("cpu_sockets"),
+                "cpu_cores_total": r.get("cpu_cores_total"),
+                "ram_gb": r.get("ram_gb"),
+                "disks": format_disk_pools(pools),
+                "price_rub": r.get("price_rub"),
+                "quantity_available": r.get("quantity_available"),
+                "scraped_at": r.get("scraped_at"),
+            })
+    return pd.DataFrame(rows_out)
 
 
 def run_competitor_pipeline() -> int:
@@ -212,3 +246,46 @@ else:
                 "match_score": "Score",
             },
         )
+
+# ── Сырые скрейпы: все предложения конкурентов, без фильтра matching ──
+
+st.divider()
+st.subheader("Все предложения конкурентов (сырой скрейп)")
+
+offers_df = load_all_offers()
+if offers_df.empty:
+    st.info("Скрейпов ещё нет — нажми «Запустить сравнение»")
+else:
+    dates = ", ".join(
+        f"{p}: {d}" for p, d in
+        offers_df.groupby("provider")["scraped_at"].max().items()
+    )
+    st.caption(f"Предложений: {len(offers_df)} · даты скрейпа — {dates}")
+
+    providers = sorted(offers_df["provider"].unique())
+    sel_providers = st.multiselect("Конкуренты", providers, default=providers)
+    raw_view = offers_df[offers_df["provider"].isin(sel_providers)]
+
+    st.dataframe(
+        raw_view,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "provider": "Конкурент",
+            "plan_id": "Тариф",
+            "cpu_model": "CPU",
+            "cpu_sockets": "Сокетов",
+            "cpu_cores_total": "Ядер всего",
+            "ram_gb": "RAM (ГБ)",
+            "disks": "Диски",
+            "price_rub": "Цена, ₽/мес",
+            "quantity_available": "В наличии",
+            "scraped_at": "Дата скрейпа",
+        },
+    )
+    st.download_button(
+        "Скачать CSV (все предложения)",
+        data=raw_view.to_csv(index=False).encode("utf-8-sig"),
+        file_name="все_предложения_конкурентов.csv",
+        mime="text/csv",
+    )
