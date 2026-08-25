@@ -348,7 +348,10 @@ def apply_parser_upload(uploaded) -> tuple[int, int, list[str]]:
         convert, convert_disk_classes, load_cpu_aliases,
     )
 
-    tmp_path = Path(DATA_DIR) / "Parser_upload.xlsx"
+    # расширение исходника важно: .ods (LibreOffice) читается другим движком
+    ext = ".ods" if str(getattr(uploaded, "name", "")).lower().endswith(".ods") \
+        else ".xlsx"
+    tmp_path = Path(DATA_DIR) / f"Parser_upload{ext}"
     tmp_path.write_bytes(uploaded.getbuffer())
 
     warnings: list[str] = []
@@ -376,7 +379,7 @@ def apply_parser_upload(uploaded) -> tuple[int, int, list[str]]:
     DEFAULT_CLASSES_OUT.write_text(
         json.dumps(classes, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
-    tmp_path.replace(Path(DATA_DIR) / "Parser.xlsx")
+    tmp_path.replace(Path(DATA_DIR) / f"Parser{ext}")
     return len(result["configs"]), len(classes["groups"]), warnings
 
 
@@ -597,9 +600,10 @@ with st.sidebar:
     st.divider()
     uploaded = st.file_uploader(
         "Обновить эталон (Parser.xlsx)",
-        type=["xlsx"],
+        type=["xlsx", "ods"],
         help="Файл с листами «Данные» и «Сопоставление дисков» — "
-             "как ведёт Светлана. Заменяет текущие эталонные конфигурации.",
+             "как ведёт Светлана (Excel или LibreOffice). "
+             "Заменяет текущие эталонные конфигурации.",
     )
     if uploaded is not None:
         import hashlib
@@ -620,15 +624,20 @@ with st.sidebar:
                 # и переживает перезапуски облака
                 try:
                     from excel_to_configs import DEFAULT_CLASSES_OUT, DEFAULT_OUT
+                    src = max(
+                        (p for p in (Path(DATA_DIR) / "Parser.xlsx",
+                                     Path(DATA_DIR) / "Parser.ods")
+                         if p.exists()),
+                        key=lambda p: p.stat().st_mtime,
+                    )
                     sha = persist_to_github(
                         {
-                            "data/Parser.xlsx":
-                                (Path(DATA_DIR) / "Parser.xlsx").read_bytes(),
+                            f"data/{src.name}": src.read_bytes(),
                             "config/miran_configs.json": DEFAULT_OUT.read_bytes(),
                             "config/disk_classes.json":
                                 DEFAULT_CLASSES_OUT.read_bytes(),
                         },
-                        f"Update reference configs from uploaded Parser.xlsx "
+                        f"Update reference configs from uploaded {src.name} "
                         f"({n_cfg} configs)",
                     )
                 except Exception as e:

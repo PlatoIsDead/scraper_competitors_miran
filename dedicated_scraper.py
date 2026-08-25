@@ -966,9 +966,13 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
             if disk_size_gb == 0:
                 continue
 
-            # Bug A fix: class names changed; prefer current-price (discounted) over base-price
+            # Вёрстка 2026-08: актуальная цена (со скидкой «Скидка на сервер N%»)
+            # лежит в __price-value_per-months_one; __base-price — перечёркнутая
+            # базовая. Старые классы оставлены фолбэком (кейс Светланы 25.08:
+            # 88 830 на сайте vs 98 700 из base-price — завышали 77 из 171 карточек).
             price_elem = (
-                item.find("p", class_="b-dedicated-servers-list-item-cloud__current-price")
+                item.find(class_="b-dedicated-servers-list-item-cloud__price-value_per-months_one")
+                or item.find("p", class_="b-dedicated-servers-list-item-cloud__current-price")
                 or item.find("p", class_="b-dedicated-servers-list-item-cloud__base-price")
             )
 

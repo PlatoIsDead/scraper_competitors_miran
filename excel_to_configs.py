@@ -24,12 +24,20 @@ from dedicated_scraper import normalize_disk_gb, normalize_disk_type
 
 log = logging.getLogger("excel_to_configs")
 
-DEFAULT_XLSX = Path("data") / "Parser.xlsx"
 DEFAULT_OUT = Path("config") / "miran_configs.json"
 DEFAULT_CLASSES_OUT = Path("config") / "disk_classes.json"
 
 DATA_SHEET = "Данные"
 MAPPING_SHEET = "Сопоставление дисков"
+
+
+def default_source() -> Path:
+    """Свежайший из data/Parser.xlsx | data/Parser.ods (клиент шлёт то и то)."""
+    candidates = [p for p in (Path("data") / "Parser.xlsx",
+                              Path("data") / "Parser.ods") if p.exists()]
+    if not candidates:
+        raise ValueError("Не найден data/Parser.xlsx или data/Parser.ods")
+    return max(candidates, key=lambda p: p.stat().st_mtime)
 
 # multiplication signs seen in the workbook: ×, x, X, х (cyrillic), *
 _MULT = r"[×xXх*]"
@@ -97,20 +105,34 @@ def resolve_cpu(model_raw: str, cpu_aliases: dict) -> dict | None:
     }
 
 
-def convert(xlsx_path: Path, cpu_aliases: dict, sheet: str = DATA_SHEET) -> dict:
-    """Лист «Данные» → структура miran_configs.json (с ценой Миран)."""
-    wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
+def _load_sheet_rows(path: Path, sheet: str) -> list[tuple]:
+    """Лист книги → список кортежей значений (None вместо пустых).
+    .xlsx — openpyxl; .ods (клиент работает в LibreOffice) — pandas+odfpy."""
+    if path.suffix.lower() == ".ods":
+        import pandas as pd
+        try:
+            df = pd.read_excel(path, engine="odf", sheet_name=sheet, header=None)
+        except (ValueError, KeyError) as e:
+            raise ValueError(f"Лист «{sheet}» не найден в {path}") from e
+        return [
+            tuple(None if pd.isna(v) else v for v in row)
+            for row in df.itertuples(index=False, name=None)
+        ]
+    wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
     try:
         if sheet not in wb.sheetnames:
-            raise ValueError(f"Лист «{sheet}» не найден в {xlsx_path}")
-        ws = wb[sheet]
+            raise ValueError(f"Лист «{sheet}» не найден в {path}")
+        return [tuple(row) for row in wb[sheet].iter_rows(values_only=True)]
+    finally:
+        wb.close()
 
-        configs = []
-        skipped = 0
-        seen_keys: dict[tuple, str] = {}
-        for row_idx, row in enumerate(
-            ws.iter_rows(min_row=1, max_col=5, values_only=True), start=1
-        ):
+
+def convert(xlsx_path: Path, cpu_aliases: dict, sheet: str = DATA_SHEET) -> dict:
+    """Лист «Данные» → структура miran_configs.json (с ценой Миран)."""
+    configs = []
+    skipped = 0
+    seen_keys: dict[tuple, str] = {}
+    for row_idx, row in enumerate(_load_sheet_rows(xlsx_path, sheet), start=1):
             sockets_cell, cpu_cell, ram_cell, disk_cell, price_cell = (
                 list(row) + [None] * 5
             )[:5]
@@ -156,15 +178,13 @@ def convert(xlsx_path: Path, cpu_aliases: dict, sheet: str = DATA_SHEET) -> dict
                 "source_row": row_idx,
             })
 
-        log.info("Лист «%s»: конфигураций %d, пропущено строк %d",
-                 sheet, len(configs), skipped)
-        return {
-            "generated_from": f"{xlsx_path.name} / {sheet}",
-            "generated_at": date.today().isoformat(),
-            "configs": configs,
-        }
-    finally:
-        wb.close()
+    log.info("Лист «%s»: конфигураций %d, пропущено строк %d",
+             sheet, len(configs), skipped)
+    return {
+        "generated_from": f"{xlsx_path.name} / {sheet}",
+        "generated_at": date.today().isoformat(),
+        "configs": configs,
+    }
 
 
 def convert_disk_classes(xlsx_path: Path, sheet: str = MAPPING_SHEET) -> dict:
@@ -173,50 +193,43 @@ def convert_disk_classes(xlsx_path: Path, sheet: str = MAPPING_SHEET) -> dict:
     Строка с текстом = заголовок секции (тип диска), числовая строка = группа
     эквивалентных размеров. Единица колонки (ГБ/ТБ) — из первой строки листа.
     """
-    wb = openpyxl.load_workbook(xlsx_path, read_only=True, data_only=True)
-    try:
-        if sheet not in wb.sheetnames:
-            raise ValueError(f"Лист «{sheet}» не найден в {xlsx_path}")
-        ws = wb[sheet]
-        rows = list(ws.iter_rows(values_only=True))
-        if not rows:
-            raise ValueError(f"{xlsx_path}: лист «{sheet}» пуст")
+    rows = _load_sheet_rows(xlsx_path, sheet)
+    if not rows:
+        raise ValueError(f"{xlsx_path}: лист «{sheet}» пуст")
 
-        # шапка: какие колонки в ГБ, какие в ТБ
-        tb_cols = {i for i, v in enumerate(rows[0])
-                   if isinstance(v, str) and v.strip().upper() in ("ТБ", "TB")}
+    # шапка: какие колонки в ГБ, какие в ТБ
+    tb_cols = {i for i, v in enumerate(rows[0])
+               if isinstance(v, str) and v.strip().upper() in ("ТБ", "TB")}
 
-        groups = []
-        current_type: str | None = None
-        for row in rows[1:]:
-            texts = [v for v in row if isinstance(v, str) and v.strip()]
-            if texts:
-                current_type = normalize_disk_type(" ".join(texts))
+    groups = []
+    current_type: str | None = None
+    for row in rows[1:]:
+        texts = [v for v in row if isinstance(v, str) and v.strip()]
+        if texts:
+            current_type = normalize_disk_type(" ".join(texts))
+            continue
+        sizes = set()
+        for i, v in enumerate(row):
+            if not isinstance(v, (int, float)):
                 continue
-            sizes = set()
-            for i, v in enumerate(row):
-                if not isinstance(v, (int, float)):
-                    continue
-                sizes.add(round(v * 1000) if i in tb_cols else int(v))
-            if not sizes:
-                continue
-            if current_type is None:
-                log.warning("Группа размеров %s до заголовка типа — пропуск",
-                            sorted(sizes))
-                continue
-            groups.append({
-                "disk_type": current_type,
-                "sizes_gb": sorted(sizes),
-            })
+            sizes.add(round(v * 1000) if i in tb_cols else int(v))
+        if not sizes:
+            continue
+        if current_type is None:
+            log.warning("Группа размеров %s до заголовка типа — пропуск",
+                        sorted(sizes))
+            continue
+        groups.append({
+            "disk_type": current_type,
+            "sizes_gb": sorted(sizes),
+        })
 
-        log.info("Лист «%s»: групп эквивалентности %d", sheet, len(groups))
-        return {
-            "generated_from": f"{xlsx_path.name} / {sheet}",
-            "generated_at": date.today().isoformat(),
-            "groups": groups,
-        }
-    finally:
-        wb.close()
+    log.info("Лист «%s»: групп эквивалентности %d", sheet, len(groups))
+    return {
+        "generated_from": f"{xlsx_path.name} / {sheet}",
+        "generated_at": date.today().isoformat(),
+        "groups": groups,
+    }
 
 
 def load_cpu_aliases(specs_path: Path = Path("config") / "cpu_specs.json") -> dict:
@@ -237,7 +250,9 @@ def main() -> None:
         description="Конвертация Parser.xlsx в config/miran_configs.json "
                     "и config/disk_classes.json"
     )
-    parser.add_argument("--xlsx", type=Path, default=DEFAULT_XLSX)
+    parser.add_argument("--xlsx", type=Path, default=None,
+                        help="источник (xlsx/ods); по умолчанию — свежайший "
+                             "из data/Parser.xlsx и data/Parser.ods")
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--classes-out", type=Path, default=DEFAULT_CLASSES_OUT)
     parser.add_argument("--dry-run", action="store_true",
@@ -246,8 +261,10 @@ def main() -> None:
 
     logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
 
-    result = convert(args.xlsx, load_cpu_aliases())
-    classes = convert_disk_classes(args.xlsx)
+    source = args.xlsx or default_source()
+    log.info("Источник эталона: %s", source)
+    result = convert(source, load_cpu_aliases())
+    classes = convert_disk_classes(source)
 
     if args.dry_run:
         for cfg in result["configs"]:

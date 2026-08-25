@@ -298,6 +298,31 @@ class TestParseRegcloudHtml:
         rows = _parse_regcloud_html(html, TODAY)
         assert len(rows) == 0
 
+    def test_discounted_price_value_preferred_over_base(self):
+        # вёрстка 2026-08: актуальная цена в __price-value_per-months_one,
+        # __base-price — перечёркнутая базовая (кейс RD-56106: 88 830 vs 98 700)
+        html = """
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">2 × Intel Xeon Silver 4214R</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">128 ГБ DDR4</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 960 ГБ SSD SATA</p>
+          <span class="b-dedicated-servers-list-item-cloud__price-value b-dedicated-servers-list-item-cloud__price-value_per-months_one">88\xa0830 ₽ /мес</span>
+          <p class="b-dedicated-servers-list-item-cloud__base-price">98\xa0700 ₽ /мес</p>
+          <p class="b-dedicated-servers-list-item-cloud__discount">Скидка на сервер 10%</p>
+        </div>
+        """
+        rows = _parse_regcloud_html(html, TODAY)
+        assert len(rows) == 1
+        assert rows[0]["price_rub"] == 88830.0
+
+    def test_base_price_fallback_without_discount(self):
+        html = _make_regcloud_item(
+            "AMD EPYC 9334", "128 ГБ DDR4",
+            "2 x 1000 ГБ SSD NVMe", "base-price", "50\xa0000₽/мес"
+        )
+        rows = _parse_regcloud_html(html, TODAY)
+        assert rows[0]["price_rub"] == 50000.0
+
     def test_gpu_element_captured(self):
         # кейс RD-56106: сервер с 4 × RTX A4000 — GPU уходит в поле gpu
         html = """

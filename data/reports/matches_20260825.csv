@@ -25,5 +25,3 @@ MIR-138,reg_cloud,RD-58699,Intel Xeon Gold 5218R,2,40,128,2×1000 ГБ NVMe,3930
 MIR-139,reg_cloud,RD-58699,Intel Xeon Gold 5218R,2,40,128,2×1000 ГБ NVMe,39300.0,RUB,month,,100.0
 MIR-150,selectel,PL33-NVMe-10GE,Intel Xeon Gold 6240R,2,48,384,2×1000 ГБ NVMe + 2×2000 ГБ SSD,58100.0,RUB,month,,100.0
 MIR-151,reg_cloud,RD-55040,Intel Xeon Gold 6240R,2,48,384,2×8000 ГБ NVMe,90000.0,RUB,month,,100.0
-MIR-153,timeweb,2 x Silver 4314 / 128 / 1N,Intel Xeon Silver 4314,2,32,128,2×1000 ГБ NVMe,51870.0,RUB,month,,100.0
-MIR-180,reg_cloud,RD-55129,Intel Xeon Gold 6348,2,56,512,2×8000 ГБ NVMe,95900.0,RUB,month,,100.0

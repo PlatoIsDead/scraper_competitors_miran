@@ -169,6 +169,42 @@ class TestConvert:
             convert(workbook, ALIASES, sheet="Нет_такого")
 
 
+class TestOdsSource:
+    def test_convert_reads_ods(self, tmp_path):
+        # клиент работает в LibreOffice — Parser может прийти в .ods
+        import pandas as pd
+
+        path = tmp_path / "Parser.ods"
+        with pd.ExcelWriter(path, engine="odf") as writer:
+            pd.DataFrame([
+                ["Кол-во CPU", "CPU", "RAM", "HDD", "Миран по калькулятору"],
+                [1, "E3-1231v3", 16, "2 * 480 ГБ SSD", 8200],
+                [2, "Silver 4314", 128, "2 * 1 ТБ NVME", 35000],
+            ]).to_excel(writer, sheet_name="Данные", header=False, index=False)
+            pd.DataFrame([
+                ["ГБ", "ГБ", None, "ТБ"],
+                ["SSD", "SSD SATA", None, None],
+                [960, 1000, None, 1],
+            ]).to_excel(writer, sheet_name="Сопоставление дисков",
+                        header=False, index=False)
+
+        result = convert(path, ALIASES)
+        assert len(result["configs"]) == 2
+        assert result["configs"][0]["cpu_model_display"] == "E3-1231v3"
+        assert result["configs"][1]["ram_gb"] == 128
+        groups = convert_disk_classes(path)["groups"]
+        assert groups == [{"disk_type": "SSD", "sizes_gb": [960, 1000]}]
+
+    def test_missing_sheet_in_ods_raises(self, tmp_path):
+        import pandas as pd
+
+        path = tmp_path / "Parser.ods"
+        pd.DataFrame([[1]]).to_excel(path, engine="odf",
+                                     sheet_name="Другое", index=False)
+        with pytest.raises(ValueError, match="не найден"):
+            convert(path, ALIASES)
+
+
 class TestApplyParserUpload:
     def test_upload_writes_both_configs(self, workbook, tmp_path, monkeypatch):
         import io
