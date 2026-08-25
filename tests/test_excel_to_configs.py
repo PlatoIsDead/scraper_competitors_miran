@@ -27,8 +27,15 @@ class TestResolveCpu:
         cpu = resolve_cpu("Intel Xeon Silver 4214R", ALIASES)
         assert cpu == {
             "cpu_model": "Intel Xeon Silver 4214R",
+            "cpu_model_display": "Intel Xeon Silver 4214R",
             "cpu_cores_per_socket": 12,
         }
+
+    def test_display_keeps_client_spelling(self):
+        # клиент пишет «E3-1231v3» — канон для матчинга, display как в файле
+        cpu = resolve_cpu("E3-1231v3", ALIASES)
+        assert cpu["cpu_model"] == "Intel Xeon E3-1231v3"
+        assert cpu["cpu_model_display"] == "E3-1231v3"
 
     def test_short_alias(self):
         assert resolve_cpu("Silver 4314", ALIASES)["cpu_model"] == \

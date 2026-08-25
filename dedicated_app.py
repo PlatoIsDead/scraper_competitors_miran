@@ -230,11 +230,88 @@ def load_all_offers() -> pd.DataFrame:
                 "cpu_cores_total": r.get("cpu_cores_total"),
                 "ram_gb": r.get("ram_gb"),
                 "disks": format_disk_pools(pools),
+                "gpu": r.get("gpu") or "",
                 "price_rub": r.get("price_rub"),
                 "quantity_available": r.get("quantity_available"),
                 "scraped_at": r.get("scraped_at"),
             })
     return pd.DataFrame(rows_out)
+
+
+@st.cache_data(ttl=30)
+def reference_status() -> tuple[int, str]:
+    """(число конфигураций эталона, дата генерации) из miran_configs.json."""
+    from config_loader import MIRAN_CONFIGS_JSON
+    try:
+        data = json.loads(Path(MIRAN_CONFIGS_JSON).read_text(encoding="utf-8"))
+        gen = str(data.get("generated_at") or "")
+        if len(gen) == 10:  # ISO → DD.MM.YYYY
+            gen = f"{gen[8:10]}.{gen[5:7]}.{gen[:4]}"
+        return len(data.get("configs") or []), gen
+    except Exception:
+        return 0, ""
+
+
+def persist_to_github(files: dict[str, bytes], message: str) -> "str | None":
+    """Один коммит в репозиторий через GitHub Git Data API — чтобы загруженный
+    эталон переживал перезапуски Streamlit Cloud. Требует GITHUB_TOKEN
+    в secrets (права contents:write). Возвращает короткий sha или None,
+    если токен не настроен."""
+    import base64
+
+    import requests
+
+    try:
+        token = st.secrets.get("GITHUB_TOKEN")
+    except Exception:
+        return None
+    if not token:
+        return None
+    repo = "PlatoIsDead/scraper_competitors_miran"
+    branch = "main"
+    try:
+        repo = st.secrets.get("GITHUB_REPO", repo)
+        branch = st.secrets.get("GITHUB_BRANCH", branch)
+    except Exception:
+        pass
+
+    api = f"https://api.github.com/repos/{repo}"
+    hdrs = {"Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github+json"}
+
+    ref = requests.get(f"{api}/git/ref/heads/{branch}", headers=hdrs, timeout=20)
+    ref.raise_for_status()
+    head_sha = ref.json()["object"]["sha"]
+    base = requests.get(f"{api}/git/commits/{head_sha}", headers=hdrs, timeout=20)
+    base.raise_for_status()
+
+    tree_items = []
+    for path, content in files.items():
+        blob = requests.post(
+            f"{api}/git/blobs", headers=hdrs, timeout=20,
+            json={"content": base64.b64encode(content).decode(),
+                  "encoding": "base64"},
+        )
+        blob.raise_for_status()
+        tree_items.append({"path": path, "mode": "100644", "type": "blob",
+                           "sha": blob.json()["sha"]})
+    tree = requests.post(
+        f"{api}/git/trees", headers=hdrs, timeout=20,
+        json={"base_tree": base.json()["tree"]["sha"], "tree": tree_items},
+    )
+    tree.raise_for_status()
+    commit = requests.post(
+        f"{api}/git/commits", headers=hdrs, timeout=20,
+        json={"message": message, "tree": tree.json()["sha"],
+              "parents": [head_sha]},
+    )
+    commit.raise_for_status()
+    upd = requests.patch(
+        f"{api}/git/refs/heads/{branch}", headers=hdrs, timeout=20,
+        json={"sha": commit.json()["sha"]},
+    )
+    upd.raise_for_status()
+    return commit.json()["sha"][:7]
 
 
 @st.cache_data(ttl=60)
@@ -479,11 +556,14 @@ with st.sidebar:
     )
 
     scrape_when, n_sources = scrape_status()
+    n_refs, refs_when = reference_status()
     st.markdown('<div class="sb-label">Данные</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="sb-card">'
         f'<div class="row">Отчёт {pretty_date or "—"}</div>'
         f'<div class="row">Скрейп {scrape_when}</div>'
+        f'<div class="row">Эталон: {n_refs} конфигураций'
+        f'{f" ({refs_when})" if refs_when else ""}</div>'
         f'<div class="row"><span class="dot"></span>'
         f'{n_sources} источника доступны</div></div>',
         unsafe_allow_html=True,
@@ -533,12 +613,43 @@ with st.sidebar:
                 st.session_state["parser_status"] = (
                     "error", f"Не удалось разобрать файл: {e}")
             else:
-                st.session_state["parser_status"] = (
-                    "success",
-                    f"Эталон обновлён: {n_cfg} конфигураций, {n_groups} групп "
-                    "дисков. Нажми «Запустить сравнение», чтобы пересчитать отчёт.",
-                )
-                st.session_state["parser_warnings"] = warns
+                msg = (f"Эталон обновлён: {n_cfg} конфигураций, {n_groups} групп "
+                       "дисков. Нажми «Запустить сравнение», чтобы пересчитать "
+                       "отчёт.")
+                # при настроенном GITHUB_TOKEN эталон коммитится в репозиторий
+                # и переживает перезапуски облака
+                try:
+                    from excel_to_configs import DEFAULT_CLASSES_OUT, DEFAULT_OUT
+                    sha = persist_to_github(
+                        {
+                            "data/Parser.xlsx":
+                                (Path(DATA_DIR) / "Parser.xlsx").read_bytes(),
+                            "config/miran_configs.json": DEFAULT_OUT.read_bytes(),
+                            "config/disk_classes.json":
+                                DEFAULT_CLASSES_OUT.read_bytes(),
+                        },
+                        f"Update reference configs from uploaded Parser.xlsx "
+                        f"({n_cfg} configs)",
+                    )
+                except Exception as e:
+                    sha = None
+                    msg += (" ⚠️ Не удалось сохранить в репозиторий "
+                            f"({type(e).__name__}) — обновление живёт до "
+                            "перезапуска приложения.")
+                else:
+                    if sha:
+                        msg += (f" Сохранено в репозиторий ({sha}) — обновление "
+                                "постоянное; приложение может перезапуститься "
+                                "через пару минут.")
+                    else:
+                        msg += (" Обновление живёт до перезапуска приложения; "
+                                "постоянное — через Никиту (Parser.xlsx в "
+                                "репозиторий).")
+                st.session_state["parser_status"] = ("success", msg)
+                # пропуски CPU важнее всего: без них конфиг выпадает из эталона
+                st.session_state["parser_warnings"] = sorted(
+                    warns, key=lambda w: (0 if "CPU" in w else
+                                          1 if "дубликат" in w else 2))
                 st.cache_data.clear()
             st.session_state["parser_digest"] = digest
         status = st.session_state.get("parser_status")
@@ -549,10 +660,6 @@ with st.sidebar:
             shown = "\n".join(f"• {w}" for w in warns[:10])
             more = f"\n… и ещё {len(warns) - 10}" if len(warns) > 10 else ""
             st.warning(f"Предупреждения разбора:\n\n{shown}{more}")
-    st.caption(
-        "В облаке обновление живёт до перезапуска приложения; "
-        "постоянное — коммитом Parser.xlsx в репозиторий."
-    )
 
 # ── Шапка ──
 matched_mask_all = (wide_df[all_price_cols].notna().any(axis=1)
@@ -697,6 +804,8 @@ if not offers_df.empty:
                 "cpu_cores_total": "Ядер всего",
                 "ram_gb": "RAM (ГБ)",
                 "disks": "Диски",
+                "gpu": st.column_config.TextColumn(
+                    "GPU", help="GPU-серверы в сопоставление не идут"),
                 "price_rub": st.column_config.NumberColumn(
                     "Цена, ₽/мес", format="%.0f"),
                 "quantity_available": "В наличии",

@@ -62,10 +62,18 @@ def _load_latest_raw(provider: str) -> list[dict]:
 
 def rows_to_offers(rows: list[dict], comp: Competitor) -> list[CompetitorOffer]:
     """ServerRow-словари → CompetitorOffer; строки без расширенных полей
-    (старые raw-JSON) пропускаются с предупреждением."""
+    (старые raw-JSON) пропускаются с предупреждением.
+
+    GPU-серверы в сопоставление не идут (требование клиента 2026-08-25):
+    цена с видеокартами несравнима с эталонами Миран без GPU.
+    """
     offers = []
     skipped = 0
+    skipped_gpu = 0
     for row in rows:
+        if row.get("gpu"):
+            skipped_gpu += 1
+            continue
         pools = row.get("disk_pools")
         if not pools:
             skipped += 1
@@ -88,6 +96,11 @@ def rows_to_offers(rows: list[dict], comp: Competitor) -> list[CompetitorOffer]:
         log.warning(
             "[%s] Пропущено строк без disk_pools (старый формат данных): %d",
             comp.competitor_id, skipped,
+        )
+    if skipped_gpu:
+        log.info(
+            "[%s] Исключено GPU-серверов из сопоставления: %d",
+            comp.competitor_id, skipped_gpu,
         )
     return offers
 

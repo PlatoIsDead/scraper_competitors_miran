@@ -79,8 +79,10 @@ def parse_ref_disks(text: str) -> list[dict]:
 
 
 def resolve_cpu(model_raw: str, cpu_aliases: dict) -> dict | None:
-    """Модель из колонки CPU → {cpu_model, cpu_cores_per_socket} по cpu_specs.
-    Ядер в Parser.xlsx нет — модель обязана быть в словаре."""
+    """Модель из колонки CPU → {cpu_model, cpu_model_display,
+    cpu_cores_per_socket} по cpu_specs. Ядер в Parser.xlsx нет — модель
+    обязана быть в словаре. cpu_model — канон для матчинга,
+    cpu_model_display — как написал клиент (для отчёта и интерфейса)."""
     model = re.sub(r"\s+", " ", str(model_raw).strip())
     if not model:
         return None
@@ -88,7 +90,11 @@ def resolve_cpu(model_raw: str, cpu_aliases: dict) -> dict | None:
     if not spec:
         log.warning("Модель CPU не найдена в cpu_specs.json: «%s» — пропуск", model)
         return None
-    return {"cpu_model": spec["canonical"], "cpu_cores_per_socket": spec["cores"]}
+    return {
+        "cpu_model": spec["canonical"],
+        "cpu_model_display": model,
+        "cpu_cores_per_socket": spec["cores"],
+    }
 
 
 def convert(xlsx_path: Path, cpu_aliases: dict, sheet: str = DATA_SHEET) -> dict:

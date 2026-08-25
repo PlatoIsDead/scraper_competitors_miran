@@ -69,7 +69,8 @@ def build_wide_df(
     for ref in refs:
         row: dict = {
             "config_id": ref.config_id,
-            "cpu_model": ref.cpu_model,
+            # в отчёте модель как в файле клиента; канон — только для матчинга
+            "cpu_model": ref.cpu_display,
             "cpu_sockets": ref.cpu_sockets,
             "cpu_cores_per_socket": ref.cpu_cores_per_socket,
             "ram_gb": ref.ram_gb,

@@ -20,7 +20,7 @@
   "intel xeon gold 6448y":   {"canonical": "Intel Xeon Gold 6448Y",   "cores": 32, "family": "gold",   "generation": "Sapphire Rapids", "aliases": ["gold 6448y", "6448y"]},
   "intel xeon gold 6526y":   {"canonical": "Intel Xeon Gold 6526Y",   "cores": 16, "family": "gold",   "generation": "Emerald Rapids",  "aliases": ["gold 6526y", "6526y"]},
   "intel xeon gold 6530":    {"canonical": "Intel Xeon Gold 6530",    "cores": 32, "family": "gold",   "generation": "Emerald Rapids",  "aliases": ["gold 6530", "6530"]},
-  "intel xeon e3-1230v5/v6": {"canonical": "Intel Xeon E3-1230v5/v6", "cores": 4,  "family": "e3",     "generation": "Skylake",         "aliases": ["e3-1230v5/v6", "e3-1230 v5/v6", "intel xeon e3-1230v5", "e3-1230v5", "e3-1230 v5", "intel xeon e3-1230v6", "e3-1230v6", "e3-1230 v6"]},
+  "intel xeon e3-1230v5/v6": {"canonical": "Intel Xeon E3-1230v5/v6", "cores": 4,  "family": "e3",     "generation": "Skylake",         "aliases": ["e3-1230v5/v6", "e3-1230 v5/v6", "intel xeon e3-1230v5", "e3-1230v5", "e3-1230 v5", "intel xeon e3-1230v6", "e3-1230v6", "e3-1230 v6", "intel xeon e3-1230", "e3-1230"]},
   "intel xeon e3-1231v3":    {"canonical": "Intel Xeon E3-1231v3",    "cores": 4,  "family": "e3",     "generation": "Haswell",         "aliases": ["e3-1231v3", "e3-1231 v3"]},
   "intel xeon e3-1240":      {"canonical": "Intel Xeon E3-1240",      "cores": 4,  "family": "e3",     "generation": "Sandy Bridge",    "aliases": ["e3-1240"]},
   "intel xeon e3-1240v6":    {"canonical": "Intel Xeon E3-1240v6",    "cores": 4,  "family": "e3",     "generation": "Kaby Lake",       "aliases": ["e3-1240v6", "e3-1240 v6"]},

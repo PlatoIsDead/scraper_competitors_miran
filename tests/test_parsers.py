@@ -298,6 +298,30 @@ class TestParseRegcloudHtml:
         rows = _parse_regcloud_html(html, TODAY)
         assert len(rows) == 0
 
+    def test_gpu_element_captured(self):
+        # кейс RD-56106: сервер с 4 × RTX A4000 — GPU уходит в поле gpu
+        html = """
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__title">RD-56106</p>
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">2 × Intel Xeon Silver 4214R</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">128 ГБ DDR4</p>
+          <p class="b-dedicated-servers-list-item-cloud__gpu">4 × RTX A4000 16GB</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 960 ГБ SSD SATA</p>
+          <p class="b-dedicated-servers-list-item-cloud__base-price">88\xa0830₽/мес</p>
+        </div>
+        """
+        rows = _parse_regcloud_html(html, TODAY)
+        assert len(rows) == 1
+        assert rows[0]["gpu"] == "4 × RTX A4000 16GB"
+
+    def test_no_gpu_element_empty_field(self):
+        html = _make_regcloud_item(
+            "AMD EPYC 9334", "128 ГБ DDR4",
+            "2 x 1000 ГБ SSD NVMe", "base-price", "50\xa0000₽/мес"
+        )
+        rows = _parse_regcloud_html(html, TODAY)
+        assert rows[0]["gpu"] == ""
+
 
 # ── _parse_netrack_html ───────────────────────────────────────────────
 
@@ -528,6 +552,58 @@ class TestSelectelPrecustom:
         cfg_list = [c for c in self.CONFIG if c["id"] != 73]
         cfg = _precustom_to_cfg({"name": "PCL-TEST", "config": cfg_list}, items)
         assert cfg["price_collection"]["RUB"]["month"] == 38300.0 - 3920.0
+
+
+class TestSelectelGpuField:
+    BASE_CFG = {
+        "name": "GL12-1-A2",
+        "cpu": {"name": "Intel Xeon E-2236", "count": 1, "cores_per_cpu": 6},
+        "ram": [{"count": 2, "size": 16}],
+        "disk": [{"count": 2, "size": 1000, "type": "SSD"}],
+        "price_collection": {"RUB": {"month": 23200.0}},
+        "quantity": 1,
+    }
+
+    def test_gpu_dict_captured(self):
+        cfg = {**self.BASE_CFG, "gpu": {"name": "RTX A2000", "count": 1}}
+        row = _selectel_cfg_to_row(cfg, TODAY)
+        assert row["gpu"] == "1 × RTX A2000"
+
+    def test_no_gpu_empty(self):
+        row = _selectel_cfg_to_row(dict(self.BASE_CFG), TODAY)
+        assert row["gpu"] == ""
+
+    def test_gpu_none_or_empty_dict_empty(self):
+        assert _selectel_cfg_to_row(
+            {**self.BASE_CFG, "gpu": None}, TODAY)["gpu"] == ""
+        assert _selectel_cfg_to_row(
+            {**self.BASE_CFG, "gpu": {}}, TODAY)["gpu"] == ""
+
+
+class TestGpuOffersExcludedFromMatching:
+    def test_rows_to_offers_skips_gpu(self):
+        from competitor_pipeline import rows_to_offers
+        from config_loader import Competitor
+
+        comp = Competitor(
+            competitor_id="regcloud", name="Reg.cloud", url="",
+            currency="RUB", price_period="month",
+            parsing_profile="regcloud_playwright",
+        )
+        base = {
+            "cpu_model": "Intel Xeon Silver 4214R",
+            "cpu_model_norm": "intel xeon silver 4214r",
+            "ram_gb": 128, "price_rub": 88830.0,
+            "disk_pools": [
+                {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 960}],
+        }
+        rows = [
+            {**base, "plan_id": "RD-56106", "gpu": "4 × RTX A4000 16GB"},
+            {**base, "plan_id": "RD-00001", "gpu": ""},
+            {**base, "plan_id": "RD-00002"},
+        ]
+        offers = rows_to_offers(rows, comp)
+        assert [o.plan_id for o in offers] == ["RD-00001", "RD-00002"]
 
 
 class TestSelectelExtendedFields:

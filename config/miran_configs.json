@@ -1,10 +1,11 @@
 {
   "generated_from": "Parser.xlsx / Данные",
-  "generated_at": "2026-08-17",
+  "generated_at": "2026-08-25",
   "configs": [
     {
       "config_id": "MIR-001",
       "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_model_display": "E3-1231v3",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 8,
@@ -21,6 +22,7 @@
     {
       "config_id": "MIR-002",
       "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_model_display": "E3-1231v3",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -37,6 +39,7 @@
     {
       "config_id": "MIR-003",
       "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_model_display": "E3-1231v3",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -53,6 +56,7 @@
     {
       "config_id": "MIR-004",
       "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_model_display": "E3-1231v3",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -69,6 +73,7 @@
     {
       "config_id": "MIR-005",
       "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_model_display": "E3-1231v3",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -85,6 +90,7 @@
     {
       "config_id": "MIR-006",
       "cpu_model": "Intel Xeon E3-1231v3",
+      "cpu_model_display": "E3-1231v3",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -101,6 +107,7 @@
     {
       "config_id": "MIR-007",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -117,6 +124,7 @@
     {
       "config_id": "MIR-008",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -133,6 +141,7 @@
     {
       "config_id": "MIR-009",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -149,6 +158,7 @@
     {
       "config_id": "MIR-010",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -165,6 +175,7 @@
     {
       "config_id": "MIR-011",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -181,6 +192,7 @@
     {
       "config_id": "MIR-012",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -197,6 +209,7 @@
     {
       "config_id": "MIR-013",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -213,6 +226,7 @@
     {
       "config_id": "MIR-014",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -229,6 +243,7 @@
     {
       "config_id": "MIR-015",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -245,6 +260,7 @@
     {
       "config_id": "MIR-016",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -261,6 +277,7 @@
     {
       "config_id": "MIR-017",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -277,6 +294,7 @@
     {
       "config_id": "MIR-018",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -293,6 +311,7 @@
     {
       "config_id": "MIR-019",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -309,6 +328,7 @@
     {
       "config_id": "MIR-020",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -325,6 +345,7 @@
     {
       "config_id": "MIR-021",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -341,6 +362,7 @@
     {
       "config_id": "MIR-022",
       "cpu_model": "Intel Xeon E3-1230v5/v6",
+      "cpu_model_display": "E3-1230v5/v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -357,6 +379,7 @@
     {
       "config_id": "MIR-023",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -373,6 +396,7 @@
     {
       "config_id": "MIR-024",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -389,6 +413,7 @@
     {
       "config_id": "MIR-025",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -405,6 +430,7 @@
     {
       "config_id": "MIR-026",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -421,6 +447,7 @@
     {
       "config_id": "MIR-027",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -437,6 +464,7 @@
     {
       "config_id": "MIR-028",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -453,6 +481,7 @@
     {
       "config_id": "MIR-029",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -469,6 +498,7 @@
     {
       "config_id": "MIR-030",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -485,6 +515,7 @@
     {
       "config_id": "MIR-031",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -501,6 +532,7 @@
     {
       "config_id": "MIR-032",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -517,6 +549,7 @@
     {
       "config_id": "MIR-033",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -533,6 +566,7 @@
     {
       "config_id": "MIR-034",
       "cpu_model": "Intel Xeon E3-1240v6",
+      "cpu_model_display": "E3-1240v6",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -549,6 +583,7 @@
     {
       "config_id": "MIR-035",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -565,6 +600,7 @@
     {
       "config_id": "MIR-036",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -581,6 +617,7 @@
     {
       "config_id": "MIR-037",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -597,6 +634,7 @@
     {
       "config_id": "MIR-038",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -613,6 +651,7 @@
     {
       "config_id": "MIR-039",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -629,6 +668,7 @@
     {
       "config_id": "MIR-040",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -645,6 +685,7 @@
     {
       "config_id": "MIR-041",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -661,6 +702,7 @@
     {
       "config_id": "MIR-042",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -677,6 +719,7 @@
     {
       "config_id": "MIR-043",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -693,6 +736,7 @@
     {
       "config_id": "MIR-044",
       "cpu_model": "Intel Xeon E-2234",
+      "cpu_model_display": "Intel Xeon E-2234",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -709,6 +753,7 @@
     {
       "config_id": "MIR-045",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -725,6 +770,7 @@
     {
       "config_id": "MIR-046",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -741,6 +787,7 @@
     {
       "config_id": "MIR-047",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -757,6 +804,7 @@
     {
       "config_id": "MIR-048",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -773,6 +821,7 @@
     {
       "config_id": "MIR-049",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -789,6 +838,7 @@
     {
       "config_id": "MIR-050",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -805,6 +855,7 @@
     {
       "config_id": "MIR-051",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -821,6 +872,7 @@
     {
       "config_id": "MIR-052",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -837,6 +889,7 @@
     {
       "config_id": "MIR-053",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -853,6 +906,7 @@
     {
       "config_id": "MIR-054",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -869,6 +923,7 @@
     {
       "config_id": "MIR-055",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -885,6 +940,7 @@
     {
       "config_id": "MIR-056",
       "cpu_model": "Intel Xeon E-2236",
+      "cpu_model_display": "Intel Xeon E-2236",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -901,6 +957,7 @@
     {
       "config_id": "MIR-057",
       "cpu_model": "Intel Xeon E-2246G",
+      "cpu_model_display": "Intel Xeon E-2246G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -922,6 +979,7 @@
     {
       "config_id": "MIR-058",
       "cpu_model": "Intel Xeon E-2246G",
+      "cpu_model_display": "Intel Xeon E-2246G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -938,6 +996,7 @@
     {
       "config_id": "MIR-059",
       "cpu_model": "Intel Xeon E-2246G",
+      "cpu_model_display": "Intel Xeon E-2246G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -959,6 +1018,7 @@
     {
       "config_id": "MIR-060",
       "cpu_model": "Intel Xeon E-2246G",
+      "cpu_model_display": "Intel Xeon E-2246G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -975,6 +1035,7 @@
     {
       "config_id": "MIR-061",
       "cpu_model": "Intel Xeon E-2246G",
+      "cpu_model_display": "Intel Xeon E-2246G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -991,6 +1052,7 @@
     {
       "config_id": "MIR-062",
       "cpu_model": "Intel Xeon E-2274G",
+      "cpu_model_display": "Intel Xeon E-2274G",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1007,6 +1069,7 @@
     {
       "config_id": "MIR-063",
       "cpu_model": "Intel Xeon E-2274G",
+      "cpu_model_display": "Intel Xeon E-2274G",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1023,6 +1086,7 @@
     {
       "config_id": "MIR-064",
       "cpu_model": "Intel Xeon E-2274G",
+      "cpu_model_display": "Intel Xeon E-2274G",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1044,6 +1108,7 @@
     {
       "config_id": "MIR-065",
       "cpu_model": "Intel Xeon E-2274G",
+      "cpu_model_display": "Intel Xeon E-2274G",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1060,6 +1125,7 @@
     {
       "config_id": "MIR-066",
       "cpu_model": "Intel Xeon E-2274G",
+      "cpu_model_display": "Intel Xeon E-2274G",
       "cpu_cores_per_socket": 4,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1076,6 +1142,7 @@
     {
       "config_id": "MIR-067",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -1092,6 +1159,7 @@
     {
       "config_id": "MIR-068",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 16,
@@ -1108,6 +1176,7 @@
     {
       "config_id": "MIR-069",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1124,6 +1193,7 @@
     {
       "config_id": "MIR-070",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1140,6 +1210,7 @@
     {
       "config_id": "MIR-071",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1156,6 +1227,7 @@
     {
       "config_id": "MIR-072",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1172,6 +1244,7 @@
     {
       "config_id": "MIR-073",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1188,6 +1261,7 @@
     {
       "config_id": "MIR-074",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1209,6 +1283,7 @@
     {
       "config_id": "MIR-075",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1225,6 +1300,7 @@
     {
       "config_id": "MIR-076",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1241,6 +1317,7 @@
     {
       "config_id": "MIR-077",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1257,6 +1334,7 @@
     {
       "config_id": "MIR-078",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1273,6 +1351,7 @@
     {
       "config_id": "MIR-079",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1289,6 +1368,7 @@
     {
       "config_id": "MIR-080",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1310,6 +1390,7 @@
     {
       "config_id": "MIR-081",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1326,6 +1407,7 @@
     {
       "config_id": "MIR-082",
       "cpu_model": "Intel Xeon E-2278G",
+      "cpu_model_display": "Intel Xeon E-2278G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1342,6 +1424,7 @@
     {
       "config_id": "MIR-083",
       "cpu_model": "Intel Xeon E-2356G",
+      "cpu_model_display": "Intel Xeon E-2356G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1358,6 +1441,7 @@
     {
       "config_id": "MIR-084",
       "cpu_model": "Intel Xeon E-2356G",
+      "cpu_model_display": "Intel Xeon E-2356G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1374,6 +1458,7 @@
     {
       "config_id": "MIR-085",
       "cpu_model": "Intel Xeon E-2356G",
+      "cpu_model_display": "Intel Xeon E-2356G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1390,6 +1475,7 @@
     {
       "config_id": "MIR-086",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1406,6 +1492,7 @@
     {
       "config_id": "MIR-087",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1422,6 +1509,7 @@
     {
       "config_id": "MIR-088",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1438,6 +1526,7 @@
     {
       "config_id": "MIR-089",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1454,6 +1543,7 @@
     {
       "config_id": "MIR-090",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1470,6 +1560,7 @@
     {
       "config_id": "MIR-091",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1486,6 +1577,7 @@
     {
       "config_id": "MIR-092",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1502,6 +1594,7 @@
     {
       "config_id": "MIR-093",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1518,6 +1611,7 @@
     {
       "config_id": "MIR-094",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1534,6 +1628,7 @@
     {
       "config_id": "MIR-095",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1550,6 +1645,7 @@
     {
       "config_id": "MIR-096",
       "cpu_model": "Intel Xeon E-2378G",
+      "cpu_model_display": "Intel Xeon E-2378G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1566,6 +1662,7 @@
     {
       "config_id": "MIR-097",
       "cpu_model": "Intel Xeon E-2386G",
+      "cpu_model_display": "Intel Xeon E-2386G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1582,6 +1679,7 @@
     {
       "config_id": "MIR-098",
       "cpu_model": "Intel Xeon E-2386G",
+      "cpu_model_display": "Intel Xeon E-2386G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1598,6 +1696,7 @@
     {
       "config_id": "MIR-099",
       "cpu_model": "Intel Xeon E-2386G",
+      "cpu_model_display": "Intel Xeon E-2386G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1614,6 +1713,7 @@
     {
       "config_id": "MIR-100",
       "cpu_model": "Intel Xeon E-2386G",
+      "cpu_model_display": "Intel Xeon E-2386G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1630,6 +1730,7 @@
     {
       "config_id": "MIR-101",
       "cpu_model": "Intel Xeon E-2386G",
+      "cpu_model_display": "Intel Xeon E-2386G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1646,6 +1747,7 @@
     {
       "config_id": "MIR-102",
       "cpu_model": "Intel Xeon E-2386G",
+      "cpu_model_display": "Intel Xeon E-2386G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1662,6 +1764,7 @@
     {
       "config_id": "MIR-103",
       "cpu_model": "Intel Xeon E-2386G",
+      "cpu_model_display": "Intel Xeon E-2386G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1678,6 +1781,7 @@
     {
       "config_id": "MIR-104",
       "cpu_model": "Intel Xeon E-2386G",
+      "cpu_model_display": "Intel Xeon E-2386G",
       "cpu_cores_per_socket": 6,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1694,6 +1798,7 @@
     {
       "config_id": "MIR-105",
       "cpu_model": "Intel Xeon E-2388G",
+      "cpu_model_display": "Intel Xeon E-2388G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1710,6 +1815,7 @@
     {
       "config_id": "MIR-106",
       "cpu_model": "Intel Xeon E-2388G",
+      "cpu_model_display": "Intel Xeon E-2388G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1726,6 +1832,7 @@
     {
       "config_id": "MIR-107",
       "cpu_model": "Intel Xeon E-2388G",
+      "cpu_model_display": "Intel Xeon E-2388G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1742,6 +1849,7 @@
     {
       "config_id": "MIR-108",
       "cpu_model": "Intel Xeon E-2388G",
+      "cpu_model_display": "Intel Xeon E-2388G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1758,6 +1866,7 @@
     {
       "config_id": "MIR-109",
       "cpu_model": "Intel Xeon E-2388G",
+      "cpu_model_display": "Intel Xeon E-2388G",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1774,6 +1883,7 @@
     {
       "config_id": "MIR-110",
       "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_model_display": "AMD Ryzen 9 7950X",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1790,6 +1900,7 @@
     {
       "config_id": "MIR-111",
       "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_model_display": "AMD Ryzen 9 7950X",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 1,
       "ram_gb": 32,
@@ -1806,6 +1917,7 @@
     {
       "config_id": "MIR-112",
       "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_model_display": "AMD Ryzen 9 7950X",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1822,6 +1934,7 @@
     {
       "config_id": "MIR-113",
       "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_model_display": "AMD Ryzen 9 7950X",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 1,
       "ram_gb": 64,
@@ -1838,6 +1951,7 @@
     {
       "config_id": "MIR-114",
       "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_model_display": "AMD Ryzen 9 7950X",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1854,6 +1968,7 @@
     {
       "config_id": "MIR-115",
       "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_model_display": "AMD Ryzen 9 7950X",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1870,6 +1985,7 @@
     {
       "config_id": "MIR-116",
       "cpu_model": "AMD Ryzen 9 7950X",
+      "cpu_model_display": "AMD Ryzen 9 7950X",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 1,
       "ram_gb": 128,
@@ -1886,6 +2002,7 @@
     {
       "config_id": "MIR-117",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -1902,6 +2019,7 @@
     {
       "config_id": "MIR-118",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -1918,6 +2036,7 @@
     {
       "config_id": "MIR-119",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -1934,6 +2053,7 @@
     {
       "config_id": "MIR-120",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -1950,6 +2070,7 @@
     {
       "config_id": "MIR-121",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -1966,6 +2087,7 @@
     {
       "config_id": "MIR-122",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -1982,6 +2104,7 @@
     {
       "config_id": "MIR-123",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -1998,6 +2121,7 @@
     {
       "config_id": "MIR-124",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2014,6 +2138,7 @@
     {
       "config_id": "MIR-125",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2030,6 +2155,7 @@
     {
       "config_id": "MIR-126",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2051,6 +2177,7 @@
     {
       "config_id": "MIR-127",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2067,6 +2194,7 @@
     {
       "config_id": "MIR-128",
       "cpu_model": "Intel Xeon Silver 4214R",
+      "cpu_model_display": "Intel Xeon Silver 4214R",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2083,6 +2211,7 @@
     {
       "config_id": "MIR-129",
       "cpu_model": "Intel Xeon Silver 4215R",
+      "cpu_model_display": "Intel Xeon Silver 4215R",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -2099,6 +2228,7 @@
     {
       "config_id": "MIR-130",
       "cpu_model": "Intel Xeon Silver 4215R",
+      "cpu_model_display": "Intel Xeon Silver 4215R",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 2,
       "ram_gb": 96,
@@ -2115,6 +2245,7 @@
     {
       "config_id": "MIR-131",
       "cpu_model": "Intel Xeon Silver 4215R",
+      "cpu_model_display": "Intel Xeon Silver 4215R",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2131,6 +2262,7 @@
     {
       "config_id": "MIR-132",
       "cpu_model": "Intel Xeon Silver 4215R",
+      "cpu_model_display": "Intel Xeon Silver 4215R",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2147,6 +2279,7 @@
     {
       "config_id": "MIR-133",
       "cpu_model": "Intel Xeon Silver 4215R",
+      "cpu_model_display": "Intel Xeon Silver 4215R",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2168,6 +2301,7 @@
     {
       "config_id": "MIR-134",
       "cpu_model": "Intel Xeon Silver 4215R",
+      "cpu_model_display": "Intel Xeon Silver 4215R",
       "cpu_cores_per_socket": 8,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2189,6 +2323,7 @@
     {
       "config_id": "MIR-135",
       "cpu_model": "Intel Xeon Gold 5218R",
+      "cpu_model_display": "Intel Xeon Gold 5218R",
       "cpu_cores_per_socket": 20,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -2205,6 +2340,7 @@
     {
       "config_id": "MIR-136",
       "cpu_model": "Intel Xeon Gold 5218R",
+      "cpu_model_display": "Intel Xeon Gold 5218R",
       "cpu_cores_per_socket": 20,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -2221,6 +2357,7 @@
     {
       "config_id": "MIR-137",
       "cpu_model": "Intel Xeon Gold 5218R",
+      "cpu_model_display": "Intel Xeon Gold 5218R",
       "cpu_cores_per_socket": 20,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -2237,6 +2374,7 @@
     {
       "config_id": "MIR-138",
       "cpu_model": "Intel Xeon Gold 5218R",
+      "cpu_model_display": "Intel Xeon Gold 5218R",
       "cpu_cores_per_socket": 20,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2253,6 +2391,7 @@
     {
       "config_id": "MIR-139",
       "cpu_model": "Intel Xeon Gold 5218R",
+      "cpu_model_display": "Intel Xeon Gold 5218R",
       "cpu_cores_per_socket": 20,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2269,6 +2408,7 @@
     {
       "config_id": "MIR-140",
       "cpu_model": "Intel Xeon Gold 5218R",
+      "cpu_model_display": "Intel Xeon Gold 5218R",
       "cpu_cores_per_socket": 20,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2285,6 +2425,7 @@
     {
       "config_id": "MIR-141",
       "cpu_model": "Intel Xeon Gold 5218R",
+      "cpu_model_display": "Intel Xeon Gold 5218R",
       "cpu_cores_per_socket": 20,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2301,6 +2442,7 @@
     {
       "config_id": "MIR-142",
       "cpu_model": "Intel Xeon Gold 5218R",
+      "cpu_model_display": "Intel Xeon Gold 5218R",
       "cpu_cores_per_socket": 20,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2317,6 +2459,7 @@
     {
       "config_id": "MIR-143",
       "cpu_model": "Intel Xeon Gold 6240",
+      "cpu_model_display": "Intel Xeon Gold 6240",
       "cpu_cores_per_socket": 18,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2333,6 +2476,7 @@
     {
       "config_id": "MIR-144",
       "cpu_model": "Intel Xeon Gold 6240",
+      "cpu_model_display": "Intel Xeon Gold 6240",
       "cpu_cores_per_socket": 18,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2354,6 +2498,7 @@
     {
       "config_id": "MIR-145",
       "cpu_model": "Intel Xeon Gold 6240",
+      "cpu_model_display": "Intel Xeon Gold 6240",
       "cpu_cores_per_socket": 18,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2370,6 +2515,7 @@
     {
       "config_id": "MIR-146",
       "cpu_model": "Intel Xeon Gold 6240",
+      "cpu_model_display": "Intel Xeon Gold 6240",
       "cpu_cores_per_socket": 18,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2386,6 +2532,7 @@
     {
       "config_id": "MIR-147",
       "cpu_model": "Intel Xeon Gold 6240R",
+      "cpu_model_display": "Intel Xeon Gold 6240R",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2402,6 +2549,7 @@
     {
       "config_id": "MIR-148",
       "cpu_model": "Intel Xeon Gold 6240",
+      "cpu_model_display": "Intel Xeon Gold 6240",
       "cpu_cores_per_socket": 18,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2418,6 +2566,7 @@
     {
       "config_id": "MIR-149",
       "cpu_model": "Intel Xeon Gold 6240R",
+      "cpu_model_display": "Intel Xeon Gold 6240R",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2434,6 +2583,7 @@
     {
       "config_id": "MIR-150",
       "cpu_model": "Intel Xeon Gold 6240R",
+      "cpu_model_display": "Intel Xeon Gold 6240R",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2455,6 +2605,7 @@
     {
       "config_id": "MIR-151",
       "cpu_model": "Intel Xeon Gold 6240R",
+      "cpu_model_display": "Intel Xeon Gold 6240R",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2471,6 +2622,7 @@
     {
       "config_id": "MIR-152",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 64,
@@ -2487,6 +2639,7 @@
     {
       "config_id": "MIR-153",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2503,6 +2656,7 @@
     {
       "config_id": "MIR-154",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2524,6 +2678,7 @@
     {
       "config_id": "MIR-155",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2540,6 +2695,7 @@
     {
       "config_id": "MIR-156",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2556,6 +2712,7 @@
     {
       "config_id": "MIR-157",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2572,6 +2729,7 @@
     {
       "config_id": "MIR-158",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2588,6 +2746,7 @@
     {
       "config_id": "MIR-159",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2604,6 +2763,7 @@
     {
       "config_id": "MIR-160",
       "cpu_model": "Intel Xeon Silver 4314",
+      "cpu_model_display": "Silver 4314",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 768,
@@ -2620,6 +2780,7 @@
     {
       "config_id": "MIR-161",
       "cpu_model": "Intel Xeon Gold 5317",
+      "cpu_model_display": "Gold 5317",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2636,6 +2797,7 @@
     {
       "config_id": "MIR-162",
       "cpu_model": "Intel Xeon Gold 5317",
+      "cpu_model_display": "Gold 5317",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2652,6 +2814,7 @@
     {
       "config_id": "MIR-163",
       "cpu_model": "Intel Xeon Gold 5317",
+      "cpu_model_display": "Gold 5317",
       "cpu_cores_per_socket": 12,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2668,6 +2831,7 @@
     {
       "config_id": "MIR-164",
       "cpu_model": "Intel Xeon Gold 5320",
+      "cpu_model_display": "Gold 5320",
       "cpu_cores_per_socket": 26,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2689,6 +2853,7 @@
     {
       "config_id": "MIR-165",
       "cpu_model": "Intel Xeon Gold 5320",
+      "cpu_model_display": "Gold 5320",
       "cpu_cores_per_socket": 26,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2705,6 +2870,7 @@
     {
       "config_id": "MIR-166",
       "cpu_model": "Intel Xeon Gold 5320",
+      "cpu_model_display": "Gold 5320",
       "cpu_cores_per_socket": 26,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2721,6 +2887,7 @@
     {
       "config_id": "MIR-167",
       "cpu_model": "Intel Xeon Gold 6326",
+      "cpu_model_display": "Gold 6326",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2742,6 +2909,7 @@
     {
       "config_id": "MIR-168",
       "cpu_model": "Intel Xeon Gold 6326",
+      "cpu_model_display": "Gold 6326",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2758,6 +2926,7 @@
     {
       "config_id": "MIR-169",
       "cpu_model": "Intel Xeon Gold 6326",
+      "cpu_model_display": "Gold 6326",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2774,6 +2943,7 @@
     {
       "config_id": "MIR-170",
       "cpu_model": "Intel Xeon Gold 6326",
+      "cpu_model_display": "Gold 6326",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2790,6 +2960,7 @@
     {
       "config_id": "MIR-171",
       "cpu_model": "Intel Xeon Gold 6326",
+      "cpu_model_display": "Gold 6326",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 768,
@@ -2806,6 +2977,7 @@
     {
       "config_id": "MIR-172",
       "cpu_model": "Intel Xeon Gold 6338",
+      "cpu_model_display": "Gold 6338",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2822,6 +2994,7 @@
     {
       "config_id": "MIR-173",
       "cpu_model": "Intel Xeon Gold 6338",
+      "cpu_model_display": "Gold 6338",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2838,6 +3011,7 @@
     {
       "config_id": "MIR-174",
       "cpu_model": "Intel Xeon Gold 6338",
+      "cpu_model_display": "Gold 6338",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2854,6 +3028,7 @@
     {
       "config_id": "MIR-175",
       "cpu_model": "Intel Xeon Gold 6338",
+      "cpu_model_display": "Gold 6338",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 768,
@@ -2870,6 +3045,7 @@
     {
       "config_id": "MIR-176",
       "cpu_model": "Intel Xeon Gold 6348",
+      "cpu_model_display": "Gold 6348",
       "cpu_cores_per_socket": 28,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2891,6 +3067,7 @@
     {
       "config_id": "MIR-177",
       "cpu_model": "Intel Xeon Gold 6348",
+      "cpu_model_display": "Gold 6348",
       "cpu_cores_per_socket": 28,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -2907,6 +3084,7 @@
     {
       "config_id": "MIR-178",
       "cpu_model": "Intel Xeon Gold 6348",
+      "cpu_model_display": "Gold 6348",
       "cpu_cores_per_socket": 28,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -2923,6 +3101,7 @@
     {
       "config_id": "MIR-179",
       "cpu_model": "Intel Xeon Gold 6348",
+      "cpu_model_display": "Gold 6348",
       "cpu_cores_per_socket": 28,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -2939,6 +3118,7 @@
     {
       "config_id": "MIR-180",
       "cpu_model": "Intel Xeon Gold 6348",
+      "cpu_model_display": "Gold 6348",
       "cpu_cores_per_socket": 28,
       "cpu_sockets": 2,
       "ram_gb": 512,
@@ -2955,6 +3135,7 @@
     {
       "config_id": "MIR-181",
       "cpu_model": "Intel Xeon Gold 6348",
+      "cpu_model_display": "Gold 6348",
       "cpu_cores_per_socket": 28,
       "cpu_sockets": 2,
       "ram_gb": 768,
@@ -2971,6 +3152,7 @@
     {
       "config_id": "MIR-182",
       "cpu_model": "Intel Xeon Silver 4516Y+",
+      "cpu_model_display": "Silver 4516Y+",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -2992,6 +3174,7 @@
     {
       "config_id": "MIR-183",
       "cpu_model": "Intel Xeon Silver 4516Y+",
+      "cpu_model_display": "Silver 4516Y+",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -3008,6 +3191,7 @@
     {
       "config_id": "MIR-184",
       "cpu_model": "Intel Xeon Silver 4516Y+",
+      "cpu_model_display": "Silver 4516Y+",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -3024,6 +3208,7 @@
     {
       "config_id": "MIR-185",
       "cpu_model": "Intel Xeon Silver 4516Y+",
+      "cpu_model_display": "Silver 4516Y+",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -3040,6 +3225,7 @@
     {
       "config_id": "MIR-186",
       "cpu_model": "Intel Xeon Silver 4516Y+",
+      "cpu_model_display": "Silver 4516Y+",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -3056,6 +3242,7 @@
     {
       "config_id": "MIR-187",
       "cpu_model": "Intel Xeon Silver 4516Y+",
+      "cpu_model_display": "Silver 4516Y+",
       "cpu_cores_per_socket": 24,
       "cpu_sockets": 2,
       "ram_gb": 768,
@@ -3072,6 +3259,7 @@
     {
       "config_id": "MIR-188",
       "cpu_model": "Intel Xeon Gold 6526Y",
+      "cpu_model_display": "Gold 6526Y",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -3088,6 +3276,7 @@
     {
       "config_id": "MIR-189",
       "cpu_model": "Intel Xeon Gold 6526Y",
+      "cpu_model_display": "Gold 6526Y",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -3104,6 +3293,7 @@
     {
       "config_id": "MIR-190",
       "cpu_model": "Intel Xeon Gold 6526Y",
+      "cpu_model_display": "Gold 6526Y",
       "cpu_cores_per_socket": 16,
       "cpu_sockets": 2,
       "ram_gb": 768,
@@ -3120,6 +3310,7 @@
     {
       "config_id": "MIR-191",
       "cpu_model": "Intel Xeon Gold 6530",
+      "cpu_model_display": "Gold 6530",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 128,
@@ -3141,6 +3332,7 @@
     {
       "config_id": "MIR-192",
       "cpu_model": "Intel Xeon Gold 6530",
+      "cpu_model_display": "Gold 6530",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 192,
@@ -3157,6 +3349,7 @@
     {
       "config_id": "MIR-193",
       "cpu_model": "Intel Xeon Gold 6530",
+      "cpu_model_display": "Gold 6530",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 256,
@@ -3173,6 +3366,7 @@
     {
       "config_id": "MIR-194",
       "cpu_model": "Intel Xeon Gold 6530",
+      "cpu_model_display": "Gold 6530",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 384,
@@ -3189,6 +3383,7 @@
     {
       "config_id": "MIR-195",
       "cpu_model": "Intel Xeon Gold 6530",
+      "cpu_model_display": "Gold 6530",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 768,
@@ -3205,6 +3400,7 @@
     {
       "config_id": "MIR-196",
       "cpu_model": "Intel Xeon Gold 6538Y+",
+      "cpu_model_display": "Gold 6538Y",
       "cpu_cores_per_socket": 32,
       "cpu_sockets": 2,
       "ram_gb": 128,

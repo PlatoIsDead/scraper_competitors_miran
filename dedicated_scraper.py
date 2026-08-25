@@ -95,6 +95,7 @@ class ServerRow(TypedDict):
     disk_pools: NotRequired[list[dict]]  # [{"disk_type","disk_count","disk_size_gb"}]
     currency: NotRequired[str]
     price_period: NotRequired[str]
+    gpu: NotRequired[str]  # "4 × RTX A4000 16GB"; непустое = GPU-сервер
 
 
 # history.csv schema is frozen to these columns; extended ServerRow fields
@@ -393,6 +394,15 @@ def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
     cpu_sockets = cpu_info.get("count") or 1
     cores_per_cpu = cpu_info.get("cores_per_cpu") or 0
 
+    # GPU: у GPU Line (GL*) API отдаёт объект gpu {name, count}
+    gpu_info = cfg.get("gpu") or {}
+    gpu = ""
+    if isinstance(gpu_info, dict) and (gpu_info.get("name") or gpu_info.get("count")):
+        count = gpu_info.get("count") or 1
+        gpu = f"{count} × {gpu_info.get('name') or 'GPU'}".strip()
+    elif isinstance(gpu_info, str) and gpu_info.strip():
+        gpu = gpu_info.strip()
+
     # Quantity: сумма available[].count по всем ДЦ (= бейдж «N шт.» на сайте).
     # Поле quantity API — константа 1 (мин. заказ), НЕ наличие — фолбэк, если available нет.
     available = cfg.get("available") or []
@@ -418,6 +428,7 @@ def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
         "disk_pools": disk_pools,
         "currency": "RUB",
         "price_period": "month",
+        "gpu": gpu,
     }
 
 
@@ -886,6 +897,10 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
                 if cores_match:
                     cpu_cores_total = int(cores_match.group(1))
 
+            # GPU-серверы: отдельный элемент «4 × RTX A4000 16GB»
+            gpu_elem = item.find(class_="b-dedicated-servers-list-item-cloud__gpu")
+            gpu = gpu_elem.get_text(" ", strip=True) if gpu_elem else ""
+
             ram_elem = item.find("p", class_="b-dedicated-servers-list-item-cloud__ram")
             if not ram_elem:
                 continue
@@ -991,6 +1006,7 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
                 "disk_pools": disk_pools,
                 "currency": "RUB",
                 "price_period": "month",
+                "gpu": gpu,
             })
 
         except Exception:
@@ -1351,6 +1367,9 @@ def _parse_timeweb_cloud_nuxt(
             "disk_pools": disk_pools,
             "currency": "RUB",
             "price_period": "month",
+            # у timeweb выделенные GPU-линейки в этой выдаче не встречались;
+            # поле — страховка на случай их появления
+            "gpu": str(cfg.get("gpu") or cfg.get("videocard") or "").strip(),
         })
 
     return rows

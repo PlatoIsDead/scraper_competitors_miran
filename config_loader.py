@@ -75,6 +75,12 @@ class ReferenceConfig:
     ram_gb: int
     disk_pools: tuple
     miran_price: float | None = None  # «Миран по калькулятору»; None — цены нет
+    # модель как в файле клиента — для отчёта/UI; матчинг идёт по cpu_model
+    cpu_model_display: str = ""
+
+    @property
+    def cpu_display(self) -> str:
+        return self.cpu_model_display or self.cpu_model
 
     @property
     def cpu_cores_total(self) -> int:
@@ -302,5 +308,6 @@ def load_reference_configs(path: Path = MIRAN_CONFIGS_JSON) -> list[ReferenceCon
             ram_gb=item["ram_gb"],
             disk_pools=tuple(pools),
             miran_price=float(price) if price is not None else None,
+            cpu_model_display=str(item.get("cpu_model_display") or ""),
         ))
     return configs

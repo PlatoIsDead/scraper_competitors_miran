@@ -1,31 +1,6 @@
 [
   {
     "provider": "timeweb_cloud",
-    "cpu_model": "Intel Xeon E3-1230v5",
-    "cpu_model_norm": "intel xeon e3-1230v5",
-    "cpu_generation": "Skylake",
-    "ram_gb": 32,
-    "disk_count": 2,
-    "disk_size_gb": 2000,
-    "disk_type": "HDD",
-    "price_rub": 9570.0,
-    "quantity_available": null,
-    "scraped_at": "2026-08-17",
-    "plan_id": "Intel Xeon E3-1230v5 (4 ядра, 3.4 ГГц, 8 потоков) / 32 DDR4 / 2 x 2 Тб HDD",
-    "cpu_sockets": 1,
-    "cpu_cores_total": 4,
-    "disk_pools": [
-      {
-        "disk_type": "HDD",
-        "disk_count": 2,
-        "disk_size_gb": 2000
-      }
-    ],
-    "currency": "RUB",
-    "price_period": "month"
-  },
-  {
-    "provider": "timeweb_cloud",
     "cpu_model": "Intel Xeon E-2236",
     "cpu_model_norm": "intel xeon e-2236",
     "cpu_generation": "",
@@ -35,7 +10,7 @@
     "disk_type": "SSD",
     "price_rub": 11960.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "E-2236 / 16 / 480",
     "cpu_sockets": 1,
     "cpu_cores_total": 6,
@@ -47,7 +22,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -56,23 +32,24 @@
     "cpu_generation": "Skylake",
     "ram_gb": 64,
     "disk_count": 2,
-    "disk_size_gb": 1000,
+    "disk_size_gb": 480,
     "disk_type": "SSD",
-    "price_rub": 15410.0,
+    "price_rub": 12350.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
-    "plan_id": "Intel Xeon E3-1270v5 (4 ядра, 3.6 ГГц, 8 потоков) / 64 DDR4 / 2 x 960 Гб SSD",
+    "scraped_at": "2026-08-25",
+    "plan_id": "Intel Xeon E3-1270v5 (4 ядра, 3.6 ГГц, 8 потоков) / 64 DDR4 / 2 x 480 Гб SSD",
     "cpu_sockets": 1,
     "cpu_cores_total": 4,
     "disk_pools": [
       {
         "disk_type": "SSD",
         "disk_count": 2,
-        "disk_size_gb": 1000
+        "disk_size_gb": 480
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -85,7 +62,7 @@
     "disk_type": "SSD",
     "price_rub": 23160.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков) / 64 DDR4 / 2 x 480 Гб SSD + 2 x 4 Тб HDD",
     "cpu_sockets": 2,
     "cpu_cores_total": 20,
@@ -102,7 +79,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -115,7 +93,7 @@
     "disk_type": "NVMe",
     "price_rub": 24150.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "E-2388 / 64/ 1N",
     "cpu_sockets": 1,
     "cpu_cores_total": 28,
@@ -127,7 +105,34 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "timeweb_cloud",
+    "cpu_model": "Intel Xeon E5-2630v3",
+    "cpu_model_norm": "intel xeon e5-2630v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 25300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-25",
+    "plan_id": "2 x Intel Xeon E5-2630v3 (16 ядер, 2.4 ГГц, 32 потока) / 128 DDR4 / 2 x 480 Гб SSD",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -140,7 +145,7 @@
     "disk_type": "SSD",
     "price_rub": 25300.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Xeon E5-2630v3 (16 ядер, 2.4 ГГц, 32 потока) / 64 DDR4 / 2 x 480 Гб SSD + 2 x 4 Тб HDD",
     "cpu_sockets": 2,
     "cpu_cores_total": 16,
@@ -157,7 +162,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -170,7 +176,7 @@
     "disk_type": "SSD",
     "price_rub": 25300.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Xeon E5-2630v4 (20 ядер, 2.2 ГГц, 40 потоков) / 64 DDR4 / 2 x 480 Гб SSD + 2 x 4 Тб HDD",
     "cpu_sockets": 2,
     "cpu_cores_total": 20,
@@ -187,7 +193,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -200,7 +207,7 @@
     "disk_type": "NVMe",
     "price_rub": 25820.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "E-2336 / 32 / 1N",
     "cpu_sockets": 1,
     "cpu_cores_total": 6,
@@ -212,7 +219,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -225,7 +233,7 @@
     "disk_type": "NVMe",
     "price_rub": 26490.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "Silver 4310 / 32 / 1N",
     "cpu_sockets": 1,
     "cpu_cores_total": 28,
@@ -237,7 +245,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -250,7 +259,7 @@
     "disk_type": "NVMe",
     "price_rub": 27120.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "E-2336 / 64 / 1N",
     "cpu_sockets": 1,
     "cpu_cores_total": 6,
@@ -262,7 +271,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -275,7 +285,7 @@
     "disk_type": "NVMe",
     "price_rub": 27360.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "E-2388G / 128 / 2N",
     "cpu_sockets": 1,
     "cpu_cores_total": 28,
@@ -287,7 +297,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -300,7 +311,7 @@
     "disk_type": "SSD",
     "price_rub": 30910.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков) / 96 DDR4 / 2 x 480 Гб SSD + 2 x 4 Тб HDD",
     "cpu_sockets": 2,
     "cpu_cores_total": 20,
@@ -317,7 +328,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -330,7 +342,7 @@
     "disk_type": "SSD",
     "price_rub": 34380.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков) / 192 DDR4 / 2 x 480 Гб SSD",
     "cpu_sockets": 2,
     "cpu_cores_total": 20,
@@ -342,7 +354,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -355,7 +368,7 @@
     "disk_type": "NVMe",
     "price_rub": 35120.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "Silver 4314 / 64 / 1N",
     "cpu_sockets": 1,
     "cpu_cores_total": 28,
@@ -367,7 +380,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -380,7 +394,7 @@
     "disk_type": "NVMe",
     "price_rub": 39060.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "Gold 6312U / 64 / 1N",
     "cpu_sockets": 1,
     "cpu_cores_total": 28,
@@ -392,7 +406,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -405,7 +420,7 @@
     "disk_type": "NVMe",
     "price_rub": 41520.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "AMD EPYC 7402 / 128 / 1N",
     "cpu_sockets": 1,
     "cpu_cores_total": 24,
@@ -417,7 +432,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -430,7 +446,7 @@
     "disk_type": "NVMe",
     "price_rub": 44480.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Gold 6246 / 128 / 1N",
     "cpu_sockets": 2,
     "cpu_cores_total": 24,
@@ -442,7 +458,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -455,7 +472,7 @@
     "disk_type": "NVMe",
     "price_rub": 44880.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "AMD EPYC 7343 (16 ядер, 3.2 ГГц, 32 потока) / 128 DDR4 / 2 x 960 Гб NVMe",
     "cpu_sockets": 1,
     "cpu_cores_total": 16,
@@ -467,7 +484,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -480,7 +498,7 @@
     "disk_type": "NVMe",
     "price_rub": 44880.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 96 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",
     "cpu_sockets": 2,
     "cpu_cores_total": 24,
@@ -497,7 +515,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -510,7 +529,7 @@
     "disk_type": "NVMe",
     "price_rub": 46700.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "Gold 6312U / 128 / 2N",
     "cpu_sockets": 1,
     "cpu_cores_total": 28,
@@ -522,7 +541,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -535,7 +555,7 @@
     "disk_type": "SSD",
     "price_rub": 48550.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Silver 4310 / 64 / 480",
     "cpu_sockets": 2,
     "cpu_cores_total": 24,
@@ -547,7 +567,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -560,7 +581,7 @@
     "disk_type": "NVMe",
     "price_rub": 51870.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Silver 4314 / 128 / 1N",
     "cpu_sockets": 2,
     "cpu_cores_total": 32,
@@ -572,7 +593,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -585,7 +607,7 @@
     "disk_type": "NVMe",
     "price_rub": 53840.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Gold 6242R / 128 / 1N",
     "cpu_sockets": 2,
     "cpu_cores_total": 40,
@@ -597,7 +619,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -610,7 +633,7 @@
     "disk_type": "NVMe",
     "price_rub": 55080.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "AMD Ryzen 9 9950X (16 ядер, 4.3 ГГц, 32 потока) / 192 DDR5 / 1 Тб NVMe + 2 x 1.92 Тб NVMe",
     "cpu_sockets": 1,
     "cpu_cores_total": 16,
@@ -627,7 +650,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -640,7 +664,7 @@
     "disk_type": "HDD",
     "price_rub": 62710.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "Silver 4210 / 32 / 10SAS",
     "cpu_sockets": 1,
     "cpu_cores_total": 28,
@@ -652,7 +676,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -665,7 +690,7 @@
     "disk_type": "NVMe",
     "price_rub": 67270.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Silver 4316 / 128 / 2N",
     "cpu_sockets": 2,
     "cpu_cores_total": 28,
@@ -677,37 +702,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
-  },
-  {
-    "provider": "timeweb_cloud",
-    "cpu_model": "AMD EPYC 7343",
-    "cpu_model_norm": "amd epyc 7343",
-    "cpu_generation": "Milan",
-    "ram_gb": 256,
-    "disk_count": 2,
-    "disk_size_gb": 1000,
-    "disk_type": "NVMe",
-    "price_rub": 80480.0,
-    "quantity_available": null,
-    "scraped_at": "2026-08-17",
-    "plan_id": "2 x AMD EPYC 7343 (32 ядра, 3.2 ГГц, 64 потока) / 256 DDR4 / 2 x 960 Гб NVMe + 2 x 10 Тб HDD",
-    "cpu_sockets": 2,
-    "cpu_cores_total": 32,
-    "disk_pools": [
-      {
-        "disk_type": "NVMe",
-        "disk_count": 2,
-        "disk_size_gb": 1000
-      },
-      {
-        "disk_type": "HDD",
-        "disk_count": 2,
-        "disk_size_gb": 10000
-      }
-    ],
-    "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -720,7 +716,7 @@
     "disk_type": "NVMe",
     "price_rub": 83540.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x AMD EPYC 9274F (48 ядер, 4.05 ГГц, 96 потоков) / 128 DDR5 / 2 x 960 Гб NVMe + 500 Гб NVMe",
     "cpu_sockets": 2,
     "cpu_cores_total": 48,
@@ -737,7 +733,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -750,7 +747,7 @@
     "disk_type": "NVMe",
     "price_rub": 88830.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x EPYC 7402 / 256 / 1N",
     "cpu_sockets": 2,
     "cpu_cores_total": 28,
@@ -762,7 +759,39 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "timeweb_cloud",
+    "cpu_model": "Intel Xeon 6517P",
+    "cpu_model_norm": "intel xeon 6517p",
+    "cpu_generation": "",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 90380.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-25",
+    "plan_id": "2 x Intel Xeon 6517P (32 ядра, 3.2 ГГц, 64 потока) / 256 DDR5 / 2 x 3.84 Тб NVMe + 1 Тб NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -775,7 +804,7 @@
     "disk_type": "NVMe",
     "price_rub": 92210.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Xeon 6520P (48 ядер, 2.4 ГГц, 96 потоков) / 256 DDR5 / 2 x 3.84 Тб NVMe + 1 Тб NVMe",
     "cpu_sockets": 2,
     "cpu_cores_total": 48,
@@ -792,7 +821,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -805,7 +835,7 @@
     "disk_type": "NVMe",
     "price_rub": 94560.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Xeon Gold 6336Y (48 ядер, 2.4 ГГц, 96 потоков) / 256 DDR4 / 2 x 1.92 Тб NVMe + 2 x 1.92 Тб SSD",
     "cpu_sockets": 2,
     "cpu_cores_total": 48,
@@ -822,7 +852,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -835,7 +866,7 @@
     "disk_type": "NVMe",
     "price_rub": 95490.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x GOLD 6230R / 512 / 8N",
     "cpu_sockets": 2,
     "cpu_cores_total": 28,
@@ -847,7 +878,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -860,7 +892,7 @@
     "disk_type": "NVMe",
     "price_rub": 98440.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x EPYC 7502 / 512 / 4N",
     "cpu_sockets": 2,
     "cpu_cores_total": 28,
@@ -872,7 +904,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -885,7 +918,7 @@
     "disk_type": "NVMe",
     "price_rub": 107820.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x AMD EPYC 9474F (96 ядер, 3.6 ГГц, 192 потока) / 256 DDR5 / 2 x 1.92 Тб NVMe + 500 Гб NVMe",
     "cpu_sockets": 2,
     "cpu_cores_total": 96,
@@ -902,32 +935,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
-  },
-  {
-    "provider": "timeweb_cloud",
-    "cpu_model": "Intel Xeon 6710E",
-    "cpu_model_norm": "intel xeon 6710e",
-    "cpu_generation": "",
-    "ram_gb": 256,
-    "disk_count": 2,
-    "disk_size_gb": 2000,
-    "disk_type": "NVMe",
-    "price_rub": 108230.0,
-    "quantity_available": null,
-    "scraped_at": "2026-08-17",
-    "plan_id": "2 x Intel Xeon 6710E (128 ядер, 2.4 ГГц, 256 потоков) / 256 DDR5 / 2 x 1.92 Тб NVMe",
-    "cpu_sockets": 2,
-    "cpu_cores_total": 128,
-    "disk_pools": [
-      {
-        "disk_type": "NVMe",
-        "disk_count": 2,
-        "disk_size_gb": 2000
-      }
-    ],
-    "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -940,7 +949,7 @@
     "disk_type": "NVMe",
     "price_rub": 108430.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x AMD EPYC 7513 (64 ядра, 2.6 ГГц, 128 потоков) / 512 DDR4 / 2 x 1.92 Тб NVMe + 2 x 10 Тб HDD",
     "cpu_sockets": 2,
     "cpu_cores_total": 64,
@@ -957,7 +966,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -970,7 +980,7 @@
     "disk_type": "NVMe",
     "price_rub": 110760.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Gold 6348 / 512 / 8N",
     "cpu_sockets": 2,
     "cpu_cores_total": 28,
@@ -982,7 +992,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -995,7 +1006,7 @@
     "disk_type": "NVMe",
     "price_rub": 112860.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "AMD EPYC 9654 / 256 / 4N",
     "cpu_sockets": 1,
     "cpu_cores_total": 96,
@@ -1007,7 +1018,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -1020,7 +1032,7 @@
     "disk_type": "NVMe",
     "price_rub": 155730.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Gold 6448Y / 640 / 8N",
     "cpu_sockets": 2,
     "cpu_cores_total": 64,
@@ -1032,7 +1044,8 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   },
   {
     "provider": "timeweb_cloud",
@@ -1045,7 +1058,7 @@
     "disk_type": "NVMe",
     "price_rub": 177890.0,
     "quantity_available": null,
-    "scraped_at": "2026-08-17",
+    "scraped_at": "2026-08-25",
     "plan_id": "2 x Intel Silver 4516Y (48 ядер, 2.2 ГГц, 96 потоков) / 256 DDR5 / 2 x 1.92 Тб NVMe + 2 x 1.92 Тб SSD",
     "cpu_sockets": 2,
     "cpu_cores_total": 48,
@@ -1062,36 +1075,7 @@
       }
     ],
     "currency": "RUB",
-    "price_period": "month"
-  },
-  {
-    "provider": "timeweb_cloud",
-    "cpu_model": "AMD EPYC 9274F",
-    "cpu_model_norm": "amd epyc 9274f",
-    "cpu_generation": "Genoa",
-    "ram_gb": 512,
-    "disk_count": 2,
-    "disk_size_gb": 4000,
-    "disk_type": "NVMe",
-    "price_rub": 192580.0,
-    "quantity_available": null,
-    "scraped_at": "2026-08-17",
-    "plan_id": "2 x AMD EPYC 9274F (48 ядер, 4.05 ГГц, 96 потоков) / 512 DDR5 / 2 x 3.84 Тб NVMe + 2 x 960 Гб SSD",
-    "cpu_sockets": 2,
-    "cpu_cores_total": 48,
-    "disk_pools": [
-      {
-        "disk_type": "NVMe",
-        "disk_count": 2,
-        "disk_size_gb": 4000
-      },
-      {
-        "disk_type": "SSD",
-        "disk_count": 2,
-        "disk_size_gb": 1000
-      }
-    ],
-    "currency": "RUB",
-    "price_period": "month"
+    "price_period": "month",
+    "gpu": ""
   }
 ]
