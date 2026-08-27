@@ -14,6 +14,7 @@ from dedicated_scraper import (
     _parse_storage_pool,
     _precustom_to_cfg,
     _selectel_cfg_to_row,
+    _selectel_storefront_visible,
     _parse_timeweb_cloud_nuxt,
     _parse_timeweb_html,
     _parse_hostkey_html,
@@ -577,6 +578,42 @@ class TestSelectelPrecustom:
         cfg_list = [c for c in self.CONFIG if c["id"] != 73]
         cfg = _precustom_to_cfg({"name": "PCL-TEST", "config": cfg_list}, items)
         assert cfg["price_collection"]["RUB"]["month"] == 38300.0 - 3920.0
+
+
+class TestSelectelStorefrontFilter:
+    """Зеркало фильтра витрины selectel: is_preorder || is_order && наличие.
+    API отдаёт и распроданные конфиги — сайт их не показывает."""
+
+    def _cfg(self, **over):
+        base = {
+            "name": "EL10-SSD",
+            "cpu": {"name": "Intel Xeon E3-1230v5", "count": 1,
+                    "cores_per_cpu": 4},
+            "ram": [{"count": 2, "size": 16}],
+            "disk": [{"count": 2, "size": 240, "type": "SSD"}],
+            "price_collection": {"RUB": {"month": 8780.0}},
+            "is_order": True,
+            "is_preorder": False,
+            "available": [{"count": 19}],
+        }
+        base.update(over)
+        return base
+
+    def test_in_stock_visible(self):
+        assert _selectel_storefront_visible(self._cfg())
+
+    def test_sold_out_hidden(self):
+        # кейс AEL20-SSD/PL23-NVMe: is_order, но склад пуст — сайт скрывает
+        assert not _selectel_storefront_visible(self._cfg(available=[{"count": 0}]))
+        assert not _selectel_storefront_visible(self._cfg(available=[]))
+
+    def test_preorder_visible_without_stock(self):
+        assert _selectel_storefront_visible(
+            self._cfg(available=[], is_preorder=True))
+
+    def test_not_orderable_hidden(self):
+        assert not _selectel_storefront_visible(
+            self._cfg(is_order=False, available=[{"count": 5}]))
 
 
 class TestSelectelGpuField:

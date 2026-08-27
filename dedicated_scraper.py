@@ -484,13 +484,31 @@ def _scrape_selectel_api() -> list[ServerRow]:
 
     today = date.today().isoformat()
     rows = []
+    hidden = 0
     for cfg in configs:
-        if not isinstance(cfg, dict) or not cfg.get("is_order"):
+        if not isinstance(cfg, dict):
+            continue
+        if not _selectel_storefront_visible(cfg):
+            hidden += 1
             continue
         row = _selectel_cfg_to_row(cfg, today)
         if row:
             rows.append(row)
+    if hidden:
+        print(f"[selectel] Скрыто как на сайте (нет в наличии/не заказать): {hidden}")
     return rows
+
+
+def _selectel_storefront_visible(cfg: dict) -> bool:
+    """Фильтр витрины сайта (чанк 3Fc9zYgQ: is_preorder || is_order && H):
+    API отдаёт и распроданные конфиги (stock 0), сайт их скрывает — без
+    этого фильтра сравниваем с тем, что нельзя купить (фидбек клиента
+    2026-08-26: AEL20-SSD, EL13-SSD, PL23-NVMe и др.)."""
+    in_stock = any(
+        a.get("count") for a in (cfg.get("available") or [])
+        if isinstance(a, dict)
+    )
+    return bool(cfg.get("is_preorder") or (cfg.get("is_order") and in_stock))
 
 
 SELECTEL_CALC_PRECUSTOM = "https://api.selectel.ru/servers/v2/pub/calculator/precustom"

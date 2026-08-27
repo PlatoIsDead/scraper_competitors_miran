@@ -1,0 +1,4615 @@
+[
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2640",
+    "cpu_model_norm": "intel xeon e5-2640",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 128,
+    "disk_count": 4,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 22920.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40936",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 4,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2255",
+    "cpu_model_norm": "xeon w-2255",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 27200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55014",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 10,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9334",
+    "cpu_model_norm": "amd epyc 9334",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 130985.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56956",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "6 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9474F",
+    "cpu_model_norm": "amd epyc 9474f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "SSD",
+    "price_rub": 239700.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56761",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 96,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9474F",
+    "cpu_model_norm": "amd epyc 9474f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 1103300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58447",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "4 × Tesla H100 80GB NVLink"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC Raphael 4584PX",
+    "cpu_model_norm": "amd epyc raphael 4584px",
+    "cpu_generation": "",
+    "ram_gb": 192,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 59700.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-90167",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD Ryzen 7 7700X",
+    "cpu_model_norm": "amd ryzen 7 7700x",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 19100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58739",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD Ryzen 7 7700X",
+    "cpu_model_norm": "amd ryzen 7 7700x",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 20100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58738",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD Ryzen 9 7950X",
+    "cpu_model_norm": "amd ryzen 9 7950x",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 20300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58748",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD Ryzen 7 7700X",
+    "cpu_model_norm": "amd ryzen 7 7700x",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 20500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58740",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD Ryzen 7 7700X",
+    "cpu_model_norm": "amd ryzen 7 7700x",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 21500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58741",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4316",
+    "cpu_model_norm": "intel xeon silver 4316",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 35300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58005",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2275",
+    "cpu_model_norm": "xeon w-2275",
+    "cpu_generation": "",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 12000,
+    "disk_type": "SSD",
+    "price_rub": 74720.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56953",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 14,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 12000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "2 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9334",
+    "cpu_model_norm": "amd epyc 9334",
+    "cpu_generation": "Genoa",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 154710.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58391",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "2 × RTX A5000 24GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 588500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58446",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "2 × Tesla H100 80GB NVLink"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1231v3",
+    "cpu_model_norm": "xeon e3-1231v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 8,
+    "disk_count": 2,
+    "disk_size_gb": 120,
+    "disk_type": "SSD",
+    "price_rub": 4550.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30300",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 120
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1231v3",
+    "cpu_model_norm": "xeon e3-1231v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 8,
+    "disk_count": 2,
+    "disk_size_gb": 120,
+    "disk_type": "SSD",
+    "price_rub": 4550.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30322",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 120
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1270v2",
+    "cpu_model_norm": "xeon e3-1270v2",
+    "cpu_generation": "Ivy Bridge",
+    "ram_gb": 8,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "HDD",
+    "price_rub": 5110.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-50625",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 8,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "HDD",
+    "price_rub": 5110.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30143",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1270v3",
+    "cpu_model_norm": "xeon e3-1270v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 8,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 5320.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51688",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 8,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "HDD",
+    "price_rub": 5530.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30189",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "HDD",
+    "price_rub": 5740.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30055",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "HDD",
+    "price_rub": 5740.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30072",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 5810.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30208",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "HDD",
+    "price_rub": 6020.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30311",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 8,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 6440.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30261",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 7000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30312",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1270",
+    "cpu_model_norm": "xeon e3-1270",
+    "cpu_generation": "Sandy Bridge",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 7000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42143",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 8120.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42146",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5620",
+    "cpu_model_norm": "intel xeon e5620",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 9800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30377",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1230v3",
+    "cpu_model_norm": "xeon e3-1230v3",
+    "cpu_generation": "Haswell",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 9940.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-30170",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2174G",
+    "cpu_model_norm": "xeon e-2174g",
+    "cpu_generation": "",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 10200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53094",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2174G",
+    "cpu_model_norm": "xeon e-2174g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 12410.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54081",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E5-2620",
+    "cpu_model_norm": "xeon e5-2620",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "HDD",
+    "price_rub": 12530.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-41176",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E5-1650v4",
+    "cpu_model_norm": "xeon e5-1650v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 13515.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53360",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E5-2620",
+    "cpu_model_norm": "xeon e5-2620",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "SSD",
+    "price_rub": 13650.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40789",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630",
+    "cpu_model_norm": "intel xeon e5-2630",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 13930.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42133",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650",
+    "cpu_model_norm": "intel xeon e5-2650",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "SSD",
+    "price_rub": 14000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-50877",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2620",
+    "cpu_model_norm": "intel xeon e5-2620",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 14560.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40399",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630",
+    "cpu_model_norm": "intel xeon e5-2630",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 14840.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42613",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2186G",
+    "cpu_model_norm": "xeon e-2186g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 15000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51634",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2186G",
+    "cpu_model_norm": "xeon e-2186g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "HDD",
+    "price_rub": 15500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51633",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E5-1650v4",
+    "cpu_model_norm": "xeon e5-1650v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 15555.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54435",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v3",
+    "cpu_model_norm": "intel xeon e5-2630v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 15640.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54197",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2620v2",
+    "cpu_model_norm": "intel xeon e5-2620v2",
+    "cpu_generation": "Ivy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 150,
+    "disk_type": "SSD",
+    "price_rub": 15750.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42620",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 150
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2174G",
+    "cpu_model_norm": "xeon e-2174g",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 15800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-52278",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 3000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E5-2650v3",
+    "cpu_model_norm": "xeon e5-2650v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 16150.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40608",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 10,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 3000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2174G",
+    "cpu_model_norm": "xeon e-2174g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 16700.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51228",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2670",
+    "cpu_model_norm": "intel xeon e5-2670",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 16730.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-41179",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2286G",
+    "cpu_model_norm": "xeon e-2286g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 16800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53192",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2288G",
+    "cpu_model_norm": "xeon e-2288g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 16800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51094",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2146G",
+    "cpu_model_norm": "xeon e-2146g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 16800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51772",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v2",
+    "cpu_model_norm": "intel xeon e5-2630v2",
+    "cpu_generation": "Ivy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "SSD",
+    "price_rub": 17150.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54358",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2620v2",
+    "cpu_model_norm": "intel xeon e5-2620v2",
+    "cpu_generation": "Ivy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 17640.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40371",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2670",
+    "cpu_model_norm": "intel xeon e5-2670",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 18130.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-41996",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650v2",
+    "cpu_model_norm": "intel xeon e5-2650v2",
+    "cpu_generation": "Ivy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 18410.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40408",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650v2",
+    "cpu_model_norm": "intel xeon e5-2650v2",
+    "cpu_generation": "Ivy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 18410.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40666",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2186G",
+    "cpu_model_norm": "xeon e-2186g",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 512,
+    "disk_type": "SSD",
+    "price_rub": 18500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53421",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 512
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2288G",
+    "cpu_model_norm": "xeon e-2288g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 18600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54087",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 18615.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-50182",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2670",
+    "cpu_model_norm": "intel xeon e5-2670",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 18830.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42618",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v3",
+    "cpu_model_norm": "intel xeon e5-2630v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 19530.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42022",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650v2",
+    "cpu_model_norm": "intel xeon e5-2650v2",
+    "cpu_generation": "Ivy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 19740.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-41084",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2670",
+    "cpu_model_norm": "intel xeon e5-2670",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 19810.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-52627",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 12000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD Ryzen 7 7700X",
+    "cpu_model_norm": "amd ryzen 7 7700x",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 20200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56911",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2288G",
+    "cpu_model_norm": "xeon e-2288g",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 20900.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54099",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2274G",
+    "cpu_model_norm": "xeon e-2274g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 21675.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56346",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 14000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650v2",
+    "cpu_model_norm": "intel xeon e5-2650v2",
+    "cpu_generation": "Ivy Bridge EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 21910.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56381",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650",
+    "cpu_model_norm": "intel xeon e5-2650",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 22820.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42619",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 22865.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56588",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 12000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "HDD",
+    "price_rub": 23800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-50265",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2275",
+    "cpu_model_norm": "xeon w-2275",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 24200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56988",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 14,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2288G",
+    "cpu_model_norm": "xeon e-2288g",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 24500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51385",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 24820.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-50309",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 12000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v3",
+    "cpu_model_norm": "intel xeon e5-2630v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 25340.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-52361",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 25400.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-50069",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2265",
+    "cpu_model_norm": "xeon w-2265",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 25400.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56743",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2288G",
+    "cpu_model_norm": "xeon e-2288g",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 25500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-52220",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 25925.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-52281",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 26480.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54286",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2275",
+    "cpu_model_norm": "xeon w-2275",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 27000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58376",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 14,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 27710.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54206",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 12000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650v3",
+    "cpu_model_norm": "intel xeon e5-2650v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 64,
+    "disk_count": 4,
+    "disk_size_gb": 1000,
+    "disk_type": "HDD",
+    "price_rub": 28050.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40923",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 4,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E3-1220v2",
+    "cpu_model_norm": "xeon e3-1220v2",
+    "cpu_generation": "Ivy Bridge",
+    "ram_gb": 16,
+    "disk_count": 12,
+    "disk_size_gb": 12000,
+    "disk_type": "HDD",
+    "price_rub": 28700.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51159",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 12,
+        "disk_size_gb": 12000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2265",
+    "cpu_model_norm": "xeon w-2265",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 29000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56918",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2286G",
+    "cpu_model_norm": "xeon e-2286g",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 29500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-59061",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2265",
+    "cpu_model_norm": "xeon w-2265",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 29600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56684",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E-2288G",
+    "cpu_model_norm": "xeon e-2288g",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "SSD",
+    "price_rub": 30300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-52898",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 30500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58110",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2690v4",
+    "cpu_model_norm": "intel xeon e5-2690v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 30600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40873",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 28,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650v4",
+    "cpu_model_norm": "intel xeon e5-2650v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "SSD",
+    "price_rub": 30600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51937",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4214R",
+    "cpu_model_norm": "intel xeon silver 4214r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 30800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56058",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 31400.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58113",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 31960.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51976",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 32200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53805",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2670v3",
+    "cpu_model_norm": "intel xeon e5-2670v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 32300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42231",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 32400.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58356",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2670v3",
+    "cpu_model_norm": "intel xeon e5-2670v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 192,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 32640.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40548",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650v3",
+    "cpu_model_norm": "intel xeon e5-2650v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 33100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40775",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5218R",
+    "cpu_model_norm": "intel xeon gold 5218r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 33300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55039",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2650v2",
+    "cpu_model_norm": "intel xeon e5-2650v2",
+    "cpu_generation": "Ivy Bridge EP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 35140.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-40535",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4316",
+    "cpu_model_norm": "intel xeon silver 4316",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 36100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53765",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 36900.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56922",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 37900.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56776",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5218R",
+    "cpu_model_norm": "intel xeon gold 5218r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 38300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58700",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon E5-2670v3",
+    "cpu_model_norm": "intel xeon e5-2670v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 128,
+    "disk_count": 4,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 39100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-42230",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 4,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5218R",
+    "cpu_model_norm": "intel xeon gold 5218r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 39300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58699",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4316",
+    "cpu_model_norm": "intel xeon silver 4316",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "SSD",
+    "price_rub": 39800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55124",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon E5-2630v3",
+    "cpu_model_norm": "xeon e5-2630v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 42585.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56560",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6326",
+    "cpu_model_norm": "intel xeon gold 6326",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 47800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58998",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2265",
+    "cpu_model_norm": "xeon w-2265",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 48700.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56641",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "RTX 3080Ti 12GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC Raphael 4584PX",
+    "cpu_model_norm": "amd epyc raphael 4584px",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 53100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-90173",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2265",
+    "cpu_model_norm": "xeon w-2265",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 56780.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58462",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 12,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "2 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5320",
+    "cpu_model_norm": "intel xeon gold 5320",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 57600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53762",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 52,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2255",
+    "cpu_model_norm": "xeon w-2255",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 60860.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56643",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 10,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "2 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 61800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53937",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 67700.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56246",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6346",
+    "cpu_model_norm": "intel xeon gold 6346",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 69200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58697",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5220",
+    "cpu_model_norm": "intel xeon gold 5220",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 32,
+    "disk_count": 4,
+    "disk_size_gb": 3800,
+    "disk_type": "SSD",
+    "price_rub": 73000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54613",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 36,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 4,
+        "disk_size_gb": 3800
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5320",
+    "cpu_model_norm": "intel xeon gold 5320",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 375,
+    "disk_type": "SSD",
+    "price_rub": 73100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54388",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 52,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 375
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Xeon W-2275",
+    "cpu_model_norm": "xeon w-2275",
+    "cpu_generation": "",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 73800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56642",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 14,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "RTX 2080Ti 11GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6334",
+    "cpu_model_norm": "intel xeon gold 6334",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 76100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-51809",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4316",
+    "cpu_model_norm": "intel xeon silver 4316",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 77700.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56184",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6336Y",
+    "cpu_model_norm": "intel xeon gold 6336y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 14000,
+    "disk_type": "SSD",
+    "price_rub": 78800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53795",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 14000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4214R",
+    "cpu_model_norm": "intel xeon silver 4214r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 88830.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56106",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "4 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6240R",
+    "cpu_model_norm": "intel xeon gold 6240r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 384,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 90000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55040",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6154",
+    "cpu_model_norm": "intel xeon gold 6154",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 4,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 93870.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56959",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 36,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 4,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "4 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6348",
+    "cpu_model_norm": "intel xeon gold 6348",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 95900.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55129",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 56,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6336Y",
+    "cpu_model_norm": "intel xeon gold 6336y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 96600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53917",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 107200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55075",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "RTX 2080Ti 11GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Silver 4214R",
+    "cpu_model_norm": "intel xeon silver 4214r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 111600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56960",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6348",
+    "cpu_model_norm": "intel xeon gold 6348",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "SSD",
+    "price_rub": 118235.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56647",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 56,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "2 × RTX A5000 24GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9334",
+    "cpu_model_norm": "amd epyc 9334",
+    "cpu_generation": "Genoa",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 119970.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56955",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "4 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6434",
+    "cpu_model_norm": "intel xeon gold 6434",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 120400.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54412",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6426Y",
+    "cpu_model_norm": "intel xeon gold 6426y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 121500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55119",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6426Y",
+    "cpu_model_norm": "intel xeon gold 6426y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 121500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55130",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9534",
+    "cpu_model_norm": "amd epyc 9534",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 123000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56192",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5317",
+    "cpu_model_norm": "intel xeon gold 5317",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 12000,
+    "disk_type": "NVMe",
+    "price_rub": 126825.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56958",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 12000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "4 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6426Y",
+    "cpu_model_norm": "intel xeon gold 6426y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 134000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54410",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5220R",
+    "cpu_model_norm": "intel xeon gold 5220r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 134000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56961",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9174F",
+    "cpu_model_norm": "amd epyc 9174f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 134900.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56287",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6442Y",
+    "cpu_model_norm": "intel xeon gold 6442y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 136800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55121",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6354",
+    "cpu_model_norm": "intel xeon gold 6354",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 159440.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56379",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 36,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9534",
+    "cpu_model_norm": "amd epyc 9534",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 170800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55064",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6242R",
+    "cpu_model_norm": "intel xeon gold 6242r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "SSD",
+    "price_rub": 173430.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56649",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × RTX A4000 16GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 5320",
+    "cpu_model_norm": "intel xeon gold 5320",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 175800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56648",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 52,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "Tesla A40 48GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "NVMe",
+    "price_rub": 183500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58990",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "RTX PRO 6000 Blackwell SE 96GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6354",
+    "cpu_model_norm": "intel xeon gold 6354",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "NVMe",
+    "price_rub": 199000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58443",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 36,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "2 × Tesla L40s 48GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6442Y",
+    "cpu_model_norm": "intel xeon gold 6442y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 212600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54560",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9334",
+    "cpu_model_norm": "amd epyc 9334",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 241200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58392",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "4 × RTX A5000 24GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 768,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 241300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58977",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9554",
+    "cpu_model_norm": "amd epyc 9554",
+    "cpu_generation": "Genoa",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 292600.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56191",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9374F",
+    "cpu_model_norm": "amd epyc 9374f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 294210.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58387",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "6 × RTX A5000 24GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9174F",
+    "cpu_model_norm": "amd epyc 9174f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 306500.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56189",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6348",
+    "cpu_model_norm": "intel xeon gold 6348",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 18000,
+    "disk_type": "NVMe",
+    "price_rub": 324000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56646",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 56,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 18000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "Tesla A100 80GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9534",
+    "cpu_model_norm": "amd epyc 9534",
+    "cpu_generation": "Genoa",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 325300.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-55059",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 14000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9554",
+    "cpu_model_norm": "amd epyc 9554",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 3800,
+    "disk_type": "NVMe",
+    "price_rub": 352260.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58393",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 3800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "4 × RTX A5000 24GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9334",
+    "cpu_model_norm": "amd epyc 9334",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "NVMe",
+    "price_rub": 383700.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58445",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "Tesla H100 80GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9554",
+    "cpu_model_norm": "amd epyc 9554",
+    "cpu_generation": "Genoa",
+    "ram_gb": 1536,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 420100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-54399",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9334",
+    "cpu_model_norm": "amd epyc 9334",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "NVMe",
+    "price_rub": 496100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58994",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "4 × RTX PRO 6000 Blackwell SE 96GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9554",
+    "cpu_model_norm": "amd epyc 9554",
+    "cpu_generation": "Genoa",
+    "ram_gb": 2048,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 532100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56108",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Gold 6434",
+    "cpu_model_norm": "intel xeon gold 6434",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 538400.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58444",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "2 × Tesla A100 80GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 2048,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "SSD",
+    "price_rub": 548900.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-56209",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 20000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 2048,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 572900.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-53531",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 20000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9474F",
+    "cpu_model_norm": "amd epyc 9474f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 768,
+    "disk_count": 2,
+    "disk_size_gb": 1900,
+    "disk_type": "NVMe",
+    "price_rub": 874200.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58989",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 96,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1900
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × RTX PRO 6000 Blackwell SE 96GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "AMD EPYC 9374F",
+    "cpu_model_norm": "amd epyc 9374f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 1785400.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58448",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × Tesla H100 80GB"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon Platinum 8558",
+    "cpu_model_norm": "intel xeon platinum 8558",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 2048,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 3200000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58451",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 96,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × Tesla H200 141GB NVLink"
+  },
+  {
+    "provider": "regcloud",
+    "cpu_model": "Intel Xeon 6 6767P",
+    "cpu_model_norm": "intel xeon 6 6767p",
+    "cpu_generation": "",
+    "ram_gb": 3072,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 5500000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-27",
+    "plan_id": "RD-58757",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × NVIDIA B300 288GB HGX"
+  }
+]
