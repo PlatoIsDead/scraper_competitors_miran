@@ -108,6 +108,12 @@ class TestCanonicalCpu:
         assert canonical_cpu("Intel Gold 9999 (8x3.6 GHz HT)", SPECS) == \
             "intel gold 9999"
 
+    def test_bare_xeon_prefix_resolves(self):
+        # reg.cloud пишет «Xeon Silver 4214R» без «Intel» (кейс MIR-002:
+        # RD-30312 «Xeon E3-1230v3» не матчился)
+        assert canonical_cpu("Xeon Silver 4214R", SPECS) == \
+            "intel xeon silver 4214r"
+
 
 class TestCpuMatches:
     def test_same_model_via_alias(self):

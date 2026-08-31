@@ -53,6 +53,9 @@ def canonical_cpu(model: str, specs: dict[str, CpuSpec]) -> str:
     for cand in list(candidates):
         if cand.startswith("intel ") and not cand.startswith("intel xeon"):
             candidates.append("intel xeon " + cand[len("intel "):])
+        elif cand.startswith("xeon "):
+            # reg.cloud пишет «Xeon E3-1230v3» без «Intel»
+            candidates.append("intel " + cand)
     for cand in candidates:
         spec = specs.get(cand)
         if spec:

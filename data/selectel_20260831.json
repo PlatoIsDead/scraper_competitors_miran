@@ -1,0 +1,3409 @@
+[
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1230",
+    "cpu_model_norm": "intel xeon e3-1230",
+    "cpu_generation": "Sandy Bridge",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 9500.0,
+    "quantity_available": 23,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AEL10-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1245v6",
+    "cpu_model_norm": "intel xeon e3-1245v6",
+    "cpu_generation": "Kaby Lake",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 9110.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AEL14-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1230",
+    "cpu_model_norm": "intel xeon e3-1230",
+    "cpu_generation": "Sandy Bridge",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "HDD",
+    "price_rub": 10600.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AEL20",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1230",
+    "cpu_model_norm": "intel xeon e3-1230",
+    "cpu_generation": "Sandy Bridge",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 8540.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AEL20-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1270v5",
+    "cpu_model_norm": "intel xeon e3-1270v5",
+    "cpu_generation": "Skylake",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 15100.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AEL32-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7402P",
+    "cpu_model_norm": "amd epyc 7402p",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 41000.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL12-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7401",
+    "cpu_model_norm": "amd epyc 7401",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 59200.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL20-SSD",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 81900.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL26-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7343",
+    "cpu_model_norm": "amd epyc 7343",
+    "cpu_generation": "Milan",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 44000.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL43-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 81900.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL69-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 188800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL71-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9474F",
+    "cpu_model_norm": "amd epyc 9474f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 105700.0,
+    "quantity_available": 20,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL73-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 96,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7343",
+    "cpu_model_norm": "amd epyc 7343",
+    "cpu_generation": "Milan",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 64100.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL81-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 18000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7513",
+    "cpu_model_norm": "amd epyc 7513",
+    "cpu_generation": "",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 76500.0,
+    "quantity_available": 5,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL82-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7513",
+    "cpu_model_norm": "amd epyc 7513",
+    "cpu_generation": "",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 106300.0,
+    "quantity_available": 7,
+    "scraped_at": "2026-08-31",
+    "plan_id": "AL83-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 10000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-1650v3",
+    "cpu_model_norm": "intel xeon e5-1650v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "HDD",
+    "price_rub": 11600.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL09",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-1650v3",
+    "cpu_model_norm": "intel xeon e5-1650v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 15000.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL09-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-1650v4",
+    "cpu_model_norm": "intel xeon e5-1650v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 15100.0,
+    "quantity_available": 66,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL10-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon W-2133",
+    "cpu_model_norm": "intel xeon w-2133",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 23400.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL11-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon W-2133",
+    "cpu_model_norm": "intel xeon w-2133",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 21200.0,
+    "quantity_available": 25,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL11-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon W-2133",
+    "cpu_model_norm": "intel xeon w-2133",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 26100.0,
+    "quantity_available": 14,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL11R-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD Ryzen 9 7950X",
+    "cpu_model_norm": "amd ryzen 9 7950x",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 34900.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL18-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-1650v4",
+    "cpu_model_norm": "intel xeon e5-1650v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 18100.0,
+    "quantity_available": 6,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL20-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon W-2255",
+    "cpu_model_norm": "intel xeon w-2255",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 33200.0,
+    "quantity_available": 6,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL21-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 10,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon W-2255",
+    "cpu_model_norm": "intel xeon w-2255",
+    "cpu_generation": "",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 40900.0,
+    "quantity_available": 18,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL21R-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 10,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon W-2255",
+    "cpu_model_norm": "intel xeon w-2255",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 33200.0,
+    "quantity_available": 8,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL22-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 10,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD Ryzen 9 9950X",
+    "cpu_model_norm": "amd ryzen 9 9950x",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 49100.0,
+    "quantity_available": 25,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL24-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD Ryzen 9 9950X",
+    "cpu_model_norm": "amd ryzen 9 9950x",
+    "cpu_generation": "",
+    "ram_gb": 192,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 52400.0,
+    "quantity_available": 34,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL25-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD Ryzen 9 9950X",
+    "cpu_model_norm": "amd ryzen 9 9950x",
+    "cpu_generation": "",
+    "ram_gb": 192,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 54000.0,
+    "quantity_available": 6,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL25-NVMe-E10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9015",
+    "cpu_model_norm": "amd epyc 9015",
+    "cpu_generation": "Genoa",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 32400.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL27-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9135",
+    "cpu_model_norm": "amd epyc 9135",
+    "cpu_generation": "Genoa",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 78100.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-31",
+    "plan_id": "BL30-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Silver 4516Y",
+    "cpu_model_norm": "intel silver 4516y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 174400.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DELL PL66-NVMe-25GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-2630v3",
+    "cpu_model_norm": "intel xeon e5-2630v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 24800.0,
+    "quantity_available": 17,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL-30",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-2630v3",
+    "cpu_model_norm": "intel xeon e5-2630v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 24800.0,
+    "quantity_available": 16,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL-31",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-2670v3",
+    "cpu_model_norm": "intel xeon e5-2670v3",
+    "cpu_generation": "Haswell EP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 800,
+    "disk_type": "SSD",
+    "price_rub": 44200.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL-32",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Gold 6240",
+    "cpu_model_norm": "intel xeon gold 6240",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "SSD",
+    "price_rub": 52800.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL-34",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 36,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7452",
+    "cpu_model_norm": "amd epyc 7452",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "SSD",
+    "price_rub": 42600.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL-36",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7513",
+    "cpu_model_norm": "amd epyc 7513",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "SSD",
+    "price_rub": 31900.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL-38",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 18700.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL-39",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7443P",
+    "cpu_model_norm": "amd epyc 7443p",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 28000.0,
+    "quantity_available": 27,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL-40",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 12800.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL23",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 10,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 22700.0,
+    "quantity_available": 22,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL24",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 29400.0,
+    "quantity_available": 7,
+    "scraped_at": "2026-08-31",
+    "plan_id": "DL24-NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1230v5",
+    "cpu_model_norm": "intel xeon e3-1230v5",
+    "cpu_generation": "Skylake",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "HDD",
+    "price_rub": 9380.0,
+    "quantity_available": 9,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL10",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1230v5",
+    "cpu_model_norm": "intel xeon e3-1230v5",
+    "cpu_generation": "Skylake",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 8780.0,
+    "quantity_available": 26,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL10-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 12800.0,
+    "quantity_available": 17,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL11-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 14000.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL11-SSD-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 10000,
+    "disk_type": "HDD",
+    "price_rub": 14000.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL12-HDD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 10000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 16600.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL12-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 15200.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL12-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "SSD",
+    "price_rub": 19900.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL13-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1230",
+    "cpu_model_norm": "intel xeon e3-1230",
+    "cpu_generation": "Sandy Bridge",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 11600.0,
+    "quantity_available": 19,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL20-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 16600.0,
+    "quantity_available": 27,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL21-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 18100.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL22-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1270v5",
+    "cpu_model_norm": "intel xeon e3-1270v5",
+    "cpu_generation": "Skylake",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 12100.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL30",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1270v5",
+    "cpu_model_norm": "intel xeon e3-1270v5",
+    "cpu_generation": "Skylake",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 12500.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL30-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2386G",
+    "cpu_model_norm": "intel xeon e-2386g",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 18400.0,
+    "quantity_available": 21,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL42-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2388G",
+    "cpu_model_norm": "intel xeon e-2388g",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 23100.0,
+    "quantity_available": 23,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL45-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2388G",
+    "cpu_model_norm": "intel xeon e-2388g",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 33700.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL46-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2456",
+    "cpu_model_norm": "intel xeon e-2456",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 19900.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL49-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2456",
+    "cpu_model_norm": "intel xeon e-2456",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 58700.0,
+    "quantity_available": 6,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL50-HDD-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 4,
+        "disk_size_gb": 24000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2456",
+    "cpu_model_norm": "intel xeon e-2456",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 26000.0,
+    "quantity_available": 21,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL50-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2456",
+    "cpu_model_norm": "intel xeon e-2456",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 19500.0,
+    "quantity_available": 53,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL50-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2456",
+    "cpu_model_norm": "intel xeon e-2456",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 19900.0,
+    "quantity_available": 31,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL50-SSD-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2456",
+    "cpu_model_norm": "intel xeon e-2456",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 24800.0,
+    "quantity_available": 7,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL50-SSD-SAN",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2488",
+    "cpu_model_norm": "intel xeon e-2488",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 28400.0,
+    "quantity_available": 23,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL51-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2488",
+    "cpu_model_norm": "intel xeon e-2488",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 49000.0,
+    "quantity_available": 148,
+    "scraped_at": "2026-08-31",
+    "plan_id": "EL52-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9274F",
+    "cpu_model_norm": "amd epyc 9274f",
+    "cpu_generation": "Genoa",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 415800.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL1-H200-25GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "1 × GPU Nvidia H200 NVL 141 GB HBM3e"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 27900.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL10-1-T4",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "1 × GPU Nvidia Tesla T4 16 GB GDDR6"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2236",
+    "cpu_model_norm": "intel xeon e-2236",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 23200.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL12-1-A2",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "1 × GPU Nvidia A2 16 GB GDDR6"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2488",
+    "cpu_model_norm": "intel xeon e-2488",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 58500.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL14-1-L4",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 8,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "1 × GPU Nvidia L4 24 GB GDDR6"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E-2456",
+    "cpu_model_norm": "intel xeon e-2456",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 30000.0,
+    "quantity_available": 27,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL14-1-T4",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "1 × GPU Nvidia Tesla T4 16 GB GDDR6"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 118800.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL70-1-A100",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "1 × GPU Nvidia A100 40 GB HBM2"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Gold 6240R",
+    "cpu_model_norm": "intel xeon gold 6240r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 512,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 594000.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL8-A100-NVLink-25GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × GPU Nvidia A100 40 GB HBM2"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon 6767P",
+    "cpu_model_norm": "intel xeon 6767p",
+    "cpu_generation": "",
+    "ram_gb": 2048,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 9000000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL8-B300-HGX-25GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × GPU Nvidia B300 288 GB HBM3e SXM"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Platinum 8558",
+    "cpu_model_norm": "intel xeon platinum 8558",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 2048,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 6500000.0,
+    "quantity_available": null,
+    "scraped_at": "2026-08-31",
+    "plan_id": "GL8-H200-HGX-25GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 96,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × GPU Nvidia H200 141 GB HBM3e SXM"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel E3-1230v5",
+    "cpu_model_norm": "intel e3-1230v5",
+    "cpu_generation": "Skylake",
+    "ram_gb": 16,
+    "disk_count": 1,
+    "disk_size_gb": 14000,
+    "disk_type": "HDD",
+    "price_rub": 13400.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PBL58G-HDD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 1,
+        "disk_size_gb": 14000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "1 × GPU RTX A2000 6 GB GDDR6"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Gold 6248R",
+    "cpu_model_norm": "intel gold 6248r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 512,
+    "disk_count": 1,
+    "disk_size_gb": 15360,
+    "disk_type": "NVMe",
+    "price_rub": 221760.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PBL60G-NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 15360
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": "8 × GPU RTX A4000 16 GB GDDR6"
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 24800.0,
+    "quantity_available": 19,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL10-SSD",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 96,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 30300.0,
+    "quantity_available": 10,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL11-SSD",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4214",
+    "cpu_model_norm": "intel xeon silver 4214",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 96,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 34900.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL12-NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4214R",
+    "cpu_model_norm": "intel xeon silver 4214r",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 96,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 44000.0,
+    "quantity_available": 6,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL13-NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-2630v4",
+    "cpu_model_norm": "intel xeon e5-2630v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 23100.0,
+    "quantity_available": 9,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL20-SSD",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4114",
+    "cpu_model_norm": "intel xeon silver 4114",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 192,
+    "disk_count": 2,
+    "disk_size_gb": 480,
+    "disk_type": "SSD",
+    "price_rub": 33700.0,
+    "quantity_available": 10,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL21-SSD",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 20,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4214",
+    "cpu_model_norm": "intel xeon silver 4214",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 192,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 42500.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL22-NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 96,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 35400.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL24-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Gold 6354",
+    "cpu_model_norm": "intel xeon gold 6354",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 59000.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL25-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 18,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-2680v4",
+    "cpu_model_norm": "intel xeon e5-2680v4",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 800,
+    "disk_type": "SSD",
+    "price_rub": 44200.0,
+    "quantity_available": 7,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL30-SSD",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 28,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 800
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Gold 6140",
+    "cpu_model_norm": "intel xeon gold 6140",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 384,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 77200.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL31-SSD",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 36,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Gold 6336Y",
+    "cpu_model_norm": "intel xeon gold 6336y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 128,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 51700.0,
+    "quantity_available": 5,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL44-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 192,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 62200.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL64-NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Silver 4314",
+    "cpu_model_norm": "intel xeon silver 4314",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 58400.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL65-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Gold 6354",
+    "cpu_model_norm": "intel xeon gold 6354",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 81900.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL67-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 36,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon Gold 6336Y",
+    "cpu_model_norm": "intel xeon gold 6336y",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 92700.0,
+    "quantity_available": 6,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PL84-NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      },
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E3-1230v5",
+    "cpu_model_norm": "intel xeon e3-1230v5",
+    "cpu_generation": "Skylake",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 32700.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "SL108",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 6,
+        "disk_size_gb": 18000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon E5-1650",
+    "cpu_model_norm": "intel xeon e5-1650",
+    "cpu_generation": "Sandy Bridge EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 240,
+    "disk_type": "SSD",
+    "price_rub": 35300.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "SL108R",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 240
+      },
+      {
+        "disk_type": "HDD",
+        "disk_count": 6,
+        "disk_size_gb": 18000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon 6517P",
+    "cpu_model_norm": "intel xeon 6517p",
+    "cpu_generation": "",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 88600.0,
+    "quantity_available": 11,
+    "scraped_at": "2026-08-31",
+    "plan_id": "Selectel PL70-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon 6520P",
+    "cpu_model_norm": "intel xeon 6520p",
+    "cpu_generation": "",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 90400.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "Selectel PL72-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Xeon 6710E",
+    "cpu_model_norm": "intel xeon 6710e",
+    "cpu_generation": "",
+    "ram_gb": 256,
+    "disk_count": 2,
+    "disk_size_gb": 2000,
+    "disk_type": "NVMe",
+    "price_rub": 106100.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "Selectel PL90-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 128,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 2000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7513 (32x2.6 GHz SMT)",
+    "cpu_model_norm": "amd epyc 7513 (32x2.6 ghz smt)",
+    "cpu_generation": "",
+    "ram_gb": 128,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 79180.0,
+    "quantity_available": 7,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL39-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7513 (32x2.6 GHz SMT)",
+    "cpu_model_norm": "amd epyc 7513 (32x2.6 ghz smt)",
+    "cpu_generation": "",
+    "ram_gb": 512,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 144820.0,
+    "quantity_available": 7,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL38-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 4,
+        "disk_size_gb": 4000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9474F (48x3.6 GHz SMT)",
+    "cpu_model_norm": "amd epyc 9474f (48x3.6 ghz smt)",
+    "cpu_generation": "Genoa",
+    "ram_gb": 768,
+    "disk_count": 2,
+    "disk_size_gb": 4000,
+    "disk_type": "NVMe",
+    "price_rub": 249023.0,
+    "quantity_available": 89,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL100-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 4000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 480
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Gold 6530 (32x2.1 GHz HT)",
+    "cpu_model_norm": "intel gold 6530 (32x2.1 ghz ht)",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 192,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 121240.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL07-NVMe",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 64,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7401 (24x2.0 GHz SMT)",
+    "cpu_model_norm": "amd epyc 7401 (24x2.0 ghz smt)",
+    "cpu_generation": "",
+    "ram_gb": 16,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 21260.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL25-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7402P (24x2.8 GHz SMT)",
+    "cpu_model_norm": "amd epyc 7402p (24x2.8 ghz smt)",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 39210.0,
+    "quantity_available": 6,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL26-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9135 (16x3.65 GHz SMT)",
+    "cpu_model_norm": "amd epyc 9135 (16x3.65 ghz smt)",
+    "cpu_generation": "Genoa",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 75410.0,
+    "quantity_available": 12,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL93-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 9965 (192x2.25 GHz SMT)",
+    "cpu_model_norm": "amd epyc 9965 (192x2.25 ghz smt)",
+    "cpu_generation": "Genoa",
+    "ram_gb": 1024,
+    "disk_count": 2,
+    "disk_size_gb": 8000,
+    "disk_type": "NVMe",
+    "price_rub": 469790.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL110-NVMe-25GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 384,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 8000
+      },
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7513 (32x2.6 GHz SMT)",
+    "cpu_model_norm": "amd epyc 7513 (32x2.6 ghz smt)",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 42460.0,
+    "quantity_available": 6,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL46-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel E3-1270v6 (4x3.8 GHz HT)",
+    "cpu_model_norm": "intel e3-1270v6 (4x3.8 ghz ht)",
+    "cpu_generation": "Kaby Lake",
+    "ram_gb": 16,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 12340.0,
+    "quantity_available": 5,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL58-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 4,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Silver 4214R (12x2.4 GHz HT)",
+    "cpu_model_norm": "intel silver 4214r (12x2.4 ghz ht)",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 44640.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL67-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7443P (24x2.85 GHz SMT)",
+    "cpu_model_norm": "amd epyc 7443p (24x2.85 ghz smt)",
+    "cpu_generation": "",
+    "ram_gb": 32,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 34800.0,
+    "quantity_available": 23,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL16-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Gold 6240R (24x2.4 GHz HT)",
+    "cpu_model_norm": "intel gold 6240r (24x2.4 ghz ht)",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 128,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 86020.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL73-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 48,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Silver 4314 (16x2.4 GHz HT)",
+    "cpu_model_norm": "intel silver 4314 (16x2.4 ghz ht)",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 16,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 21010.0,
+    "quantity_available": 4,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL31-NVMe",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Gold 6240 (18x2.6 GHz HT)",
+    "cpu_model_norm": "intel gold 6240 (18x2.6 ghz ht)",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 76900.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL72-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 36,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel E5-1650v4 (6x3.6 GHz HT)",
+    "cpu_model_norm": "intel e5-1650v4 (6x3.6 ghz ht)",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 32,
+    "disk_count": 2,
+    "disk_size_gb": 24000,
+    "disk_type": "HDD",
+    "price_rub": 30940.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL22-HDD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "HDD",
+        "disk_count": 2,
+        "disk_size_gb": 24000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel W-2133 (6x3.6 GHz HT)",
+    "cpu_model_norm": "intel w-2133 (6x3.6 ghz ht)",
+    "cpu_generation": "",
+    "ram_gb": 16,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "SSD",
+    "price_rub": 19380.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL36-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "AMD EPYC 7443P (24x2.85 GHz SMT)",
+    "cpu_model_norm": "amd epyc 7443p (24x2.85 ghz smt)",
+    "cpu_generation": "",
+    "ram_gb": 64,
+    "disk_count": 2,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 50710.0,
+    "quantity_available": 23,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL47-NVMe-10GE",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 2,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel E5-1650v4 (6x3.6 GHz HT)",
+    "cpu_model_norm": "intel e5-1650v4 (6x3.6 ghz ht)",
+    "cpu_generation": "Broadwell EP",
+    "ram_gb": 32,
+    "disk_count": 4,
+    "disk_size_gb": 8000,
+    "disk_type": "SSD",
+    "price_rub": 88380.0,
+    "quantity_available": 3,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL22-SSD",
+    "cpu_sockets": 1,
+    "cpu_cores_total": 6,
+    "disk_pools": [
+      {
+        "disk_type": "SSD",
+        "disk_count": 4,
+        "disk_size_gb": 8000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Gold 6244 (8x3.6 GHz HT)",
+    "cpu_model_norm": "intel gold 6244 (8x3.6 ghz ht)",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 49900.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL69-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 16,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Silver 4214 (12x2.2 GHz HT)",
+    "cpu_model_norm": "intel silver 4214 (12x2.2 ghz ht)",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 40380.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL66-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 24,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Gold 5218 (16x2.3 GHz HT)",
+    "cpu_model_norm": "intel gold 5218 (16x2.3 ghz ht)",
+    "cpu_generation": "Skylake-SP",
+    "ram_gb": 64,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 57300.0,
+    "quantity_available": 1,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL70-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 32,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  },
+  {
+    "provider": "selectel",
+    "cpu_model": "Intel Gold 5218R (20x2.1 GHz HT)",
+    "cpu_model_norm": "intel gold 5218r (20x2.1 ghz ht)",
+    "cpu_generation": "Cascade Lake",
+    "ram_gb": 64,
+    "disk_count": 1,
+    "disk_size_gb": 1000,
+    "disk_type": "NVMe",
+    "price_rub": 57300.0,
+    "quantity_available": 2,
+    "scraped_at": "2026-08-31",
+    "plan_id": "PCL71-NVMe-10GE",
+    "cpu_sockets": 2,
+    "cpu_cores_total": 40,
+    "disk_pools": [
+      {
+        "disk_type": "NVMe",
+        "disk_count": 1,
+        "disk_size_gb": 1000
+      }
+    ],
+    "currency": "RUB",
+    "price_period": "month",
+    "gpu": ""
+  }
+]

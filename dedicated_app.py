@@ -191,18 +191,20 @@ def _latest_report(pattern: str) -> "Path | None":
 
 
 @st.cache_data(ttl=60)
-def load_competitor_reports() -> tuple[pd.DataFrame, pd.DataFrame, str]:
-    """Свежайшая пара отчётов пайплайна: (широкий, длинный, дата-тег)."""
+def load_competitor_reports() -> tuple[pd.DataFrame, pd.DataFrame, str, str]:
+    """Свежайшая пара отчётов пайплайна:
+    (широкий, длинный, дата-тег, время прогона HH:MM)."""
     wide_path = _latest_report("dedicated_competitors_*.csv")
     if wide_path is None:
-        return pd.DataFrame(), pd.DataFrame(), ""
+        return pd.DataFrame(), pd.DataFrame(), "", ""
     date_tag = wide_path.stem.rsplit("_", 1)[-1]
+    run_time = f"{datetime.fromtimestamp(wide_path.stat().st_mtime):%H:%M}"
     wide = pd.read_csv(wide_path)
     if "miran_price" not in wide.columns:
         wide["miran_price"] = pd.NA
     long_path = REPORTS_DIR / f"matches_{date_tag}.csv"
     long = pd.read_csv(long_path) if long_path.exists() else pd.DataFrame()
-    return wide, long, date_tag
+    return wide, long, date_tag, run_time
 
 
 @st.cache_data(ttl=60)
@@ -541,7 +543,7 @@ st.set_page_config(
 st.markdown(FONT_LINK, unsafe_allow_html=True)
 st.markdown(f"<style>{CSS}</style>", unsafe_allow_html=True)
 
-wide_df, long_df, date_tag = load_competitor_reports()
+wide_df, long_df, date_tag, run_time = load_competitor_reports()
 offers_df = load_all_offers()
 pretty_date = (f"{date_tag[6:8]}.{date_tag[4:6]}.{date_tag[:4]}"
                if len(date_tag) == 8 else date_tag)
@@ -563,7 +565,8 @@ with st.sidebar:
     st.markdown('<div class="sb-label">Данные</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="sb-card">'
-        f'<div class="row">Отчёт {pretty_date or "—"}</div>'
+        f'<div class="row">Отчёт {pretty_date or "—"}'
+        f'{f" {run_time}" if run_time else ""}</div>'
         f'<div class="row">Скрейп {scrape_when}</div>'
         f'<div class="row">Эталон: {n_refs} конфигураций'
         f'{f" ({refs_when})" if refs_when else ""}</div>'
@@ -676,7 +679,9 @@ matched_mask_all = (wide_df[all_price_cols].notna().any(axis=1)
 head_l, head_r = st.columns([5, 2])
 with head_l:
     st.markdown(
-        f'<div class="overline">Отчёт по рынку · {pretty_date or "нет данных"}</div>'
+        '<div class="overline">Отчёт по рынку · '
+        f'{pretty_date or "нет данных"}{f" {run_time}" if run_time else ""}'
+        ' · снимок на момент прогона</div>'
         '<div class="h1">Цены конкурентов по эталонным конфигурациям</div>'
         f'<div class="subline">{len(wide_df)} конфигураций · '
         f'{int(matched_mask_all.sum()) if len(wide_df) else 0} с совпадениями · '
