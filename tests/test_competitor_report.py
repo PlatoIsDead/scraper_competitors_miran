@@ -1,3 +1,4 @@
+import json
 import sys
 from pathlib import Path
 
@@ -125,3 +126,41 @@ class TestWriteReports:
                                 "20260729", out_dir=tmp_path)
         raw = written["wide"].read_bytes()
         assert raw.startswith(b"\xef\xbb\xbf")
+
+
+class TestWriteRunStatus:
+    """Статус источников: пустая колонка из-за сбоя скрейпа должна отличаться
+    от честного «совпадений нет»."""
+
+    SOURCES = [
+        {"competitor_id": "selectel", "name": "Селектел", "url": "u1",
+         "offers": 118, "status": "ok"},
+        {"competitor_id": "reg_cloud", "name": "REG.Cloud", "url": "u2",
+         "offers": 0, "status": "error"},
+    ]
+
+    def test_file_written_with_sources(self, tmp_path):
+        from competitor_pipeline import write_run_status
+
+        path = write_run_status(self.SOURCES, "20260902", out_dir=tmp_path)
+        assert path.name == "run_status_20260902.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        assert data["generated_at"]
+        assert [s["status"] for s in data["sources"]] == ["ok", "error"]
+
+    def test_app_reads_failed_sources(self, tmp_path, monkeypatch):
+        from competitor_pipeline import write_run_status
+
+        write_run_status(self.SOURCES, "20260902", out_dir=tmp_path)
+        import dedicated_app
+
+        monkeypatch.setattr(dedicated_app, "REPORTS_DIR", tmp_path)
+        sources = dedicated_app.run_sources.__wrapped__("20260902")
+        assert [s["competitor_id"] for s in sources
+                if s["status"] != "ok"] == ["reg_cloud"]
+
+    def test_missing_file_is_empty(self, tmp_path, monkeypatch):
+        import dedicated_app
+
+        monkeypatch.setattr(dedicated_app, "REPORTS_DIR", tmp_path)
+        assert dedicated_app.run_sources.__wrapped__("20990101") == []

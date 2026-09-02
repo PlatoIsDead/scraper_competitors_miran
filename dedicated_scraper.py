@@ -1346,11 +1346,14 @@ def _parse_timeweb_cloud_nuxt(
         cpu_sockets = int(socket_match.group(1)) if socket_match else 1
         cpu_model = re.sub(r"^\d+\s*[хxX×]\s*", "", cpu_raw).strip()
 
-        cpu_cores_total = cfg.get("cpuCount") or 0
+        # cpuParams («8 ядер, 3.2-5.1 ГГц») — то, что витрина показывает на
+        # карточке; поле cpuCount у части тарифов забито константой 28 вне
+        # зависимости от процессора (E-2388G, Silver 4310, 2 x EPYC 7402 …),
+        # поэтому описание приоритетнее числа.
+        cores_match = re.search(r"(\d+)\s*яд", cfg.get("cpuParams") or "", re.I)
+        cpu_cores_total = int(cores_match.group(1)) if cores_match else 0
         if not cpu_cores_total:
-            cores_match = re.search(r"(\d+)\s*яд", cfg.get("cpuParams") or "", re.I)
-            if cores_match:
-                cpu_cores_total = int(cores_match.group(1))
+            cpu_cores_total = cfg.get("cpuCount") or 0
 
         ram_raw = cfg.get("memoryCount") or 0
         if not ram_raw:

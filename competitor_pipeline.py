@@ -9,7 +9,7 @@ import argparse
 import json
 import logging
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 import dedicated_scraper as ds
@@ -105,6 +105,23 @@ def rows_to_offers(rows: list[dict], comp: Competitor) -> list[CompetitorOffer]:
     return offers
 
 
+def write_run_status(
+    sources: list[dict], date_tag: str, out_dir: str | Path | None = None
+) -> Path:
+    """Статус источников прогона → data/reports/run_status_<date>.json."""
+    reports_dir = Path(out_dir or DEFAULT_REPORTS_DIR)
+    reports_dir.mkdir(parents=True, exist_ok=True)
+    path = reports_dir / f"run_status_{date_tag}.json"
+    payload = {
+        "generated_at": datetime.now().isoformat(timespec="seconds"),
+        "sources": sources,
+    }
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    return path
+
+
 def run(args) -> int:
     competitors = load_competitors(args.competitors)
     rules = load_matching_rules(args.matching)
@@ -115,8 +132,12 @@ def run(args) -> int:
              len(refs), len(competitors))
 
     all_offers: list[CompetitorOffer] = []
+    source_status: list[dict] = []
     for comp in competitors:
         provider = PROFILE_PROVIDERS[comp.parsing_profile]
+        status = {"competitor_id": comp.competitor_id, "name": comp.name,
+                  "url": comp.url, "offers": 0, "status": "error"}
+        source_status.append(status)
         try:
             if args.no_scrape:
                 rows = _load_latest_raw(provider)
@@ -136,6 +157,8 @@ def run(args) -> int:
                 comp.competitor_id, len(offers), with_stock,
                 len(offers) - with_stock,
             )
+            status["offers"] = len(offers)
+            status["status"] = "ok" if offers else "empty"
             if not offers:
                 log.error("[%s] Данные недоступны — колонки останутся пустыми",
                           comp.competitor_id)
@@ -158,6 +181,9 @@ def run(args) -> int:
             log.warning("Без совпадений: %s", config_id)
 
     date_tag = date.today().isoformat().replace("-", "")
+    # Статус источников рядом с отчётом: пустая колонка из-за сбоя скрейпа
+    # внешне неотличима от «совпадений нет» — интерфейс должен различать.
+    write_run_status(source_status, date_tag, out_dir=args.out_dir)
     written = write_reports(
         refs, matches, competitors, date_tag,
         out_dir=args.out_dir, xlsx=args.xlsx,

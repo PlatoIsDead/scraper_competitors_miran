@@ -180,6 +180,7 @@ table.cmp {
   display: inline-block; width: 7px; height: 7px; border-radius: 50%;
   background: #009687; margin-right: 6px; vertical-align: 1px;
 }
+.sb-card .dot.bad { background: #ff6b6b; }
 """
 
 
@@ -335,6 +336,20 @@ def scrape_status() -> tuple[str, int]:
     if dt.date() == date.today():
         return f"сегодня {dt:%H:%M}", sources
     return f"{dt:%d.%m.%Y %H:%M}", sources
+
+
+@st.cache_data(ttl=30)
+def run_sources(date_tag: str) -> list[dict]:
+    """Источники последнего прогона: [{competitor_id, name, url, offers,
+    status}]. Пустой список — прогон был до появления run_status_*.json."""
+    path = REPORTS_DIR / f"run_status_{date_tag}.json"
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    return [s for s in (data.get("sources") or []) if isinstance(s, dict)]
 
 
 def apply_parser_upload(uploaded) -> tuple[int, int, list[str]]:
@@ -562,6 +577,20 @@ with st.sidebar:
 
     scrape_when, n_sources = scrape_status()
     n_refs, refs_when = reference_status()
+    sources = run_sources(date_tag)
+    if sources:
+        source_rows = "".join(
+            f'<div class="row">'
+            f'<span class="dot{"" if s.get("status") == "ok" else " bad"}">'
+            f'</span>{comp_label(s.get("competitor_id", ""))}: '
+            + (f'{s.get("offers", 0)} предложений'
+               if s.get("status") == "ok" else "данные не получены")
+            + '</div>'
+            for s in sources
+        )
+    else:
+        source_rows = (f'<div class="row"><span class="dot"></span>'
+                       f'{n_sources} источника доступны</div>')
     st.markdown('<div class="sb-label">Данные</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="sb-card">'
@@ -570,8 +599,7 @@ with st.sidebar:
         f'<div class="row">Скрейп {scrape_when}</div>'
         f'<div class="row">Эталон: {n_refs} конфигураций'
         f'{f" ({refs_when})" if refs_when else ""}</div>'
-        f'<div class="row"><span class="dot"></span>'
-        f'{n_sources} источника доступны</div></div>',
+        f'{source_rows}</div>',
         unsafe_allow_html=True,
     )
 
@@ -711,6 +739,16 @@ with head_r:
                                    file_name=long_path.name, mime="text/csv",
                                    use_container_width=True)
 
+failed_sources = [s for s in run_sources(date_tag) if s.get("status") != "ok"]
+if failed_sources:
+    names = ", ".join(comp_label(s.get("competitor_id", "")) for s in failed_sources)
+    st.error(
+        f"В этом прогоне не удалось собрать данные: {names}. "
+        "Колонки этих конкурентов пусты не потому, что совпадений нет, "
+        "а потому, что цены не загрузились — нажмите «Запустить сравнение» "
+        "ещё раз."
+    )
+
 if wide_df.empty:
     st.info("Отчётов ещё нет — нажми «Запустить сравнение» в панели слева")
 else:
@@ -771,6 +809,14 @@ else:
     else:
         st.markdown(build_comparison_html(view, price_cols, len(wide_df)),
                     unsafe_allow_html=True)
+
+    # Витрина, с которой сняты цены: у Timeweb каталог и цены различаются
+    # между timeweb.cloud (Москва) и timeweb.com (Санкт-Петербург).
+    sources_now = run_sources(date_tag)
+    if sources_now:
+        st.caption("Цены сняты с витрин: " + " · ".join(
+            f"{s.get('name') or comp_label(s.get('competitor_id', ''))} — "
+            f"{s.get('url', '')}" for s in sources_now))
 
     # ── Карточки матчей ──
     if not long_df.empty:

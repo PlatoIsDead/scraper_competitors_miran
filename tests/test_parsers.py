@@ -834,6 +834,22 @@ class TestParseTimewebCloudNuxt:
         rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
         assert all(float(r["price_rub"]) == int(r["price_rub"]) for r in rows)
 
+    def test_cores_from_cpu_params_not_bogus_cpu_count(self, timeweb_cloud_flat):
+        """У части тарифов cpuCount забит константой 28 (E-2388G, Silver 4310,
+        2 x EPYC 7402 …) — ядра берём из описания «8 ядер»."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        e2388 = [r for r in rows if "E-2388G" in r["cpu_model"]]
+        assert e2388, "фикстура должна содержать msk-тариф на E-2388G"
+        assert all(r["cpu_cores_total"] == 8 for r in e2388)
+
+    def test_dual_socket_cores_are_total(self, timeweb_cloud_flat):
+        """cpuParams у msk-тарифов даёт суммарные ядра, а не на сокет."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        epyc = [r for r in rows
+                if "EPYC 7402" in r["cpu_model"] and r["cpu_sockets"] == 2]
+        assert epyc, "фикстура должна содержать msk-тариф на 2 x EPYC 7402"
+        assert all(r["cpu_cores_total"] == 48 for r in epyc)
+
 
 @pytest.mark.integration
 def test_scrape_timeweb_cloud_live():
