@@ -749,6 +749,46 @@ if failed_sources:
         "ещё раз."
     )
 
+# Сверка с витринами: расхождение между нашей ценой и карточкой конкурента
+# должно всплывать здесь, а не в письме клиента.
+checked = [s for s in run_sources(date_tag) if s.get("check")]
+if checked:
+    dirty = [s for s in checked if s["check"]["status"] == "ok"]
+    unchecked = [s for s in checked if s["check"]["status"] == "failed"]
+    verdict = " · ".join(
+        f"{comp_label(s['competitor_id'])}: "
+        + {"clean": "совпадает с витриной",
+           "ok": f"{len(s['check']['discrepancies'])} расхождений",
+           "failed": "не сверяется"}[s["check"]["status"]]
+        for s in checked
+    )
+    if dirty:
+        lines = []
+        for s in dirty:
+            for d in s["check"]["discrepancies"][:5]:
+                prices = []
+                if d.get("site_price") is not None:
+                    prices.append(f"на витрине {int(d['site_price']):,} ₽"
+                                  .replace(",", " "))
+                if d.get("our_price") is not None:
+                    prices.append(f"у нас {int(d['our_price']):,} ₽"
+                                  .replace(",", " "))
+                tail = f" ({', '.join(prices)})" if prices else ""
+                lines.append(f"• {comp_label(s['competitor_id'])} · "
+                             f"{d.get('plan_id', '')} — {d['detail']}{tail}")
+            more = len(s["check"]["discrepancies"]) - 5
+            if more > 0:
+                lines.append(f"• {comp_label(s['competitor_id'])}: "
+                             f"и ещё {more} расхождений")
+        st.warning(f"Сверка с витринами — {verdict}\n\n" + "\n".join(lines))
+    else:
+        st.success(f"Сверка с витринами — {verdict}. Цены и состав тарифов "
+                   "совпадают с сайтами конкурентов на момент прогона.")
+    if unchecked:
+        st.caption("Не сверяются: " + ", ".join(
+            f"{comp_label(s['competitor_id'])} ({s['check'].get('detail', '')})"
+            for s in unchecked))
+
 if wide_df.empty:
     st.info("Отчётов ещё нет — нажми «Запустить сравнение» в панели слева")
 else:

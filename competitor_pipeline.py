@@ -28,6 +28,7 @@ from config_loader import (
     load_reference_configs,
 )
 from matching import CompetitorOffer, match_all
+from storefront_check import check_provider
 
 log = logging.getLogger("competitor_pipeline")
 
@@ -159,6 +160,24 @@ def run(args) -> int:
             )
             status["offers"] = len(offers)
             status["status"] = "ok" if offers else "empty"
+            if rows and not args.no_scrape:
+                check = check_provider(
+                    provider, rows,
+                    html=ds.LAST_RENDERED_HTML.get(provider, ""),
+                )
+                status["check"] = check
+                n_diff = len(check["discrepancies"])
+                if check["status"] == "ok":
+                    log.warning(
+                        "[%s] СВЕРКА С ВИТРИНОЙ: расхождений %d, первое: %s",
+                        comp.competitor_id, n_diff, check["discrepancies"][0],
+                    )
+                elif check["status"] == "clean":
+                    log.info("[%s] Сверка с витриной: расхождений нет",
+                             comp.competitor_id)
+                else:
+                    log.warning("[%s] Сверка с витриной не выполнена: %s",
+                                comp.competitor_id, check.get("detail", ""))
             if not offers:
                 log.error("[%s] Данные недоступны — колонки останутся пустыми",
                           comp.competitor_id)

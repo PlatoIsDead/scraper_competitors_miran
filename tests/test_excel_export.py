@@ -67,10 +67,16 @@ class TestExportToExcel:
         assert re.match(r"^[А-Яа-яЁё]+_\d{2}_auto", sheet), f"unexpected name: {sheet}"
 
     def test_collision_gets_suffix(self, xlsx_copy):
+        # Суффикс считаем от первого имени, а не ждём «_2»: в реальной книге
+        # клиента уже могут лежать листы прошлых выгрузок («Июнь_26_auto»).
         s1 = export_to_excel(_make_df(), xlsx_path=xlsx_copy, today=TODAY)
         s2 = export_to_excel(_make_df(), xlsx_path=xlsx_copy, today=TODAY)
         assert s1 != s2
-        assert s2.endswith("_2")
+        base, _, last = s1.rpartition("_")
+        if last.isdigit():
+            assert s2 == f"{base}_{int(last) + 1}"
+        else:
+            assert s2 == f"{s1}_2"
 
     def test_existing_sheets_preserved(self, xlsx_copy):
         wb_before = load_workbook(xlsx_copy)

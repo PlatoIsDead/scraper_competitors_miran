@@ -239,6 +239,12 @@ def scrape_miran() -> list[ServerRow]:
 
 # ── Playwright helper ────────────────────────────────────────────────
 
+# Разметка последнего отрендеренного листинга по провайдеру — её берёт
+# storefront_check, чтобы сверить цену карточки с ценой, которую вытащил
+# парсер, не загружая страницу второй раз.
+LAST_RENDERED_HTML: dict[str, str] = {}
+
+
 def _scrape_with_playwright(
     url: str,
     provider: str,
@@ -283,6 +289,7 @@ def _scrape_with_playwright(
             page.wait_for_timeout(3000)
             html = page.content()
             browser.close()
+            LAST_RENDERED_HTML[provider] = html
             return html
     except Exception as e:
         # Streamlit Cloud: пакет playwright есть, а браузер не скачан —
