@@ -14,7 +14,9 @@ from dedicated_scraper import (
     _parse_storage_pool,
     _precustom_to_cfg,
     _selectel_cfg_to_row,
+    _selectel_stock_and_price,
     _selectel_storefront_visible,
+    _selectel_visible_locations,
     _parse_timeweb_cloud_nuxt,
     _parse_timeweb_html,
     _parse_hostkey_html,
@@ -610,39 +612,206 @@ class TestSelectelPrecustom:
 
 
 class TestSelectelStorefrontFilter:
-    """Зеркало фильтра витрины selectel: is_preorder || is_order && наличие.
-    API отдаёт и распроданные конфиги — сайт их не показывает."""
+    """Зеркало витрины selectel (чанк B3qo2xyo): наличие и цена считаются
+    только по локациям msk/spb/nsk с visibility=everywhere и
+    primary_resource_ordering=enabled; API отдаёт available[] по всем ДЦ
+    (Ташкент, Алматы, Найроби) и распроданные конфиги — сайт их не показывает.
+    Фикстуры — реальные ответы API от 2026-09-14, урезанные."""
 
-    def _cfg(self, **over):
-        base = {
-            "name": "EL10-SSD",
-            "cpu": {"name": "Intel Xeon E3-1230v5", "count": 1,
-                    "cores_per_cpu": 4},
-            "ram": [{"count": 2, "size": 16}],
-            "disk": [{"count": 2, "size": 240, "type": "SSD"}],
-            "price_collection": {"RUB": {"month": 8780.0}},
-            "is_order": True,
-            "is_preorder": False,
-            "available": [{"count": 19}],
+    # uuid из фикстуры selectel_location.json
+    MSK1 = "61c97311-bb14-5679-99fc-98497a701292"
+    MSK4 = "b93f81b1-ddce-4988-a2a7-f58fc46efdb4"   # everywhere, enabled_in_admin
+    NSK1 = "9b177ad9-d90a-4f08-ae1f-008891062a12"
+    TAS2 = "324f8b40-31c4-4cd2-8529-d1906c7cce36"
+    ALM1 = "07ff5ae1-7e8b-4c85-af2c-219798aa0d46"
+
+    @pytest.fixture
+    def visible(self, selectel_locations):
+        return _selectel_visible_locations(selectel_locations)
+
+    def test_visible_locations_rule(self, visible):
+        # только РФ-площадки, включённые для заказа с сайта
+        assert set(visible.values()) == {
+            "MSK-1", "MSK-2", "MSK-3", "MSK-7",
+            "SPB-2", "SPB-3", "SPB-4", "SPB-5", "NSK-1",
         }
-        base.update(over)
-        return base
+        assert self.MSK4 not in visible          # enabled_in_admin
+        assert self.TAS2 not in visible          # Ташкент
+        assert self.ALM1 not in visible          # Алматы
 
-    def test_in_stock_visible(self):
-        assert _selectel_storefront_visible(self._cfg())
+    def test_visible_locations_prefix_and_flags(self):
+        locs = [
+            {"uuid": "a", "name": "MSK-9", "visibility": "everywhere",
+             "primary_resource_ordering": "enabled"},
+            {"uuid": "b", "name": "MSK-8", "visibility": "only_in_admin",
+             "primary_resource_ordering": "enabled"},
+            {"uuid": "c", "name": "spb-x", "visibility": "everywhere",
+             "primary_resource_ordering": "enabled"},
+            {"uuid": "d", "name": "VRRP MSK", "visibility": "everywhere",
+             "primary_resource_ordering": "enabled"},
+            {"uuid": "e", "name": "TAS-1", "visibility": "everywhere",
+             "primary_resource_ordering": "enabled"},
+            "мусор",
+        ]
+        assert _selectel_visible_locations(locs) == {"a": "MSK-9", "c": "spb-x"}
 
-    def test_sold_out_hidden(self):
-        # кейс AEL20-SSD/PL23-NVMe: is_order, но склад пуст — сайт скрывает
-        assert not _selectel_storefront_visible(self._cfg(available=[{"count": 0}]))
-        assert not _selectel_storefront_visible(self._cfg(available=[]))
+    def test_only_tashkent_hidden(self, selectel_api_configs, visible):
+        # EL46-NVMe: единственный экземпляр в TAS-2 — на сайте карточки нет,
+        # а старое правило матчило её с MIR-109
+        cfg = selectel_api_configs["EL46-NVMe"]
+        assert cfg["is_order"] and not cfg["is_preorder"]
+        assert [a for a in cfg["available"] if a["count"]] == [
+            {"location": self.TAS2, "count": 1}]
+        assert not _selectel_storefront_visible(cfg, visible)
+        assert _selectel_storefront_visible(cfg)  # без локаций — как раньше
 
-    def test_preorder_visible_without_stock(self):
-        assert _selectel_storefront_visible(
-            self._cfg(available=[], is_preorder=True))
+    def test_moscow_stock_only_counts_and_prices(self, selectel_api_configs, visible):
+        # EL42-NVMe: MSK-1:1 + ALM-1:14 + TAS-2:3 → бейдж «1 шт.», цена
+        # московская (у MSK-1 нет локальной цены → price_collection 18 400,
+        # у Ташкента 33 500)
+        cfg = selectel_api_configs["EL42-NVMe"]
+        assert _selectel_storefront_visible(cfg, visible)
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["quantity_available"] == 1
+        assert row["price_rub"] == 18400.0
+        assert row["stock_by_location"] == {"MSK-1": 1}
+        # старое правило: все ДЦ
+        old = _selectel_cfg_to_row(cfg, TODAY)
+        assert old["quantity_available"] == 18
+        assert "stock_by_location" not in old
 
-    def test_not_orderable_hidden(self):
-        assert not _selectel_storefront_visible(
-            self._cfg(is_order=False, available=[{"count": 5}]))
+    def test_foreign_local_price_ignored(self, selectel_api_configs, visible):
+        # EL45-NVMe: MSK-1:1 + TAS-2:23; локальные цены 38 800–43 600 только
+        # у зарубежных ДЦ → цена сайта = price_collection 23 100
+        cfg = selectel_api_configs["EL45-NVMe"]
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["quantity_available"] == 1
+        assert row["price_rub"] == 23100.0
+
+    def test_admin_only_location_not_counted(self, selectel_api_configs, visible):
+        # MSK-4: visibility=everywhere, но primary_resource_ordering=
+        # enabled_in_admin — сайт её не считает
+        cfg = dict(selectel_api_configs["EL46-NVMe"])
+        cfg["available"] = cfg["available"] + [{"location": self.MSK4, "count": 5}]
+        assert not _selectel_storefront_visible(cfg, visible)
+        stock = _selectel_stock_and_price(cfg, visible)
+        assert stock["quantity"] == 0
+        assert stock["stock_by_location"] == {}
+        assert _selectel_stock_and_price(cfg, None)["quantity"] == 6
+
+    def test_price_from_location_price_collection(self, selectel_api_configs, visible):
+        # EL52-NVMe: price_collection 49 000, но NSK-1 (1 шт.) продаётся за
+        # 34 400 → сайт пишет «от 34 400»
+        cfg = selectel_api_configs["EL52-NVMe"]
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["price_rub"] == 34400.0
+        assert row["stock_by_location"] == {
+            "MSK-7": 81, "MSK-2": 2, "SPB-4": 66, "SPB-2": 5, "NSK-1": 1}
+        assert row["quantity_available"] == 155
+        assert _selectel_cfg_to_row(cfg, TODAY)["price_rub"] == 49000.0
+
+    def test_local_price_without_stock_not_used(self, selectel_api_configs, visible):
+        # если единственный дешёвый ДЦ пуст, цена карточки — по локациям
+        # с остатком
+        cfg = dict(selectel_api_configs["EL52-NVMe"])
+        cfg["available"] = [
+            {**a, "count": 0} if a["location"] == self.NSK1 else a
+            for a in cfg["available"]]
+        assert _selectel_cfg_to_row(cfg, TODAY, visible)["price_rub"] == 49000.0
+
+    def test_preorder_listed_without_stock(self, selectel_api_configs, visible):
+        # предзаказ: карточка видна, если локация витрины есть в available[]
+        # хотя бы с нулём; цена — минимум из price_collection и локальных цен
+        cfg = dict(selectel_api_configs["EL46-NVMe"])
+        cfg["is_preorder"] = True
+        cfg["available"] = [a for a in cfg["available"] if a["location"] == self.TAS2]
+        assert not _selectel_storefront_visible(cfg, visible)  # только TAS-2
+        cfg["available"] = cfg["available"] + [{"location": self.MSK1, "count": 0}]
+        assert _selectel_storefront_visible(cfg, visible)
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["quantity_available"] is None
+        assert row["price_rub"] == 33700.0
+        assert row["stock_by_location"] == {}
+
+    def test_sold_out_hidden(self, selectel_api_configs, visible):
+        # DL23: 4 шт. только в Алматы (29 800 там) — на сайте нет
+        cfg = selectel_api_configs["DL23"]
+        assert not _selectel_storefront_visible(cfg, visible)
+        cfg = dict(selectel_api_configs["EL11-SSD"])
+        cfg["available"] = [{**a, "count": 0} for a in cfg["available"]]
+        assert not _selectel_storefront_visible(cfg, visible)
+        assert not _selectel_storefront_visible(cfg)
+
+    def test_not_orderable_hidden(self, selectel_api_configs, visible):
+        cfg = {**selectel_api_configs["EL11-SSD"], "is_order": False}
+        assert not _selectel_storefront_visible(cfg, visible)
+
+    def test_spb_and_msk_summed(self, selectel_api_configs, visible):
+        # EL11-SSD: SPB-5:10 + MSK-2:1 + TAS-2:5 → 11 (было 16)
+        row = _selectel_cfg_to_row(selectel_api_configs["EL11-SSD"], TODAY, visible)
+        assert row["quantity_available"] == 11
+        assert row["price_rub"] == 12800.0
+
+    def test_fallback_without_locations(self, selectel_api_configs, monkeypatch):
+        # location недоступен → старое правило, Selectel не обнуляется,
+        # в лог — предупреждение
+        import dedicated_scraper as ds
+
+        class Resp:
+            def __init__(self, payload):
+                self._payload = payload
+
+            def raise_for_status(self):
+                pass
+
+            def json(self):
+                return self._payload
+
+        def fake_get(url, *a, **kw):
+            if url == ds.SELECTEL_PUB_LOCATION:
+                raise ConnectionError("нет сети")
+            assert url == ds.SELECTEL_PUB_API
+            return Resp({"result": list(selectel_api_configs.values())})
+
+        monkeypatch.setattr(ds.requests, "get", fake_get)
+        monkeypatch.setattr(ds.time, "sleep", lambda *_: None)
+        printed = []
+        monkeypatch.setattr("builtins.print", lambda *a, **k: printed.append(" ".join(map(str, a))))
+        rows = ds._scrape_selectel_api()
+        by_plan = {r["plan_id"]: r for r in rows}
+        assert "EL46-NVMe" in by_plan               # как раньше: Ташкент считается
+        assert by_plan["EL42-NVMe"]["quantity_available"] == 18
+        assert by_plan["EL52-NVMe"]["price_rub"] == 49000.0
+        assert all("stock_by_location" not in r for r in rows)
+        assert any("ПРЕДУПРЕЖДЕНИЕ" in line and "локаций" in line for line in printed)
+
+    def test_api_flow_with_locations(self, selectel_api_configs, selectel_locations,
+                                     monkeypatch):
+        import dedicated_scraper as ds
+
+        class Resp:
+            def __init__(self, payload):
+                self._payload = payload
+
+            def raise_for_status(self):
+                pass
+
+            def json(self):
+                return self._payload
+
+        def fake_get(url, *a, **kw):
+            if url == ds.SELECTEL_PUB_LOCATION:
+                return Resp({"result": selectel_locations})
+            assert url == ds.SELECTEL_PUB_API
+            return Resp({"result": list(selectel_api_configs.values())})
+
+        monkeypatch.setattr(ds.requests, "get", fake_get)
+        rows = ds._scrape_selectel_api()
+        by_plan = {r["plan_id"]: r for r in rows}
+        assert set(by_plan) == {"EL42-NVMe", "EL45-NVMe", "EL52-NVMe",
+                                "EL11-SSD", "AEL10-SSD"}
+        assert by_plan["EL42-NVMe"]["quantity_available"] == 1
+        assert by_plan["EL52-NVMe"]["price_rub"] == 34400.0
 
 
 class TestSelectelGpuField:
