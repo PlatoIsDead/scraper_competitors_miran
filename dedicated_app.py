@@ -11,6 +11,8 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from storefront_check import card_url, split_by_report
+
 # ── Constants ────────────────────────────────────────────────────────
 
 DATA_DIR = "data"
@@ -753,37 +755,62 @@ if failed_sources:
 # должно всплывать здесь, а не в письме клиента.
 checked = [s for s in run_sources(date_tag) if s.get("check")]
 if checked:
-    dirty = [s for s in checked if s["check"]["status"] == "ok"]
     unchecked = [s for s in checked if s["check"]["status"] == "failed"]
-    verdict = " · ".join(
-        f"{comp_label(s['competitor_id'])}: "
-        + {"clean": "совпадает с витриной",
-           "ok": f"{len(s['check']['discrepancies'])} расхождений",
-           "failed": "не сверяется"}[s["check"]["status"]]
-        for s in checked
-    )
-    if dirty:
-        lines = []
-        for s in dirty:
-            for d in s["check"]["discrepancies"][:5]:
-                prices = []
-                if d.get("site_price") is not None:
-                    prices.append(f"на витрине {int(d['site_price']):,} ₽"
-                                  .replace(",", " "))
-                if d.get("our_price") is not None:
-                    prices.append(f"у нас {int(d['our_price']):,} ₽"
-                                  .replace(",", " "))
-                tail = f" ({', '.join(prices)})" if prices else ""
-                lines.append(f"• {comp_label(s['competitor_id'])} · "
-                             f"{d.get('plan_id', '')} — {d['detail']}{tail}")
-            more = len(s["check"]["discrepancies"]) - 5
-            if more > 0:
-                lines.append(f"• {comp_label(s['competitor_id'])}: "
-                             f"и ещё {more} расхождений")
-        st.warning(f"Сверка с витринами — {verdict}\n\n" + "\n".join(lines))
+    # план конкурента → конфигурации Мирана, с которыми он совпал
+    matched: dict[str, dict[str, list[str]]] = {}
+    if not long_df.empty:
+        for (cid, plan), grp in long_df.groupby(["competitor_id", "plan_id"]):
+            matched.setdefault(cid, {})[plan] = sorted(set(grp["config_id"]))
+    split = {
+        s["competitor_id"]: split_by_report(
+            s["check"]["discrepancies"], set(matched.get(s["competitor_id"], {})))
+        for s in checked if s["check"]["status"] == "ok"
+    }
+    n_rest = sum(len(rest) for _, rest in split.values())
+    rest_note = (f"Ещё {n_rest} расхождений — по карточкам, которые не совпали "
+                 "ни с одной конфигурацией Мирана: на отчёт они не влияют."
+                 if n_rest else "")
+
+    def _verdict(s: dict) -> str:
+        status = s["check"]["status"]
+        if status == "failed":
+            return "не сверяется"
+        relevant = split.get(s["competitor_id"], ([], []))[0]
+        if relevant:
+            return f"{len(relevant)} расхождений"
+        return "совпадает с витриной"
+
+    verdict = " · ".join(f"{comp_label(s['competitor_id'])}: {_verdict(s)}"
+                         for s in checked)
+    lines = []
+    for cid, (relevant, _) in split.items():
+        for d in relevant[:5]:
+            plan = d.get("plan_id", "")
+            url = card_url(cid, plan)
+            label = f"[{plan}]({url})" if url else plan
+            configs = matched.get(cid, {}).get(plan)
+            if configs:
+                label += " → " + ", ".join(configs)
+            prices = []
+            if d.get("site_price") is not None:
+                prices.append(f"на витрине {int(d['site_price']):,} ₽"
+                              .replace(",", " "))
+            if d.get("our_price") is not None:
+                prices.append(f"у нас {int(d['our_price']):,} ₽"
+                              .replace(",", " "))
+            tail = f" ({', '.join(prices)})" if prices else ""
+            lines.append(f"• {comp_label(cid)} · {label} — {d['detail']}{tail}")
+        if len(relevant) > 5:
+            lines.append(f"• {comp_label(cid)}: и ещё {len(relevant) - 5} "
+                         "расхождений")
+    if lines:
+        st.warning(f"Сверка с витринами — {verdict}\n\n" + "\n".join(lines)
+                   + (f"\n\n{rest_note}" if rest_note else ""))
     else:
         st.success(f"Сверка с витринами — {verdict}. Цены и состав тарифов "
-                   "совпадают с сайтами конкурентов на момент прогона.")
+                   "в отчёте совпадают с сайтами конкурентов на момент прогона.")
+        if rest_note:
+            st.caption(rest_note)
     if unchecked:
         st.caption("Не сверяются: " + ", ".join(
             f"{comp_label(s['competitor_id'])} ({s['check'].get('detail', '')})"

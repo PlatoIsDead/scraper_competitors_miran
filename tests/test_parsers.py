@@ -324,6 +324,35 @@ class TestParseRegcloudHtml:
         rows = _parse_regcloud_html(html, TODAY)
         assert rows[0]["price_rub"] == 50000.0
 
+    def test_period_price_layout_2026_09(self):
+        # вёрстка 2026-09: _per-months_one на родителе, цена месяца —
+        # __price-value[data-period-price]. Кейс RD-30055: 5 740, а не
+        # перечёркнутые 8 200; RD-58446: не брать соседнюю цену за день.
+        discounted = """
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">Xeon E3-1230v3</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">16 ГБ DDR3</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 1 ТБ HDD SATA</p>
+          <div class="b-dedicated-servers-list-item-cloud__price b-dedicated-servers-list-item-cloud__price_per-months_one b-dedicated-servers-list-item-cloud__price_type_discount">
+            <div class="b-dedicated-servers-list-item-cloud__price-value" data-period-price="">5 740 <span>₽</span> /мес</div>
+            <p class="b-dedicated-servers-list-item-cloud__base-price">8 200 <span>₽</span> /мес</p>
+          </div>
+        </div>
+        """
+        per_day = """
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">2 × AMD EPYC 9654</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">1536 ГБ DDR5</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 3.8 ТБ SSD NVMe</p>
+          <div class="b-dedicated-servers-list-item-cloud__price b-dedicated-servers-list-item-cloud__price_per-months_one">
+            <p class="b-dedicated-servers-list-item-cloud__price-value b-dedicated-servers-list-item-cloud__price-value_per-day" data-one-day-price="">20 000 ₽/день</p>
+            <div class="b-dedicated-servers-list-item-cloud__price-value" data-period-price="">588 500 <span>₽</span> /мес</div>
+          </div>
+        </div>
+        """
+        rows = _parse_regcloud_html(discounted + per_day, TODAY)
+        assert [r["price_rub"] for r in rows] == [5740.0, 588500.0]
+
     def test_gpu_element_captured(self):
         # кейс RD-56106: сервер с 4 × RTX A4000 — GPU уходит в поле gpu
         html = """

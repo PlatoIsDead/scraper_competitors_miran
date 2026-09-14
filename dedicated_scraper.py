@@ -995,8 +995,15 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
             # лежит в __price-value_per-months_one; __base-price — перечёркнутая
             # базовая. Старые классы оставлены фолбэком (кейс Светланы 25.08:
             # 88 830 на сайте vs 98 700 из base-price — завышали 77 из 171 карточек).
+            # Вёрстка 2026-09: модификатор _per-months_one ушёл на родителя,
+            # цена месяца — __price-value[data-period-price]; рядом бывает
+            # __price-value_per-day («20 000 ₽/день»), его не брать. Без этого
+            # скидочные карточки снова читались по base-price (5 740 → 8 200),
+            # а карточки без скидки выпадали вовсе (72 из 153 на 11.09).
             price_elem = (
                 item.find(class_="b-dedicated-servers-list-item-cloud__price-value_per-months_one")
+                or item.find(attrs={"data-period-price": True},
+                             class_="b-dedicated-servers-list-item-cloud__price-value")
                 or item.find("p", class_="b-dedicated-servers-list-item-cloud__current-price")
                 or item.find("p", class_="b-dedicated-servers-list-item-cloud__base-price")
             )

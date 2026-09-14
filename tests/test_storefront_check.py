@@ -3,7 +3,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from storefront_check import check_provider, diff_regcloud, diff_timeweb
+from storefront_check import (
+    card_url,
+    check_provider,
+    diff_regcloud,
+    diff_timeweb,
+    split_by_report,
+)
 
 CARD = ('<div class="b-dedicated-servers-list-item-cloud" data-price="{price}" '
         'data-server-id="{plan}"></div>')
@@ -110,3 +116,28 @@ class TestCheckProvider:
 
     def test_unknown_provider_is_failed(self):
         assert check_provider("selectel", [])["status"] == "failed"
+
+
+class TestSplitByReport:
+    def test_unmatched_price_mismatch_is_outside_report(self):
+        """Фидбек 11.09: RD-30111/30170/30189 не совпали с Мираном — шум."""
+        diffs = [
+            {"kind": "price", "plan_id": "RD-30055"},
+            {"kind": "price", "plan_id": "RD-30111"},
+            {"kind": "extra", "plan_id": "RD-30189"},
+        ]
+        relevant, rest = split_by_report(diffs, {"RD-30055"})
+        assert [d["plan_id"] for d in relevant] == ["RD-30055"]
+        assert [d["plan_id"] for d in rest] == ["RD-30111", "RD-30189"]
+
+    def test_missing_card_always_relevant(self):
+        # не разобранная карточка могла бы совпасть — прятать её нельзя
+        relevant, rest = split_by_report(
+            [{"kind": "missing", "plan_id": "RD-90167"}], set())
+        assert len(relevant) == 1 and rest == []
+
+
+def test_card_url():
+    assert (card_url("reg_cloud", "RD-30111")
+            == "https://reg.cloud/dedicated/server_details/30111")
+    assert card_url("timeweb", "AMD Ryzen 9 7950X / 128") == ""
