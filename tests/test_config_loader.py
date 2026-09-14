@@ -142,3 +142,32 @@ class TestReferenceConfigsValidation:
         bad["configs"][0]["ram_gb"] = 0
         with pytest.raises(ValueError, match="ram_gb"):
             load_reference_configs(_write(tmp_path, "r.json", bad))
+
+
+class TestTimewebCloudSource:
+    def test_project_config_points_to_spb(self):
+        """Решение 14.09.2026: клиент в Санкт-Петербурге → ДЦ «ru», ссылка на него."""
+        from config_loader import timeweb_cloud_source
+        url, locations = timeweb_cloud_source(PROJECT_CONFIG / "competitors.json")
+        assert locations == ("ru",)
+        assert url == "https://timeweb.cloud/services/dedicated-server?location=ru"
+
+    def test_empty_locations_rejected(self, tmp_path):
+        from config_loader import timeweb_cloud_source
+        cfg = {"competitors": [{
+            "competitor_id": "timeweb", "name": "Timeweb", "url": "https://x",
+            "currency": "RUB", "price_period": "month",
+            "parsing_profile": "timeweb_cloud_nuxt", "extra": {},
+        }]}
+        with pytest.raises(ValueError, match="locations"):
+            timeweb_cloud_source(_write(tmp_path, "c.json", cfg))
+
+    def test_missing_timeweb_entry_rejected(self, tmp_path):
+        from config_loader import timeweb_cloud_source
+        cfg = {"competitors": [{
+            "competitor_id": "selectel", "name": "S", "url": "https://x",
+            "currency": "RUB", "price_period": "month",
+            "parsing_profile": "selectel_nuxt_cdn",
+        }]}
+        with pytest.raises(ValueError, match="timeweb_cloud_nuxt"):
+            timeweb_cloud_source(_write(tmp_path, "c.json", cfg))

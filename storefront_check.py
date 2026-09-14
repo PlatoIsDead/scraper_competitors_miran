@@ -8,10 +8,14 @@
 import logging
 import re
 
+from config_loader import timeweb_cloud_source
+
 log = logging.getLogger("storefront_check")
 
 # Каталог timeweb.cloud отдаётся ещё и отдельным JSON — источник, не зависящий
-# от разбора __NUXT_DATA__ (локации там названы иначе: ru-3 = Москва).
+# от разбора __NUXT_DATA__. Локации там названы иначе, чем в payload страницы:
+# ru (Санкт-Петербург) = ru-1, msk (Москва) = ru-3. Какую сверять — решает
+# та же запись competitors.json, что и скрейп (timeweb_cloud_source).
 TIMEWEB_PRESETS_URL = "https://timeweb.cloud/landing-api/dedicated/presets"
 TIMEWEB_LOCATIONS = {"msk": "ru-3", "ru": "ru-1"}
 
@@ -62,17 +66,21 @@ def diff_regcloud(rows: list[dict], html: str) -> list[dict]:
 
 
 def diff_timeweb(
-    rows: list[dict], presets: list[dict], location: str = "msk"
+    rows: list[dict], presets: list[dict], locations: tuple[str, ...]
 ) -> list[dict]:
     """Наши тарифы против каталога landing-api (независимо от __NUXT_DATA__).
 
-    Сверяются набор и цена по названию тарифа; расхождение = либо витрина
-    поменялась между двумя запросами, либо парсер разошёлся с каталогом.
+    locations — коды ДЦ как в payload страницы («ru», «msk»); здесь они
+    переводятся в коды landing-api (ru-1, ru-3), чтобы сверка смотрела на тот
+    же дата-центр, что и скрейп. Сверяются набор и цена по названию тарифа;
+    расхождение = либо витрина поменялась между двумя запросами, либо парсер
+    разошёлся с каталогом. Одно и то же имя («E-2236 / 16 / 480») живёт и в
+    СПб, и в Москве с разной ценой — без фильтра по ДЦ сверка врала бы.
     """
-    want = TIMEWEB_LOCATIONS.get(location, location)
+    want = {TIMEWEB_LOCATIONS.get(loc, loc) for loc in locations}
     site: dict[str, list[int]] = {}
     for p in presets:
-        if p.get("location") != want:
+        if p.get("location") not in want:
             continue
         name = (p.get("description") or "").strip()
         if not name:
@@ -80,7 +88,8 @@ def diff_timeweb(
         site.setdefault(name, []).append(int(p.get("price") or 0))
     if not site:
         return [{"kind": "check_failed",
-                 "detail": f"каталог не отдал тарифы локации {want}"}]
+                 "detail": "каталог не отдал тарифы локации "
+                           f"{', '.join(sorted(want))}"}]
 
     ours: dict[str, list[int]] = {}
     for r in rows:
@@ -169,7 +178,8 @@ def check_provider(provider: str, rows: list[dict], html: str = "") -> dict:
         if not presets:
             return {"status": "failed", "discrepancies": [],
                     "detail": "каталог витрины недоступен"}
-        diffs = diff_timeweb(rows, presets)
+        _, locations = timeweb_cloud_source()
+        diffs = diff_timeweb(rows, presets, locations)
     else:
         return {"status": "failed", "discrepancies": [],
                 "detail": "сверка для этого конкурента ещё не реализована"}

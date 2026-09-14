@@ -1027,13 +1027,30 @@ class TestParseStoragePool:
         assert _parse_storage_pool("Аппаратный RAID") is None
 
 
+# Витрина по решению клиента (Миран в Санкт-Петербурге, 14.09.2026): payload
+# timeweb.cloud содержит все ДЦ, «ru» = Санкт-Петербург, «msk» = Москва.
+SPB = ("ru",)
+MSK = ("msk",)
+# Контрольные тарифы живого снимка 14.09.2026 (фикстура урезана из него):
+SPB_E2236_32 = ("E-2236 / 32 / 960", 14540.0)                    # preset 3871
+SPB_E2236_16 = ("E-2236 / 16 / 480", 11960.0)                    # preset 3247
+SPB_RYZEN = ("AMD Ryzen 9 7950X (16 ядер, 4.2-5.7 ГГц, 32 потока)", 37300.0)  # 5243
+MSK_E2236_32 = ("Intel Xeon E-2236 (6 ядер, 3.4-4.8 ГГц, 12 потоков) / 32 DDR4 "
+                "/ 2 x 960 Гб SSD", 12720.0)                      # preset 6121
+
+
+def _plans(rows):
+    return {(r["plan_id"], r["price_rub"]) for r in rows}
+
+
 class TestParseTimewebCloudNuxt:
-    def test_fixture_msk_row_count(self, timeweb_cloud_flat):
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
-        assert 20 <= len(rows) <= 100
+    def test_fixture_spb_row_count(self, timeweb_cloud_flat):
+        """Снимок 14.09.2026: СПб = 68 тарифов, столько же у landing-api ru-1."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
+        assert len(rows) == 68
 
     def test_fixture_all_required_fields(self, timeweb_cloud_flat):
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         for row in rows:
             assert row["provider"] == "timeweb_cloud"
             assert row["cpu_model"] != ""
@@ -1046,49 +1063,108 @@ class TestParseTimewebCloudNuxt:
             assert len(row["disk_pools"]) >= 1
 
     def test_dual_socket_parsed(self, timeweb_cloud_flat):
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         import re
         dual = [r for r in rows if r["cpu_sockets"] == 2]
-        assert dual, "msk tariffs should contain dual-socket configs"
+        assert dual, "spb tariffs should contain dual-socket configs"
         # socket prefix "2 x " must be stripped from the model
         assert all(not re.match(r"^\d+\s*[xхX×]", r["cpu_model"]) for r in dual)
 
     def test_multi_pool_present(self, timeweb_cloud_flat):
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         assert any(len(r["disk_pools"]) > 1 for r in rows)
 
-    def test_location_filter(self, timeweb_cloud_flat):
-        msk = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, ("msk",))
-        both = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, ("msk", "ru"))
-        assert len(both) > len(msk)
+    def test_location_filter_spb(self, timeweb_cloud_flat):
+        """СПб: питерский 3871 за 14 540 входит, московский 6121 за 12 720 — нет."""
+        plans = _plans(_parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB))
+        assert SPB_E2236_32 in plans
+        assert SPB_E2236_16 in plans
+        assert SPB_RYZEN in plans
+        assert MSK_E2236_32 not in plans
+        assert all(p != 12720.0 for _, p in plans)
+
+    def test_location_filter_msk(self, timeweb_cloud_flat):
+        """Обратная сторона: в Москве 6121 есть, а 3871/Ryzen СПб нет."""
+        plans = _plans(_parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, MSK))
+        assert MSK_E2236_32 in plans
+        assert SPB_E2236_32 not in plans
+        assert SPB_RYZEN not in plans
+
+    def test_same_name_different_city_not_mixed(self, timeweb_cloud_flat):
+        """«E-2236 / 16 / 480» есть и в СПб (3247), и в Москве (легаси 3853) —
+        фильтр по ДЦ оставляет ровно одну строку с этим именем."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
+        assert [r["plan_id"] for r in rows].count("E-2236 / 16 / 480") == 1
+
+    def test_location_union(self, timeweb_cloud_flat):
+        spb = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
+        msk = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, MSK)
+        both = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, ("ru", "msk"))
+        assert len(both) == len(spb) + len(msk)
+
+    def test_foreign_locations_excluded(self, timeweb_cloud_flat):
+        """Фикстура содержит nl/pl — при СПб они не должны просачиваться."""
+        spb = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
+        everything = _parse_timeweb_cloud_nuxt(
+            timeweb_cloud_flat, TODAY, ("ru", "msk", "nl", "pl"))
+        assert len(everything) > len(spb) + len(
+            _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, MSK))
 
     def test_uses_standard_price_not_discounted(self, timeweb_cloud_flat):
-        """priceNumber (стандартная цена), а не price (скидка за 12 мес)."""
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        """priceNumber (цена вкладки «1 месяц»), а не price («12 мес −10%»):
+        3871 = 14 540, а не 13 086."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         assert all(float(r["price_rub"]) == int(r["price_rub"]) for r in rows)
+        assert SPB_E2236_32 in _plans(rows)
+        assert ("E-2236 / 32 / 960", 13086.0) not in _plans(rows)
 
     def test_cores_from_cpu_params_not_bogus_cpu_count(self, timeweb_cloud_flat):
-        """У части тарифов cpuCount забит константой 28 (E-2388G, Silver 4310,
-        2 x EPYC 7402 …) — ядра берём из описания «8 ядер»."""
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        """У части тарифов cpuCount забит константой 28 (E-2388G / 128 / 2N,
+        Silver 4310, Gold 6312U …) — ядра берём из описания «8 ядер»."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         e2388 = [r for r in rows if "E-2388G" in r["cpu_model"]]
-        assert e2388, "фикстура должна содержать msk-тариф на E-2388G"
+        assert e2388, "фикстура должна содержать spb-тариф на E-2388G"
         assert all(r["cpu_cores_total"] == 8 for r in e2388)
+        ryzen = [r for r in rows if r["plan_id"] == SPB_RYZEN[0]]
+        assert [r["cpu_cores_total"] for r in ryzen] == [16]
 
     def test_dual_socket_cores_are_total(self, timeweb_cloud_flat):
-        """cpuParams у msk-тарифов даёт суммарные ядра, а не на сокет."""
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        """cpuParams у spb-тарифов даёт суммарные ядра, а не на сокет
+        (2 x EPYC 7402 / 256 / 1N: cpuCount=28, cpuParams «48 ядер»)."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         epyc = [r for r in rows
                 if "EPYC 7402" in r["cpu_model"] and r["cpu_sockets"] == 2]
-        assert epyc, "фикстура должна содержать msk-тариф на 2 x EPYC 7402"
+        assert epyc, "фикстура должна содержать spb-тариф на 2 x EPYC 7402"
         assert all(r["cpu_cores_total"] == 48 for r in epyc)
+
+    def test_novelty_prefix_stripped(self):
+        """timeweb.com подписывает новые карточки «НОВИНКА - …» — префикс не
+        должен попадать ни в модель CPU, ни в plan_id."""
+        flat = [
+            {"presets": 1}, [2],
+            {"cpu": 3, "presetId": 4, "storageList": 5, "location": 6,
+             "cpuParams": 7, "memoryCount": 8, "priceNumber": 9, "name": 10,
+             "cpuCount": 11},
+            "НОВИНКА - Intel Xeon E-2236", 3247, [12], "ru",
+            "6 ядер, 3.4-4.8 ГГц, 12 потоков", 16, 11960,
+            "НОВИНКА - E-2236 / 16 / 480", 6, "2 x 480 ГБ SSD",
+        ]
+        rows = _parse_timeweb_cloud_nuxt(flat, TODAY, SPB)
+        assert len(rows) == 1
+        assert rows[0]["cpu_model"] == "Intel Xeon E-2236"
+        assert rows[0]["plan_id"] == "E-2236 / 16 / 480"
+        assert rows[0]["cpu_cores_total"] == 6
+        assert rows[0]["price_rub"] == 11960.0
 
 
 @pytest.mark.integration
 def test_scrape_timeweb_cloud_live():
+    """Без аргументов — витрина из config/competitors.json (СПб)."""
     from dedicated_scraper import scrape_timeweb_cloud
     rows = scrape_timeweb_cloud()
     assert len(rows) >= 20
+    assert SPB_E2236_32 in _plans(rows)
+    assert MSK_E2236_32 not in _plans(rows)
 
 
 @pytest.mark.integration
