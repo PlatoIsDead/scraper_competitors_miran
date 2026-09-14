@@ -125,6 +125,33 @@ def fetch_timeweb_presets(timeout: int = 25) -> list[dict]:
         return []
 
 
+def split_by_report(
+    discrepancies: list[dict], matched_plans: set[str]
+) -> tuple[list[dict], list[dict]]:
+    """(влияют на отчёт, вне отчёта).
+
+    Фидбек Светланы 11.09: из пяти строк плашки три были про карточки, которые
+    не совпали ни с одной конфигурацией Мирана, — для неё это шум. Цена или
+    лишний тариф важны, только если план попал в матчи. Пропавшую из скрейпа
+    карточку оставляем всегда: не разобрав её, мы не знаем, совпала бы она.
+    """
+    relevant, rest = [], []
+    for d in discrepancies:
+        if d.get("kind") == "missing" or d.get("plan_id") in matched_plans:
+            relevant.append(d)
+        else:
+            rest.append(d)
+    return relevant, rest
+
+
+def card_url(competitor_id: str, plan_id: str) -> str:
+    """Страница конкретной карточки — клиент проверяет её сам. Пусто, если нет."""
+    m = re.fullmatch(r"RD-(\d+)", plan_id or "")
+    if competitor_id == "reg_cloud" and m:
+        return f"https://reg.cloud/dedicated/server_details/{m.group(1)}"
+    return ""
+
+
 def check_provider(provider: str, rows: list[dict], html: str = "") -> dict:
     """{'status': ok|clean|failed, 'discrepancies': [...]} по одному конкуренту.
 

@@ -23,6 +23,7 @@ from dedicated_scraper import (
 )
 
 TODAY = "2026-06-02"
+FIXTURES = Path(__file__).parent / "fixtures"
 ALLOWED_DISK_TYPES = {"SSD", "HDD", "NVMe"}
 
 
@@ -323,6 +324,69 @@ class TestParseRegcloudHtml:
         )
         rows = _parse_regcloud_html(html, TODAY)
         assert rows[0]["price_rub"] == 50000.0
+
+    def test_period_price_layout_2026_09(self):
+        # вёрстка 2026-09: _per-months_one на родителе, цена месяца —
+        # __price-value[data-period-price]. Кейс RD-30055: 5 740, а не
+        # перечёркнутые 8 200; RD-58446: не брать соседнюю цену за день.
+        discounted = """
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">Xeon E3-1230v3</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">16 ГБ DDR3</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 1 ТБ HDD SATA</p>
+          <div class="b-dedicated-servers-list-item-cloud__price b-dedicated-servers-list-item-cloud__price_per-months_one b-dedicated-servers-list-item-cloud__price_type_discount">
+            <div class="b-dedicated-servers-list-item-cloud__price-value" data-period-price="">5 740 <span>₽</span> /мес</div>
+            <p class="b-dedicated-servers-list-item-cloud__base-price">8 200 <span>₽</span> /мес</p>
+          </div>
+        </div>
+        """
+        per_day = """
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">2 × AMD EPYC 9654</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">1536 ГБ DDR5</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 3.8 ТБ SSD NVMe</p>
+          <div class="b-dedicated-servers-list-item-cloud__price b-dedicated-servers-list-item-cloud__price_per-months_one">
+            <p class="b-dedicated-servers-list-item-cloud__price-value b-dedicated-servers-list-item-cloud__price-value_per-day" data-one-day-price="">20 000 ₽/день</p>
+            <div class="b-dedicated-servers-list-item-cloud__price-value" data-period-price="">588 500 <span>₽</span> /мес</div>
+          </div>
+        </div>
+        """
+        rows = _parse_regcloud_html(discounted + per_day, TODAY)
+        assert [r["price_rub"] for r in rows] == [5740.0, 588500.0]
+
+    def test_real_markup_2026_09(self):
+        # Регрессия на живой разметке 14.09.2026 (tests/fixtures/
+        # regcloud_dedicated_2026_09.html): парсер из 5e49b07 терял карточку
+        # без скидки (RD-55039: нет ни __current-price, ни __base-price,
+        # цена только в __price-value[data-period-price]) и брал у скидочной
+        # RD-30055 перечёркнутые 8 200 вместо 5 740.
+        from storefront_check import diff_regcloud
+
+        html = (FIXTURES / "regcloud_dedicated_2026_09.html").read_text(
+            encoding="utf-8")
+        rows = {r["plan_id"]: r for r in _parse_regcloud_html(html, TODAY)}
+        assert set(rows) == {"RD-55039", "RD-30055"}
+
+        plain = rows["RD-55039"]
+        assert plain["price_rub"] == 33300.0
+        assert plain["cpu_model"] == "Intel Xeon Gold 5218R"
+        assert plain["cpu_sockets"] == 2
+        assert plain["cpu_cores_total"] == 40
+        assert plain["ram_gb"] == 64
+        assert plain["disk_pools"] == [
+            {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 480}]
+
+        sale = rows["RD-30055"]
+        assert sale["price_rub"] == 5740.0
+        assert sale["cpu_model"] == "Xeon E3-1230v3"
+        assert sale["cpu_sockets"] == 1
+        assert sale["cpu_cores_total"] == 4
+        assert sale["ram_gb"] == 16
+        assert sale["disk_pools"] == [
+            {"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 1000}]
+
+        # та же разметка глазами сверки с витриной: data-price = наша цена
+        assert diff_regcloud(list(rows.values()), html) == []
 
     def test_gpu_element_captured(self):
         # кейс RD-56106: сервер с 4 × RTX A4000 — GPU уходит в поле gpu
