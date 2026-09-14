@@ -5,18 +5,30 @@
 # All UI text in Russian (Cyrillic)
 
 import json
-from datetime import date, datetime
 from pathlib import Path
 
 import pandas as pd
 import streamlit as st
 
+from run_status import (
+    EMPTY_STATE_MESSAGE,
+    date_tag_msk,
+    fmt_date_tag,
+    fmt_ts,
+    parse_run_status,
+    raw_staleness,
+    read_log_tail,
+    report_freshness,
+    run_finished_at,
+    source_line,
+)
 from storefront_check import card_url, split_by_report
 
 # ── Constants ────────────────────────────────────────────────────────
 
 DATA_DIR = "data"
 REPORTS_DIR = Path(DATA_DIR) / "reports"
+RAW_PROVIDERS = ("selectel", "regcloud", "timeweb_cloud")
 
 COMP_LABELS = {
     "selectel": "Selectel",
@@ -70,6 +82,15 @@ a { color: #0079C5; } a:hover { color: #8fd0f5; }
   letter-spacing: -.02em; color: #fff; margin: 0 0 8px;
 }
 .subline { font-weight: 300; font-size: 14px; color: rgba(255,255,255,.6); }
+.src-status { margin-top: 10px; font-size: 13px; color: rgba(255,255,255,.78); }
+.src-status .row { margin: 3px 0; }
+.src-status .dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: #009687; margin-right: 7px; vertical-align: 1px;
+}
+.src-status .dot.bad { background: #ff6b6b; }
+.src-status .dot.warn { background: #e0b53c; }
+.src-status .stale { color: #ffb4a6; }
 
 /* ── KPI-карточки ── */
 .kpi-grid {
@@ -194,33 +215,36 @@ def _latest_report(pattern: str) -> "Path | None":
 
 
 @st.cache_data(ttl=60)
-def load_competitor_reports() -> tuple[pd.DataFrame, pd.DataFrame, str, str]:
-    """Свежайшая пара отчётов пайплайна:
-    (широкий, длинный, дата-тег, время прогона HH:MM)."""
+def load_competitor_reports() -> tuple[pd.DataFrame, pd.DataFrame, str]:
+    """Свежайшая пара отчётов пайплайна: (широкий, длинный, дата-тег).
+    Время прогона здесь не считается: mtime файла в облаке после перезапуска
+    равен времени клонирования репозитория — правду знает только run_status."""
     wide_path = _latest_report("dedicated_competitors_*.csv")
     if wide_path is None:
-        return pd.DataFrame(), pd.DataFrame(), "", ""
+        return pd.DataFrame(), pd.DataFrame(), ""
     date_tag = wide_path.stem.rsplit("_", 1)[-1]
-    run_time = f"{datetime.fromtimestamp(wide_path.stat().st_mtime):%H:%M}"
     wide = pd.read_csv(wide_path)
     if "miran_price" not in wide.columns:
         wide["miran_price"] = pd.NA
     long_path = REPORTS_DIR / f"matches_{date_tag}.csv"
     long = pd.read_csv(long_path) if long_path.exists() else pd.DataFrame()
-    return wide, long, date_tag, run_time
+    return wide, long, date_tag
 
 
 @st.cache_data(ttl=60)
-def load_all_offers() -> pd.DataFrame:
+def load_all_offers() -> tuple[pd.DataFrame, dict[str, str]]:
     """Все предложения конкурентов из свежайших raw-JSON скрейпа —
-    целиком, без фильтра matching."""
+    целиком, без фильтра matching. Второй элемент — {provider: дата-тег
+    файла}: по нему UI помечает источники старее показанного отчёта."""
     from competitor_report import format_disk_pools
 
     rows_out = []
-    for provider in ("selectel", "regcloud", "timeweb_cloud"):
+    tags: dict[str, str] = {}
+    for provider in RAW_PROVIDERS:
         files = sorted(Path(DATA_DIR).glob(f"{provider}_2*.json"))
         if not files:
             continue
+        tags[provider] = files[-1].stem.rsplit("_", 1)[-1]
         for r in json.loads(files[-1].read_text(encoding="utf-8")):
             pools = r.get("disk_pools") or [{
                 "disk_type": r.get("disk_type"),
@@ -240,7 +264,7 @@ def load_all_offers() -> pd.DataFrame:
                 "quantity_available": r.get("quantity_available"),
                 "scraped_at": r.get("scraped_at"),
             })
-    return pd.DataFrame(rows_out)
+    return pd.DataFrame(rows_out), tags
 
 
 @st.cache_data(ttl=30)
@@ -319,31 +343,14 @@ def persist_to_github(files: dict[str, bytes], message: str) -> "str | None":
     return commit.json()["sha"][:7]
 
 
-@st.cache_data(ttl=60)
-def scrape_status() -> tuple[str, int]:
-    """(строка «когда скрейпили», число источников) по свежайшим raw-JSON."""
-    latest_mtime = None
-    sources = 0
-    for provider in ("selectel", "regcloud", "timeweb_cloud"):
-        files = sorted(Path(DATA_DIR).glob(f"{provider}_2*.json"))
-        if not files:
-            continue
-        sources += 1
-        mtime = files[-1].stat().st_mtime
-        if latest_mtime is None or mtime > latest_mtime:
-            latest_mtime = mtime
-    if latest_mtime is None:
-        return "нет данных", 0
-    dt = datetime.fromtimestamp(latest_mtime)
-    if dt.date() == date.today():
-        return f"сегодня {dt:%H:%M}", sources
-    return f"{dt:%d.%m.%Y %H:%M}", sources
-
-
 @st.cache_data(ttl=30)
 def run_sources(date_tag: str) -> list[dict]:
-    """Источники последнего прогона: [{competitor_id, name, url, offers,
-    status}]. Пустой список — прогон был до появления run_status_*.json."""
+    """Источники прогона за дату отчёта: [{competitor_id, name, url, provider,
+    offers, status, error, started_at, finished_at, check}] — нормализовано,
+    старый формат без времени читается. Пустой список — run_status нет
+    (старый/архивный отчёт)."""
+    if not date_tag:
+        return []
     path = REPORTS_DIR / f"run_status_{date_tag}.json"
     if not path.exists():
         return []
@@ -351,7 +358,17 @@ def run_sources(date_tag: str) -> list[dict]:
         data = json.loads(path.read_text(encoding="utf-8"))
     except Exception:
         return []
-    return [s for s in (data.get("sources") or []) if isinstance(s, dict)]
+    return parse_run_status(data)
+
+
+def raw_scrape_time(provider: str, raw_tag: "str | None"):
+    """Время скрейпа raw-JSON конкурента из run_status его даты (если есть)."""
+    if not raw_tag:
+        return None
+    for s in run_sources(raw_tag):
+        if s.get("provider") == provider:
+            return s.get("finished_at") or s.get("started_at")
+    return None
 
 
 def apply_parser_upload(uploaded) -> tuple[int, int, list[str]]:
@@ -402,10 +419,11 @@ def apply_parser_upload(uploaded) -> tuple[int, int, list[str]]:
     return len(result["configs"]), len(classes["groups"]), warnings
 
 
-def run_competitor_pipeline() -> int:
-    """Живой прогон matching-пайплайна (тот же код, что CLI)."""
+def run_competitor_pipeline():
+    """Живой прогон matching-пайплайна (тот же код, что CLI) → RunResult
+    с кодом, статусом по конкурентам и путём к логу pipeline_<дата>.log."""
     import argparse
-    from competitor_pipeline import run as pipeline_run
+    from competitor_pipeline import run_pipeline
     from competitor_report import DEFAULT_REPORTS_DIR
     from config_loader import (
         COMPETITORS_JSON, CPU_SPECS_JSON, DISK_CLASSES_JSON,
@@ -418,7 +436,7 @@ def run_competitor_pipeline() -> int:
         disk_classes=DISK_CLASSES_JSON,
     )
     args.out_dir.mkdir(parents=True, exist_ok=True)
-    return pipeline_run(args)
+    return run_pipeline(args)
 
 
 # ── Formatting helpers (чистые, без Streamlit) ───────────────────────
@@ -464,6 +482,19 @@ def config_summary(row) -> str:
 
 def comp_label(cid: str) -> str:
     return COMP_LABELS.get(cid, cid)
+
+
+def build_source_status_html(sources: list[dict]) -> str:
+    """Строки шапки по конкурентам из run_status: точка статуса + подпись
+    «Selectel — 14.09 15:21 МСК, 128 предложений»."""
+    rows = []
+    for s in sources:
+        status = s.get("status")
+        dot = "" if status == "ok" else (" bad" if status == "error" else " warn")
+        rows.append(f'<div class="row"><span class="dot{dot}"></span>'
+                    f'{source_line(s, comp_label(s.get("competitor_id", "")))}'
+                    '</div>')
+    return f'<div class="src-status">{"".join(rows)}</div>'
 
 
 def row_delta_pct(miran, comp_values: list) -> "float | None":
@@ -560,10 +591,17 @@ st.set_page_config(
 st.markdown(FONT_LINK, unsafe_allow_html=True)
 st.markdown(f"<style>{CSS}</style>", unsafe_allow_html=True)
 
-wide_df, long_df, date_tag, run_time = load_competitor_reports()
-offers_df = load_all_offers()
-pretty_date = (f"{date_tag[6:8]}.{date_tag[4:6]}.{date_tag[:4]}"
-               if len(date_tag) == 8 else date_tag)
+wide_df, long_df, date_tag = load_competitor_reports()
+offers_df, raw_tags = load_all_offers()
+pretty_date = fmt_date_tag(date_tag) if date_tag else ""
+sources = run_sources(date_tag)
+run_time = fmt_ts(run_finished_at(sources)) if run_finished_at(sources) else ""
+freshness = report_freshness(date_tag, sources)
+# сырой скрейп: какие источники старее показанного отчёта
+raw_marks = {
+    p: raw_staleness(raw_tags.get(p), date_tag, raw_scrape_time(p, raw_tags.get(p)))
+    for p in RAW_PROVIDERS if p in raw_tags
+}
 
 all_price_cols = [c for c in wide_df.columns
                   if c.endswith("_price") and c != "miran_price"]
@@ -577,28 +615,25 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    scrape_when, n_sources = scrape_status()
     n_refs, refs_when = reference_status()
-    sources = run_sources(date_tag)
     if sources:
         source_rows = "".join(
             f'<div class="row">'
             f'<span class="dot{"" if s.get("status") == "ok" else " bad"}">'
-            f'</span>{comp_label(s.get("competitor_id", ""))}: '
-            + (f'{s.get("offers", 0)} предложений'
-               if s.get("status") == "ok" else "данные не получены")
-            + '</div>'
+            f'</span>{source_line(s, comp_label(s.get("competitor_id", "")))}'
+            '</div>'
             for s in sources
         )
+    elif date_tag:
+        source_rows = ('<div class="row"><span class="dot bad"></span>'
+                       'Время прогона не записано</div>')
     else:
-        source_rows = (f'<div class="row"><span class="dot"></span>'
-                       f'{n_sources} источника доступны</div>')
+        source_rows = ""
     st.markdown('<div class="sb-label">Данные</div>', unsafe_allow_html=True)
     st.markdown(
         '<div class="sb-card">'
         f'<div class="row">Отчёт {pretty_date or "—"}'
-        f'{f" {run_time}" if run_time else ""}</div>'
-        f'<div class="row">Скрейп {scrape_when}</div>'
+        f'{f" · прогон {run_time}" if run_time else ""}</div>'
         f'<div class="row">Эталон: {n_refs} конфигураций'
         f'{f" ({refs_when})" if refs_when else ""}</div>'
         f'{source_rows}</div>',
@@ -618,17 +653,38 @@ with st.sidebar:
     st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
     if st.button("Запустить сравнение", type="primary", use_container_width=True):
         import time as _time
+        st.session_state.pop("last_run_error", None)
         with st.spinner("Скрейпим конкурентов и сопоставляем (до минуты)..."):
             _t0 = _time.time()
-            code = run_competitor_pipeline()
+            try:
+                result = run_competitor_pipeline()
+            except Exception as e:  # сбой до/после скрейпа (конфиги, отчёты)
+                result = None
+                st.session_state["last_run_error"] = {
+                    "text": f"Прогон прерван: {type(e).__name__}: {e}",
+                    "details": [],
+                    "log_tail": read_log_tail(
+                        REPORTS_DIR / f"pipeline_{date_tag_msk()}.log"),
+                }
             st.session_state["last_run_secs"] = _time.time() - _t0
         st.cache_data.clear()
-        if code == 0:
+        if result is not None and result.code == 0:
             st.rerun()
-        else:
-            st.error("Ни один конкурент не дал данных — см. лог в data/reports/")
+        if result is not None:
+            st.session_state["last_run_error"] = {
+                "text": result.error or "Прогон завершился с ошибкой",
+                "details": result.source_errors(),
+                "log_tail": read_log_tail(result.log_path),
+            }
     if st.session_state.get("last_run_secs"):
         st.caption(f"Последний прогон: {st.session_state['last_run_secs']:.0f} с")
+    last_error = st.session_state.get("last_run_error")
+    if last_error:
+        details = "".join(f"\n• {d}" for d in last_error.get("details") or [])
+        st.error(f"{last_error['text']}{details}")
+        if last_error.get("log_tail"):
+            with st.expander("Хвост лога прогона"):
+                st.code(last_error["log_tail"], language="text")
 
     st.divider()
     uploaded = st.file_uploader(
@@ -706,16 +762,32 @@ with st.sidebar:
 # ── Шапка ──
 matched_mask_all = (wide_df[all_price_cols].notna().any(axis=1)
                     if all_price_cols else pd.Series(dtype=bool))
+# предложения считаем только по источникам не старее показанного отчёта
+fresh_providers = [p for p, m in raw_marks.items() if not m["stale"]]
+stale_providers = [p for p, m in raw_marks.items() if m["stale"]]
+n_fresh_offers = (int(offers_df["provider"].isin(fresh_providers).sum())
+                  if len(offers_df) else 0)
+stale_note = ""
+if stale_providers:
+    stale_note = (' · <span class="stale">не учтены: '
+                  + ", ".join(f"{comp_label(p)} ({raw_marks[p]['label']})"
+                              for p in stale_providers)
+                  + "</span>")
 head_l, head_r = st.columns([5, 2])
 with head_l:
+    if date_tag:
+        overline = (f"Отчёт по рынку · {pretty_date}"
+                    + (f" · прогон {run_time}" if run_time
+                       else " · время прогона не записано"))
+    else:
+        overline = "Отчёт по рынку · нет данных"
     st.markdown(
-        '<div class="overline">Отчёт по рынку · '
-        f'{pretty_date or "нет данных"}{f" {run_time}" if run_time else ""}'
-        ' · снимок на момент прогона</div>'
+        f'<div class="overline">{overline}</div>'
         '<div class="h1">Цены конкурентов по эталонным конфигурациям</div>'
         f'<div class="subline">{len(wide_df)} конфигураций · '
         f'{int(matched_mask_all.sum()) if len(wide_df) else 0} с совпадениями · '
-        f'{len(offers_df)} предложений конкурентов</div>',
+        f'{n_fresh_offers} предложений конкурентов{stale_note}</div>'
+        + (build_source_status_html(sources) if sources else ""),
         unsafe_allow_html=True,
     )
 with head_r:
@@ -741,9 +813,16 @@ with head_r:
                                    file_name=long_path.name, mime="text/csv",
                                    use_container_width=True)
 
-failed_sources = [s for s in run_sources(date_tag) if s.get("status") != "ok"]
+if freshness["state"] in ("stale", "no_status"):
+    st.warning(f"⚠️ {freshness['message']}")
+
+failed_sources = [s for s in sources if s.get("status") != "ok"]
 if failed_sources:
-    names = ", ".join(comp_label(s.get("competitor_id", "")) for s in failed_sources)
+    names = ", ".join(
+        comp_label(s.get("competitor_id", ""))
+        + (f" ({s['error']})" if s.get("error") else "")
+        for s in failed_sources
+    )
     st.error(
         f"В этом прогоне не удалось собрать данные: {names}. "
         "Колонки этих конкурентов пусты не потому, что совпадений нет, "
@@ -753,7 +832,7 @@ if failed_sources:
 
 # Сверка с витринами: расхождение между нашей ценой и карточкой конкурента
 # должно всплывать здесь, а не в письме клиента.
-checked = [s for s in run_sources(date_tag) if s.get("check")]
+checked = [s for s in sources if s.get("check")]
 if checked:
     unchecked = [s for s in checked if s["check"]["status"] == "failed"]
     # план конкурента → конфигурации Мирана, с которыми он совпал
@@ -817,7 +896,7 @@ if checked:
             for s in unchecked))
 
 if wide_df.empty:
-    st.info("Отчётов ещё нет — нажми «Запустить сравнение» в панели слева")
+    st.info(f"{EMPTY_STATE_MESSAGE} в панели слева")
 else:
     # ── KPI ──
     deltas = []
@@ -879,11 +958,10 @@ else:
 
     # Витрина, с которой сняты цены: у Timeweb каталог и цены различаются
     # между timeweb.cloud (Москва) и timeweb.com (Санкт-Петербург).
-    sources_now = run_sources(date_tag)
-    if sources_now:
+    if sources:
         st.caption("Цены сняты с витрин: " + " · ".join(
             f"{s.get('name') or comp_label(s.get('competitor_id', ''))} — "
-            f"{s.get('url', '')}" for s in sources_now))
+            f"{s.get('url', '')}" for s in sources))
 
     # ── Карточки матчей ──
     if not long_df.empty:
@@ -914,10 +992,25 @@ if not offers_df.empty:
         [c for c in offers_df["provider"].unique()
          if c in sel_comp or comp_label(c) in [comp_label(x) for x in sel_comp]]
     )] if sel_comp else offers_df
-    with st.expander(f"Сырой скрейп · {len(raw_view)} предложений"):
+    n_stale_rows = int(raw_view["provider"].isin(stale_providers).sum())
+    title = f"Сырой скрейп · {len(raw_view)} предложений"
+    if n_stale_rows:
+        title += f" (из них {n_stale_rows} старее отчёта)"
+    with st.expander(title):
+        st.caption(" · ".join(
+            f"{comp_label(p)}: {raw_marks[p]['label']}"
+            for p in raw_marks if p in set(raw_view["provider"])))
+        if stale_providers:
+            st.warning(
+                "Данные помеченных источников старее показанного отчёта — "
+                "это не текущие цены. " + "; ".join(
+                    f"{comp_label(p)} — {raw_marks[p]['label']}"
+                    for p in stale_providers if p in set(raw_view["provider"])))
         show_raw = raw_view.copy()
         for col in ("cpu_sockets", "cpu_cores_total", "quantity_available"):
             show_raw[col] = show_raw[col].astype("Int64")
+        show_raw.insert(1, "scrape_state", show_raw["provider"].map(
+            lambda p: raw_marks.get(p, {}).get("label", "")))
         st.dataframe(
             show_raw,
             use_container_width=True,
@@ -925,6 +1018,7 @@ if not offers_df.empty:
             height=420,
             column_config={
                 "provider": "Конкурент",
+                "scrape_state": "Скрейп",
                 "plan_id": "Тариф",
                 "cpu_model": "CPU",
                 "cpu_sockets": "Сокетов",
