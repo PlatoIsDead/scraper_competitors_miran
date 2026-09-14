@@ -23,6 +23,7 @@ from dedicated_scraper import (
 )
 
 TODAY = "2026-06-02"
+FIXTURES = Path(__file__).parent / "fixtures"
 ALLOWED_DISK_TYPES = {"SSD", "HDD", "NVMe"}
 
 
@@ -352,6 +353,40 @@ class TestParseRegcloudHtml:
         """
         rows = _parse_regcloud_html(discounted + per_day, TODAY)
         assert [r["price_rub"] for r in rows] == [5740.0, 588500.0]
+
+    def test_real_markup_2026_09(self):
+        # Регрессия на живой разметке 14.09.2026 (tests/fixtures/
+        # regcloud_dedicated_2026_09.html): парсер из 5e49b07 терял карточку
+        # без скидки (RD-55039: нет ни __current-price, ни __base-price,
+        # цена только в __price-value[data-period-price]) и брал у скидочной
+        # RD-30055 перечёркнутые 8 200 вместо 5 740.
+        from storefront_check import diff_regcloud
+
+        html = (FIXTURES / "regcloud_dedicated_2026_09.html").read_text(
+            encoding="utf-8")
+        rows = {r["plan_id"]: r for r in _parse_regcloud_html(html, TODAY)}
+        assert set(rows) == {"RD-55039", "RD-30055"}
+
+        plain = rows["RD-55039"]
+        assert plain["price_rub"] == 33300.0
+        assert plain["cpu_model"] == "Intel Xeon Gold 5218R"
+        assert plain["cpu_sockets"] == 2
+        assert plain["cpu_cores_total"] == 40
+        assert plain["ram_gb"] == 64
+        assert plain["disk_pools"] == [
+            {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 480}]
+
+        sale = rows["RD-30055"]
+        assert sale["price_rub"] == 5740.0
+        assert sale["cpu_model"] == "Xeon E3-1230v3"
+        assert sale["cpu_sockets"] == 1
+        assert sale["cpu_cores_total"] == 4
+        assert sale["ram_gb"] == 16
+        assert sale["disk_pools"] == [
+            {"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 1000}]
+
+        # та же разметка глазами сверки с витриной: data-price = наша цена
+        assert diff_regcloud(list(rows.values()), html) == []
 
     def test_gpu_element_captured(self):
         # кейс RD-56106: сервер с 4 × RTX A4000 — GPU уходит в поле gpu
