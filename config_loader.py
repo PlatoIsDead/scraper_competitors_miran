@@ -144,6 +144,28 @@ def load_competitors(path: Path = COMPETITORS_JSON) -> list[Competitor]:
     return competitors
 
 
+def timeweb_cloud_source(
+    path: Path = COMPETITORS_JSON,
+) -> tuple[str, tuple[str, ...]]:
+    """(url, коды локаций) записи Timeweb из competitors.json.
+
+    Одно место для скрейпа и для сверки с витриной: клиент в Санкт-Петербурге
+    (решение 14.09.2026), и обе стороны должны смотреть на один и тот же ДЦ.
+    Коды — как в __NUXT_DATA__ timeweb.cloud: ru = Санкт-Петербург, msk = Москва.
+    """
+    for comp in load_competitors(path):
+        if comp.parsing_profile != "timeweb_cloud_nuxt":
+            continue
+        locations = tuple(comp.extra.get("locations") or ())
+        if not locations:
+            raise ValueError(
+                f"{path} ({comp.competitor_id}): extra.locations пуст — "
+                "непонятно, какой дата-центр Timeweb сравнивать"
+            )
+        return comp.url, locations
+    raise ValueError(f"{path}: нет записи с parsing_profile «timeweb_cloud_nuxt»")
+
+
 def load_matching_rules(path: Path = MATCHING_JSON) -> MatchingRules:
     data = _load_json(path)
     mode = _require(data, "cpu_match_mode", str, path)

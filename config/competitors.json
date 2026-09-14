@@ -18,12 +18,12 @@
     },
     {
       "competitor_id": "timeweb",
-      "name": "Timeweb Cloud (Москва)",
-      "url": "https://timeweb.cloud/services/dedicated-server?location=msk",
+      "name": "Timeweb Cloud (Санкт-Петербург)",
+      "url": "https://timeweb.cloud/services/dedicated-server?location=ru",
       "currency": "RUB",
       "price_period": "month",
       "parsing_profile": "timeweb_cloud_nuxt",
-      "extra": {"locations": ["msk"]}
+      "extra": {"locations": ["ru"]}
     }
   ]
 }
