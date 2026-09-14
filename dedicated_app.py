@@ -956,8 +956,8 @@ else:
         st.markdown(build_comparison_html(view, price_cols, len(wide_df)),
                     unsafe_allow_html=True)
 
-    # Витрина, с которой сняты цены: у Timeweb каталог и цены различаются
-    # между timeweb.cloud (Москва) и timeweb.com (Санкт-Петербург).
+    # Витрина, с которой сняты цены: у Timeweb каталог и цены зависят от ДЦ,
+    # сравниваем Санкт-Петербург (?location=ru) — клиент там (решение 14.09).
     if sources:
         st.caption("Цены сняты с витрин: " + " · ".join(
             f"{s.get('name') or comp_label(s.get('competitor_id', ''))} — "

@@ -56,8 +56,16 @@ def _scrape_competitor(comp: Competitor) -> list[dict]:
     if comp.parsing_profile == "regcloud_playwright":
         return ds.scrape_regcloud()
     if comp.parsing_profile == "timeweb_cloud_nuxt":
-        locations = tuple(comp.extra.get("locations") or ("msk",))
-        return ds.scrape_timeweb_cloud(locations)
+        # ДЦ — только из competitors.json (extra.locations): молчаливый фолбэк
+        # на Москву давал бы таблицу не по той витрине, что смотрит клиент
+        # (Санкт-Петербург, решение 14.09.2026)
+        locations = tuple(comp.extra.get("locations") or ())
+        if not locations:
+            raise ValueError(
+                f"{comp.competitor_id}: extra.locations пуст в competitors.json "
+                "— непонятно, какой дата-центр Timeweb сравнивать"
+            )
+        return ds.scrape_timeweb_cloud(locations, comp.url)
     raise ValueError(f"Неизвестный parsing_profile: {comp.parsing_profile}")
 
 
