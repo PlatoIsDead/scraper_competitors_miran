@@ -96,6 +96,9 @@ class ServerRow(TypedDict):
     currency: NotRequired[str]
     price_period: NotRequired[str]
     gpu: NotRequired[str]  # "4 × RTX A4000 16GB"; непустое = GPU-сервер
+    # selectel: остаток по локациям витрины {"MSK-1": 1, "SPB-2": 5} — диагностика,
+    # в отчёт не идёт (quantity_available = их сумма)
+    stock_by_location: NotRequired[dict[str, int]]
 
 
 # history.csv schema is frozen to these columns; extended ServerRow fields
@@ -357,12 +360,135 @@ def _get_selectel_cdn_url() -> str | None:
         return None
 
 
-def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
-    """Один конфиг selectel (resolved payload или объект API) → ServerRow."""
-    # Price (monthly RUB)
-    price_collection = cfg.get("price_collection") or {}
-    rub = price_collection.get("RUB") or {}
-    price_rub = rub.get("month")
+# Витрина selectel.ru показывает наличие и цену только по российским
+# площадкам: JS сайта (seidoLocationStore, чанк B3qo2xyo) берёт из
+# servers/v2/pub/location локации с именем на msk/spb/nsk и
+# visibility == "everywhere" && primary_resource_ordering == "enabled".
+# available[] в API при этом содержит ВСЕ ДЦ (Ташкент, Алматы, Найроби).
+SELECTEL_PUB_LOCATION = "https://api.selectel.ru/servers/v2/pub/location"
+SELECTEL_STOREFRONT_PREFIXES = ("msk", "spb", "nsk")
+
+
+def _selectel_visible_locations(locations: list) -> dict[str, str]:
+    """{uuid: имя} локаций, которые сайт считает витриной (правило JS сайта).
+
+    Чистая функция — принимает result из servers/v2/pub/location.
+    """
+    visible: dict[str, str] = {}
+    for loc in locations or []:
+        if not isinstance(loc, dict):
+            continue
+        name = str(loc.get("name") or "")
+        if name[:3].lower() not in SELECTEL_STOREFRONT_PREFIXES:
+            continue
+        if loc.get("visibility") != "everywhere":
+            continue
+        if loc.get("primary_resource_ordering") != "enabled":
+            continue
+        uuid = loc.get("uuid")
+        if uuid:
+            visible[str(uuid)] = name
+    return visible
+
+
+def _fetch_selectel_visible_locations() -> dict[str, str] | None:
+    """Локации витрины с API; None — если список недоступен (тогда вызывающий
+    код обязан явно предупредить и работать по старому правилу)."""
+    last_err = None
+    for attempt in range(3):
+        try:
+            r = requests.get(SELECTEL_PUB_LOCATION, timeout=25,
+                             headers={"User-Agent": HEADERS["User-Agent"]})
+            r.raise_for_status()
+            result = r.json().get("result")
+            if not isinstance(result, list) or not result:
+                raise RuntimeError("пустой result")
+            visible = _selectel_visible_locations(result)
+            if not visible:
+                raise RuntimeError(
+                    f"ни одна из {len(result)} локаций не прошла правило витрины")
+            return visible
+        except Exception as e:
+            last_err = e
+            time.sleep(2 * (attempt + 1))
+    print(f"[selectel] ПРЕДУПРЕЖДЕНИЕ: список локаций недоступен ({last_err}) — "
+          "наличие считается по всем ДЦ, включая зарубежные, цена из price_collection")
+    return None
+
+
+def _rub_month(price_collection) -> float | None:
+    rub = (price_collection or {}).get("RUB") or {}
+    return rub.get("month") or None
+
+
+def _selectel_stock_and_price(
+    cfg: dict, visible_locations: dict[str, str] | None,
+) -> dict:
+    """Наличие и цена готового сервера как их считает сайт
+    (getServerAvailabilityInfo, чанк B3qo2xyo):
+
+    * по каждой локации витрины из available[]: остаток = count, цена =
+      location_price_collection[uuid].RUB.month, если есть, иначе
+      price_collection.RUB.month;
+    * цена карточки = минимум по локациям витрины с остатком > 0; если таких
+      нет (предзаказ) — минимум из price_collection и всех локальных цен
+      витрины;
+    * бейдж «N шт.» = сумма остатков по локациям витрины.
+
+    stock_by_location — только локации витрины с остатком > 0 (диагностика).
+    visible_locations=None → старое поведение (все ДЦ, price_collection),
+    stock_by_location=None.
+    """
+    available = [a for a in (cfg.get("available") or []) if isinstance(a, dict)]
+    base_price = _rub_month(cfg.get("price_collection"))
+    if visible_locations is None:
+        quantity = sum(a.get("count") or 0 for a in available)
+        if not available:
+            quantity = cfg.get("quantity") or 0
+        return {"quantity": quantity, "price_rub": base_price,
+                "stock_by_location": None}
+
+    local_prices = cfg.get("location_price_collection") or {}
+    if not isinstance(local_prices, dict):
+        local_prices = {}
+    by_location: dict[str, int] = {}
+    in_stock_prices: list[float] = []
+    candidate_prices: list[float] = [base_price] if base_price else []
+    for a in available:
+        uuid = str(a.get("location") or "")
+        name = visible_locations.get(uuid)
+        if not name:
+            continue
+        count = int(a.get("count") or 0)
+        if count > 0:
+            by_location[name] = by_location.get(name, 0) + count
+        local = _rub_month(local_prices.get(uuid))
+        if local:
+            candidate_prices.append(local)
+        price_here = local or base_price
+        if count > 0 and price_here:
+            in_stock_prices.append(price_here)
+    if in_stock_prices:
+        price = min(in_stock_prices)
+    elif candidate_prices:
+        price = min(candidate_prices)
+    else:
+        price = None
+    return {"quantity": sum(by_location.values()), "price_rub": price,
+            "stock_by_location": by_location}
+
+
+def _selectel_cfg_to_row(
+    cfg: dict, today: str, visible_locations: dict[str, str] | None = None,
+) -> "ServerRow | None":
+    """Один конфиг selectel (resolved payload или объект API) → ServerRow.
+
+    visible_locations — {uuid: имя} локаций витрины (см. _selectel_visible_locations).
+    С ними наличие и цена считаются как на сайте; без них (None) — старое
+    поведение: сумма по всем ДЦ и price_collection.
+    """
+    stock = _selectel_stock_and_price(cfg, visible_locations)
+    price_rub = stock["price_rub"]
     if not price_rub:
         return None
 
@@ -410,14 +536,13 @@ def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
     elif isinstance(gpu_info, str) and gpu_info.strip():
         gpu = gpu_info.strip()
 
-    # Quantity: сумма available[].count по всем ДЦ (= бейдж «N шт.» на сайте).
-    # Поле quantity API — константа 1 (мин. заказ), НЕ наличие — фолбэк, если available нет.
-    available = cfg.get("available") or []
-    quantity = sum(a.get("count", 0) for a in available if isinstance(a, dict))
-    if not available:
-        quantity = cfg.get("quantity") or 0
+    # Quantity: сумма available[].count по локациям витрины (msk/spb/nsk);
+    # без списка локаций — по всем ДЦ, включая Ташкент/Алматы/Найроби, что
+    # НЕ равно бейджу «N шт.» на сайте. Поле quantity API — константа 1
+    # (мин. заказ), НЕ наличие — фолбэк, если available нет.
+    quantity = stock["quantity"]
 
-    return {
+    row: ServerRow = {
         "provider": "selectel",
         "cpu_model": cpu_model,
         "cpu_model_norm": normalize_cpu_model(cpu_model),
@@ -437,6 +562,9 @@ def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
         "price_period": "month",
         "gpu": gpu,
     }
+    if stock["stock_by_location"] is not None:
+        row["stock_by_location"] = stock["stock_by_location"]
+    return row
 
 
 def _parse_selectel_flat(flat: list, today: str) -> list[ServerRow]:
@@ -473,6 +601,10 @@ def _scrape_selectel_api() -> list[ServerRow]:
 
     С 2026-08 страница /services/dedicated/ больше не кладёт конфиги в Nuxt-payload —
     фронт берёт их отсюда же (servers/v2/pub/). Ретраи — из-за флапа исходящей сети WSL.
+
+    Наличие и цена считаются по локациям витрины (servers/v2/pub/location,
+    только msk/spb/nsk) — как на сайте; API же отдаёт available[] по всем ДЦ.
+    Если список локаций недоступен — старое правило (все ДЦ) с предупреждением.
     """
     last_err = None
     for attempt in range(3):
@@ -489,16 +621,21 @@ def _scrape_selectel_api() -> list[ServerRow]:
         print(f"[selectel] Ошибка запроса API: {last_err}")
         return []
 
+    visible_locations = _fetch_selectel_visible_locations()
+    if visible_locations:
+        print(f"[selectel] Локации витрины: "
+              f"{', '.join(sorted(visible_locations.values()))}")
+
     today = date.today().isoformat()
     rows = []
     hidden = 0
     for cfg in configs:
         if not isinstance(cfg, dict):
             continue
-        if not _selectel_storefront_visible(cfg):
+        if not _selectel_storefront_visible(cfg, visible_locations):
             hidden += 1
             continue
-        row = _selectel_cfg_to_row(cfg, today)
+        row = _selectel_cfg_to_row(cfg, today, visible_locations)
         if row:
             rows.append(row)
     if hidden:
@@ -506,16 +643,32 @@ def _scrape_selectel_api() -> list[ServerRow]:
     return rows
 
 
-def _selectel_storefront_visible(cfg: dict) -> bool:
-    """Фильтр витрины сайта (чанк 3Fc9zYgQ: is_preorder || is_order && H):
-    API отдаёт и распроданные конфиги (stock 0), сайт их скрывает — без
-    этого фильтра сравниваем с тем, что нельзя купить (фидбек клиента
-    2026-08-26: AEL20-SSD, EL13-SSD, PL23-NVMe и др.)."""
-    in_stock = any(
-        a.get("count") for a in (cfg.get("available") or [])
-        if isinstance(a, dict)
-    )
-    return bool(cfg.get("is_preorder") or (cfg.get("is_order") and in_stock))
+def _selectel_storefront_visible(
+    cfg: dict, visible_locations: dict[str, str] | None = None,
+) -> bool:
+    """Фильтр витрины сайта (чанк B3qo2xyo, allServers):
+    is_preorder || is_order && остаток > 0 в локациях витрины (msk/spb/nsk).
+    API отдаёт и распроданные конфиги (stock 0), и конфиги, лежащие только в
+    Ташкенте/Алматы/Найроби — сайт их не показывает; без этого фильтра
+    сравниваем с тем, что нельзя купить (фидбек клиента 2026-08-26:
+    AEL20-SSD, EL13-SSD, PL23-NVMe; 2026-09-14: EL46-NVMe только в Ташкенте).
+
+    Предзаказ (is_preorder) сайт показывает, если хоть одна локация витрины
+    есть в available[] (даже с нулём); без списка локаций — как раньше,
+    по любому ДЦ.
+    """
+    available = [a for a in (cfg.get("available") or []) if isinstance(a, dict)]
+    if visible_locations is None:
+        in_stock = any(a.get("count") for a in available)
+        listed = True
+    else:
+        local = [a for a in available
+                 if str(a.get("location") or "") in visible_locations]
+        in_stock = any(a.get("count") for a in local)
+        listed = bool(local)
+    if cfg.get("is_preorder"):
+        return listed
+    return bool(cfg.get("is_order") and in_stock)
 
 
 SELECTEL_CALC_PRECUSTOM = "https://api.selectel.ru/servers/v2/pub/calculator/precustom"

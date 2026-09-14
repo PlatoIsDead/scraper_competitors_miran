@@ -1,0 +1,184 @@
+{
+ "result": [
+  {
+   "uuid": "1af3b358-9e0e-4c2e-8a1a-c71353a6ba10",
+   "name": "MSK-7",
+   "location_id": 19,
+   "description": "MSK-7",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "6239b4a8-d477-4428-b806-db53534abd26",
+   "name": "MSK-8",
+   "location_id": 10100,
+   "description": "MSK-8",
+   "dc_count": null,
+   "visibility": "only_in_admin",
+   "primary_resource_ordering": "enabled_in_admin"
+  },
+  {
+   "uuid": "216ba3aa-d850-4ccf-8a94-1fd6907e26e8",
+   "name": "MSK-6",
+   "location_id": 10003,
+   "description": "MSK-6",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled_in_admin"
+  },
+  {
+   "uuid": "62f5c6c9-071e-41c5-bda6-0b3eb7c4e7d7",
+   "name": "MSK-5",
+   "location_id": 10002,
+   "description": "MSK-5",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled_in_admin"
+  },
+  {
+   "uuid": "b93f81b1-ddce-4988-a2a7-f58fc46efdb4",
+   "name": "MSK-4",
+   "location_id": 10001,
+   "description": "MSK-4",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled_in_admin"
+  },
+  {
+   "uuid": "324f8b40-31c4-4cd2-8529-d1906c7cce36",
+   "name": "TAS-2",
+   "location_id": 16,
+   "description": "Ташкент-2",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "e531c143-bf75-4802-ade8-97884e6c564e",
+   "name": "NBO-1",
+   "location_id": 15,
+   "description": "Найроби-1",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "07ff5ae1-7e8b-4c85-af2c-219798aa0d46",
+   "name": "ALM-1",
+   "location_id": 14,
+   "description": "Алматы-1",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "3bb64fd9-d2df-4d88-af42-76070104338f",
+   "name": "TAS-1",
+   "location_id": 13,
+   "description": "Ташкент-1",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "a63081ad-0b26-426d-a622-6af672037211",
+   "name": "Anycast",
+   "location_id": 20003,
+   "description": "Виртуальная локация, используемая для схемы BGP+Anycast подсеть",
+   "dc_count": null,
+   "visibility": "only_in_admin",
+   "primary_resource_ordering": "enabled_in_admin"
+  },
+  {
+   "uuid": "9b177ad9-d90a-4f08-ae1f-008891062a12",
+   "name": "NSK-1",
+   "location_id": 11,
+   "description": "Новосибирск",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "00000000-0000-bbbb-0000-000000000000",
+   "name": "VRRP MSK",
+   "location_id": 20001,
+   "description": "Виртуальная локация для услуги резервирование маршрутизатора",
+   "dc_count": null,
+   "visibility": "only_in_admin",
+   "primary_resource_ordering": "enabled_in_admin"
+  },
+  {
+   "uuid": "bf5647d4-e6b0-44a8-96d2-949ab0d50e30",
+   "name": "MSK-3",
+   "location_id": 10,
+   "description": "Авиамоторная-1",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "00000000-0000-aaaa-0000-000000000000",
+   "name": "VRRP SPB",
+   "location_id": 20000,
+   "description": "Виртуальная локация для услуги резервирование маршрутизатора",
+   "dc_count": null,
+   "visibility": "only_in_admin",
+   "primary_resource_ordering": "enabled_in_admin"
+  },
+  {
+   "uuid": "edf295d6-03ff-4368-94d8-aacb5b402aa2",
+   "name": "SPB-5",
+   "location_id": 9,
+   "description": "Дубровка-2",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "85d96ea3-b853-4cb9-a761-b79d202a2f90",
+   "name": "MSK-2",
+   "location_id": 8,
+   "description": "Берзарина-2",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "61c97311-bb14-5679-99fc-98497a701292",
+   "name": "MSK-1",
+   "location_id": 4,
+   "description": "Берзарина-1",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "b7d55bf4-7057-5113-85c8-141871bf7635",
+   "name": "SPB-4",
+   "location_id": 7,
+   "description": "Дубровка-1",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "22fe83ae-a20f-54fc-b436-cec85c94c5e8",
+   "name": "SPB-3",
+   "location_id": 3,
+   "description": "Дубровка-3",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  },
+  {
+   "uuid": "391ada15-580c-5baa-b16f-eeb35d9b1122",
+   "name": "SPB-2",
+   "location_id": 2,
+   "description": "Цветочная 2",
+   "dc_count": null,
+   "visibility": "everywhere",
+   "primary_resource_ordering": "enabled"
+  }
+ ]
+}
