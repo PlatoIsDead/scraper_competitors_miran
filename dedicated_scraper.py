@@ -13,6 +13,8 @@ from typing import NotRequired, TypedDict
 import pandas as pd
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
+
+from config_loader import timeweb_cloud_source
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -1308,8 +1310,24 @@ def scrape_timeweb() -> list[ServerRow]:
 
 
 # ── timeweb.cloud scraper (inline __NUXT_DATA__ JSON) ─────────────────
-# Отдельный сайт Timeweb Cloud (ТЗ клиента: location=msk). Нужен только
-# matching-пайплайну (competitor_pipeline.py) — в scrape_all() не входит.
+# Отдельный сайт Timeweb Cloud. Нужен только matching-пайплайну
+# (competitor_pipeline.py) — в scrape_all() не входит.
+#
+# Payload страницы содержит тарифы ВСЕХ дата-центров, параметр ?location=
+# влияет только на то, что видит покупатель. Какой ДЦ сравниваем — решает
+# config/competitors.json (extra.locations): клиент в Санкт-Петербурге →
+# «ru» (решение 14.09.2026). Москва = «msk», у landing-api те же ДЦ зовутся
+# ru-1 / ru-3 (см. storefront_check).
+
+# У части карточек timeweb.com имя начинается с «НОВИНКА - …»; в payload
+# .cloud пока не встречалось, но CPU/название от такого префикса ломаться
+# не должны.
+_TIMEWEB_NOVELTY_RE = re.compile(r"^\s*новинка\s*[-–—:]?\s*", re.I)
+
+
+def _strip_timeweb_novelty(text: str) -> str:
+    return _TIMEWEB_NOVELTY_RE.sub("", text or "").strip()
+
 
 def _parse_storage_pool(text: str) -> dict | None:
     """Parse one storageList entry like '2 x 480 ГБ SSD' / '1 x 3.84 ТБ NVMe'."""
@@ -1331,13 +1349,17 @@ def _parse_storage_pool(text: str) -> dict | None:
 
 
 def _parse_timeweb_cloud_nuxt(
-    flat: list, today: str, locations: tuple[str, ...] = ("msk",)
+    flat: list, today: str, locations: tuple[str, ...]
 ) -> list[ServerRow]:
     """Parse timeweb.cloud Nuxt flat array. Pure function — used by tests.
 
-    priceNumber = стандартная месячная цена; поле price — скидочная цена при
-    аренде на leaseTerm месяцев, для паритета с помесячными ценами конкурентов
-    не используется (решение подтвердить у клиента).
+    locations — коды ДЦ из payload («ru» = Санкт-Петербург, «msk» = Москва);
+    тарифы других локаций отбрасываются.
+
+    priceNumber = стандартная месячная цена (вкладка «1 месяц»); поле price —
+    скидочная цена при аренде на leaseTerm месяцев (витрина по умолчанию
+    открыта на «12 месяцев −10%»), для паритета с помесячными ценами
+    конкурентов не используется (открытый вопрос клиенту).
     """
     rows: list[ServerRow] = []
     for i, item in enumerate(flat):
@@ -1353,7 +1375,7 @@ def _parse_timeweb_cloud_nuxt(
         if cfg.get("location") not in locations:
             continue
 
-        cpu_raw = (cfg.get("cpu") or "").strip()
+        cpu_raw = _strip_timeweb_novelty(cfg.get("cpu") or "")
         if not cpu_raw:
             continue
         socket_match = re.match(r"^(\d+)\s*[хxX×]\s*", cpu_raw)
@@ -1400,7 +1422,7 @@ def _parse_timeweb_cloud_nuxt(
             "price_rub": float(price),
             "quantity_available": None,
             "scraped_at": today,
-            "plan_id": cfg.get("name") or "",
+            "plan_id": _strip_timeweb_novelty(cfg.get("name") or ""),
             "cpu_sockets": cpu_sockets,
             "cpu_cores_total": cpu_cores_total,
             "disk_pools": disk_pools,
@@ -1414,9 +1436,18 @@ def _parse_timeweb_cloud_nuxt(
     return rows
 
 
-def scrape_timeweb_cloud(locations: tuple[str, ...] = ("msk",)) -> list[ServerRow]:
-    """Scrape timeweb.cloud/services/dedicated-server (inline __NUXT_DATA__)."""
-    url = "https://timeweb.cloud/services/dedicated-server?location=msk"
+def scrape_timeweb_cloud(
+    locations: tuple[str, ...] | None = None, url: str | None = None
+) -> list[ServerRow]:
+    """Scrape timeweb.cloud/services/dedicated-server (inline __NUXT_DATA__).
+
+    По умолчанию url и локации берутся из config/competitors.json — той же
+    записи, по которой клиент открывает витрину и по которой идёт сверка.
+    """
+    if locations is None or url is None:
+        cfg_url, cfg_locations = timeweb_cloud_source()
+        url = url or cfg_url
+        locations = locations or cfg_locations
     today = date.today().isoformat()
 
     html = None
