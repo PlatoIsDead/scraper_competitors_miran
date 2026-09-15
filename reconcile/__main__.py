@@ -57,9 +57,38 @@ class ReconcileResult:
     error: str | None = None
 
 
+# api.selectel.ru из WSL иногда «капает» по байту: requests timeout=40 не
+# срабатывает, третий живой прогон 15.09 не уложился в 7 минут. Витрина, не
+# ответившая за этот срок, честно помечается недоступной.
+FETCH_TIMEOUT_SEC = 240
+
+
+def fetch_with_deadline(fetch, timeout: float = FETCH_TIMEOUT_SEC):
+    """fetch() в daemon-потоке; по истечении timeout — TimeoutError."""
+    import threading
+
+    box: dict = {}
+
+    def _run():
+        try:
+            box["value"] = fetch()
+        except BaseException as e:  # noqa: BLE001 — пробрасываем в вызывающий поток
+            box["error"] = e
+
+    t = threading.Thread(target=_run, daemon=True)
+    t.start()
+    t.join(timeout)
+    if t.is_alive():
+        raise TimeoutError(f"витрина не ответила за {int(timeout)} с")
+    if "error" in box:
+        raise box["error"]
+    return box.get("value")
+
+
 def reconcile_report(
     report: Path, *, out_dir: Path, configs, competitors_path, matching,
     cpu_specs, disk_classes, fetchers: dict | None = None,
+    fetch_timeout: float = FETCH_TIMEOUT_SEC,
 ) -> ReconcileResult:
     """Сверка готового matches_<дата>.csv с витринами → reconcile_<дата>.md/.csv.
     fetchers — {competitor_id: () -> cards|None}; по умолчанию сетевые."""
@@ -80,8 +109,8 @@ def reconcile_report(
             continue
         log.info("[%s] запрашиваю витрину…", cid)
         try:
-            cards[cid] = fetch()
-        except Exception as e:  # сеть/вёрстка — не роняем остальное
+            cards[cid] = fetch_with_deadline(fetch, fetch_timeout)
+        except Exception as e:  # сеть/вёрстка/дедлайн — не роняем остальное
             log.exception("[%s] сбой сверки", cid)
             cards[cid] = None
             failed[cid] = str(e)[:200]

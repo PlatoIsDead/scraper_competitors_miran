@@ -172,3 +172,40 @@ class TestCandidatesAndReport:
         assert "⚠ timeweb: витрина недоступна" in md and "| RD-2 | 1 000 | RAM |" in md
         rows = checks_to_rows(checks)
         assert rows[0]["result"] == "mismatch" and rows[0]["site_price"] == 35000.0
+
+
+class TestReconcileReportDeadline:
+    def test_slow_storefront_is_marked_unavailable(self, tmp_path):
+        import time
+
+        from config_loader import (
+            COMPETITORS_JSON, CPU_SPECS_JSON, DISK_CLASSES_JSON, MATCHING_JSON,
+            MIRAN_CONFIGS_JSON,
+        )
+        from reconcile.__main__ import reconcile_report
+
+        report = tmp_path / "matches_20260915.csv"
+        report.write_text(
+            "config_id,competitor_id,plan_id,cpu_model,cpu_sockets,cpu_cores_total,"
+            "ram_gb,disks,price_value,price_note,currency,price_period,stock_count,match_score\n"
+            "MIR-135,reg_cloud,RD-55039,Intel Xeon Gold 5218R,2,40,64,2×480 ГБ SSD,33300,,RUB,month,,100\n"
+            "MIR-045,timeweb,E-2236 / 16 / 480,Intel Xeon E-2236,1,6,16,2×480 ГБ SSD,10764,,RUB,month,,100\n",
+            encoding="utf-8-sig")
+
+        def slow():
+            time.sleep(5)
+
+        fetchers = {"reg_cloud": lambda: {"RD-55039": _card()}, "timeweb": slow}
+        result = reconcile_report(
+            report, out_dir=tmp_path, configs=MIRAN_CONFIGS_JSON,
+            competitors_path=COMPETITORS_JSON, matching=MATCHING_JSON,
+            cpu_specs=CPU_SPECS_JSON, disk_classes=DISK_CLASSES_JSON,
+            fetchers=fetchers, fetch_timeout=0.2,
+        )
+        assert result.code == 2
+        assert "не ответила за 0 с" in result.failed_sources["timeweb"]
+        by_plan = {c.plan_id: c for c in result.checks}
+        assert by_plan["RD-55039"].ok
+        assert not by_plan["E-2236 / 16 / 480"].ok
+        assert result.md_path.exists() and result.csv_path.exists()
+        assert "⚠ Timeweb" in result.md_path.read_text(encoding="utf-8")
