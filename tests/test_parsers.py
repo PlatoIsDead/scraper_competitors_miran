@@ -371,6 +371,14 @@ class TestParseRegcloudHtml:
 
         plain = rows["RD-55039"]
         assert plain["price_rub"] == 33300.0
+        # паритет с витриной (15.09): без скидки — без пометки; со скидкой —
+        # в таблице 5 740 как на карточке, условия мелким текстом
+        assert plain["price_note"] == ""
+        assert plain["price_list_rub"] == 33300.0
+        sale = rows["RD-30055"]
+        assert sale["price_rub"] == 5740.0
+        assert sale["price_list_rub"] == 8200.0
+        assert sale["price_note"] == "скидка 30\u00a0%, было 8\u00a0200"
         assert plain["cpu_model"] == "Intel Xeon Gold 5218R"
         assert plain["cpu_sockets"] == 2
         assert plain["cpu_cores_total"] == 40
@@ -745,6 +753,29 @@ class TestSelectelStorefrontFilter:
         assert row["quantity_available"] == 155
         assert _selectel_cfg_to_row(cfg, TODAY)["price_rub"] == 49000.0
 
+    def test_price_note_names_location_of_shown_price(self, selectel_api_configs, visible):
+        # EL52-NVMe: карточка «от 34 400» — это NSK-1; в остальных локациях
+        # с остатком цена другая → пометка называет, откуда цена
+        row = _selectel_cfg_to_row(selectel_api_configs["EL52-NVMe"], TODAY, visible)
+        assert row["price_note"].startswith("цена по NSK-1; ")
+        assert "MSK-7 — 49\u00a0000" in row["price_note"]
+        assert row["price_list_rub"] == 34400.0
+
+    def test_price_note_empty_when_single_price(self, selectel_api_configs, visible):
+        # EL42-NVMe: одна локация витрины с остатком (MSK-1), цена одна —
+        # оговорок нет
+        row = _selectel_cfg_to_row(selectel_api_configs["EL42-NVMe"], TODAY, visible)
+        assert row["price_note"] == ""
+        assert _selectel_cfg_to_row(selectel_api_configs["EL42-NVMe"], TODAY)["price_note"] == ""
+
+    def test_price_note_preorder(self, selectel_api_configs, visible):
+        cfg = dict(selectel_api_configs["EL46-NVMe"])
+        cfg["is_preorder"] = True
+        cfg["available"] = [{"location": self.MSK1, "count": 0}]
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["quantity_available"] is None
+        assert row["price_note"] == "предзаказ"
+
     def test_local_price_without_stock_not_used(self, selectel_api_configs, visible):
         # если единственный дешёвый ДЦ пуст, цена карточки — по локациям
         # с остатком
@@ -1031,12 +1062,14 @@ class TestParseStoragePool:
 # timeweb.cloud содержит все ДЦ, «ru» = Санкт-Петербург, «msk» = Москва.
 SPB = ("ru",)
 MSK = ("msk",)
-# Контрольные тарифы живого снимка 14.09.2026 (фикстура урезана из него):
-SPB_E2236_32 = ("E-2236 / 32 / 960", 14540.0)                    # preset 3871
-SPB_E2236_16 = ("E-2236 / 16 / 480", 11960.0)                    # preset 3247
-SPB_RYZEN = ("AMD Ryzen 9 7950X (16 ядер, 4.2-5.7 ГГц, 32 потока)", 37300.0)  # 5243
+# Контрольные тарифы живого снимка 14.09.2026 (фикстура урезана из него).
+# Цена = как на карточке по умолчанию (вкладка «12 Месяцев Скидка 10%»,
+# Playwright 15.09.2026); помесячная (priceNumber) — в price_list_rub.
+SPB_E2236_32 = ("E-2236 / 32 / 960", 13086.0)                    # preset 3871, помесячно 14 540
+SPB_E2236_16 = ("E-2236 / 16 / 480", 10764.0)                    # preset 3247, помесячно 11 960
+SPB_RYZEN = ("AMD Ryzen 9 7950X (16 ядер, 4.2-5.7 ГГц, 32 потока)", 33570.0)  # 5243, помесячно 37 300
 MSK_E2236_32 = ("Intel Xeon E-2236 (6 ядер, 3.4-4.8 ГГц, 12 потоков) / 32 DDR4 "
-                "/ 2 x 960 Гб SSD", 12720.0)                      # preset 6121
+                "/ 2 x 960 Гб SSD", 11448.0)                      # preset 6121, помесячно 12 720
 
 
 def _plans(rows):
@@ -1081,7 +1114,7 @@ class TestParseTimewebCloudNuxt:
         assert SPB_E2236_16 in plans
         assert SPB_RYZEN in plans
         assert MSK_E2236_32 not in plans
-        assert all(p != 12720.0 for _, p in plans)
+        assert all(p != 11448.0 for _, p in plans)
 
     def test_location_filter_msk(self, timeweb_cloud_flat):
         """Обратная сторона: в Москве 6121 есть, а 3871/Ryzen СПб нет."""
@@ -1110,13 +1143,34 @@ class TestParseTimewebCloudNuxt:
         assert len(everything) > len(spb) + len(
             _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, MSK))
 
-    def test_uses_standard_price_not_discounted(self, timeweb_cloud_flat):
-        """priceNumber (цена вкладки «1 месяц»), а не price («12 мес −10%»):
-        3871 = 14 540, а не 13 086."""
+    def test_uses_shown_price_with_monthly_in_note(self, timeweb_cloud_flat):
+        """Паритет с витриной (15.09): в таблицу — цена карточки по умолчанию
+        (price, «12 мес −10 %»: 3871 = 13 086), помесячная 14 540 — в
+        price_list_rub и в пометке; молча подменять цену нельзя."""
         rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         assert all(float(r["price_rub"]) == int(r["price_rub"]) for r in rows)
         assert SPB_E2236_32 in _plans(rows)
-        assert ("E-2236 / 32 / 960", 13086.0) not in _plans(rows)
+        assert ("E-2236 / 32 / 960", 14540.0) not in _plans(rows)
+        row = next(r for r in rows if r["plan_id"] == "E-2236 / 32 / 960")
+        assert row["price_list_rub"] == 14540.0
+        assert row["price_note"] == "при оплате за 12 мес (−10\u00a0%); помесячно 14\u00a0540"
+
+    def test_no_note_when_price_field_missing(self):
+        """Нет поля price (или оно совпадает с priceNumber) — цена помесячная,
+        пометки нет: ничего не выдумываем."""
+        flat = [
+            {"presets": 1}, [2],
+            {"cpu": 3, "presetId": 4, "storageList": 5, "location": 6,
+             "cpuParams": 7, "memoryCount": 8, "priceNumber": 9, "name": 10,
+             "cpuCount": 11},
+            "Intel Xeon E-2236", 3247, [12], "ru",
+            "6 ядер, 3.4-4.8 ГГц, 12 потоков", 16, 11960,
+            "E-2236 / 16 / 480", 6, "2 x 480 ГБ SSD",
+        ]
+        rows = _parse_timeweb_cloud_nuxt(flat, TODAY, SPB)
+        assert rows[0]["price_rub"] == 11960.0
+        assert rows[0]["price_list_rub"] == 11960.0
+        assert rows[0]["price_note"] == ""
 
     def test_cores_from_cpu_params_not_bogus_cpu_count(self, timeweb_cloud_flat):
         """У части тарифов cpuCount забит константой 28 (E-2388G / 128 / 2N,

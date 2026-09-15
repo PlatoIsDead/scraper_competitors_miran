@@ -4,6 +4,7 @@
 # карточки матчей вместо широкой таблицы, сырой скрейп в экспандере.
 # All UI text in Russian (Cyrillic)
 
+import html
 import json
 from pathlib import Path
 
@@ -154,6 +155,9 @@ table.cmp {
 .cmp td.miran { font-weight: 600; color: #fff; }
 .cmp .best { background: rgba(190,220,60,.16) !important; color: #BEDC3C !important; font-weight: 600; }
 .cmp .empty { color: rgba(255,255,255,.28); }
+.cmp .note, .mc-note { display: block; font-size: 10.5px; font-weight: 400; line-height: 1.25; color: rgba(255,255,255,.45); white-space: normal; max-width: 160px; }
+.cmp td.best .note { color: rgba(0,0,0,.6); }
+.mc-note { text-align: right; max-width: 220px; }
 .delta-pos { color: #ff8a75; font-weight: 600; }
 .delta-neg { color: #BEDC3C; font-weight: 600; }
 .cmp-footer {
@@ -261,6 +265,7 @@ def load_all_offers() -> tuple[pd.DataFrame, dict[str, str]]:
                 "disks": format_disk_pools(pools),
                 "gpu": r.get("gpu") or "",
                 "price_rub": r.get("price_rub"),
+                "price_note": r.get("price_note") or "",
                 "quantity_available": r.get("quantity_available"),
                 "scraped_at": r.get("scraped_at"),
             })
@@ -543,7 +548,10 @@ def build_comparison_html(view: pd.DataFrame, price_cols: list[str],
                 tds.append(f'<td class="{klass}"><span class="empty">—</span></td>')
             else:
                 extra = " best" if col == best_col else ""
-                tds.append(f'<td class="{klass}{extra}">{fmt_price(v)}</td>')
+                note = r.get(f"{col}_note") if col != "miran_price" else None
+                note_html = (f'<span class="note">{html.escape(str(note))}</span>'
+                             if isinstance(note, str) and note else "")
+                tds.append(f'<td class="{klass}{extra}">{fmt_price(v)}{note_html}</td>')
         tds.append(f'<td class="num">{delta_html}</td>')
         body.append("<tr>" + "".join(tds) + "</tr>")
 
@@ -569,11 +577,15 @@ def build_match_cards_html(detail: pd.DataFrame) -> str:
             stock_pill = '<span class="pill pill-na">Наличие неизвестно</span>'
         score = f'<span class="pill pill-score">Score {m["match_score"]:g}</span>'
         spec = (f'{m["cpu_model"]} · {int(m["ram_gb"])} ГБ · {m["disks"]}')
+        note = m.get("price_note")
+        note_html = (f'<span class="mc-note">{html.escape(str(note))}</span>'
+                     if isinstance(note, str) and note else "")
         cards.append(
             f'<div class="match-card{best}">'
             f'<div class="mc-top"><span class="mc-name">'
             f'{comp_label(m["competitor_id"])} · {m["plan_id"]}</span>'
-            f'<span class="mc-price">{fmt_price(m["price_value"])} ₽</span></div>'
+            f'<span class="mc-price">{fmt_price(m["price_value"])} ₽'
+            f'{note_html}</span></div>'
             f'<div class="mc-spec">{spec}</div>'
             f'<div>{score}{stock_pill}</div></div>'
         )
@@ -1029,6 +1041,9 @@ if not offers_df.empty:
                     "GPU", help="GPU-серверы в сопоставление не идут"),
                 "price_rub": st.column_config.NumberColumn(
                     "Цена, ₽/мес", format="%.0f"),
+                "price_note": st.column_config.TextColumn(
+                    "Условия цены",
+                    help="Как цена показана на карточке: скидка, период, локация"),
                 "quantity_available": "В наличии",
                 "scraped_at": "Дата скрейпа",
             },

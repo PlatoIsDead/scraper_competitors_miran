@@ -91,11 +91,14 @@ def diff_timeweb(
                  "detail": "каталог не отдал тарифы локации "
                            f"{', '.join(sorted(want))}"}]
 
+    # landing-api отдаёт помесячную цену (= priceNumber); в таблице с 15.09
+    # цена вкладки по умолчанию «12 мес −10 %» — сверяем по price_list_rub
     ours: dict[str, list[int]] = {}
     for r in rows:
         name = (r.get("plan_id") or "").strip()
         if name:
-            ours.setdefault(name, []).append(int(r.get("price_rub") or 0))
+            ours.setdefault(name, []).append(
+                int(r.get("price_list_rub") or r.get("price_rub") or 0))
 
     out: list[dict] = []
     for name in sorted(set(site) - set(ours)):

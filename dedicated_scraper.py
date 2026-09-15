@@ -101,6 +101,13 @@ class ServerRow(TypedDict):
     # selectel: остаток по локациям витрины {"MSK-1": 1, "SPB-2": 5} — диагностика,
     # в отчёт не идёт (quantity_available = их сумма)
     stock_by_location: NotRequired[dict[str, int]]
+    # условия показанной цены мелким текстом (паритет с витриной, 15.09):
+    # «скидка 30 %, было 8 200», «за 12 мес; помесячно 11 960»,
+    # «цена и остаток по SPB-2» — пусто, если цена без оговорок
+    price_note: NotRequired[str]
+    # цена без скидки/за месяц (timeweb: priceNumber = вкладка «1 месяц»;
+    # reg.cloud: перечёркнутая base-price) — для сверки с каталогами и note
+    price_list_rub: NotRequired[float]
 
 
 # history.csv schema is frozen to these columns; extended ServerRow fields
@@ -250,6 +257,26 @@ def scrape_miran() -> list[ServerRow]:
 LAST_RENDERED_HTML: dict[str, str] = {}
 
 
+def _wait_for_stable_count(page, selector: str, max_wait_ms: int = 20000,
+                           step_ms: int = 1500) -> int:
+    """Ждёт, пока количество элементов selector не повторится дважды подряд
+    (список дорисован), но не дольше max_wait_ms. Возвращает число."""
+    prev = -1
+    waited = 0
+    count = 0
+    while waited < max_wait_ms:
+        try:
+            count = page.locator(selector).count()
+        except Exception:
+            break
+        if count == prev and count > 0:
+            break
+        prev = count
+        page.wait_for_timeout(step_ms)
+        waited += step_ms
+    return count
+
+
 def _scrape_with_playwright(
     url: str,
     provider: str,
@@ -283,6 +310,10 @@ def _scrape_with_playwright(
                 except Exception:
                     # Selector not found, try to continue anyway
                     pass
+                # Листинг дорисовывается порциями: 15.09.2026 через 3 с после
+                # первой карточки reg.cloud отдал 37 из 155. Ждём, пока число
+                # карточек перестанет расти (два одинаковых замера подряд).
+                _wait_for_stable_count(page, wait_selector)
             else:
                 try:
                     page.wait_for_load_state("networkidle", timeout=10000)
@@ -448,12 +479,13 @@ def _selectel_stock_and_price(
         if not available:
             quantity = cfg.get("quantity") or 0
         return {"quantity": quantity, "price_rub": base_price,
-                "stock_by_location": None}
+                "stock_by_location": None, "price_note": ""}
 
     local_prices = cfg.get("location_price_collection") or {}
     if not isinstance(local_prices, dict):
         local_prices = {}
     by_location: dict[str, int] = {}
+    price_by_location: dict[str, float] = {}
     in_stock_prices: list[float] = []
     candidate_prices: list[float] = [base_price] if base_price else []
     for a in available:
@@ -468,6 +500,8 @@ def _selectel_stock_and_price(
         if local:
             candidate_prices.append(local)
         price_here = local or base_price
+        if price_here:
+            price_by_location[name] = float(price_here)
         if count > 0 and price_here:
             in_stock_prices.append(price_here)
     if in_stock_prices:
@@ -477,7 +511,29 @@ def _selectel_stock_and_price(
     else:
         price = None
     return {"quantity": sum(by_location.values()), "price_rub": price,
-            "stock_by_location": by_location}
+            "stock_by_location": by_location,
+            "price_note": _selectel_price_note(price, by_location,
+                                               price_by_location)}
+
+
+def _selectel_price_note(
+    price: "float | None", by_location: dict[str, int],
+    price_by_location: dict[str, float],
+) -> str:
+    """Условия цены selectel: по какой локации витрины она показана и где
+    цена другая. «цена по SPB-2; MSK-1 — 12 500» / «предзаказ, цена по
+    MSK-1». Пусто, если цена одна во всех локациях витрины с остатком."""
+    if not price:
+        return ""
+    in_stock = {n: p for n, p in price_by_location.items() if by_location.get(n)}
+    pool = in_stock or price_by_location
+    same = sorted(n for n, p in pool.items() if p == price)
+    other = sorted((n, p) for n, p in pool.items() if p != price)
+    if not other:
+        return "" if in_stock else "предзаказ"
+    parts = ["цена по " + ", ".join(same) if same else "цена по каталогу"]
+    parts += [f"{n} — {_fmt_rub(p)}" for n, p in other]
+    return ("предзаказ, " if not in_stock else "") + "; ".join(parts)
 
 
 def _selectel_cfg_to_row(
@@ -566,6 +622,8 @@ def _selectel_cfg_to_row(
     }
     if stock["stock_by_location"] is not None:
         row["stock_by_location"] = stock["stock_by_location"]
+    row["price_note"] = stock.get("price_note") or ""
+    row["price_list_rub"] = float(price_rub)
     return row
 
 
@@ -1040,6 +1098,58 @@ def scrape_1dedic() -> list[ServerRow]:
 
 # ── reg.cloud scraper (Playwright + JS) ──────────────────────────────
 
+def _fmt_rub(value: float) -> str:
+    """12500.0 → '12 500' (для price_note)."""
+    return f"{int(round(value)):,}".replace(",", "\u00a0")
+
+
+# Бейджи карточки reg.cloud, которые меняют смысл цены; остальные
+# («Недорогой», «Популярный», «Универсальный», «Уже стоит Ubuntu…») — нет.
+REGCLOUD_PRICE_TAGS = ("сервер дня", "распродажа", "предложение ограничено")
+
+
+def _regcloud_price_note(item, price_rub: float) -> tuple[str, "float | None"]:
+    """(price_note, базовая цена) карточки листинга reg.cloud.
+
+    Условия показанной цены как их видит посетитель: перечёркнутая
+    base-price → «было 8 200», «Скидка на сервер 30%» → «скидка 30 %»,
+    «Сервер дня» (max-discount «только сегодня») и прочие бейджи —
+    в тексте. Пусто, если карточка без скидки и без бейджей.
+    """
+    parts: list[str] = []
+    base_price = None
+    base_elem = item.find(class_="b-dedicated-servers-list-item-cloud__base-price")
+    if base_elem:
+        m = re.search(r"([\d\s\u00a0]+)", base_elem.get_text(strip=True))
+        if m:
+            digits = re.sub(r"[\s\u00a0]", "", m.group(1))
+            if digits:
+                base_price = float(digits)
+    tags: list[str] = []
+    for tag_elem in item.find_all(class_="b-dedicated-servers-list-item-cloud__tag_category"):
+        # «Cо скидкой» на сайте с латинской C — нормализуем
+        text = tag_elem.get_text(" ", strip=True).replace("C", "С").lower()
+        if text in REGCLOUD_PRICE_TAGS and text not in tags:
+            tags.append(text)
+    for t in tags:
+        if t == "сервер дня":
+            max_elem = item.find(class_="b-dedicated-servers-list-item-cloud__max-discount")
+            parts.append("Сервер дня" + (" (скидка только сегодня)" if max_elem else ""))
+        else:
+            parts.append(t)
+    discount_elem = item.find(class_="b-dedicated-servers-list-item-cloud__discount")
+    if discount_elem:
+        m = re.search(r"(\d+)\s*%", discount_elem.get_text(" ", strip=True))
+        if m:
+            parts.append(f"скидка {m.group(1)}\u00a0%")
+    elif base_price and base_price > price_rub:
+        pct = round((1 - price_rub / base_price) * 100)
+        parts.append(f"скидка {pct}\u00a0%")
+    if base_price and base_price != price_rub:
+        parts.append(f"было {_fmt_rub(base_price)}")
+    return ", ".join(parts), base_price
+
+
 def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
     """Parse reg.cloud dedicated page HTML. Pure function — used by tests."""
     soup = BeautifulSoup(html, "lxml")
@@ -1179,6 +1289,8 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
                     "disk_size_gb": disk_size_gb,
                 }]
 
+            price_note, base_price = _regcloud_price_note(item, price_rub)
+
             rows.append({
                 "provider": "regcloud",
                 "cpu_model": cpu_model,
@@ -1198,6 +1310,8 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
                 "currency": "RUB",
                 "price_period": "month",
                 "gpu": gpu,
+                "price_note": price_note,
+                "price_list_rub": float(base_price) if base_price else price_rub,
             })
 
         except Exception:
@@ -1509,10 +1623,12 @@ def _parse_timeweb_cloud_nuxt(
     locations — коды ДЦ из payload («ru» = Санкт-Петербург, «msk» = Москва);
     тарифы других локаций отбрасываются.
 
-    priceNumber = стандартная месячная цена (вкладка «1 месяц»); поле price —
-    скидочная цена при аренде на leaseTerm месяцев (витрина по умолчанию
-    открыта на «12 месяцев −10%»), для паритета с помесячными ценами
-    конкурентов не используется (открытый вопрос клиенту).
+    Цена в таблице = та, что посетитель видит на карточке по нашей ссылке
+    (Playwright 15.09.2026, ?location=ru: вкладка по умолчанию «12 Месяцев
+    Скидка 10%», карточка «10 764 ₽ в месяц / при оплате за год») — поле
+    price. priceNumber (вкладка «1 месяц», = landing-api) идёт в
+    price_list_rub и в price_note «помесячно 11 960». Если price
+    нечитаем — priceNumber без пометки.
     """
     rows: list[ServerRow] = []
     for i, item in enumerate(flat):
@@ -1559,9 +1675,10 @@ def _parse_timeweb_cloud_nuxt(
         if not disk_pools:
             continue
 
-        price = cfg.get("priceNumber")
-        if not price:
+        list_price = cfg.get("priceNumber")
+        if not list_price:
             continue
+        shown_price, price_note = _timeweb_shown_price(cfg, float(list_price))
 
         rows.append({
             "provider": "timeweb_cloud",
@@ -1572,7 +1689,7 @@ def _parse_timeweb_cloud_nuxt(
             "disk_count": disk_pools[0]["disk_count"],
             "disk_size_gb": disk_pools[0]["disk_size_gb"],
             "disk_type": disk_pools[0]["disk_type"],
-            "price_rub": float(price),
+            "price_rub": shown_price,
             "quantity_available": None,
             "scraped_at": today,
             "plan_id": _strip_timeweb_novelty(cfg.get("name") or ""),
@@ -1584,9 +1701,34 @@ def _parse_timeweb_cloud_nuxt(
             # у timeweb выделенные GPU-линейки в этой выдаче не встречались;
             # поле — страховка на случай их появления
             "gpu": str(cfg.get("gpu") or cfg.get("videocard") or "").strip(),
+            "price_note": price_note,
+            "price_list_rub": float(list_price),
         })
 
     return rows
+
+
+def _timeweb_shown_price(cfg: dict, list_price: float) -> tuple[float, str]:
+    """(цена карточки, price_note) тарифа timeweb.cloud.
+
+    price = «10 764 ₽/мес» при leaseTerm=12 — то, что показано на карточке
+    по умолчанию; priceNumber = помесячная. Пометка: «при оплате за
+    12 мес (−10 %); помесячно 11 960». Совпадают — пометки нет.
+    """
+    raw = str(cfg.get("price") or "")
+    m = re.search(r"([\d\s\u00a0]+)", raw)
+    shown = None
+    if m:
+        digits = re.sub(r"[\s\u00a0]", "", m.group(1))
+        if digits:
+            shown = float(digits)
+    if not shown or shown == list_price:
+        return list_price, ""
+    term = cfg.get("leaseTerm")
+    pct = round((1 - shown / list_price) * 100)
+    term_text = f"за {int(term)} мес" if term else "за период"
+    return shown, (f"при оплате {term_text} (−{pct}\u00a0%); "
+                   f"помесячно {_fmt_rub(list_price)}")
 
 
 def scrape_timeweb_cloud(

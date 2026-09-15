@@ -121,6 +121,7 @@ def rows_to_offers(rows: list[dict], comp: Competitor) -> list[CompetitorOffer]:
             currency=row.get("currency") or comp.currency,
             price_period=row.get("price_period") or comp.price_period,
             stock_count=row.get("quantity_available"),
+            price_note=str(row.get("price_note") or ""),
         ))
     if skipped:
         log.warning(

@@ -441,6 +441,31 @@ class TestAppHeadless:
         assert "нет данных" in text
         assert not at.exception
 
+    def test_price_note_rendered_next_to_price(self, tmp_path, monkeypatch):
+        """Паритет с витриной (15.09): условия цены из отчёта показываются
+        мелким текстом под ценой в таблице и в карточке матча."""
+        reports = tmp_path / "data" / "reports"
+        reports.mkdir(parents=True)
+        tag = date_tag_msk()
+        (reports / f"dedicated_competitors_{tag}.csv").write_text(
+            "config_id,cpu_model,cpu_sockets,cpu_cores_per_socket,ram_gb,disks,"
+            "miran_price,selectel_price,selectel_price_note,reg_cloud_price,"
+            "reg_cloud_price_note\n"
+            "MIR-001,Intel Xeon E-2386G,1,6,64,2×480 ГБ SSD,12000,10000,"
+            "цена по SPB-2; MSK-1 — 11 000,9000,\"скидка 30 %, было 12 900\"\n",
+            encoding="utf-8-sig")
+        (reports / f"matches_{tag}.csv").write_text(
+            "config_id,competitor_id,plan_id,cpu_model,cpu_sockets,"
+            "cpu_cores_total,ram_gb,disks,price_value,price_note,currency,"
+            "price_period,stock_count,match_score\n"
+            "MIR-001,reg_cloud,RD-1,Intel Xeon E-2386G,1,6,64,2×480 ГБ SSD,"
+            "9000,\"скидка 30 %, было 12 900\",RUB,month,,100\n",
+            encoding="utf-8-sig")
+        at = self._run(tmp_path, monkeypatch)
+        text = _texts(at)
+        assert "цена по SPB-2; MSK-1 — 11 000" in text
+        assert text.count("скидка 30 %, было 12 900") >= 2  # таблица + карточка
+
     def test_fresh_report_shows_sources_and_no_banner(self, tmp_path, monkeypatch):
         from competitor_pipeline import write_run_status
 
