@@ -11,7 +11,9 @@ import dedicated_scraper as ds
 from config_loader import timeweb_cloud_source
 from storefront_check import fetch_timeweb_presets
 
-from .core import Card, regcloud_cards, selectel_cards, timeweb_cards
+from .core import (
+    Card, regcloud_cards, selectel_cards, selectel_precustom_cards, timeweb_cards,
+)
 
 log = logging.getLogger("reconcile")
 
@@ -87,7 +89,20 @@ def fetch_selectel() -> dict[str, Card] | None:
     visible = ds._fetch_selectel_visible_locations()
     if visible is None:
         log.warning("[selectel] список локаций недоступен — сверка по всем ДЦ")
-    return selectel_cards(configs, visible) or None
+    cards = selectel_cards(configs, visible)
+    # линейка PCL* живёт не в service/server, а в calculator/precustom
+    precustom = ds._fetch_selectel_calc(ds.SELECTEL_CALC_PRECUSTOM)
+    items = ds._fetch_selectel_calc(ds.SELECTEL_CALC_ITEMS)
+    if isinstance(precustom, list) and isinstance(items, list):
+        items_by_id = {i["id"]: i for i in items
+                       if isinstance(i, dict) and i.get("id") is not None}
+        cfgs = [ds._precustom_to_cfg(pre, items_by_id)
+                for pre in precustom if isinstance(pre, dict)]
+        cards.update(selectel_precustom_cards([c for c in cfgs if c]))
+    else:
+        log.warning("[selectel] calculator/precustom недоступен — карточки PCL* "
+                    "будут считаться отсутствующими")
+    return cards or None
 
 
 FETCHERS = {

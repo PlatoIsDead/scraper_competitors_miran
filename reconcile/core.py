@@ -148,16 +148,48 @@ def selectel_cards(
         disks = ", ".join(
             f"{d.get('count', 1)} x {d.get('size', 0)} ГБ {d.get('type', '')}"
             for d in cfg.get("disk") or [] if isinstance(d, dict))
-        by_loc = stock.get("stock_by_location") or {}
-        detail = ("в наличии: " + ", ".join(f"{k} ×{v}" for k, v in by_loc.items())
-                  if by_loc else ("предзаказ" if cfg.get("is_preorder") else
-                                  "нет в наличии в msk/spb/nsk"))
+        by_loc = stock.get("stock_by_location")
+        if visible_locations is None:
+            detail = ("локации витрины недоступны — наличие по всем ДЦ: "
+                      f"{stock.get('quantity') or 0}")
+        elif by_loc:
+            detail = "в наличии: " + ", ".join(f"{k} ×{v}" for k, v in by_loc.items())
+        else:
+            detail = "предзаказ" if cfg.get("is_preorder") else "нет в наличии в msk/spb/nsk"
         cards[str(cfg["name"])] = Card(
             competitor_id="selectel", plan_id=str(cfg["name"]),
             visible=visible, price=stock.get("price_rub"),
             cpu_text=cpu_text, ram_gb=int(ram) if ram else None,
             disks_text=disks, url=SELECTEL_LIST_URL,
             price_list=stock.get("price_rub"), detail=detail,
+        )
+    return cards
+
+
+def selectel_precustom_cards(cfgs: list[dict]) -> dict[str, Card]:
+    """Линейка PCL* («Configurable Pre-Build»): её нет в service/server, сайт
+    собирает карточку из calculator/precustom + items. cfgs — результат
+    dedicated_scraper._precustom_to_cfg (None = сайт конфиг не показывает)."""
+    cards: dict[str, Card] = {}
+    for cfg in cfgs:
+        if not isinstance(cfg, dict) or not cfg.get("name"):
+            continue
+        cpu = cfg.get("cpu") or {}
+        count = cpu.get("count") or 1
+        cpu_text = (f"{count} × " if count > 1 else "") + str(cpu.get("name") or "")
+        ram = sum((r.get("size") or 0) * (r.get("count") or 1)
+                  for r in cfg.get("ram") or [] if isinstance(r, dict))
+        disks = ", ".join(
+            f"{d.get('count', 1)} x {d.get('size', 0)} ГБ {d.get('type', '')}"
+            for d in cfg.get("disk") or [] if isinstance(d, dict))
+        price = ((cfg.get("price_collection") or {}).get("RUB") or {}).get("month")
+        qty = cfg.get("quantity") or 0
+        cards[str(cfg["name"])] = Card(
+            competitor_id="selectel", plan_id=str(cfg["name"]), visible=qty > 0,
+            price=float(price) if price else None, cpu_text=cpu_text,
+            ram_gb=int(ram) if ram else None, disks_text=disks,
+            url=SELECTEL_LIST_URL, price_list=float(price) if price else None,
+            detail=f"сборка из компонентов (PCL), доступно {qty}",
         )
     return cards
 

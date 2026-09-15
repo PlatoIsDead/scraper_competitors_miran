@@ -16,6 +16,7 @@ from reconcile.core import (
     reject_reason,
     render_md,
     selectel_cards,
+    selectel_precustom_cards,
     timeweb_cards,
     unmatched_candidates,
 )
@@ -83,6 +84,22 @@ class TestSelectelCards:
         assert el42.visible and el42.price == 18400.0
         assert el42.detail == "в наличии: MSK-1 ×1"
         assert "2 ×" not in el42.cpu_text or el42.cpu_text.startswith("2 ×")
+
+
+    def test_without_location_list_detail_is_honest(self, selectel_api_configs):
+        cards = selectel_cards(list(selectel_api_configs.values()), None)
+        el42 = cards["EL42-NVMe"]
+        assert el42.visible and el42.detail.startswith("локации витрины недоступны")
+        assert "18" in el42.detail   # все ДЦ: MSK-1:1 + ALM-1:14 + TAS-2:3
+
+    def test_precustom_cards(self):
+        cfg = {"name": "PCL33-NVMe", "cpu": {"name": "Intel Xeon E-2336", "count": 1,
+                                            "cores_per_cpu": 6},
+               "ram": [{"count": 2, "size": 16}], "disk": [{"count": 2, "size": 960, "type": "SSD NVMe"}],
+               "price_collection": {"RUB": {"month": 28250.0}}, "quantity": 3}
+        card = selectel_precustom_cards([cfg, None])["PCL33-NVMe"]
+        assert card.visible and card.price == 28250.0 and card.ram_gb == 32
+        assert card.cpu_text == "Intel Xeon E-2336" and "PCL" in card.detail
 
 
 class TestComparePair:
