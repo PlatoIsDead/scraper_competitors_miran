@@ -9,6 +9,7 @@ import json
 import logging
 import re
 import sys
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import pandas as pd
@@ -45,6 +46,74 @@ def load_offers(competitors, data_dir: Path):
     return offers
 
 
+@dataclass
+class ReconcileResult:
+    """Итог сверки для CLI и кнопки в UI."""
+    code: int                      # 0 — всё ✓, 1 — есть ✗, 2 — витрина/отчёт недоступны
+    md_path: Path | None = None
+    csv_path: Path | None = None
+    checks: list = field(default_factory=list)
+    failed_sources: dict = field(default_factory=dict)
+    error: str | None = None
+
+
+def reconcile_report(
+    report: Path, *, out_dir: Path, configs, competitors_path, matching,
+    cpu_specs, disk_classes, fetchers: dict | None = None,
+) -> ReconcileResult:
+    """Сверка готового matches_<дата>.csv с витринами → reconcile_<дата>.md/.csv.
+    fetchers — {competitor_id: () -> cards|None}; по умолчанию сетевые."""
+    fetchers = fetchers or FETCHERS
+    m = re.search(r"(\d{8})", Path(report).name)
+    date_tag = m.group(1) if m else date_tag_msk()
+    rows = pd.read_csv(report, dtype=str).fillna("").to_dict("records")
+
+    competitors = load_competitors(competitors_path)
+    labels = {c.competitor_id: c.name for c in competitors}
+    needed = {str(r.get("competitor_id")) for r in rows}
+    cards, failed = {}, {}
+    for cid in sorted(needed):
+        fetch = fetchers.get(cid)
+        if not fetch:
+            failed[cid] = "сверка не реализована"
+            cards[cid] = None
+            continue
+        log.info("[%s] запрашиваю витрину…", cid)
+        try:
+            cards[cid] = fetch()
+        except Exception as e:  # сеть/вёрстка — не роняем остальное
+            log.exception("[%s] сбой сверки", cid)
+            cards[cid] = None
+            failed[cid] = str(e)[:200]
+        if cards[cid] is None:
+            failed.setdefault(cid, "нет данных")
+    size_classes = load_disk_classes(disk_classes)
+    checks = check_pairs(rows, cards, size_classes)
+
+    refs = load_reference_configs(configs)
+    rules = load_matching_rules(matching)
+    specs = load_cpu_specs(cpu_specs)
+    offers = load_offers(competitors, Path(ds.DATA_DIR))
+    matched = {(str(r["config_id"]), str(r["competitor_id"]), str(r["plan_id"])) for r in rows}
+    candidates = unmatched_candidates(refs, offers, matched, rules, specs, size_classes)
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    md_path = out_dir / f"reconcile_{date_tag}.md"
+    csv_path = out_dir / f"reconcile_{date_tag}.csv"
+    md_path.write_text(render_md(date_tag, checks, candidates, failed, labels), encoding="utf-8")
+    out_rows = checks_to_rows(checks)
+    with csv_path.open("w", encoding="utf-8-sig", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(out_rows[0]) if out_rows else
+                           ["config_id", "competitor_id", "plan_id", "our_price",
+                            "site_price", "result", "reason", "url"])
+        w.writeheader()
+        w.writerows(out_rows)
+    bad = [c for c in checks if not c.ok]
+    code = 2 if failed else (1 if bad else 0)
+    return ReconcileResult(code=code, md_path=md_path, csv_path=csv_path,
+                           checks=checks, failed_sources=failed)
+
+
 def run(args) -> int:
     reports_dir = Path(args.out_dir)
     if args.fresh:
@@ -65,57 +134,18 @@ def run(args) -> int:
     if not report or not Path(report).exists():
         print("Отчёт matches_<дата>.csv не найден — запустите с --fresh")
         return 2
-    m = re.search(r"(\d{8})", Path(report).name)
-    date_tag = m.group(1) if m else date_tag_msk()
-    rows = pd.read_csv(report, dtype=str).fillna("").to_dict("records")
-
-    competitors = load_competitors(args.competitors)
-    labels = {c.competitor_id: c.name for c in competitors}
-    needed = {str(r.get("competitor_id")) for r in rows}
-    cards, failed = {}, {}
-    for cid in sorted(needed):
-        fetch = FETCHERS.get(cid)
-        if not fetch:
-            failed[cid] = "сверка не реализована"
-            cards[cid] = None
-            continue
-        log.info("[%s] запрашиваю витрину…", cid)
-        try:
-            cards[cid] = fetch()
-        except Exception as e:  # сеть/вёрстка — не роняем остальное
-            log.exception("[%s] сбой сверки", cid)
-            cards[cid] = None
-            failed[cid] = str(e)[:200]
-        if cards[cid] is None:
-            failed.setdefault(cid, "нет данных")
-    size_classes = load_disk_classes(args.disk_classes)
-    checks = check_pairs(rows, cards, size_classes)
-
-    refs = load_reference_configs(args.configs)
-    rules = load_matching_rules(args.matching)
-    specs = load_cpu_specs(args.cpu_specs)
-    offers = load_offers(competitors, Path(ds.DATA_DIR))
-    matched = {(str(r["config_id"]), str(r["competitor_id"]), str(r["plan_id"])) for r in rows}
-    candidates = unmatched_candidates(refs, offers, matched, rules, specs, size_classes)
-
-    reports_dir.mkdir(parents=True, exist_ok=True)
-    md_path = reports_dir / f"reconcile_{date_tag}.md"
-    csv_path = reports_dir / f"reconcile_{date_tag}.csv"
-    md_path.write_text(render_md(date_tag, checks, candidates, failed, labels), encoding="utf-8")
-    out_rows = checks_to_rows(checks)
-    with csv_path.open("w", encoding="utf-8-sig", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(out_rows[0]) if out_rows else
-                           ["config_id", "competitor_id", "plan_id", "our_price",
-                            "site_price", "result", "reason", "url"])
-        w.writeheader()
-        w.writerows(out_rows)
-    bad = [c for c in checks if not c.ok]
-    print(f"Сверка: пар {len(checks)}, расхождений {len(bad)} → {md_path}")
+    result = reconcile_report(
+        Path(report), out_dir=reports_dir, configs=args.configs,
+        competitors_path=args.competitors, matching=args.matching,
+        cpu_specs=args.cpu_specs, disk_classes=args.disk_classes,
+    )
+    bad = [c for c in result.checks if not c.ok]
+    print(f"Сверка: пар {len(result.checks)}, расхождений {len(bad)} → {result.md_path}")
     for c in bad:
         print(f"  ✗ {c.config_id} {c.competitor_id} {c.plan_id}: {'; '.join(c.reasons)}")
-    if failed:
-        return 2
-    return 1 if bad else 0
+    for cid, why in result.failed_sources.items():
+        print(f"  ⚠ {cid}: витрина недоступна ({why})")
+    return result.code
 
 
 def main() -> None:

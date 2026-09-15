@@ -466,6 +466,32 @@ class TestAppHeadless:
         assert "цена по SPB-2; MSK-1 — 11 000" in text
         assert text.count("скидка 30 %, было 12 900") >= 2  # таблица + карточка
 
+    def test_reconcile_report_shown_and_button_offered(self, tmp_path, monkeypatch):
+        """M5: reconcile_<дата>.md показывается под плашкой сверки, кнопка
+        «Сверить с сайтами» есть, когда есть matches_<дата>.csv."""
+        reports = tmp_path / "data" / "reports"
+        reports.mkdir(parents=True)
+        tag = date_tag_msk()
+        (reports / f"dedicated_competitors_{tag}.csv").write_text(
+            "config_id,cpu_model,cpu_sockets,cpu_cores_per_socket,ram_gb,disks,"
+            "miran_price,reg_cloud_price\n"
+            "MIR-001,Intel Xeon E-2386G,1,6,64,2×480 ГБ SSD,12000,9000\n",
+            encoding="utf-8-sig")
+        (reports / f"matches_{tag}.csv").write_text(
+            "config_id,competitor_id,plan_id,cpu_model,cpu_sockets,"
+            "cpu_cores_total,ram_gb,disks,price_value,price_note,currency,"
+            "price_period,stock_count,match_score\n"
+            "MIR-001,reg_cloud,RD-1,Intel Xeon E-2386G,1,6,64,2×480 ГБ SSD,"
+            "9000,,RUB,month,,100\n", encoding="utf-8-sig")
+        (reports / f"reconcile_{tag}.md").write_text(
+            "# Сверка с витринами\n\n| a |\n|---|\n| MIR-001 | RD-1 | ✗ | "
+            "цена на карточке 9 500, в отчёте 9 000 |\n", encoding="utf-8")
+        at = self._run(tmp_path, monkeypatch)
+        text = _texts(at)
+        assert "цена на карточке 9 500, в отчёте 9 000" in text
+        assert any(b.label == "Сверить с сайтами" for b in at.button)
+        assert any("расхождений: 1" in e.label for e in at.expander)
+
     def test_fresh_report_shows_sources_and_no_banner(self, tmp_path, monkeypatch):
         from competitor_pipeline import write_run_status
 

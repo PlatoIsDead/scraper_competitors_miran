@@ -444,6 +444,26 @@ def run_competitor_pipeline():
     return run_pipeline(args)
 
 
+def run_storefront_reconcile(date_tag: str):
+    """Кнопка «Сверить с сайтами»: сверка показанного отчёта matches_<дата>.csv
+    с карточками конкурентов (тот же код, что `python -m reconcile --report`).
+    Возвращает ReconcileResult или None, если отчёта нет."""
+    from config_loader import (
+        COMPETITORS_JSON, CPU_SPECS_JSON, DISK_CLASSES_JSON,
+        MATCHING_JSON, MIRAN_CONFIGS_JSON,
+    )
+    from reconcile.__main__ import reconcile_report
+
+    report = REPORTS_DIR / f"matches_{date_tag}.csv"
+    if not report.exists():
+        return None
+    return reconcile_report(
+        report, out_dir=REPORTS_DIR, configs=MIRAN_CONFIGS_JSON,
+        competitors_path=COMPETITORS_JSON, matching=MATCHING_JSON,
+        cpu_specs=CPU_SPECS_JSON, disk_classes=DISK_CLASSES_JSON,
+    )
+
+
 # ── Formatting helpers (чистые, без Streamlit) ───────────────────────
 
 def fmt_price(v) -> str:
@@ -698,6 +718,23 @@ with st.sidebar:
             with st.expander("Хвост лога прогона"):
                 st.code(last_error["log_tail"], language="text")
 
+    if date_tag and (REPORTS_DIR / f"matches_{date_tag}.csv").exists():
+        if st.button("Сверить с сайтами", use_container_width=True,
+                     help="Каждая пара отчёта против карточки конкурента: "
+                          "видна ли, цена как показана, CPU, RAM, диски"):
+            st.session_state.pop("reconcile_error", None)
+            with st.spinner("Запрашиваем карточки конкурентов (до двух минут)..."):
+                try:
+                    rec = run_storefront_reconcile(date_tag)
+                except Exception as e:
+                    rec = None
+                    st.session_state["reconcile_error"] = (
+                        f"Сверка прервана: {type(e).__name__}: {e}")
+            if rec is not None:
+                st.session_state["reconcile_done"] = date_tag
+        if st.session_state.get("reconcile_error"):
+            st.error(st.session_state["reconcile_error"])
+
     st.divider()
     uploaded = st.file_uploader(
         "Обновить эталон (Parser.xlsx)",
@@ -906,6 +943,31 @@ if checked:
         st.caption("Не сверяются: " + ", ".join(
             f"{comp_label(s['competitor_id'])} ({s['check'].get('detail', '')})"
             for s in unchecked))
+
+# Сверка каждой пары с карточкой конкурента (python -m reconcile / кнопка
+# «Сверить с сайтами»): показываем отчёт reconcile_<дата>.md, если он есть.
+reconcile_md = REPORTS_DIR / f"reconcile_{date_tag}.md" if date_tag else None
+if reconcile_md and reconcile_md.exists():
+    md_text = reconcile_md.read_text(encoding="utf-8")
+    n_bad = md_text.count("| ✗ |")
+    n_warn = md_text.count("⚠ ")
+    title = "Сверка пар с карточками конкурентов — "
+    if n_warn:
+        title += "часть витрин недоступна"
+    elif n_bad:
+        title += f"расхождений: {n_bad}"
+    else:
+        title += "все пары совпадают с карточками"
+    expanded = bool(n_bad or n_warn
+                    or st.session_state.get("reconcile_done") == date_tag)
+    with st.expander(title, expanded=expanded):
+        st.markdown(md_text)
+        rec_csv = REPORTS_DIR / f"reconcile_{date_tag}.csv"
+        if rec_csv.exists():
+            st.download_button(
+                "Скачать сверку (CSV)", data=rec_csv.read_bytes(),
+                file_name=rec_csv.name, mime="text/csv",
+                key="dl_reconcile")
 
 if wide_df.empty:
     st.info(f"{EMPTY_STATE_MESSAGE} в панели слева")
