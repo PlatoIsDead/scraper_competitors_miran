@@ -14,7 +14,9 @@ from dedicated_scraper import (
     _parse_storage_pool,
     _precustom_to_cfg,
     _selectel_cfg_to_row,
+    _selectel_stock_and_price,
     _selectel_storefront_visible,
+    _selectel_visible_locations,
     _parse_timeweb_cloud_nuxt,
     _parse_timeweb_html,
     _parse_hostkey_html,
@@ -23,6 +25,7 @@ from dedicated_scraper import (
 )
 
 TODAY = "2026-06-02"
+FIXTURES = Path(__file__).parent / "fixtures"
 ALLOWED_DISK_TYPES = {"SSD", "HDD", "NVMe"}
 
 
@@ -324,6 +327,77 @@ class TestParseRegcloudHtml:
         rows = _parse_regcloud_html(html, TODAY)
         assert rows[0]["price_rub"] == 50000.0
 
+    def test_period_price_layout_2026_09(self):
+        # вёрстка 2026-09: _per-months_one на родителе, цена месяца —
+        # __price-value[data-period-price]. Кейс RD-30055: 5 740, а не
+        # перечёркнутые 8 200; RD-58446: не брать соседнюю цену за день.
+        discounted = """
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">Xeon E3-1230v3</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">16 ГБ DDR3</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 1 ТБ HDD SATA</p>
+          <div class="b-dedicated-servers-list-item-cloud__price b-dedicated-servers-list-item-cloud__price_per-months_one b-dedicated-servers-list-item-cloud__price_type_discount">
+            <div class="b-dedicated-servers-list-item-cloud__price-value" data-period-price="">5 740 <span>₽</span> /мес</div>
+            <p class="b-dedicated-servers-list-item-cloud__base-price">8 200 <span>₽</span> /мес</p>
+          </div>
+        </div>
+        """
+        per_day = """
+        <div class="b-dedicated-servers-list-item-cloud">
+          <p class="b-dedicated-servers-list-item-cloud__cpu-title">2 × AMD EPYC 9654</p>
+          <p class="b-dedicated-servers-list-item-cloud__ram">1536 ГБ DDR5</p>
+          <p class="b-dedicated-servers-list-item-cloud__hdds">2 x 3.8 ТБ SSD NVMe</p>
+          <div class="b-dedicated-servers-list-item-cloud__price b-dedicated-servers-list-item-cloud__price_per-months_one">
+            <p class="b-dedicated-servers-list-item-cloud__price-value b-dedicated-servers-list-item-cloud__price-value_per-day" data-one-day-price="">20 000 ₽/день</p>
+            <div class="b-dedicated-servers-list-item-cloud__price-value" data-period-price="">588 500 <span>₽</span> /мес</div>
+          </div>
+        </div>
+        """
+        rows = _parse_regcloud_html(discounted + per_day, TODAY)
+        assert [r["price_rub"] for r in rows] == [5740.0, 588500.0]
+
+    def test_real_markup_2026_09(self):
+        # Регрессия на живой разметке 14.09.2026 (tests/fixtures/
+        # regcloud_dedicated_2026_09.html): парсер из 5e49b07 терял карточку
+        # без скидки (RD-55039: нет ни __current-price, ни __base-price,
+        # цена только в __price-value[data-period-price]) и брал у скидочной
+        # RD-30055 перечёркнутые 8 200 вместо 5 740.
+        from storefront_check import diff_regcloud
+
+        html = (FIXTURES / "regcloud_dedicated_2026_09.html").read_text(
+            encoding="utf-8")
+        rows = {r["plan_id"]: r for r in _parse_regcloud_html(html, TODAY)}
+        assert set(rows) == {"RD-55039", "RD-30055"}
+
+        plain = rows["RD-55039"]
+        assert plain["price_rub"] == 33300.0
+        # паритет с витриной (15.09): без скидки — без пометки; со скидкой —
+        # в таблице 5 740 как на карточке, условия мелким текстом
+        assert plain["price_note"] == ""
+        assert plain["price_list_rub"] == 33300.0
+        sale = rows["RD-30055"]
+        assert sale["price_rub"] == 5740.0
+        assert sale["price_list_rub"] == 8200.0
+        assert sale["price_note"] == "скидка 30\u00a0%, было 8\u00a0200"
+        assert plain["cpu_model"] == "Intel Xeon Gold 5218R"
+        assert plain["cpu_sockets"] == 2
+        assert plain["cpu_cores_total"] == 40
+        assert plain["ram_gb"] == 64
+        assert plain["disk_pools"] == [
+            {"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 480}]
+
+        sale = rows["RD-30055"]
+        assert sale["price_rub"] == 5740.0
+        assert sale["cpu_model"] == "Xeon E3-1230v3"
+        assert sale["cpu_sockets"] == 1
+        assert sale["cpu_cores_total"] == 4
+        assert sale["ram_gb"] == 16
+        assert sale["disk_pools"] == [
+            {"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 1000}]
+
+        # та же разметка глазами сверки с витриной: data-price = наша цена
+        assert diff_regcloud(list(rows.values()), html) == []
+
     def test_gpu_element_captured(self):
         # кейс RD-56106: сервер с 4 × RTX A4000 — GPU уходит в поле gpu
         html = """
@@ -581,39 +655,229 @@ class TestSelectelPrecustom:
 
 
 class TestSelectelStorefrontFilter:
-    """Зеркало фильтра витрины selectel: is_preorder || is_order && наличие.
-    API отдаёт и распроданные конфиги — сайт их не показывает."""
+    """Зеркало витрины selectel (чанк B3qo2xyo): наличие и цена считаются
+    только по локациям msk/spb/nsk с visibility=everywhere и
+    primary_resource_ordering=enabled; API отдаёт available[] по всем ДЦ
+    (Ташкент, Алматы, Найроби) и распроданные конфиги — сайт их не показывает.
+    Фикстуры — реальные ответы API от 2026-09-14, урезанные."""
 
-    def _cfg(self, **over):
-        base = {
-            "name": "EL10-SSD",
-            "cpu": {"name": "Intel Xeon E3-1230v5", "count": 1,
-                    "cores_per_cpu": 4},
-            "ram": [{"count": 2, "size": 16}],
-            "disk": [{"count": 2, "size": 240, "type": "SSD"}],
-            "price_collection": {"RUB": {"month": 8780.0}},
-            "is_order": True,
-            "is_preorder": False,
-            "available": [{"count": 19}],
+    # uuid из фикстуры selectel_location.json
+    MSK1 = "61c97311-bb14-5679-99fc-98497a701292"
+    MSK4 = "b93f81b1-ddce-4988-a2a7-f58fc46efdb4"   # everywhere, enabled_in_admin
+    NSK1 = "9b177ad9-d90a-4f08-ae1f-008891062a12"
+    TAS2 = "324f8b40-31c4-4cd2-8529-d1906c7cce36"
+    ALM1 = "07ff5ae1-7e8b-4c85-af2c-219798aa0d46"
+
+    @pytest.fixture
+    def visible(self, selectel_locations):
+        return _selectel_visible_locations(selectel_locations)
+
+    def test_visible_locations_rule(self, visible):
+        # только РФ-площадки, включённые для заказа с сайта
+        assert set(visible.values()) == {
+            "MSK-1", "MSK-2", "MSK-3", "MSK-7",
+            "SPB-2", "SPB-3", "SPB-4", "SPB-5", "NSK-1",
         }
-        base.update(over)
-        return base
+        assert self.MSK4 not in visible          # enabled_in_admin
+        assert self.TAS2 not in visible          # Ташкент
+        assert self.ALM1 not in visible          # Алматы
 
-    def test_in_stock_visible(self):
-        assert _selectel_storefront_visible(self._cfg())
+    def test_visible_locations_prefix_and_flags(self):
+        locs = [
+            {"uuid": "a", "name": "MSK-9", "visibility": "everywhere",
+             "primary_resource_ordering": "enabled"},
+            {"uuid": "b", "name": "MSK-8", "visibility": "only_in_admin",
+             "primary_resource_ordering": "enabled"},
+            {"uuid": "c", "name": "spb-x", "visibility": "everywhere",
+             "primary_resource_ordering": "enabled"},
+            {"uuid": "d", "name": "VRRP MSK", "visibility": "everywhere",
+             "primary_resource_ordering": "enabled"},
+            {"uuid": "e", "name": "TAS-1", "visibility": "everywhere",
+             "primary_resource_ordering": "enabled"},
+            "мусор",
+        ]
+        assert _selectel_visible_locations(locs) == {"a": "MSK-9", "c": "spb-x"}
 
-    def test_sold_out_hidden(self):
-        # кейс AEL20-SSD/PL23-NVMe: is_order, но склад пуст — сайт скрывает
-        assert not _selectel_storefront_visible(self._cfg(available=[{"count": 0}]))
-        assert not _selectel_storefront_visible(self._cfg(available=[]))
+    def test_only_tashkent_hidden(self, selectel_api_configs, visible):
+        # EL46-NVMe: единственный экземпляр в TAS-2 — на сайте карточки нет,
+        # а старое правило матчило её с MIR-109
+        cfg = selectel_api_configs["EL46-NVMe"]
+        assert cfg["is_order"] and not cfg["is_preorder"]
+        assert [a for a in cfg["available"] if a["count"]] == [
+            {"location": self.TAS2, "count": 1}]
+        assert not _selectel_storefront_visible(cfg, visible)
+        assert _selectel_storefront_visible(cfg)  # без локаций — как раньше
 
-    def test_preorder_visible_without_stock(self):
-        assert _selectel_storefront_visible(
-            self._cfg(available=[], is_preorder=True))
+    def test_moscow_stock_only_counts_and_prices(self, selectel_api_configs, visible):
+        # EL42-NVMe: MSK-1:1 + ALM-1:14 + TAS-2:3 → бейдж «1 шт.», цена
+        # московская (у MSK-1 нет локальной цены → price_collection 18 400,
+        # у Ташкента 33 500)
+        cfg = selectel_api_configs["EL42-NVMe"]
+        assert _selectel_storefront_visible(cfg, visible)
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["quantity_available"] == 1
+        assert row["price_rub"] == 18400.0
+        assert row["stock_by_location"] == {"MSK-1": 1}
+        # старое правило: все ДЦ
+        old = _selectel_cfg_to_row(cfg, TODAY)
+        assert old["quantity_available"] == 18
+        assert "stock_by_location" not in old
 
-    def test_not_orderable_hidden(self):
-        assert not _selectel_storefront_visible(
-            self._cfg(is_order=False, available=[{"count": 5}]))
+    def test_foreign_local_price_ignored(self, selectel_api_configs, visible):
+        # EL45-NVMe: MSK-1:1 + TAS-2:23; локальные цены 38 800–43 600 только
+        # у зарубежных ДЦ → цена сайта = price_collection 23 100
+        cfg = selectel_api_configs["EL45-NVMe"]
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["quantity_available"] == 1
+        assert row["price_rub"] == 23100.0
+
+    def test_admin_only_location_not_counted(self, selectel_api_configs, visible):
+        # MSK-4: visibility=everywhere, но primary_resource_ordering=
+        # enabled_in_admin — сайт её не считает
+        cfg = dict(selectel_api_configs["EL46-NVMe"])
+        cfg["available"] = cfg["available"] + [{"location": self.MSK4, "count": 5}]
+        assert not _selectel_storefront_visible(cfg, visible)
+        stock = _selectel_stock_and_price(cfg, visible)
+        assert stock["quantity"] == 0
+        assert stock["stock_by_location"] == {}
+        assert _selectel_stock_and_price(cfg, None)["quantity"] == 6
+
+    def test_price_from_location_price_collection(self, selectel_api_configs, visible):
+        # EL52-NVMe: price_collection 49 000, но NSK-1 (1 шт.) продаётся за
+        # 34 400 → сайт пишет «от 34 400»
+        cfg = selectel_api_configs["EL52-NVMe"]
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["price_rub"] == 34400.0
+        assert row["stock_by_location"] == {
+            "MSK-7": 81, "MSK-2": 2, "SPB-4": 66, "SPB-2": 5, "NSK-1": 1}
+        assert row["quantity_available"] == 155
+        assert _selectel_cfg_to_row(cfg, TODAY)["price_rub"] == 49000.0
+
+    def test_price_note_names_location_of_shown_price(self, selectel_api_configs, visible):
+        # EL52-NVMe: карточка «от 34 400» — это NSK-1; в остальных локациях
+        # с остатком цена другая → пометка называет, откуда цена
+        row = _selectel_cfg_to_row(selectel_api_configs["EL52-NVMe"], TODAY, visible)
+        assert row["price_note"].startswith("цена по NSK-1; ")
+        assert "MSK-7 — 49\u00a0000" in row["price_note"]
+        assert row["price_list_rub"] == 34400.0
+
+    def test_price_note_empty_when_single_price(self, selectel_api_configs, visible):
+        # EL42-NVMe: одна локация витрины с остатком (MSK-1), цена одна —
+        # оговорок нет
+        row = _selectel_cfg_to_row(selectel_api_configs["EL42-NVMe"], TODAY, visible)
+        assert row["price_note"] == ""
+        assert _selectel_cfg_to_row(selectel_api_configs["EL42-NVMe"], TODAY)["price_note"] == ""
+
+    def test_price_note_preorder(self, selectel_api_configs, visible):
+        cfg = dict(selectel_api_configs["EL46-NVMe"])
+        cfg["is_preorder"] = True
+        cfg["available"] = [{"location": self.MSK1, "count": 0}]
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["quantity_available"] is None
+        assert row["price_note"] == "предзаказ"
+
+    def test_local_price_without_stock_not_used(self, selectel_api_configs, visible):
+        # если единственный дешёвый ДЦ пуст, цена карточки — по локациям
+        # с остатком
+        cfg = dict(selectel_api_configs["EL52-NVMe"])
+        cfg["available"] = [
+            {**a, "count": 0} if a["location"] == self.NSK1 else a
+            for a in cfg["available"]]
+        assert _selectel_cfg_to_row(cfg, TODAY, visible)["price_rub"] == 49000.0
+
+    def test_preorder_listed_without_stock(self, selectel_api_configs, visible):
+        # предзаказ: карточка видна, если локация витрины есть в available[]
+        # хотя бы с нулём; цена — минимум из price_collection и локальных цен
+        cfg = dict(selectel_api_configs["EL46-NVMe"])
+        cfg["is_preorder"] = True
+        cfg["available"] = [a for a in cfg["available"] if a["location"] == self.TAS2]
+        assert not _selectel_storefront_visible(cfg, visible)  # только TAS-2
+        cfg["available"] = cfg["available"] + [{"location": self.MSK1, "count": 0}]
+        assert _selectel_storefront_visible(cfg, visible)
+        row = _selectel_cfg_to_row(cfg, TODAY, visible)
+        assert row["quantity_available"] is None
+        assert row["price_rub"] == 33700.0
+        assert row["stock_by_location"] == {}
+
+    def test_sold_out_hidden(self, selectel_api_configs, visible):
+        # DL23: 4 шт. только в Алматы (29 800 там) — на сайте нет
+        cfg = selectel_api_configs["DL23"]
+        assert not _selectel_storefront_visible(cfg, visible)
+        cfg = dict(selectel_api_configs["EL11-SSD"])
+        cfg["available"] = [{**a, "count": 0} for a in cfg["available"]]
+        assert not _selectel_storefront_visible(cfg, visible)
+        assert not _selectel_storefront_visible(cfg)
+
+    def test_not_orderable_hidden(self, selectel_api_configs, visible):
+        cfg = {**selectel_api_configs["EL11-SSD"], "is_order": False}
+        assert not _selectel_storefront_visible(cfg, visible)
+
+    def test_spb_and_msk_summed(self, selectel_api_configs, visible):
+        # EL11-SSD: SPB-5:10 + MSK-2:1 + TAS-2:5 → 11 (было 16)
+        row = _selectel_cfg_to_row(selectel_api_configs["EL11-SSD"], TODAY, visible)
+        assert row["quantity_available"] == 11
+        assert row["price_rub"] == 12800.0
+
+    def test_fallback_without_locations(self, selectel_api_configs, monkeypatch):
+        # location недоступен → старое правило, Selectel не обнуляется,
+        # в лог — предупреждение
+        import dedicated_scraper as ds
+
+        class Resp:
+            def __init__(self, payload):
+                self._payload = payload
+
+            def raise_for_status(self):
+                pass
+
+            def json(self):
+                return self._payload
+
+        def fake_get(url, *a, **kw):
+            if url == ds.SELECTEL_PUB_LOCATION:
+                raise ConnectionError("нет сети")
+            assert url == ds.SELECTEL_PUB_API
+            return Resp({"result": list(selectel_api_configs.values())})
+
+        monkeypatch.setattr(ds.requests, "get", fake_get)
+        monkeypatch.setattr(ds.time, "sleep", lambda *_: None)
+        printed = []
+        monkeypatch.setattr("builtins.print", lambda *a, **k: printed.append(" ".join(map(str, a))))
+        rows = ds._scrape_selectel_api()
+        by_plan = {r["plan_id"]: r for r in rows}
+        assert "EL46-NVMe" in by_plan               # как раньше: Ташкент считается
+        assert by_plan["EL42-NVMe"]["quantity_available"] == 18
+        assert by_plan["EL52-NVMe"]["price_rub"] == 49000.0
+        assert all("stock_by_location" not in r for r in rows)
+        assert any("ПРЕДУПРЕЖДЕНИЕ" in line and "локаций" in line for line in printed)
+
+    def test_api_flow_with_locations(self, selectel_api_configs, selectel_locations,
+                                     monkeypatch):
+        import dedicated_scraper as ds
+
+        class Resp:
+            def __init__(self, payload):
+                self._payload = payload
+
+            def raise_for_status(self):
+                pass
+
+            def json(self):
+                return self._payload
+
+        def fake_get(url, *a, **kw):
+            if url == ds.SELECTEL_PUB_LOCATION:
+                return Resp({"result": selectel_locations})
+            assert url == ds.SELECTEL_PUB_API
+            return Resp({"result": list(selectel_api_configs.values())})
+
+        monkeypatch.setattr(ds.requests, "get", fake_get)
+        rows = ds._scrape_selectel_api()
+        by_plan = {r["plan_id"]: r for r in rows}
+        assert set(by_plan) == {"EL42-NVMe", "EL45-NVMe", "EL52-NVMe",
+                                "EL11-SSD", "AEL10-SSD"}
+        assert by_plan["EL42-NVMe"]["quantity_available"] == 1
+        assert by_plan["EL52-NVMe"]["price_rub"] == 34400.0
 
 
 class TestSelectelGpuField:
@@ -794,13 +1058,32 @@ class TestParseStoragePool:
         assert _parse_storage_pool("Аппаратный RAID") is None
 
 
+# Витрина по решению клиента (Миран в Санкт-Петербурге, 14.09.2026): payload
+# timeweb.cloud содержит все ДЦ, «ru» = Санкт-Петербург, «msk» = Москва.
+SPB = ("ru",)
+MSK = ("msk",)
+# Контрольные тарифы живого снимка 14.09.2026 (фикстура урезана из него).
+# Цена = как на карточке по умолчанию (вкладка «12 Месяцев Скидка 10%»,
+# Playwright 15.09.2026); помесячная (priceNumber) — в price_list_rub.
+SPB_E2236_32 = ("E-2236 / 32 / 960", 13086.0)                    # preset 3871, помесячно 14 540
+SPB_E2236_16 = ("E-2236 / 16 / 480", 10764.0)                    # preset 3247, помесячно 11 960
+SPB_RYZEN = ("AMD Ryzen 9 7950X (16 ядер, 4.2-5.7 ГГц, 32 потока)", 33570.0)  # 5243, помесячно 37 300
+MSK_E2236_32 = ("Intel Xeon E-2236 (6 ядер, 3.4-4.8 ГГц, 12 потоков) / 32 DDR4 "
+                "/ 2 x 960 Гб SSD", 11448.0)                      # preset 6121, помесячно 12 720
+
+
+def _plans(rows):
+    return {(r["plan_id"], r["price_rub"]) for r in rows}
+
+
 class TestParseTimewebCloudNuxt:
-    def test_fixture_msk_row_count(self, timeweb_cloud_flat):
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
-        assert 20 <= len(rows) <= 100
+    def test_fixture_spb_row_count(self, timeweb_cloud_flat):
+        """Снимок 14.09.2026: СПб = 68 тарифов, столько же у landing-api ru-1."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
+        assert len(rows) == 68
 
     def test_fixture_all_required_fields(self, timeweb_cloud_flat):
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         for row in rows:
             assert row["provider"] == "timeweb_cloud"
             assert row["cpu_model"] != ""
@@ -813,49 +1096,129 @@ class TestParseTimewebCloudNuxt:
             assert len(row["disk_pools"]) >= 1
 
     def test_dual_socket_parsed(self, timeweb_cloud_flat):
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         import re
         dual = [r for r in rows if r["cpu_sockets"] == 2]
-        assert dual, "msk tariffs should contain dual-socket configs"
+        assert dual, "spb tariffs should contain dual-socket configs"
         # socket prefix "2 x " must be stripped from the model
         assert all(not re.match(r"^\d+\s*[xхX×]", r["cpu_model"]) for r in dual)
 
     def test_multi_pool_present(self, timeweb_cloud_flat):
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         assert any(len(r["disk_pools"]) > 1 for r in rows)
 
-    def test_location_filter(self, timeweb_cloud_flat):
-        msk = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, ("msk",))
-        both = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, ("msk", "ru"))
-        assert len(both) > len(msk)
+    def test_location_filter_spb(self, timeweb_cloud_flat):
+        """СПб: питерский 3871 за 14 540 входит, московский 6121 за 12 720 — нет."""
+        plans = _plans(_parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB))
+        assert SPB_E2236_32 in plans
+        assert SPB_E2236_16 in plans
+        assert SPB_RYZEN in plans
+        assert MSK_E2236_32 not in plans
+        assert all(p != 11448.0 for _, p in plans)
 
-    def test_uses_standard_price_not_discounted(self, timeweb_cloud_flat):
-        """priceNumber (стандартная цена), а не price (скидка за 12 мес)."""
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+    def test_location_filter_msk(self, timeweb_cloud_flat):
+        """Обратная сторона: в Москве 6121 есть, а 3871/Ryzen СПб нет."""
+        plans = _plans(_parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, MSK))
+        assert MSK_E2236_32 in plans
+        assert SPB_E2236_32 not in plans
+        assert SPB_RYZEN not in plans
+
+    def test_same_name_different_city_not_mixed(self, timeweb_cloud_flat):
+        """«E-2236 / 16 / 480» есть и в СПб (3247), и в Москве (легаси 3853) —
+        фильтр по ДЦ оставляет ровно одну строку с этим именем."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
+        assert [r["plan_id"] for r in rows].count("E-2236 / 16 / 480") == 1
+
+    def test_location_union(self, timeweb_cloud_flat):
+        spb = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
+        msk = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, MSK)
+        both = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, ("ru", "msk"))
+        assert len(both) == len(spb) + len(msk)
+
+    def test_foreign_locations_excluded(self, timeweb_cloud_flat):
+        """Фикстура содержит nl/pl — при СПб они не должны просачиваться."""
+        spb = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
+        everything = _parse_timeweb_cloud_nuxt(
+            timeweb_cloud_flat, TODAY, ("ru", "msk", "nl", "pl"))
+        assert len(everything) > len(spb) + len(
+            _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, MSK))
+
+    def test_uses_shown_price_with_monthly_in_note(self, timeweb_cloud_flat):
+        """Паритет с витриной (15.09): в таблицу — цена карточки по умолчанию
+        (price, «12 мес −10 %»: 3871 = 13 086), помесячная 14 540 — в
+        price_list_rub и в пометке; молча подменять цену нельзя."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         assert all(float(r["price_rub"]) == int(r["price_rub"]) for r in rows)
+        assert SPB_E2236_32 in _plans(rows)
+        assert ("E-2236 / 32 / 960", 14540.0) not in _plans(rows)
+        row = next(r for r in rows if r["plan_id"] == "E-2236 / 32 / 960")
+        assert row["price_list_rub"] == 14540.0
+        assert row["price_note"] == "при оплате за 12 мес (−10\u00a0%); помесячно 14\u00a0540"
+
+    def test_no_note_when_price_field_missing(self):
+        """Нет поля price (или оно совпадает с priceNumber) — цена помесячная,
+        пометки нет: ничего не выдумываем."""
+        flat = [
+            {"presets": 1}, [2],
+            {"cpu": 3, "presetId": 4, "storageList": 5, "location": 6,
+             "cpuParams": 7, "memoryCount": 8, "priceNumber": 9, "name": 10,
+             "cpuCount": 11},
+            "Intel Xeon E-2236", 3247, [12], "ru",
+            "6 ядер, 3.4-4.8 ГГц, 12 потоков", 16, 11960,
+            "E-2236 / 16 / 480", 6, "2 x 480 ГБ SSD",
+        ]
+        rows = _parse_timeweb_cloud_nuxt(flat, TODAY, SPB)
+        assert rows[0]["price_rub"] == 11960.0
+        assert rows[0]["price_list_rub"] == 11960.0
+        assert rows[0]["price_note"] == ""
 
     def test_cores_from_cpu_params_not_bogus_cpu_count(self, timeweb_cloud_flat):
-        """У части тарифов cpuCount забит константой 28 (E-2388G, Silver 4310,
-        2 x EPYC 7402 …) — ядра берём из описания «8 ядер»."""
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        """У части тарифов cpuCount забит константой 28 (E-2388G / 128 / 2N,
+        Silver 4310, Gold 6312U …) — ядра берём из описания «8 ядер»."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         e2388 = [r for r in rows if "E-2388G" in r["cpu_model"]]
-        assert e2388, "фикстура должна содержать msk-тариф на E-2388G"
+        assert e2388, "фикстура должна содержать spb-тариф на E-2388G"
         assert all(r["cpu_cores_total"] == 8 for r in e2388)
+        ryzen = [r for r in rows if r["plan_id"] == SPB_RYZEN[0]]
+        assert [r["cpu_cores_total"] for r in ryzen] == [16]
 
     def test_dual_socket_cores_are_total(self, timeweb_cloud_flat):
-        """cpuParams у msk-тарифов даёт суммарные ядра, а не на сокет."""
-        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY)
+        """cpuParams у spb-тарифов даёт суммарные ядра, а не на сокет
+        (2 x EPYC 7402 / 256 / 1N: cpuCount=28, cpuParams «48 ядер»)."""
+        rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         epyc = [r for r in rows
                 if "EPYC 7402" in r["cpu_model"] and r["cpu_sockets"] == 2]
-        assert epyc, "фикстура должна содержать msk-тариф на 2 x EPYC 7402"
+        assert epyc, "фикстура должна содержать spb-тариф на 2 x EPYC 7402"
         assert all(r["cpu_cores_total"] == 48 for r in epyc)
+
+    def test_novelty_prefix_stripped(self):
+        """timeweb.com подписывает новые карточки «НОВИНКА - …» — префикс не
+        должен попадать ни в модель CPU, ни в plan_id."""
+        flat = [
+            {"presets": 1}, [2],
+            {"cpu": 3, "presetId": 4, "storageList": 5, "location": 6,
+             "cpuParams": 7, "memoryCount": 8, "priceNumber": 9, "name": 10,
+             "cpuCount": 11},
+            "НОВИНКА - Intel Xeon E-2236", 3247, [12], "ru",
+            "6 ядер, 3.4-4.8 ГГц, 12 потоков", 16, 11960,
+            "НОВИНКА - E-2236 / 16 / 480", 6, "2 x 480 ГБ SSD",
+        ]
+        rows = _parse_timeweb_cloud_nuxt(flat, TODAY, SPB)
+        assert len(rows) == 1
+        assert rows[0]["cpu_model"] == "Intel Xeon E-2236"
+        assert rows[0]["plan_id"] == "E-2236 / 16 / 480"
+        assert rows[0]["cpu_cores_total"] == 6
+        assert rows[0]["price_rub"] == 11960.0
 
 
 @pytest.mark.integration
 def test_scrape_timeweb_cloud_live():
+    """Без аргументов — витрина из config/competitors.json (СПб)."""
     from dedicated_scraper import scrape_timeweb_cloud
     rows = scrape_timeweb_cloud()
     assert len(rows) >= 20
+    assert SPB_E2236_32 in _plans(rows)
+    assert MSK_E2236_32 not in _plans(rows)
 
 
 @pytest.mark.integration

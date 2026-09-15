@@ -13,6 +13,8 @@ from typing import NotRequired, TypedDict
 import pandas as pd
 from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
+
+from config_loader import timeweb_cloud_source
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -96,6 +98,16 @@ class ServerRow(TypedDict):
     currency: NotRequired[str]
     price_period: NotRequired[str]
     gpu: NotRequired[str]  # "4 × RTX A4000 16GB"; непустое = GPU-сервер
+    # selectel: остаток по локациям витрины {"MSK-1": 1, "SPB-2": 5} — диагностика,
+    # в отчёт не идёт (quantity_available = их сумма)
+    stock_by_location: NotRequired[dict[str, int]]
+    # условия показанной цены мелким текстом (паритет с витриной, 15.09):
+    # «скидка 30 %, было 8 200», «за 12 мес; помесячно 11 960»,
+    # «цена и остаток по SPB-2» — пусто, если цена без оговорок
+    price_note: NotRequired[str]
+    # цена без скидки/за месяц (timeweb: priceNumber = вкладка «1 месяц»;
+    # reg.cloud: перечёркнутая base-price) — для сверки с каталогами и note
+    price_list_rub: NotRequired[float]
 
 
 # history.csv schema is frozen to these columns; extended ServerRow fields
@@ -245,6 +257,26 @@ def scrape_miran() -> list[ServerRow]:
 LAST_RENDERED_HTML: dict[str, str] = {}
 
 
+def _wait_for_stable_count(page, selector: str, max_wait_ms: int = 20000,
+                           step_ms: int = 1500) -> int:
+    """Ждёт, пока количество элементов selector не повторится дважды подряд
+    (список дорисован), но не дольше max_wait_ms. Возвращает число."""
+    prev = -1
+    waited = 0
+    count = 0
+    while waited < max_wait_ms:
+        try:
+            count = page.locator(selector).count()
+        except Exception:
+            break
+        if count == prev and count > 0:
+            break
+        prev = count
+        page.wait_for_timeout(step_ms)
+        waited += step_ms
+    return count
+
+
 def _scrape_with_playwright(
     url: str,
     provider: str,
@@ -278,6 +310,10 @@ def _scrape_with_playwright(
                 except Exception:
                     # Selector not found, try to continue anyway
                     pass
+                # Листинг дорисовывается порциями: 15.09.2026 через 3 с после
+                # первой карточки reg.cloud отдал 37 из 155. Ждём, пока число
+                # карточек перестанет расти (два одинаковых замера подряд).
+                _wait_for_stable_count(page, wait_selector)
             else:
                 try:
                     page.wait_for_load_state("networkidle", timeout=10000)
@@ -357,12 +393,160 @@ def _get_selectel_cdn_url() -> str | None:
         return None
 
 
-def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
-    """Один конфиг selectel (resolved payload или объект API) → ServerRow."""
-    # Price (monthly RUB)
-    price_collection = cfg.get("price_collection") or {}
-    rub = price_collection.get("RUB") or {}
-    price_rub = rub.get("month")
+# Витрина selectel.ru показывает наличие и цену только по российским
+# площадкам: JS сайта (seidoLocationStore, чанк B3qo2xyo) берёт из
+# servers/v2/pub/location локации с именем на msk/spb/nsk и
+# visibility == "everywhere" && primary_resource_ordering == "enabled".
+# available[] в API при этом содержит ВСЕ ДЦ (Ташкент, Алматы, Найроби).
+SELECTEL_PUB_LOCATION = "https://api.selectel.ru/servers/v2/pub/location"
+SELECTEL_STOREFRONT_PREFIXES = ("msk", "spb", "nsk")
+
+
+def _selectel_visible_locations(locations: list) -> dict[str, str]:
+    """{uuid: имя} локаций, которые сайт считает витриной (правило JS сайта).
+
+    Чистая функция — принимает result из servers/v2/pub/location.
+    """
+    visible: dict[str, str] = {}
+    for loc in locations or []:
+        if not isinstance(loc, dict):
+            continue
+        name = str(loc.get("name") or "")
+        if name[:3].lower() not in SELECTEL_STOREFRONT_PREFIXES:
+            continue
+        if loc.get("visibility") != "everywhere":
+            continue
+        if loc.get("primary_resource_ordering") != "enabled":
+            continue
+        uuid = loc.get("uuid")
+        if uuid:
+            visible[str(uuid)] = name
+    return visible
+
+
+def _fetch_selectel_visible_locations() -> dict[str, str] | None:
+    """Локации витрины с API; None — если список недоступен (тогда вызывающий
+    код обязан явно предупредить и работать по старому правилу)."""
+    last_err = None
+    for attempt in range(3):
+        try:
+            r = requests.get(SELECTEL_PUB_LOCATION, timeout=25,
+                             headers={"User-Agent": HEADERS["User-Agent"]})
+            r.raise_for_status()
+            result = r.json().get("result")
+            if not isinstance(result, list) or not result:
+                raise RuntimeError("пустой result")
+            visible = _selectel_visible_locations(result)
+            if not visible:
+                raise RuntimeError(
+                    f"ни одна из {len(result)} локаций не прошла правило витрины")
+            return visible
+        except Exception as e:
+            last_err = e
+            time.sleep(2 * (attempt + 1))
+    print(f"[selectel] ПРЕДУПРЕЖДЕНИЕ: список локаций недоступен ({last_err}) — "
+          "наличие считается по всем ДЦ, включая зарубежные, цена из price_collection")
+    return None
+
+
+def _rub_month(price_collection) -> float | None:
+    rub = (price_collection or {}).get("RUB") or {}
+    return rub.get("month") or None
+
+
+def _selectel_stock_and_price(
+    cfg: dict, visible_locations: dict[str, str] | None,
+) -> dict:
+    """Наличие и цена готового сервера как их считает сайт
+    (getServerAvailabilityInfo, чанк B3qo2xyo):
+
+    * по каждой локации витрины из available[]: остаток = count, цена =
+      location_price_collection[uuid].RUB.month, если есть, иначе
+      price_collection.RUB.month;
+    * цена карточки = минимум по локациям витрины с остатком > 0; если таких
+      нет (предзаказ) — минимум из price_collection и всех локальных цен
+      витрины;
+    * бейдж «N шт.» = сумма остатков по локациям витрины.
+
+    stock_by_location — только локации витрины с остатком > 0 (диагностика).
+    visible_locations=None → старое поведение (все ДЦ, price_collection),
+    stock_by_location=None.
+    """
+    available = [a for a in (cfg.get("available") or []) if isinstance(a, dict)]
+    base_price = _rub_month(cfg.get("price_collection"))
+    if visible_locations is None:
+        quantity = sum(a.get("count") or 0 for a in available)
+        if not available:
+            quantity = cfg.get("quantity") or 0
+        return {"quantity": quantity, "price_rub": base_price,
+                "stock_by_location": None, "price_note": ""}
+
+    local_prices = cfg.get("location_price_collection") or {}
+    if not isinstance(local_prices, dict):
+        local_prices = {}
+    by_location: dict[str, int] = {}
+    price_by_location: dict[str, float] = {}
+    in_stock_prices: list[float] = []
+    candidate_prices: list[float] = [base_price] if base_price else []
+    for a in available:
+        uuid = str(a.get("location") or "")
+        name = visible_locations.get(uuid)
+        if not name:
+            continue
+        count = int(a.get("count") or 0)
+        if count > 0:
+            by_location[name] = by_location.get(name, 0) + count
+        local = _rub_month(local_prices.get(uuid))
+        if local:
+            candidate_prices.append(local)
+        price_here = local or base_price
+        if price_here:
+            price_by_location[name] = float(price_here)
+        if count > 0 and price_here:
+            in_stock_prices.append(price_here)
+    if in_stock_prices:
+        price = min(in_stock_prices)
+    elif candidate_prices:
+        price = min(candidate_prices)
+    else:
+        price = None
+    return {"quantity": sum(by_location.values()), "price_rub": price,
+            "stock_by_location": by_location,
+            "price_note": _selectel_price_note(price, by_location,
+                                               price_by_location)}
+
+
+def _selectel_price_note(
+    price: "float | None", by_location: dict[str, int],
+    price_by_location: dict[str, float],
+) -> str:
+    """Условия цены selectel: по какой локации витрины она показана и где
+    цена другая. «цена по SPB-2; MSK-1 — 12 500» / «предзаказ, цена по
+    MSK-1». Пусто, если цена одна во всех локациях витрины с остатком."""
+    if not price:
+        return ""
+    in_stock = {n: p for n, p in price_by_location.items() if by_location.get(n)}
+    pool = in_stock or price_by_location
+    same = sorted(n for n, p in pool.items() if p == price)
+    other = sorted((n, p) for n, p in pool.items() if p != price)
+    if not other:
+        return "" if in_stock else "предзаказ"
+    parts = ["цена по " + ", ".join(same) if same else "цена по каталогу"]
+    parts += [f"{n} — {_fmt_rub(p)}" for n, p in other]
+    return ("предзаказ, " if not in_stock else "") + "; ".join(parts)
+
+
+def _selectel_cfg_to_row(
+    cfg: dict, today: str, visible_locations: dict[str, str] | None = None,
+) -> "ServerRow | None":
+    """Один конфиг selectel (resolved payload или объект API) → ServerRow.
+
+    visible_locations — {uuid: имя} локаций витрины (см. _selectel_visible_locations).
+    С ними наличие и цена считаются как на сайте; без них (None) — старое
+    поведение: сумма по всем ДЦ и price_collection.
+    """
+    stock = _selectel_stock_and_price(cfg, visible_locations)
+    price_rub = stock["price_rub"]
     if not price_rub:
         return None
 
@@ -410,14 +594,13 @@ def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
     elif isinstance(gpu_info, str) and gpu_info.strip():
         gpu = gpu_info.strip()
 
-    # Quantity: сумма available[].count по всем ДЦ (= бейдж «N шт.» на сайте).
-    # Поле quantity API — константа 1 (мин. заказ), НЕ наличие — фолбэк, если available нет.
-    available = cfg.get("available") or []
-    quantity = sum(a.get("count", 0) for a in available if isinstance(a, dict))
-    if not available:
-        quantity = cfg.get("quantity") or 0
+    # Quantity: сумма available[].count по локациям витрины (msk/spb/nsk);
+    # без списка локаций — по всем ДЦ, включая Ташкент/Алматы/Найроби, что
+    # НЕ равно бейджу «N шт.» на сайте. Поле quantity API — константа 1
+    # (мин. заказ), НЕ наличие — фолбэк, если available нет.
+    quantity = stock["quantity"]
 
-    return {
+    row: ServerRow = {
         "provider": "selectel",
         "cpu_model": cpu_model,
         "cpu_model_norm": normalize_cpu_model(cpu_model),
@@ -437,6 +620,11 @@ def _selectel_cfg_to_row(cfg: dict, today: str) -> "ServerRow | None":
         "price_period": "month",
         "gpu": gpu,
     }
+    if stock["stock_by_location"] is not None:
+        row["stock_by_location"] = stock["stock_by_location"]
+    row["price_note"] = stock.get("price_note") or ""
+    row["price_list_rub"] = float(price_rub)
+    return row
 
 
 def _parse_selectel_flat(flat: list, today: str) -> list[ServerRow]:
@@ -473,6 +661,10 @@ def _scrape_selectel_api() -> list[ServerRow]:
 
     С 2026-08 страница /services/dedicated/ больше не кладёт конфиги в Nuxt-payload —
     фронт берёт их отсюда же (servers/v2/pub/). Ретраи — из-за флапа исходящей сети WSL.
+
+    Наличие и цена считаются по локациям витрины (servers/v2/pub/location,
+    только msk/spb/nsk) — как на сайте; API же отдаёт available[] по всем ДЦ.
+    Если список локаций недоступен — старое правило (все ДЦ) с предупреждением.
     """
     last_err = None
     for attempt in range(3):
@@ -489,16 +681,21 @@ def _scrape_selectel_api() -> list[ServerRow]:
         print(f"[selectel] Ошибка запроса API: {last_err}")
         return []
 
+    visible_locations = _fetch_selectel_visible_locations()
+    if visible_locations:
+        print(f"[selectel] Локации витрины: "
+              f"{', '.join(sorted(visible_locations.values()))}")
+
     today = date.today().isoformat()
     rows = []
     hidden = 0
     for cfg in configs:
         if not isinstance(cfg, dict):
             continue
-        if not _selectel_storefront_visible(cfg):
+        if not _selectel_storefront_visible(cfg, visible_locations):
             hidden += 1
             continue
-        row = _selectel_cfg_to_row(cfg, today)
+        row = _selectel_cfg_to_row(cfg, today, visible_locations)
         if row:
             rows.append(row)
     if hidden:
@@ -506,16 +703,32 @@ def _scrape_selectel_api() -> list[ServerRow]:
     return rows
 
 
-def _selectel_storefront_visible(cfg: dict) -> bool:
-    """Фильтр витрины сайта (чанк 3Fc9zYgQ: is_preorder || is_order && H):
-    API отдаёт и распроданные конфиги (stock 0), сайт их скрывает — без
-    этого фильтра сравниваем с тем, что нельзя купить (фидбек клиента
-    2026-08-26: AEL20-SSD, EL13-SSD, PL23-NVMe и др.)."""
-    in_stock = any(
-        a.get("count") for a in (cfg.get("available") or [])
-        if isinstance(a, dict)
-    )
-    return bool(cfg.get("is_preorder") or (cfg.get("is_order") and in_stock))
+def _selectel_storefront_visible(
+    cfg: dict, visible_locations: dict[str, str] | None = None,
+) -> bool:
+    """Фильтр витрины сайта (чанк B3qo2xyo, allServers):
+    is_preorder || is_order && остаток > 0 в локациях витрины (msk/spb/nsk).
+    API отдаёт и распроданные конфиги (stock 0), и конфиги, лежащие только в
+    Ташкенте/Алматы/Найроби — сайт их не показывает; без этого фильтра
+    сравниваем с тем, что нельзя купить (фидбек клиента 2026-08-26:
+    AEL20-SSD, EL13-SSD, PL23-NVMe; 2026-09-14: EL46-NVMe только в Ташкенте).
+
+    Предзаказ (is_preorder) сайт показывает, если хоть одна локация витрины
+    есть в available[] (даже с нулём); без списка локаций — как раньше,
+    по любому ДЦ.
+    """
+    available = [a for a in (cfg.get("available") or []) if isinstance(a, dict)]
+    if visible_locations is None:
+        in_stock = any(a.get("count") for a in available)
+        listed = True
+    else:
+        local = [a for a in available
+                 if str(a.get("location") or "") in visible_locations]
+        in_stock = any(a.get("count") for a in local)
+        listed = bool(local)
+    if cfg.get("is_preorder"):
+        return listed
+    return bool(cfg.get("is_order") and in_stock)
 
 
 SELECTEL_CALC_PRECUSTOM = "https://api.selectel.ru/servers/v2/pub/calculator/precustom"
@@ -885,6 +1098,58 @@ def scrape_1dedic() -> list[ServerRow]:
 
 # ── reg.cloud scraper (Playwright + JS) ──────────────────────────────
 
+def _fmt_rub(value: float) -> str:
+    """12500.0 → '12 500' (для price_note)."""
+    return f"{int(round(value)):,}".replace(",", "\u00a0")
+
+
+# Бейджи карточки reg.cloud, которые меняют смысл цены; остальные
+# («Недорогой», «Популярный», «Универсальный», «Уже стоит Ubuntu…») — нет.
+REGCLOUD_PRICE_TAGS = ("сервер дня", "распродажа", "предложение ограничено")
+
+
+def _regcloud_price_note(item, price_rub: float) -> tuple[str, "float | None"]:
+    """(price_note, базовая цена) карточки листинга reg.cloud.
+
+    Условия показанной цены как их видит посетитель: перечёркнутая
+    base-price → «было 8 200», «Скидка на сервер 30%» → «скидка 30 %»,
+    «Сервер дня» (max-discount «только сегодня») и прочие бейджи —
+    в тексте. Пусто, если карточка без скидки и без бейджей.
+    """
+    parts: list[str] = []
+    base_price = None
+    base_elem = item.find(class_="b-dedicated-servers-list-item-cloud__base-price")
+    if base_elem:
+        m = re.search(r"([\d\s\u00a0]+)", base_elem.get_text(strip=True))
+        if m:
+            digits = re.sub(r"[\s\u00a0]", "", m.group(1))
+            if digits:
+                base_price = float(digits)
+    tags: list[str] = []
+    for tag_elem in item.find_all(class_="b-dedicated-servers-list-item-cloud__tag_category"):
+        # «Cо скидкой» на сайте с латинской C — нормализуем
+        text = tag_elem.get_text(" ", strip=True).replace("C", "С").lower()
+        if text in REGCLOUD_PRICE_TAGS and text not in tags:
+            tags.append(text)
+    for t in tags:
+        if t == "сервер дня":
+            max_elem = item.find(class_="b-dedicated-servers-list-item-cloud__max-discount")
+            parts.append("Сервер дня" + (" (скидка только сегодня)" if max_elem else ""))
+        else:
+            parts.append(t)
+    discount_elem = item.find(class_="b-dedicated-servers-list-item-cloud__discount")
+    if discount_elem:
+        m = re.search(r"(\d+)\s*%", discount_elem.get_text(" ", strip=True))
+        if m:
+            parts.append(f"скидка {m.group(1)}\u00a0%")
+    elif base_price and base_price > price_rub:
+        pct = round((1 - price_rub / base_price) * 100)
+        parts.append(f"скидка {pct}\u00a0%")
+    if base_price and base_price != price_rub:
+        parts.append(f"было {_fmt_rub(base_price)}")
+    return ", ".join(parts), base_price
+
+
 def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
     """Parse reg.cloud dedicated page HTML. Pure function — used by tests."""
     soup = BeautifulSoup(html, "lxml")
@@ -995,8 +1260,15 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
             # лежит в __price-value_per-months_one; __base-price — перечёркнутая
             # базовая. Старые классы оставлены фолбэком (кейс Светланы 25.08:
             # 88 830 на сайте vs 98 700 из base-price — завышали 77 из 171 карточек).
+            # Вёрстка 2026-09: модификатор _per-months_one ушёл на родителя,
+            # цена месяца — __price-value[data-period-price]; рядом бывает
+            # __price-value_per-day («20 000 ₽/день»), его не брать. Без этого
+            # скидочные карточки снова читались по base-price (5 740 → 8 200),
+            # а карточки без скидки выпадали вовсе (72 из 153 на 11.09).
             price_elem = (
                 item.find(class_="b-dedicated-servers-list-item-cloud__price-value_per-months_one")
+                or item.find(attrs={"data-period-price": True},
+                             class_="b-dedicated-servers-list-item-cloud__price-value")
                 or item.find("p", class_="b-dedicated-servers-list-item-cloud__current-price")
                 or item.find("p", class_="b-dedicated-servers-list-item-cloud__base-price")
             )
@@ -1017,6 +1289,8 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
                     "disk_size_gb": disk_size_gb,
                 }]
 
+            price_note, base_price = _regcloud_price_note(item, price_rub)
+
             rows.append({
                 "provider": "regcloud",
                 "cpu_model": cpu_model,
@@ -1036,6 +1310,8 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
                 "currency": "RUB",
                 "price_period": "month",
                 "gpu": gpu,
+                "price_note": price_note,
+                "price_list_rub": float(base_price) if base_price else price_rub,
             })
 
         except Exception:
@@ -1301,8 +1577,24 @@ def scrape_timeweb() -> list[ServerRow]:
 
 
 # ── timeweb.cloud scraper (inline __NUXT_DATA__ JSON) ─────────────────
-# Отдельный сайт Timeweb Cloud (ТЗ клиента: location=msk). Нужен только
-# matching-пайплайну (competitor_pipeline.py) — в scrape_all() не входит.
+# Отдельный сайт Timeweb Cloud. Нужен только matching-пайплайну
+# (competitor_pipeline.py) — в scrape_all() не входит.
+#
+# Payload страницы содержит тарифы ВСЕХ дата-центров, параметр ?location=
+# влияет только на то, что видит покупатель. Какой ДЦ сравниваем — решает
+# config/competitors.json (extra.locations): клиент в Санкт-Петербурге →
+# «ru» (решение 14.09.2026). Москва = «msk», у landing-api те же ДЦ зовутся
+# ru-1 / ru-3 (см. storefront_check).
+
+# У части карточек timeweb.com имя начинается с «НОВИНКА - …»; в payload
+# .cloud пока не встречалось, но CPU/название от такого префикса ломаться
+# не должны.
+_TIMEWEB_NOVELTY_RE = re.compile(r"^\s*новинка\s*[-–—:]?\s*", re.I)
+
+
+def _strip_timeweb_novelty(text: str) -> str:
+    return _TIMEWEB_NOVELTY_RE.sub("", text or "").strip()
+
 
 def _parse_storage_pool(text: str) -> dict | None:
     """Parse one storageList entry like '2 x 480 ГБ SSD' / '1 x 3.84 ТБ NVMe'."""
@@ -1324,13 +1616,19 @@ def _parse_storage_pool(text: str) -> dict | None:
 
 
 def _parse_timeweb_cloud_nuxt(
-    flat: list, today: str, locations: tuple[str, ...] = ("msk",)
+    flat: list, today: str, locations: tuple[str, ...]
 ) -> list[ServerRow]:
     """Parse timeweb.cloud Nuxt flat array. Pure function — used by tests.
 
-    priceNumber = стандартная месячная цена; поле price — скидочная цена при
-    аренде на leaseTerm месяцев, для паритета с помесячными ценами конкурентов
-    не используется (решение подтвердить у клиента).
+    locations — коды ДЦ из payload («ru» = Санкт-Петербург, «msk» = Москва);
+    тарифы других локаций отбрасываются.
+
+    Цена в таблице = та, что посетитель видит на карточке по нашей ссылке
+    (Playwright 15.09.2026, ?location=ru: вкладка по умолчанию «12 Месяцев
+    Скидка 10%», карточка «10 764 ₽ в месяц / при оплате за год») — поле
+    price. priceNumber (вкладка «1 месяц», = landing-api) идёт в
+    price_list_rub и в price_note «помесячно 11 960». Если price
+    нечитаем — priceNumber без пометки.
     """
     rows: list[ServerRow] = []
     for i, item in enumerate(flat):
@@ -1346,7 +1644,7 @@ def _parse_timeweb_cloud_nuxt(
         if cfg.get("location") not in locations:
             continue
 
-        cpu_raw = (cfg.get("cpu") or "").strip()
+        cpu_raw = _strip_timeweb_novelty(cfg.get("cpu") or "")
         if not cpu_raw:
             continue
         socket_match = re.match(r"^(\d+)\s*[хxX×]\s*", cpu_raw)
@@ -1377,9 +1675,10 @@ def _parse_timeweb_cloud_nuxt(
         if not disk_pools:
             continue
 
-        price = cfg.get("priceNumber")
-        if not price:
+        list_price = cfg.get("priceNumber")
+        if not list_price:
             continue
+        shown_price, price_note = _timeweb_shown_price(cfg, float(list_price))
 
         rows.append({
             "provider": "timeweb_cloud",
@@ -1390,10 +1689,10 @@ def _parse_timeweb_cloud_nuxt(
             "disk_count": disk_pools[0]["disk_count"],
             "disk_size_gb": disk_pools[0]["disk_size_gb"],
             "disk_type": disk_pools[0]["disk_type"],
-            "price_rub": float(price),
+            "price_rub": shown_price,
             "quantity_available": None,
             "scraped_at": today,
-            "plan_id": cfg.get("name") or "",
+            "plan_id": _strip_timeweb_novelty(cfg.get("name") or ""),
             "cpu_sockets": cpu_sockets,
             "cpu_cores_total": cpu_cores_total,
             "disk_pools": disk_pools,
@@ -1402,14 +1701,48 @@ def _parse_timeweb_cloud_nuxt(
             # у timeweb выделенные GPU-линейки в этой выдаче не встречались;
             # поле — страховка на случай их появления
             "gpu": str(cfg.get("gpu") or cfg.get("videocard") or "").strip(),
+            "price_note": price_note,
+            "price_list_rub": float(list_price),
         })
 
     return rows
 
 
-def scrape_timeweb_cloud(locations: tuple[str, ...] = ("msk",)) -> list[ServerRow]:
-    """Scrape timeweb.cloud/services/dedicated-server (inline __NUXT_DATA__)."""
-    url = "https://timeweb.cloud/services/dedicated-server?location=msk"
+def _timeweb_shown_price(cfg: dict, list_price: float) -> tuple[float, str]:
+    """(цена карточки, price_note) тарифа timeweb.cloud.
+
+    price = «10 764 ₽/мес» при leaseTerm=12 — то, что показано на карточке
+    по умолчанию; priceNumber = помесячная. Пометка: «при оплате за
+    12 мес (−10 %); помесячно 11 960». Совпадают — пометки нет.
+    """
+    raw = str(cfg.get("price") or "")
+    m = re.search(r"([\d\s\u00a0]+)", raw)
+    shown = None
+    if m:
+        digits = re.sub(r"[\s\u00a0]", "", m.group(1))
+        if digits:
+            shown = float(digits)
+    if not shown or shown == list_price:
+        return list_price, ""
+    term = cfg.get("leaseTerm")
+    pct = round((1 - shown / list_price) * 100)
+    term_text = f"за {int(term)} мес" if term else "за период"
+    return shown, (f"при оплате {term_text} (−{pct}\u00a0%); "
+                   f"помесячно {_fmt_rub(list_price)}")
+
+
+def scrape_timeweb_cloud(
+    locations: tuple[str, ...] | None = None, url: str | None = None
+) -> list[ServerRow]:
+    """Scrape timeweb.cloud/services/dedicated-server (inline __NUXT_DATA__).
+
+    По умолчанию url и локации берутся из config/competitors.json — той же
+    записи, по которой клиент открывает витрину и по которой идёт сверка.
+    """
+    if locations is None or url is None:
+        cfg_url, cfg_locations = timeweb_cloud_source()
+        url = url or cfg_url
+        locations = locations or cfg_locations
     today = date.today().isoformat()
 
     html = None

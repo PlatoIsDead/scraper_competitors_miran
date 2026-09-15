@@ -1,5 +1,10 @@
-# Data — company sensitive
-data/
+# Data — сгенерированное (отчёты, сырые JSON скрейпа, history.csv) в git не идёт:
+# облако после перезапуска показывало бы старый отчёт как свежий.
+# Исключение — эталон клиента Parser.*: его коммитит persist_to_github
+# (dedicated_app.py), из него регенерируется config/*.json.
+data/*
+!data/Parser.ods
+!data/Parser.xlsx
 
 # Claude Code
 .claude/

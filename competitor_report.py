@@ -18,7 +18,7 @@ log = logging.getLogger("competitor_report")
 DEFAULT_REPORTS_DIR = Path("data") / "reports"
 
 COMPETITOR_COL_SUFFIXES = [
-    "price", "currency", "price_period", "plan_id",
+    "price", "price_note", "currency", "price_period", "plan_id",
     "match_score", "stock_count", "match_count",
 ]
 
@@ -51,6 +51,7 @@ def build_long_df(matches: dict[str, list[MatchResult]]) -> pd.DataFrame:
                 "ram_gb": o.ram_gb,
                 "disks": format_disk_pools(o.disk_pools),
                 "price_value": o.price_value,
+                "price_note": o.price_note,
                 "currency": o.currency,
                 "price_period": o.price_period,
                 "stock_count": o.stock_count,
@@ -87,6 +88,7 @@ def build_wide_df(
             if found:
                 best = found[0]  # match_all сортирует: дешевле → выше score
                 row[f"{cid}_price"] = best.offer.price_value
+                row[f"{cid}_price_note"] = best.offer.price_note
                 row[f"{cid}_currency"] = best.offer.currency
                 row[f"{cid}_price_period"] = best.offer.price_period
                 row[f"{cid}_plan_id"] = best.offer.plan_id
