@@ -639,6 +639,185 @@ all_price_cols = [c for c in wide_df.columns
                   if c.endswith("_price") and c != "miran_price"]
 
 # ── Sidebar: панель управления ──
+# provider в сыром скрейпе ↔ competitor_id в отчёте: имена исторически разные
+PROVIDER_TO_COMPETITOR = {
+    "selectel": "selectel",
+    "regcloud": "reg_cloud",
+    "timeweb_cloud": "timeweb",
+}
+
+REPORT_SECTION = "Отчёт по рынку"
+CHECK_PREFIX = "Проверка · "
+
+
+@st.cache_data(ttl=300)
+def storefront_url(competitor_id: str) -> str:
+    """Витрина конкурента из competitors.json — та самая ссылка, по которой
+    клиент открывает сайт и сверяет цены глазами."""
+    from config_loader import load_competitors
+    try:
+        for c in load_competitors():
+            if c.competitor_id == competitor_id:
+                return c.url
+    except Exception:  # конфиг сломан — вкладка живёт и без ссылки
+        return ""
+    return ""
+
+
+def render_check_view(provider: str, offers_df: pd.DataFrame,
+                      long_df: pd.DataFrame, wide_df: pd.DataFrame,
+                      raw_marks: dict, sources: list[dict]) -> None:
+    """Вкладка глазной сверки одного конкурента: справа — всё, что мы сняли с
+    его витрины, в порядке листинга сайта; слева — конфигурации Мирана, которые
+    на эти тарифы легли. Отчёт из этой вкладки не строится, она для проверки."""
+    cid = PROVIDER_TO_COMPETITOR.get(provider, provider)
+    src = next((s for s in sources if s.get("competitor_id") == cid), {})
+    # ссылка нужна всегда: run_status может не быть, а витрину открывают отсюда
+    url = src.get("url") or storefront_url(cid)
+    mark = raw_marks.get(provider) or {}
+    offers = (offers_df[offers_df["provider"] == provider].copy()
+              if len(offers_df) else pd.DataFrame())
+    pairs = (long_df[long_df["competitor_id"] == cid].copy()
+             if len(long_df) else pd.DataFrame())
+
+    # тариф конкурента → конфигурации Мирана, легшие на него
+    by_plan: dict[str, list[str]] = {}
+    for _, r in pairs.iterrows():
+        by_plan.setdefault(str(r["plan_id"]), []).append(str(r["config_id"]))
+    for plan in by_plan:
+        by_plan[plan] = sorted(set(by_plan[plan]))
+
+    n_configs = int(pairs["config_id"].nunique()) if len(pairs) else 0
+    st.markdown(
+        f'<div class="overline">Сверка с витриной · '
+        f'{mark.get("label") or "скрейпа нет"}</div>'
+        f'<div class="h1">{comp_label(provider)}</div>'
+        f'<div class="subline">{len(offers)} предложений в скрейпе · '
+        f'{len(by_plan)} тарифов легли на {n_configs} конфигураций Мирана</div>',
+        unsafe_allow_html=True,
+    )
+    if url:
+        st.markdown(f"Витрина: [{url}]({url}) — открой её и сверяй глазами "
+                    "с правой таблицей. Порядок строк справа — как в листинге "
+                    "сайта на момент скрейпа.")
+    if provider == "selectel":
+        st.caption("Данные Selectel мы берём из их открытого API, а линейку "
+                   "Pre-Build (PCL*) — из калькулятора. Наличие и цена — "
+                   "только по локациям витрины msk/spb/nsk, как считает сайт.")
+    if provider == "timeweb_cloud":
+        st.caption("Ссылка открывает Санкт-Петербург (?location=ru). Цена — "
+                   "с вкладки «12 месяцев, скидка 10 %», выбранной на сайте по "
+                   "умолчанию; помесячная указана в колонке «Условия цены».")
+    if mark.get("stale"):
+        st.warning("Скрейп этого конкурента старее показанного отчёта — цены "
+                   "ниже не текущие. Нажми «Запустить сравнение».")
+    if offers.empty:
+        st.info("По этому конкуренту нет сырого скрейпа. Нажми «Запустить "
+                "сравнение» в панели слева.")
+        return
+
+    left, right = st.columns([3, 4], gap="large")
+
+    with left:
+        st.markdown('<div class="sec"><h2>Конфигурации Мирана</h2></div>',
+                    unsafe_allow_html=True)
+        if pairs.empty:
+            st.info("Ни одна конфигурация Мирана не легла на эту витрину.")
+        else:
+            ref_cols = [c for c in ("config_id", "cpu_model", "ram_gb",
+                                    "disks", "miran_price")
+                        if c in wide_df.columns]
+            ref = wide_df[ref_cols].drop_duplicates("config_id")
+            tbl = pairs.merge(ref, on="config_id", how="left",
+                              suffixes=("_comp", "_miran"))
+            delta = pd.to_numeric(tbl.get("miran_price"), errors="coerce")
+            comp_price = pd.to_numeric(tbl["price_value"], errors="coerce")
+            tbl["delta_pct"] = (delta - comp_price) / comp_price * 100
+            view = pd.DataFrame({
+                "config_id": tbl["config_id"],
+                "cpu": tbl.get("cpu_model_miran", tbl.get("cpu_model")),
+                "ram": tbl.get("ram_gb_miran", tbl.get("ram_gb")),
+                "disks": tbl.get("disks_miran", tbl.get("disks")),
+                "miran_price": delta,
+                "plan_id": tbl["plan_id"],
+                "comp_price": comp_price,
+                "delta_pct": tbl["delta_pct"],
+            }).sort_values(["config_id", "comp_price"])
+            st.dataframe(
+                view, use_container_width=True, hide_index=True, height=640,
+                column_config={
+                    "config_id": "Миран",
+                    "cpu": "CPU Мирана",
+                    "ram": st.column_config.NumberColumn("RAM", format="%d"),
+                    "disks": "Диски Мирана",
+                    "miran_price": st.column_config.NumberColumn(
+                        "Миран, ₽", format="%.0f"),
+                    "plan_id": "Тариф конкурента",
+                    "comp_price": st.column_config.NumberColumn(
+                        "Конкурент, ₽", format="%.0f"),
+                    "delta_pct": st.column_config.NumberColumn(
+                        "Δ, %", format="%+.1f",
+                        help="Насколько Миран дороже (+) или дешевле (−) "
+                             "этого тарифа"),
+                },
+            )
+
+    with right:
+        st.markdown('<div class="sec"><h2>Что мы сняли с витрины</h2></div>',
+                    unsafe_allow_html=True)
+        only_paired = st.checkbox(
+            "Только тарифы, легшие на Миран", value=False,
+            key=f"only_paired_{provider}",
+            help="Сними галочку, чтобы увидеть весь листинг сайта целиком — "
+                 "включая тарифы, под которые у Мирана нет конфигурации.")
+        show = offers.copy()
+        show["matched"] = show["plan_id"].astype(str).map(
+            lambda p: ", ".join(by_plan.get(p, [])))
+        show["card"] = show["plan_id"].astype(str).map(
+            lambda p: card_url(cid, p))
+        if only_paired:
+            show = show[show["matched"] != ""]
+        for col in ("cpu_sockets", "cpu_cores_total", "quantity_available"):
+            if col in show.columns:
+                show[col] = pd.to_numeric(show[col], errors="coerce").astype("Int64")
+        cols = ["plan_id", "cpu_model", "cpu_sockets", "cpu_cores_total",
+                "ram_gb", "disks", "price_rub", "price_note",
+                "quantity_available", "matched", "card"]
+        st.dataframe(
+            show[[c for c in cols if c in show.columns]],
+            use_container_width=True, hide_index=True, height=640,
+            column_config={
+                "plan_id": "Тариф",
+                "cpu_model": "CPU",
+                "cpu_sockets": "Сокетов",
+                "cpu_cores_total": "Ядер",
+                "ram_gb": st.column_config.NumberColumn("RAM", format="%d"),
+                "disks": "Диски",
+                "price_rub": st.column_config.NumberColumn(
+                    "Цена, ₽/мес", format="%.0f"),
+                "price_note": st.column_config.TextColumn(
+                    "Условия цены",
+                    help="Как цена показана на карточке: скидка, период, локация"),
+                "quantity_available": "В наличии",
+                "matched": st.column_config.TextColumn(
+                    "Совпало с",
+                    help="Конфигурации Мирана, которые легли на этот тариф"),
+                "card": st.column_config.LinkColumn(
+                    "Карточка", display_text="открыть"),
+            },
+        )
+        n_unpaired = int((show["matched"] == "").sum())
+        st.caption(f"Показано {len(show)} из {len(offers)} предложений"
+                   + (f" · без пары с Мираном: {n_unpaired}"
+                      if n_unpaired else ""))
+        st.download_button(
+            f"Скачать скрейп {comp_label(provider)} (CSV)",
+            data=offers.to_csv(index=False).encode("utf-8-sig"),
+            file_name=f"скрейп_{provider}.csv", mime="text/csv",
+            key=f"dl_raw_{provider}",
+        )
+
+
 with st.sidebar:
     st.markdown(
         '<div class="sb-logo"><div class="mark"></div>'
@@ -672,15 +851,28 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-    st.markdown('<div class="sb-label">Фильтры</div>', unsafe_allow_html=True)
-    comp_ids = [c[:-len("_price")] for c in all_price_cols]
-    sel_comp = st.multiselect(
-        "Конкуренты", comp_ids, default=comp_ids, format_func=comp_label,
+    st.markdown('<div class="sb-label">Разделы</div>', unsafe_allow_html=True)
+    section = st.radio(
+        "Раздел",
+        [REPORT_SECTION] + [CHECK_PREFIX + comp_label(p) for p in RAW_PROVIDERS],
+        label_visibility="collapsed",
     )
-    families = sorted({cpu_family(m) for m in wide_df.get("cpu_model", pd.Series(dtype=str))})
-    sel_family = st.selectbox("Семейство CPU", ["Все семейства"] + families)
-    only_matched = st.checkbox("Только с совпадениями", value=True)
-    hide_empty = st.checkbox("Скрыть пустые столбцы", value=True)
+    # вкладки проверки — глазная сверка скрейпа с витриной, отчёт в них не строится
+    check_provider = next(
+        (p for p in RAW_PROVIDERS if section == CHECK_PREFIX + comp_label(p)),
+        None,
+    )
+
+    if check_provider is None:
+        st.markdown('<div class="sb-label">Фильтры</div>', unsafe_allow_html=True)
+        comp_ids = [c[:-len("_price")] for c in all_price_cols]
+        sel_comp = st.multiselect(
+            "Конкуренты", comp_ids, default=comp_ids, format_func=comp_label,
+        )
+        families = sorted({cpu_family(m) for m in wide_df.get("cpu_model", pd.Series(dtype=str))})
+        sel_family = st.selectbox("Семейство CPU", ["Все семейства"] + families)
+        only_matched = st.checkbox("Только с совпадениями", value=True)
+        hide_empty = st.checkbox("Скрыть пустые столбцы", value=True)
 
     st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
     if st.button("Запустить сравнение", type="primary", use_container_width=True):
@@ -807,6 +999,11 @@ with st.sidebar:
             shown = "\n".join(f"• {w}" for w in warns[:10])
             more = f"\n… и ещё {len(warns) - 10}" if len(warns) > 10 else ""
             st.warning(f"Предупреждения разбора:\n\n{shown}{more}")
+
+if check_provider is not None:
+    render_check_view(check_provider, offers_df, long_df, wide_df,
+                      raw_marks, sources)
+    st.stop()
 
 # ── Шапка ──
 matched_mask_all = (wide_df[all_price_cols].notna().any(axis=1)
