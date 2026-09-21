@@ -1,0 +1,2696 @@
+{
+"dedicated_servers_presets": [
+{
+"cpu": {
+"count": 4,
+"description": "Intel Xeon E3-1240(4 ядра, 3.4-3.8 ГГц, 8 потоков)",
+"description_short": "Intel Xeon E3-1240",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ HDD",
+"interface": "hdd-1024",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 8192,
+"description": "DDR3"
+},
+"id": 3799,
+"description": "E3-1240 / 8 / 1",
+"is_ipmi_enabled": true,
+"price": 7270,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3801
+},
+{
+"cpu": {
+"count": 4,
+"description": "Intel Xeon E3-1240 (4 ядра, 3.4-3.8 ГГц, 8 потоков)",
+"description_short": "Intel Xeon E3-1240",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 4,
+"size": 16384,
+"description": "DDR3"
+},
+"id": 2843,
+"description": "E3-1240 / 16 / 480",
+"is_ipmi_enabled": true,
+"price": 9120,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3177
+},
+{
+"cpu": {
+"count": 8,
+"description": "Intel Core i9-9900K (8 ядер, 3.6-5.0 ГГц, 16 потоков)",
+"description_short": "Intel Core i9-9900K",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 32768,
+"description": "DDR4"
+},
+"id": 3249,
+"description": "i9-9900 / 32 / 480",
+"is_ipmi_enabled": true,
+"price": 17870,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3815
+},
+{
+"cpu": {
+"count": 12,
+"description": "2 x Xeon E5-2620\n(12 ядер, 2.4-3.2 ГГц, 24 потока)",
+"description_short": "2 x Xeon E5-2620",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 480 ГБ SSD + 2 x 1 ТБ HDD",
+"interface": "ssd-480,hdd-1024",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 32768,
+"description": "DDR3"
+},
+"id": 3657,
+"description": "2 x E5-2620 / 32 / 480",
+"is_ipmi_enabled": true,
+"price": 15900,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3813
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2236 (6 ядер, 3.4-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2236",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 16384,
+"description": "DDR4"
+},
+"id": 3247,
+"description": "E-2236 / 16 / 480",
+"is_ipmi_enabled": true,
+"price": 11960,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3811
+},
+{
+"cpu": {
+"count": 52,
+"description": "2 x Intel Xeon Gold 6230R (52 ядра, 2.1-4.0 ГГц, 104 потока)",
+"description_short": "2 x Intel Xeon Gold 6230R",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 2 ТБ NVMe",
+"interface": "nvme-2048",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 6,
+"size": 393216,
+"description": "DDR4"
+},
+"id": 3279,
+"description": "2 x Gold 6230R / 384 / 2N",
+"is_ipmi_enabled": true,
+"price": 80580,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3277
+},
+{
+"cpu": {
+"count": 64,
+"description": "2 x AMD EPYC 7502 (64 ядра, 2.5-3.35 ГГц, 128 потоков)",
+"description_short": "2 x AMD EPYC 7502",
+"vendor": "amd"
+},
+"disk": {
+"count": 2,
+"description": "2 x 4 ТБ NVMe",
+"interface": "nvme-4096",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 8,
+"size": 524288,
+"description": "DDR4"
+},
+"id": 3283,
+"description": "2 x EPYC 7502/ 512 / 4N",
+"is_ipmi_enabled": true,
+"price": 98440,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 16,
+"description": "2 x Xeon E5-2680\n(16 ядер, 2.7-3.5 ГГц, 32 потока)",
+"description_short": "2 x Xeon E5-2680",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 65536,
+"description": "DDR3"
+},
+"id": 3661,
+"description": "2 x E5-2680 / 64 / 480",
+"is_ipmi_enabled": true,
+"price": 19840,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3663
+},
+{
+"cpu": {
+"count": 28,
+"description": "2 x Intel Xeon Gold 6348 (56 ядер, 2.6-3.5 ГГц, 102 потока)",
+"description_short": "2 x Intel Xeon Gold 6348",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 8 ТБ NVMe",
+"interface": "nvme-8192",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 524288,
+"description": "DDR4"
+},
+"id": 3291,
+"description": "2 x Gold 6348/ 512 / 8N",
+"is_ipmi_enabled": true,
+"price": 110760,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2236 (6 ядер, 3.4-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2236",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 240 ГБ SSD + GPU Tesla T4 16 ГБ",
+"interface": "ssd-240",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 16384,
+"description": "DDR4"
+},
+"id": 3293,
+"description": "E-2236 / Tesla T4",
+"is_ipmi_enabled": true,
+"price": 58030,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2236 (6 ядер, 3.4-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2236",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 960 ГБ SSD + GPU A2 16 ГБ",
+"interface": "ssd-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 32768,
+"description": "DDR4"
+},
+"id": 3295,
+"description": "E-2236 / GPU A2",
+"is_ipmi_enabled": true,
+"price": 44230,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 8,
+"description": "Intel Xeon E-2388G (8 ядер, 3.2-5.1 ГГц, 16 потоков)",
+"description_short": "Intel Xeon E-2388G",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 3299,
+"description": "E-2388G / 64 / 1N",
+"is_ipmi_enabled": true,
+"price": 24150,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": "hit",
+"admin_preset_id": 3301
+},
+{
+"cpu": {
+"count": 24,
+"description": "Intel Xeon W-3345 (24 ядра, 3.0-4.0 ГГц, 48 потоков)",
+"description_short": "Intel Xeon W-3345",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 4 ТБ NVMe",
+"interface": "nvme-4096",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 262144,
+"description": "DDR4"
+},
+"id": 3609,
+"description": "W-3345 / 256 / 4N",
+"is_ipmi_enabled": true,
+"price": 56060,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 28,
+"description": "E3-1286v3 (4 ядра, 3.7-4.1 ГГц, 8 потоков)",
+"description_short": "Intel Xeon E3-1286v3",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 32768,
+"description": "DDR3"
+},
+"id": 3527,
+"description": "E3-1286v3 / 32 / 480",
+"is_ipmi_enabled": true,
+"price": 10110,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3531
+},
+{
+"cpu": {
+"count": 28,
+"description": "E3-1286v3 (4 ядра, 3.7-4.1 ГГц, 8 потоков)",
+"description_short": "Intel Xeon E3-1286v3",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 2 ТБ SSD",
+"interface": "ssd-2048",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 32768,
+"description": "DDR3"
+},
+"id": 3533,
+"description": "E3-1286v3 / 32 / 2S",
+"is_ipmi_enabled": true,
+"price": 13430,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3805
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2336",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 32768,
+"description": "DDR4"
+},
+"id": 3537,
+"description": "E-2336 / 32 / 1N",
+"is_ipmi_enabled": true,
+"price": 25820,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3539
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2336",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 3541,
+"description": "E-2336 / 64 / 1N",
+"is_ipmi_enabled": true,
+"price": 27120,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3817
+},
+{
+"cpu": {
+"count": 28,
+"description": "Intel Xeon E-2388G (8 ядер, 3.2-5.1 ГГц, 16 потоков)",
+"description_short": "Intel Xeon E-2388G",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 2 ТБ NVMe",
+"interface": "nvme-4096",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 3665,
+"description": "E-2388G / 128 / 2N ",
+"is_ipmi_enabled": true,
+"price": 27360,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": "hit",
+"admin_preset_id": 3819
+},
+{
+"cpu": {
+"count": 28,
+"description": "Intel Xeon Silver 4310 (12 ядер, 2.1-3.3 ГГц, 24 потока)",
+"description_short": "Intel Xeon Silver 4310",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 32768,
+"description": "DDR4"
+},
+"id": 3561,
+"description": "Silver 4310 / 32 / 1N ",
+"is_ipmi_enabled": true,
+"price": 26990,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3563
+},
+{
+"cpu": {
+"count": 28,
+"description": "Intel Xeon Silver 4314 (16 ядер, 2.4-3.4 ГГц, 32 потока)",
+"description_short": "Intel Xeon Silver 4314",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 3569,
+"description": "Silver 4314 / 64 / 1N ",
+"is_ipmi_enabled": true,
+"price": 35120,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3821
+},
+{
+"cpu": {
+"count": 28,
+"description": "Intel Xeon Gold 6312U (24 ядра, 2.4-3.6 ГГц, 48 потоков)",
+"description_short": "Intel Xeon Gold 6312U",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 2 ТБ NVMe",
+"interface": "nvme-2048",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 3581,
+"description": "Gold 6312U / 128 / 2N",
+"is_ipmi_enabled": true,
+"price": 46700,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3583
+},
+{
+"cpu": {
+"count": 32,
+"description": "2 x Intel Xeon Silver 4314 (32 ядра, 2.4-3.4 ГГц, 64 потока)",
+"description_short": "2 x Intel Xeon Silver 4314",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 3585,
+"description": "2 x Silver 4314 / 128 / 1N",
+"is_ipmi_enabled": true,
+"price": 51870,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3823
+},
+{
+"cpu": {
+"count": 28,
+"description": "2 x AMD EPYC 7402 (48 ядер, 2.4-3.35 ГГц, 96 потоков)",
+"description_short": "2 x AMD EPYC 7402",
+"vendor": "amd"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 262144,
+"description": "DDR4"
+},
+"id": 3593,
+"description": "2 x EPYC 7402 / 256 / 1N",
+"is_ipmi_enabled": true,
+"price": 88830,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3593
+},
+{
+"cpu": {
+"count": 28,
+"description": "2 х Intel Xeon Silver 4316 (40 ядер, 2.3-3.4 ГГц, 80 потоков)",
+"description_short": "2 х Intel Xeon Silver 4316",
+"vendor": "intel"
+},
+"disk": {
+"count": 10,
+"description": "10 x 10 ТБ SAS",
+"interface": "hdd-10240",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 262144,
+"description": "DDR4"
+},
+"id": 3591,
+"description": "2 x Silver 4316 / 256 / 10SAS",
+"is_ipmi_enabled": true,
+"price": 100040,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3591
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2236 (6 ядер, 3.4-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2236",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 960 ГБ SSD",
+"interface": "ssd-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 32768,
+"description": "DDR4"
+},
+"id": 3871,
+"description": "E-2236 / 32 / 960",
+"is_ipmi_enabled": true,
+"price": 14540,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3827
+},
+{
+"cpu": {
+"count": 8,
+"description": "Intel Xeon E-2288G (8 ядер, 3.7-5.0 ГГц, 16 потоков)",
+"description_short": "Intel Xeon E-2288G",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 960 ГБ SSD",
+"interface": "ssd-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 3873,
+"description": "E-2288G / 64 / 960",
+"is_ipmi_enabled": true,
+"price": 21570,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3829
+},
+{
+"cpu": {
+"count": 24,
+"description": "AMD EPYC 7402 (24 ядра, 2.4-3.35 ГГц, 48 потоков)",
+"description_short": "AMD EPYC 7402",
+"vendor": "amd"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 3877,
+"description": "AMD EPYC 7402 / 128 / 1N",
+"is_ipmi_enabled": true,
+"price": 41520,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3833
+},
+{
+"cpu": {
+"count": 24,
+"description": "2 x Intel Xeon Gold 6246 (24 ядра, 3.30-4.20 ГГц, 48 потоков)",
+"description_short": "2 x Intel Xeon Gold 6246",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 3879,
+"description": "2 x Gold 6246 / 128 / 1N",
+"is_ipmi_enabled": true,
+"price": 44480,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3835
+},
+{
+"cpu": {
+"count": 24,
+"description": "2 x Intel Xeon Silver 4310 (24 ядра, 2.1-3.3 ГГц, 48 потоков)",
+"description_short": "2 x Intel Xeon Silver 4310",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 3881,
+"description": "2 x Silver 4310 / 64 / 480",
+"is_ipmi_enabled": true,
+"price": 48550,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 3837
+},
+{
+"cpu": {
+"count": 40,
+"description": "2 x Intel Xeon Gold 6242R (40 ядер, 3.10-4.10 ГГц, 80 потоков)",
+"description_short": "2 x Intel Xeon Gold 6242R",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 1 ТБ NVMe + 2 x 10 HDD SAS",
+"interface": "nvme-960, hdd-10240",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 3883,
+"description": "2 x Gold 6242R / 128 / 1N",
+"is_ipmi_enabled": true,
+"price": 53840,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 40,
+"description": "2 x Intel Xeon Silver 4316 (40 ядер, 2.30-3.40 ГГц, 80 потоков)",
+"description_short": "2 x Intel Xeon Silver 4316",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 2 ТБ NVMe",
+"interface": "nvme-2048",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 3887,
+"description": "2 x Silver 4316 / 128 / 2N",
+"is_ipmi_enabled": true,
+"price": 67270,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 96,
+"description": "AMD EPYC 9654 (96 ядер, 2.4-3.7 ГГц, 192 потока)",
+"description_short": "AMD EPYC 9654",
+"vendor": "amd"
+},
+"disk": {
+"count": 2,
+"description": "2 x 4 ТБ NVMe",
+"interface": "nvme-4096",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 262144,
+"description": "DDR5"
+},
+"id": 3825,
+"description": "AMD EPYC 9654 / 256 / 4N",
+"is_ipmi_enabled": true,
+"price": 112860,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": "hit",
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 64,
+"description": "2 x Xeon Gold 6448Y (64 ядер, 2.10-4.10 ГГц, 128 потока)",
+"description_short": "2 x Xeon Gold 6448Y",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 8 ТБ NVMe",
+"interface": "nvme-8192",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 2,
+"size": 524288,
+"description": "DDR5"
+},
+"id": 3889,
+"description": "2 x Gold 6448Y / 640 / 8N",
+"is_ipmi_enabled": true,
+"price": 155730,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": "hit",
+"admin_preset_id": null
+},
+{
+"cpu": {
+"count": 8,
+"description": "Intel Xeon E-2388G (8 ядер, 3.2-5.1 ГГц ГГц, 16 потоков)",
+"description_short": "Intel Xeon E-2388G",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 1 ТБ NVMe + 2 x 480 ГБ SSD",
+"interface": "nvme-1,ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 4339,
+"description": "E-2388G / 64 / 1N + 480",
+"is_ipmi_enabled": true,
+"price": 25750,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [],
+"label": null,
+"admin_preset_id": 4339
+},
+{
+"cpu": {
+"count": 8,
+"description": "Intel Xeon E-2388G (8 ядер, 3.2-5.1 ГГц, 16 потоков)",
+"description_short": "Intel Xeon E-2388G",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 1 ТБ NVMe + 2 x 4 ТБ SSD",
+"interface": "nvme-1,ssd-4",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 4341,
+"description": "E-2388G / 64 / 1N + 4S",
+"is_ipmi_enabled": true,
+"price": 26000,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 4341
+},
+{
+"cpu": {
+"count": 8,
+"description": "Intel Xeon E-2388G (8 ядер, 3.2-5.1 ГГц, 16 потоков)",
+"description_short": "Intel Xeon E-2388G",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 2 ТБ NVMe + 2 x 1 ТБ SSD",
+"interface": "nvme-2,ssd-1",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 4343,
+"description": "E-2388G / 128 / 2N + 1S",
+"is_ipmi_enabled": true,
+"price": 27970,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 4343
+},
+{
+"cpu": {
+"count": 8,
+"description": "Intel Xeon E-2388G (8 ядер, 3.2-5.1 ГГц, 16 потоков)",
+"description_short": "Intel Xeon E-2388G",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 2 ТБ NVMe + 2 x 4 ТБ SSD",
+"interface": "nvme-2,ssd-4",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 4345,
+"description": "E-2388G / 128 / 2N + 4S",
+"is_ipmi_enabled": true,
+"price": 29100,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 4345
+},
+{
+"cpu": {
+"count": 24,
+"description": "Intel Xeon W7-3455 (24 ядра, 2.50-4.80 ГГц, 48 потоков)",
+"description_short": "Intel Xeon W7-3455",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 2 ТБ NVMe + 2 x 10 ТБ HDD",
+"interface": "nvme-2,hdd-10",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR5"
+},
+"id": 4481,
+"description": "Intel Xeon W7-3455 / 256 / 2N",
+"is_ipmi_enabled": true,
+"price": 86860,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [],
+"label": null,
+"admin_preset_id": 4481
+},
+{
+"cpu": {
+"count": 16,
+"description": "AMD Ryzen 9 7950X (16 ядер, 4.2-5.7 ГГц, 32 потока)",
+"description_short": "AMD Ryzen 9 7950X",
+"vendor": "amd"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-1",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR5"
+},
+"id": 5243,
+"description": "AMD Ryzen 9 7950X (16 ядер, 4.2-5.7 ГГц, 32 потока)",
+"is_ipmi_enabled": true,
+"price": 37300,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [],
+"label": null,
+"admin_preset_id": 5243
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2336",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1 ТБ NVMe",
+"interface": "nvme-1",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5647,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков) / 128 DDR4 / 2 x 1 Тб NVMe",
+"is_ipmi_enabled": true,
+"price": 29290,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [],
+"label": null,
+"admin_preset_id": 5647
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2336",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5649,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков) / 128 DDR4 / 2 x 480 Гб SSD",
+"is_ipmi_enabled": true,
+"price": 26070,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [],
+"label": null,
+"admin_preset_id": 5649
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2336",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 5651,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков) / 64 DDR4 / 2 x 480 Гб SSD",
+"is_ipmi_enabled": true,
+"price": 23930,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [],
+"label": null,
+"admin_preset_id": 5651
+},
+{
+"cpu": {
+"count": 6,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков)",
+"description_short": "Intel Xeon E-2336",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 32768,
+"description": "DDR4"
+},
+"id": 5653,
+"description": "Intel Xeon E-2336 (6 ядер, 2.9-4.8 ГГц, 12 потоков) / 32 DDR4 / 2 x 480 Гб SSD",
+"is_ipmi_enabled": true,
+"price": 22620,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+489,
+491,
+493,
+1008,
+1010,
+1012,
+1014,
+1016
+],
+"label": null,
+"admin_preset_id": 5653
+},
+{
+"cpu": {
+"count": 16,
+"description": "2 x Intel Xeon E5-2630v3 (16 ядер, 2.4 ГГц, 32 потока)",
+"description_short": "2 x Intel Xeon E5-2630v3",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 480 ГБ SSD + 2 x 4 ТБ HDD",
+"interface": "ssd-480,hdd-4",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 5727,
+"description": "2 x Intel Xeon E5-2630v3 (16 ядер, 2.4 ГГц, 32 потока) / 64 DDR4 / 2 x 480 Гб SSD + 2 x 4 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 25300,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5727
+},
+{
+"cpu": {
+"count": 20,
+"description": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков)",
+"description_short": "2 x Intel Xeon Silver 4114",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 480 ГБ SSD + 2 x 4 ТБ HDD",
+"interface": "ssd-480,hdd-4",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 5733,
+"description": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков) / 64 DDR4 / 2 x 480 Гб SSD + 2 x 4 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 23160,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5733
+},
+{
+"cpu": {
+"count": 4,
+"description": "Intel Xeon E3-1230v5 (4 ядра, 3.4 ГГц, 8 потоков)",
+"description_short": "Intel Xeon E3-1230v5",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 2 ТБ HDD",
+"interface": "hdd-2",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 32768,
+"description": "DDR4"
+},
+"id": 5739,
+"description": "Intel Xeon E3-1230v5 (4 ядра, 3.4 ГГц, 8 потоков) / 32 DDR4 / 2 x 2 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 9570,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5739
+},
+{
+"cpu": {
+"count": 16,
+"description": "2 x Intel Xeon E5-2630v3 (16 ядер, 2.4 ГГц, 32 потока)",
+"description_short": "2 x Intel Xeon E5-2630v3",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5769,
+"description": "2 x Intel Xeon E5-2630v3 (16 ядер, 2.4 ГГц, 32 потока) / 128 DDR4 / 2 x 480 Гб SSD",
+"is_ipmi_enabled": false,
+"price": 25300,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5769
+},
+{
+"cpu": {
+"count": 10,
+"description": "Intel Xeon W-2255 (10 ядер, 3.7 ГГц, 20 потоков)",
+"description_short": "Intel Xeon W-2255",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 1.92 ТБ NVMe + 2 x 480 ГБ SSD",
+"interface": "nvme-1.92,ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5801,
+"description": "Intel Xeon W-2255 (10 ядер, 3.7 ГГц, 20 потоков) / 128 DDR4 / 2 x 1.92 Тб NVMe + 2 x 480 Гб SSD",
+"is_ipmi_enabled": false,
+"price": 33870,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5801
+},
+{
+"cpu": {
+"count": 10,
+"description": "Intel Xeon W-2255 (10 ядер, 3.7 ГГц, 20 потоков)",
+"description_short": "Intel Xeon W-2255",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 960 ГБ NVMe + 2 x 8 ТБ HDD",
+"interface": "nvme-960,hdd-8",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR4"
+},
+"id": 5797,
+"description": "Intel Xeon W-2255 (10 ядер, 3.7 ГГц, 20 потоков) / 256 DDR4 / 2 x 960 Гб NVMe + 2 x 8 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 41720,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5797
+},
+{
+"cpu": {
+"count": 16,
+"description": "AMD Ryzen 9 9950X (16 ядер, 4.3 ГГц, 32 потока)",
+"description_short": "AMD Ryzen 9 9950X",
+"vendor": "amd"
+},
+"disk": {
+"count": 3,
+"description": "1 ТБ NVMe + 2 x 1.92 ТБ NVMe",
+"interface": "nvme-1,nvme-1.92",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 196608,
+"description": "DDR5"
+},
+"id": 5805,
+"description": "AMD Ryzen 9 9950X (16 ядер, 4.3 ГГц, 32 потока) / 192 DDR5 / 1 Тб NVMe + 2 x 1.92 Тб NVMe",
+"is_ipmi_enabled": false,
+"price": 55080,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5805
+},
+{
+"cpu": {
+"count": 36,
+"description": "2 x Intel Xeon Gold 6240 (36 ядер, 2.6 ГГц, 72 потока)",
+"description_short": "2 x Intel Xeon Gold 6240",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1.92 ТБ SSD",
+"interface": "ssd-1.92",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR4"
+},
+"id": 5807,
+"description": "2 x Intel Xeon Gold 6240 (36 ядер, 2.6 ГГц, 72 потока) / 256 DDR4 / 2 x 1.92 Тб SSD",
+"is_ipmi_enabled": false,
+"price": 53860,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5807
+},
+{
+"cpu": {
+"count": 64,
+"description": "2 x AMD EPYC 7452 (64 ядра, 2.35 ГГц, 128 потоков)",
+"description_short": "2 x AMD EPYC 7452",
+"vendor": "amd"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1.92 ТБ SSD",
+"interface": "ssd-1.92",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5813,
+"description": "2 x AMD EPYC 7452 (64 ядра, 2.35 ГГц, 128 потоков) / 128 DDR4 / 2 x 1.92 Тб SSD",
+"is_ipmi_enabled": false,
+"price": 43460,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5813
+},
+{
+"cpu": {
+"count": 20,
+"description": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков)",
+"description_short": "2 x Intel Xeon Silver 4114",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 960 ГБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 5815,
+"description": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков) / 64 DDR4 / 2 x 960 Гб NVMe",
+"is_ipmi_enabled": false,
+"price": 29990,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5815
+},
+{
+"cpu": {
+"count": 24,
+"description": "2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков)",
+"description_short": "2 x Intel Xeon Silver 4214R",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 960 ГБ NVMe + 2 x 1.92 ТБ SSD",
+"interface": "nvme-960,ssd-1.92",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 98304,
+"description": "DDR4"
+},
+"id": 5819,
+"description": "2 x Intel Xeon Silver 4214R (24 ядра, 2.4 ГГц, 48 потоков) / 96 DDR4 / 2 x 960 Гб NVMe + 2 x 1.92 Тб SSD",
+"is_ipmi_enabled": false,
+"price": 44880,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5819
+},
+{
+"cpu": {
+"count": 48,
+"description": "2 x AMD EPYC 7401 (48 ядер, 2 ГГц, 96 потоков)",
+"description_short": "2 x AMD EPYC 7401",
+"vendor": "amd"
+},
+"disk": {
+"count": 4,
+"description": "2 x 960 ГБ SSD + 2 x 4 ТБ HDD",
+"interface": "ssd-960,hdd-4",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5831,
+"description": "2 x AMD EPYC 7401 (48 ядер, 2 ГГц, 96 потоков) / 128 DDR4 / 2 x 960 Гб SSD + 2 x 4 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 60390,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5831
+},
+{
+"cpu": {
+"count": 96,
+"description": "2 x AMD EPYC 9474F (96 ядер, 3.6 ГГц, 192 потока)",
+"description_short": "2 x AMD EPYC 9474F",
+"vendor": "amd"
+},
+"disk": {
+"count": 3,
+"description": "2 x 1.92 ТБ NVMe + 500 ГБ NVMe",
+"interface": "nvme-1.92,nvme-500",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR5"
+},
+"id": 5847,
+"description": "2 x AMD EPYC 9474F (96 ядер, 3.6 ГГц, 192 потока) / 256 DDR5 / 2 x 1.92 Тб NVMe + 500 Гб NVMe",
+"is_ipmi_enabled": false,
+"price": 107820,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5847
+},
+{
+"cpu": {
+"count": 32,
+"description": "2 x AMD EPYC 7343 (32 ядра, 3.2 ГГц, 64 потока)",
+"description_short": "2 x AMD EPYC 7343",
+"vendor": "amd"
+},
+"disk": {
+"count": 4,
+"description": "2 x 960 ГБ NVMe + 2 x 18 ТБ HDD",
+"interface": "nvme-960,hdd-18",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5849,
+"description": "2 x AMD EPYC 7343 (32 ядра, 3.2 ГГц, 64 потока) / 128 DDR4 / 2 x 960 Гб NVMe + 2 x 18 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 65390,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5849
+},
+{
+"cpu": {
+"count": 64,
+"description": "2 x AMD EPYC 7513 (64 ядра, 2.6 ГГц, 128 потоков)",
+"description_short": "2 x AMD EPYC 7513",
+"vendor": "amd"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1.92 ТБ NVMe",
+"interface": "nvme-1.92",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR4"
+},
+"id": 5853,
+"description": "2 x AMD EPYC 7513 (64 ядра, 2.6 ГГц, 128 потоков) / 256 DDR4 / 2 x 1.92 Тб NVMe",
+"is_ipmi_enabled": false,
+"price": 78030,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5853
+},
+{
+"cpu": {
+"count": 64,
+"description": "2 x AMD EPYC 7513 (64 ядра, 2.6 ГГц, 128 потоков)",
+"description_short": "2 x AMD EPYC 7513",
+"vendor": "amd"
+},
+"disk": {
+"count": 4,
+"description": "2 x 1.92 ТБ NVMe + 2 x 10 ТБ HDD",
+"interface": "nvme-1.92,hdd-10",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 524288,
+"description": "DDR4"
+},
+"id": 5857,
+"description": "2 x AMD EPYC 7513 (64 ядра, 2.6 ГГц, 128 потоков) / 512 DDR4 / 2 x 1.92 Тб NVMe + 2 x 10 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 108430,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5857
+},
+{
+"cpu": {
+"count": 48,
+"description": "2 x Intel Xeon Gold 6336Y (48 ядер, 2.4 ГГц, 96 потоков)",
+"description_short": "2 x Intel Xeon Gold 6336Y",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 1.92 ТБ NVMe + 2 x 1.92 ТБ SSD",
+"interface": "nvme-1.92,ssd-1.92",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR4"
+},
+"id": 5863,
+"description": "2 x Intel Xeon Gold 6336Y (48 ядер, 2.4 ГГц, 96 потоков) / 256 DDR4 / 2 x 1.92 Тб NVMe + 2 x 1.92 Тб SSD",
+"is_ipmi_enabled": false,
+"price": 94560,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5863
+},
+{
+"cpu": {
+"count": 36,
+"description": "2 x Intel Xeon Gold 6354 (36 ядер, 3 ГГц, 72 потока)",
+"description_short": "2 x Intel Xeon Gold 6354",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 7.68 ТБ NVMe",
+"interface": "nvme-7.68",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR4"
+},
+"id": 5859,
+"description": "2 x Intel Xeon Gold 6354 (36 ядер, 3 ГГц, 72 потока) / 256 DDR4 / 2 x 7.68 Тб NVMe",
+"is_ipmi_enabled": false,
+"price": 83540,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5859
+},
+{
+"cpu": {
+"count": 48,
+"description": "2 x Intel Xeon 6520P (48 ядер, 2.4 ГГц, 96 потоков)",
+"description_short": "2 x Intel Xeon 6520P",
+"vendor": "intel"
+},
+"disk": {
+"count": 3,
+"description": "2 x 3.84 ТБ NVMe + 1 ТБ NVMe",
+"interface": "nvme-3.84,nvme-1",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR5"
+},
+"id": 5871,
+"description": "2 x Intel Xeon 6520P (48 ядер, 2.4 ГГц, 96 потоков) / 256 DDR5 / 2 x 3.84 Тб NVMe + 1 Тб NVMe",
+"is_ipmi_enabled": false,
+"price": 92210,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5871
+},
+{
+"cpu": {
+"count": 20,
+"description": "2 x Intel Xeon E5-2630v4 (20 ядер, 2.2 ГГц, 40 потоков)",
+"description_short": "2 x Intel Xeon E5-2630v4",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 480 ГБ SSD + 2 x 4 ТБ HDD",
+"interface": "ssd-480,hdd-4",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 65536,
+"description": "DDR4"
+},
+"id": 5883,
+"description": "2 x Intel Xeon E5-2630v4 (20 ядер, 2.2 ГГц, 40 потоков) / 64 DDR4 / 2 x 480 Гб SSD + 2 x 4 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 25300,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5883
+},
+{
+"cpu": {
+"count": 20,
+"description": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков)",
+"description_short": "2 x Intel Xeon Silver 4114",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 480 ГБ SSD",
+"interface": "ssd-480",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 196608,
+"description": "DDR4"
+},
+"id": 5893,
+"description": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков) / 192 DDR4 / 2 x 480 Гб SSD",
+"is_ipmi_enabled": false,
+"price": 34380,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5893
+},
+{
+"cpu": {
+"count": 20,
+"description": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков)",
+"description_short": "2 x Intel Xeon Silver 4114",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 480 ГБ SSD + 2 x 4 ТБ HDD",
+"interface": "ssd-480,hdd-4",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 98304,
+"description": "DDR4"
+},
+"id": 5885,
+"description": "2 x Intel Xeon Silver 4114 (20 ядер, 2.2 ГГц, 40 потоков) / 96 DDR4 / 2 x 480 Гб SSD + 2 x 4 Тб HDD",
+"is_ipmi_enabled": false,
+"price": 30910,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5885
+},
+{
+"cpu": {
+"count": 128,
+"description": "2 x Intel Xeon 6710E (128 ядер, 2.4 ГГц, 256 потоков)",
+"description_short": "2 x Intel Xeon 6710E",
+"vendor": "intel"
+},
+"disk": {
+"count": 2,
+"description": "2 x 1.92 ТБ NVMe",
+"interface": "nvme-1.92",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 262144,
+"description": "DDR5"
+},
+"id": 5901,
+"description": "2 x Intel Xeon 6710E (128 ядер, 2.4 ГГц, 256 потоков) / 256 DDR5 / 2 x 1.92 Тб NVMe",
+"is_ipmi_enabled": false,
+"price": 108230,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5901
+},
+{
+"cpu": {
+"count": 16,
+"description": "AMD EPYC 7343 (16 ядер, 3.2 ГГц, 32 потока)",
+"description_short": "AMD EPYC 7343",
+"vendor": "amd"
+},
+"disk": {
+"count": 2,
+"description": "2 x 960 ГБ NVMe",
+"interface": "nvme-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5909,
+"description": "AMD EPYC 7343 (16 ядер, 3.2 ГГц, 32 потока) / 128 DDR4 / 2 x 960 Гб NVMe",
+"is_ipmi_enabled": false,
+"price": 44880,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5909
+},
+{
+"cpu": {
+"count": 24,
+"description": "Intel Xeon Gold 6336Y (24 ядра, 2.4 ГГц, 48 потоков)",
+"description_short": "Intel Xeon Gold 6336Y",
+"vendor": "intel"
+},
+"disk": {
+"count": 4,
+"description": "2 x 960 ГБ NVMe + 2 x 960 ГБ SSD",
+"interface": "nvme-960,ssd-960",
+"total_size": 0,
+"type": "nvme"
+},
+"memory": {
+"count": 1,
+"size": 131072,
+"description": "DDR4"
+},
+"id": 5937,
+"description": "Intel Xeon Gold 6336Y (24 ядра, 2.4 ГГц, 48 потоков) / 128 DDR4 / 2 x 960 Гб NVMe + 2 x 960 Гб SSD",
+"is_ipmi_enabled": false,
+"price": 52740,
+"location": "ru-1",
+"is_pre_installed": false,
+"pre_installed_preset_count": null,
+"gpu": null,
+"tags": [
+"titan"
+],
+"additional_services": [
+1008
+],
+"label": null,
+"admin_preset_id": 5937
+}
+]
+}

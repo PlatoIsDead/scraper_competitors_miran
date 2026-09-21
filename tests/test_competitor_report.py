@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 import openpyxl
+import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
@@ -31,7 +32,7 @@ REF2 = ReferenceConfig("MIR-002", "Intel Xeon Gold 5317", 2, 12, 192,
                        (DiskPool("NVMe", 2, 1000),))
 
 
-def _offer(cid="selectel", plan="P1", price=10000.0, stock=None):
+def _offer(cid="selectel", plan="P1", price=10000.0, stock=None, note=""):
     return CompetitorOffer(
         competitor_id=cid, plan_id=plan,
         cpu_model="Intel Xeon Silver 4214R",
@@ -39,7 +40,7 @@ def _offer(cid="selectel", plan="P1", price=10000.0, stock=None):
         cpu_sockets=2, cpu_cores_total=24, ram_gb=64,
         disk_pools=({"disk_type": "SSD", "disk_count": 2, "disk_size_gb": 960},),
         price_value=price, currency="RUB", price_period="month",
-        stock_count=stock,
+        stock_count=stock, price_note=note,
     )
 
 
@@ -49,7 +50,8 @@ def _match(offer, config_id="MIR-001", score=100.0):
 
 MATCHES = {
     "MIR-001": [
-        _match(_offer("selectel", "SEL-cheap", 9000.0, stock=3)),
+        _match(_offer("selectel", "SEL-cheap", 9000.0, stock=3,
+                      note="цена по SPB-2; MSK-1 — 9 500")),
         _match(_offer("selectel", "SEL-dear", 12000.0), score=95.0),
         _match(_offer("timeweb", "TW-1", 11000.0)),
     ],
@@ -164,3 +166,24 @@ class TestWriteRunStatus:
 
         monkeypatch.setattr(dedicated_app, "REPORTS_DIR", tmp_path)
         assert dedicated_app.run_sources.__wrapped__("20990101") == []
+
+
+class TestPriceNoteColumns:
+    """Условия цены (скидка/период/локация) идут в оба отчёта рядом с ценой —
+    клиент видит, почему цена такая, а не молчаливую подмену (15.09)."""
+
+    def test_long_df_has_price_note(self):
+        df = build_long_df(MATCHES)
+        assert "price_note" in df.columns
+        by_plan = dict(zip(df["plan_id"], df["price_note"]))
+        assert by_plan["SEL-cheap"] == "цена по SPB-2; MSK-1 — 9 500"
+        assert by_plan["TW-1"] == ""
+
+    def test_wide_df_note_follows_best_offer(self):
+        df = build_wide_df([REF1, REF2], MATCHES, COMPETITORS)
+        assert "price_note" in COMPETITOR_COL_SUFFIXES
+        row = df[df["config_id"] == "MIR-001"].iloc[0]
+        assert row["selectel_price_note"] == "цена по SPB-2; MSK-1 — 9 500"
+        assert row["timeweb_price_note"] == ""
+        empty = df[df["config_id"] == "MIR-002"].iloc[0]
+        assert pd.isna(empty["selectel_price_note"])

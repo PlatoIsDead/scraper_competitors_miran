@@ -22,6 +22,8 @@ class CompetitorOffer:
     currency: str
     price_period: str
     stock_count: int | None
+    # условия показанной цены (скидка/период/локация) — из ServerRow.price_note
+    price_note: str = ""
 
 
 @dataclass(frozen=True)

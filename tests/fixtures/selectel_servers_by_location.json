@@ -1,0 +1,661 @@
+{
+ "result": [
+  {
+   "uuid": "f7593423-9692-4835-a1d6-8dd0605628d7",
+   "name": "EL46-NVMe",
+   "model": "server",
+   "tariff_line": "Entry Line",
+   "cpu": {
+    "name": "Intel Xeon E-2388G",
+    "count": 1,
+    "cores_per_cpu": 8
+   },
+   "ram": [
+    {
+     "size": 32,
+     "count": 4
+    }
+   ],
+   "disk": [
+    {
+     "type": "SSD NVMe",
+     "size": 3840,
+     "count": 2
+    }
+   ],
+   "gpu": {
+    "name": "",
+    "count": 0
+   },
+   "is_order": true,
+   "is_preorder": false,
+   "quantity": 1,
+   "price_collection": {
+    "RUB": {
+     "year": null,
+     "day": 1910.0,
+     "month": 33700.0,
+     "hour": null
+    }
+   },
+   "location_price_collection": {
+    "324f8b40-31c4-4cd2-8529-d1906c7cce36": {
+     "RUB": {
+      "year": null,
+      "day": 2350.0,
+      "month": 41500.0,
+      "hour": null
+     }
+    },
+    "3bb64fd9-d2df-4d88-af42-76070104338f": {
+     "RUB": {
+      "year": null,
+      "day": 2350.0,
+      "month": 41500.0,
+      "hour": null
+     }
+    }
+   },
+   "available": [
+    {
+     "location": "61c97311-bb14-5679-99fc-98497a701292",
+     "count": 0
+    },
+    {
+     "location": "85d96ea3-b853-4cb9-a761-b79d202a2f90",
+     "count": 0
+    },
+    {
+     "location": "b7d55bf4-7057-5113-85c8-141871bf7635",
+     "count": 0
+    },
+    {
+     "location": "edf295d6-03ff-4368-94d8-aacb5b402aa2",
+     "count": 0
+    },
+    {
+     "location": "22fe83ae-a20f-54fc-b436-cec85c94c5e8",
+     "count": 0
+    },
+    {
+     "location": "391ada15-580c-5baa-b16f-eeb35d9b1122",
+     "count": 0
+    },
+    {
+     "location": "324f8b40-31c4-4cd2-8529-d1906c7cce36",
+     "count": 1
+    },
+    {
+     "location": "3bb64fd9-d2df-4d88-af42-76070104338f",
+     "count": 0
+    }
+   ]
+  },
+  {
+   "uuid": "dfc84ae2-2612-45c1-9cf7-e077e86b6b61",
+   "name": "EL42-NVMe",
+   "model": "server",
+   "tariff_line": "Entry Line",
+   "cpu": {
+    "name": "Intel Xeon E-2386G",
+    "count": 1,
+    "cores_per_cpu": 6
+   },
+   "ram": [
+    {
+     "size": 16,
+     "count": 2
+    }
+   ],
+   "disk": [
+    {
+     "type": "SSD NVMe",
+     "size": 960,
+     "count": 2
+    }
+   ],
+   "gpu": {
+    "name": "",
+    "count": 0
+   },
+   "is_order": true,
+   "is_preorder": false,
+   "quantity": 1,
+   "price_collection": {
+    "RUB": {
+     "year": null,
+     "day": 1050.0,
+     "month": 18400.0,
+     "hour": null
+    }
+   },
+   "location_price_collection": {
+    "07ff5ae1-7e8b-4c85-af2c-219798aa0d46": {
+     "RUB": {
+      "year": null,
+      "day": 2030.0,
+      "month": 18400.0,
+      "hour": null
+     }
+    },
+    "3bb64fd9-d2df-4d88-af42-76070104338f": {
+     "RUB": {
+      "year": null,
+      "day": 1900.0,
+      "month": 33500.0,
+      "hour": null
+     }
+    },
+    "e531c143-bf75-4802-ade8-97884e6c564e": {
+     "RUB": {
+      "year": null,
+      "day": 2030.0,
+      "month": 35900.0,
+      "hour": null
+     }
+    },
+    "324f8b40-31c4-4cd2-8529-d1906c7cce36": {
+     "RUB": {
+      "year": null,
+      "day": 1900.0,
+      "month": 33500.0,
+      "hour": null
+     }
+    }
+   },
+   "available": [
+    {
+     "location": "61c97311-bb14-5679-99fc-98497a701292",
+     "count": 1
+    },
+    {
+     "location": "85d96ea3-b853-4cb9-a761-b79d202a2f90",
+     "count": 0
+    },
+    {
+     "location": "b7d55bf4-7057-5113-85c8-141871bf7635",
+     "count": 0
+    },
+    {
+     "location": "edf295d6-03ff-4368-94d8-aacb5b402aa2",
+     "count": 0
+    },
+    {
+     "location": "22fe83ae-a20f-54fc-b436-cec85c94c5e8",
+     "count": 0
+    },
+    {
+     "location": "391ada15-580c-5baa-b16f-eeb35d9b1122",
+     "count": 0
+    },
+    {
+     "location": "07ff5ae1-7e8b-4c85-af2c-219798aa0d46",
+     "count": 14
+    },
+    {
+     "location": "324f8b40-31c4-4cd2-8529-d1906c7cce36",
+     "count": 3
+    },
+    {
+     "location": "3bb64fd9-d2df-4d88-af42-76070104338f",
+     "count": 0
+    },
+    {
+     "location": "e531c143-bf75-4802-ade8-97884e6c564e",
+     "count": 0
+    }
+   ]
+  },
+  {
+   "uuid": "07a81770-a68b-405f-b8cc-1db62cc7d69e",
+   "name": "EL45-NVMe",
+   "model": "server",
+   "tariff_line": "Entry Line",
+   "cpu": {
+    "name": "Intel Xeon E-2388G",
+    "count": 1,
+    "cores_per_cpu": 8
+   },
+   "ram": [
+    {
+     "size": 16,
+     "count": 4
+    }
+   ],
+   "disk": [
+    {
+     "type": "SSD NVMe",
+     "size": 960,
+     "count": 2
+    }
+   ],
+   "gpu": {
+    "name": "",
+    "count": 0
+   },
+   "is_order": true,
+   "is_preorder": false,
+   "quantity": 1,
+   "price_collection": {
+    "RUB": {
+     "year": null,
+     "day": 1300.0,
+     "month": 23100.0,
+     "hour": null
+    }
+   },
+   "location_price_collection": {
+    "324f8b40-31c4-4cd2-8529-d1906c7cce36": {
+     "RUB": {
+      "year": null,
+      "day": 2320.0,
+      "month": 40900.0,
+      "hour": null
+     }
+    },
+    "3bb64fd9-d2df-4d88-af42-76070104338f": {
+     "RUB": {
+      "year": null,
+      "day": 2320.0,
+      "month": 40900.0,
+      "hour": null
+     }
+    },
+    "e531c143-bf75-4802-ade8-97884e6c564e": {
+     "RUB": {
+      "year": null,
+      "day": 2470.0,
+      "month": 43600.0,
+      "hour": null
+     }
+    },
+    "07ff5ae1-7e8b-4c85-af2c-219798aa0d46": {
+     "RUB": {
+      "year": null,
+      "day": 2200.0,
+      "month": 38800.0,
+      "hour": null
+     }
+    }
+   },
+   "available": [
+    {
+     "location": "61c97311-bb14-5679-99fc-98497a701292",
+     "count": 1
+    },
+    {
+     "location": "85d96ea3-b853-4cb9-a761-b79d202a2f90",
+     "count": 0
+    },
+    {
+     "location": "b7d55bf4-7057-5113-85c8-141871bf7635",
+     "count": 0
+    },
+    {
+     "location": "edf295d6-03ff-4368-94d8-aacb5b402aa2",
+     "count": 0
+    },
+    {
+     "location": "22fe83ae-a20f-54fc-b436-cec85c94c5e8",
+     "count": 0
+    },
+    {
+     "location": "391ada15-580c-5baa-b16f-eeb35d9b1122",
+     "count": 0
+    },
+    {
+     "location": "07ff5ae1-7e8b-4c85-af2c-219798aa0d46",
+     "count": 0
+    },
+    {
+     "location": "324f8b40-31c4-4cd2-8529-d1906c7cce36",
+     "count": 23
+    },
+    {
+     "location": "3bb64fd9-d2df-4d88-af42-76070104338f",
+     "count": 0
+    }
+   ]
+  },
+  {
+   "uuid": "ec31ae54-1ab1-4148-ba5e-83ba39695868",
+   "name": "EL52-NVMe",
+   "model": "server",
+   "tariff_line": "Promo Line",
+   "cpu": {
+    "name": "Intel Xeon E-2488",
+    "count": 1,
+    "cores_per_cpu": 8
+   },
+   "ram": [
+    {
+     "size": 32,
+     "count": 4
+    }
+   ],
+   "disk": [
+    {
+     "type": "SSD NVMe",
+     "size": 3840,
+     "count": 2
+    }
+   ],
+   "gpu": {
+    "name": "",
+    "count": 0
+   },
+   "is_order": true,
+   "is_preorder": true,
+   "quantity": 1,
+   "price_collection": {
+    "RUB": {
+     "year": null,
+     "day": 1820.0,
+     "month": 49000.0,
+     "hour": null
+    }
+   },
+   "location_price_collection": {
+    "9b177ad9-d90a-4f08-ae1f-008891062a12": {
+     "RUB": {
+      "year": null,
+      "day": 2420.0,
+      "month": 34400.0,
+      "hour": null
+     }
+    }
+   },
+   "available": [
+    {
+     "location": "1af3b358-9e0e-4c2e-8a1a-c71353a6ba10",
+     "count": 81
+    },
+    {
+     "location": "61c97311-bb14-5679-99fc-98497a701292",
+     "count": 0
+    },
+    {
+     "location": "85d96ea3-b853-4cb9-a761-b79d202a2f90",
+     "count": 2
+    },
+    {
+     "location": "b7d55bf4-7057-5113-85c8-141871bf7635",
+     "count": 66
+    },
+    {
+     "location": "edf295d6-03ff-4368-94d8-aacb5b402aa2",
+     "count": 0
+    },
+    {
+     "location": "391ada15-580c-5baa-b16f-eeb35d9b1122",
+     "count": 5
+    },
+    {
+     "location": "9b177ad9-d90a-4f08-ae1f-008891062a12",
+     "count": 1
+    }
+   ]
+  },
+  {
+   "uuid": "00851192-66a7-5c57-8471-7665e9eabbb1",
+   "name": "EL11-SSD",
+   "model": "server",
+   "tariff_line": "Entry Line",
+   "cpu": {
+    "name": "Intel Xeon E-2236",
+    "count": 1,
+    "cores_per_cpu": 6
+   },
+   "ram": [
+    {
+     "size": 16,
+     "count": 2
+    }
+   ],
+   "disk": [
+    {
+     "type": "SSD SATA",
+     "size": 480,
+     "count": 2
+    }
+   ],
+   "gpu": {
+    "name": "",
+    "count": 0
+   },
+   "is_order": true,
+   "is_preorder": false,
+   "quantity": 1,
+   "price_collection": {
+    "RUB": {
+     "year": null,
+     "day": 735.0,
+     "month": 12800.0,
+     "hour": 49.0
+    }
+   },
+   "location_price_collection": {
+    "3bb64fd9-d2df-4d88-af42-76070104338f": {
+     "RUB": {
+      "year": null,
+      "day": 1400.0,
+      "month": 24800.0,
+      "hour": 1.0
+     }
+    },
+    "324f8b40-31c4-4cd2-8529-d1906c7cce36": {
+     "RUB": {
+      "year": null,
+      "day": 1400.0,
+      "month": 24800.0,
+      "hour": 61.0
+     }
+    }
+   },
+   "available": [
+    {
+     "location": "b7d55bf4-7057-5113-85c8-141871bf7635",
+     "count": 0
+    },
+    {
+     "location": "edf295d6-03ff-4368-94d8-aacb5b402aa2",
+     "count": 10
+    },
+    {
+     "location": "22fe83ae-a20f-54fc-b436-cec85c94c5e8",
+     "count": 0
+    },
+    {
+     "location": "391ada15-580c-5baa-b16f-eeb35d9b1122",
+     "count": 0
+    },
+    {
+     "location": "61c97311-bb14-5679-99fc-98497a701292",
+     "count": 0
+    },
+    {
+     "location": "85d96ea3-b853-4cb9-a761-b79d202a2f90",
+     "count": 1
+    },
+    {
+     "location": "324f8b40-31c4-4cd2-8529-d1906c7cce36",
+     "count": 5
+    },
+    {
+     "location": "3bb64fd9-d2df-4d88-af42-76070104338f",
+     "count": 0
+    },
+    {
+     "location": "9b177ad9-d90a-4f08-ae1f-008891062a12",
+     "count": 0
+    }
+   ]
+  },
+  {
+   "uuid": "fae75c05-1e24-4afe-a870-96696c1e7719",
+   "name": "DL23",
+   "model": "server",
+   "tariff_line": "Discount Line",
+   "cpu": {
+    "name": "Intel Xeon Silver 4114",
+    "count": 1,
+    "cores_per_cpu": 10
+   },
+   "ram": [
+    {
+     "size": 8,
+     "count": 4
+    }
+   ],
+   "disk": [
+    {
+     "type": "SSD SATA",
+     "size": 480,
+     "count": 2
+    }
+   ],
+   "gpu": {
+    "name": "",
+    "count": 0
+   },
+   "is_order": true,
+   "is_preorder": false,
+   "quantity": 1,
+   "price_collection": {
+    "RUB": {
+     "year": null,
+     "day": 735.0,
+     "month": 12800.0,
+     "hour": null
+    }
+   },
+   "location_price_collection": {
+    "07ff5ae1-7e8b-4c85-af2c-219798aa0d46": {
+     "RUB": {
+      "year": null,
+      "day": 1680.0,
+      "month": 29800.0,
+      "hour": null
+     }
+    }
+   },
+   "available": [
+    {
+     "location": "b7d55bf4-7057-5113-85c8-141871bf7635",
+     "count": 0
+    },
+    {
+     "location": "edf295d6-03ff-4368-94d8-aacb5b402aa2",
+     "count": 0
+    },
+    {
+     "location": "22fe83ae-a20f-54fc-b436-cec85c94c5e8",
+     "count": 0
+    },
+    {
+     "location": "391ada15-580c-5baa-b16f-eeb35d9b1122",
+     "count": 0
+    },
+    {
+     "location": "bf5647d4-e6b0-44a8-96d2-949ab0d50e30",
+     "count": 0
+    },
+    {
+     "location": "61c97311-bb14-5679-99fc-98497a701292",
+     "count": 0
+    },
+    {
+     "location": "85d96ea3-b853-4cb9-a761-b79d202a2f90",
+     "count": 0
+    },
+    {
+     "location": "07ff5ae1-7e8b-4c85-af2c-219798aa0d46",
+     "count": 4
+    }
+   ]
+  },
+  {
+   "uuid": "00835804-bbfa-531d-94c2-bac286fa24ed",
+   "name": "AEL10-SSD",
+   "model": "server",
+   "tariff_line": "Entry Line",
+   "cpu": {
+    "name": "Intel Xeon E3-1230",
+    "count": 1,
+    "cores_per_cpu": 4
+   },
+   "ram": [
+    {
+     "size": 8,
+     "count": 2
+    }
+   ],
+   "disk": [
+    {
+     "type": "SSD SATA",
+     "size": 240,
+     "count": 2
+    }
+   ],
+   "gpu": {
+    "name": "",
+    "count": 0
+   },
+   "is_order": true,
+   "is_preorder": false,
+   "quantity": 1,
+   "price_collection": {
+    "RUB": {
+     "year": null,
+     "day": 569.0,
+     "month": 9500.0,
+     "hour": null
+    }
+   },
+   "location_price_collection": {
+    "07ff5ae1-7e8b-4c85-af2c-219798aa0d46": {
+     "RUB": {
+      "year": null,
+      "day": 1170.0,
+      "month": 20900.0,
+      "hour": null
+     }
+    }
+   },
+   "available": [
+    {
+     "location": "61c97311-bb14-5679-99fc-98497a701292",
+     "count": 0
+    },
+    {
+     "location": "85d96ea3-b853-4cb9-a761-b79d202a2f90",
+     "count": 0
+    },
+    {
+     "location": "b7d55bf4-7057-5113-85c8-141871bf7635",
+     "count": 0
+    },
+    {
+     "location": "edf295d6-03ff-4368-94d8-aacb5b402aa2",
+     "count": 7
+    },
+    {
+     "location": "22fe83ae-a20f-54fc-b436-cec85c94c5e8",
+     "count": 11
+    },
+    {
+     "location": "391ada15-580c-5baa-b16f-eeb35d9b1122",
+     "count": 0
+    },
+    {
+     "location": "07ff5ae1-7e8b-4c85-af2c-219798aa0d46",
+     "count": 4
+    },
+    {
+     "location": "9b177ad9-d90a-4f08-ae1f-008891062a12",
+     "count": 0
+    }
+   ]
+  }
+ ]
+}

@@ -30,6 +30,26 @@ def selectel_flat():
 
 
 @pytest.fixture(scope="session")
+def selectel_locations():
+    """Реальный ответ servers/v2/pub/location (2026-09-14, 20 локаций)."""
+    path = FIXTURES / "selectel_location.json"
+    if not path.exists():
+        pytest.skip("fixture selectel_location.json not captured yet")
+    return json.loads(path.read_text(encoding="utf-8"))["result"]
+
+
+@pytest.fixture(scope="session")
+def selectel_api_configs():
+    """Урезанные реальные конфиги servers/v2/pub/service/server (2026-09-14):
+    available[] по всем ДЦ + location_price_collection. {name: cfg}."""
+    path = FIXTURES / "selectel_servers_by_location.json"
+    if not path.exists():
+        pytest.skip("fixture selectel_servers_by_location.json not captured yet")
+    result = json.loads(path.read_text(encoding="utf-8"))["result"]
+    return {cfg["name"]: cfg for cfg in result}
+
+
+@pytest.fixture(scope="session")
 def timeweb_cloud_flat():
     path = FIXTURES / "timeweb_cloud_nuxt.json"
     if not path.exists():

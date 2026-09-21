@@ -412,3 +412,65 @@ class TestMatchAll:
         )
         results = match_all([REF, ref2], [_offer()], RULES, SPECS)
         assert results["MIR-001"] and results["MIR-002"] == []
+
+
+class TestBareE31230IsNotV5V6:
+    """Голый «E3-1230» (Sandy Bridge, 2011) — не то же, что E3-1230v5/v6
+    (склейка v5≡v6 — решение клиента). До правки config/cpu_specs.json
+    алиасы «e3-1230» висели на каноне v5/v6, и reg.cloud RD-59192/RD-59261
+    (Xeon E3-1230 3.2 ГГц, DDR3) ложно закрывали MIR-007/MIR-008.
+    """
+
+    @staticmethod
+    def _real():
+        from config_loader import (
+            load_cpu_specs, load_disk_classes, load_matching_rules,
+            load_reference_configs,
+        )
+        specs = load_cpu_specs()
+        rules = load_matching_rules()
+        classes = load_disk_classes()
+        refs = {r.config_id: r for r in load_reference_configs()}
+        return specs, rules, classes, refs
+
+    @staticmethod
+    def _regcloud_offer(cpu_model: str) -> CompetitorOffer:
+        # формат reg.cloud, как RD-59261 в data/regcloud_20260911.json
+        return CompetitorOffer(
+            competitor_id="reg_cloud",
+            plan_id="RD-59261",
+            cpu_model=cpu_model,
+            cpu_model_norm=cpu_model.lower(),
+            cpu_sockets=1,
+            cpu_cores_total=4,
+            ram_gb=16,
+            disk_pools=({"disk_type": "HDD", "disk_count": 2, "disk_size_gb": 1000},),
+            price_value=5740.0,
+            currency="RUB",
+            price_period="month",
+            stock_count=None,
+        )
+
+    def test_bare_e3_1230_is_not_v6(self):
+        specs, *_ = self._real()
+        assert canonical_cpu("Xeon E3-1230", specs) != canonical_cpu("E3-1230v6", specs)
+        assert canonical_cpu("Intel Xeon E3-1230", specs) == "intel xeon e3-1230"
+
+    def test_v5_and_v6_still_merged(self):
+        specs, *_ = self._real()
+        assert canonical_cpu("E3-1230v5", specs) == canonical_cpu("E3-1230v6", specs)
+
+    def test_bare_e3_1230_is_not_v3(self):
+        specs, *_ = self._real()
+        assert canonical_cpu("Xeon E3-1230", specs) != canonical_cpu("Xeon E3-1230v3", specs)
+
+    def test_regcloud_sandy_bridge_does_not_match_mir_008(self):
+        specs, rules, classes, refs = self._real()
+        offer = self._regcloud_offer("Xeon E3-1230")
+        assert match_offer(refs["MIR-008"], offer, rules, specs, classes) is None
+
+    def test_real_v6_offer_still_matches_mir_008(self):
+        specs, rules, classes, refs = self._real()
+        offer = self._regcloud_offer("Xeon E3-1230v6")
+        m = match_offer(refs["MIR-008"], offer, rules, specs, classes)
+        assert m is not None and m.cpu_penalty == 0.0
