@@ -1065,11 +1065,11 @@ MSK = ("msk",)
 # Контрольные тарифы живого снимка 14.09.2026 (фикстура урезана из него).
 # Цена = как на карточке по умолчанию (вкладка «12 Месяцев Скидка 10%»,
 # Playwright 15.09.2026); помесячная (priceNumber) — в price_list_rub.
-SPB_E2236_32 = ("E-2236 / 32 / 960", 13086.0)                    # preset 3871, помесячно 14 540
-SPB_E2236_16 = ("E-2236 / 16 / 480", 10764.0)                    # preset 3247, помесячно 11 960
-SPB_RYZEN = ("AMD Ryzen 9 7950X (16 ядер, 4.2-5.7 ГГц, 32 потока)", 33570.0)  # 5243, помесячно 37 300
+SPB_E2236_32 = ("E-2236 / 32 / 960", 14540.0)                    # preset 3871, за 12 мес 13 086
+SPB_E2236_16 = ("E-2236 / 16 / 480", 11960.0)                    # preset 3247, за 12 мес 10 764
+SPB_RYZEN = ("AMD Ryzen 9 7950X (16 ядер, 4.2-5.7 ГГц, 32 потока)", 37300.0)  # 5243, за 12 мес 33 570
 MSK_E2236_32 = ("Intel Xeon E-2236 (6 ядер, 3.4-4.8 ГГц, 12 потоков) / 32 DDR4 "
-                "/ 2 x 960 Гб SSD", 11448.0)                      # preset 6121, помесячно 12 720
+                "/ 2 x 960 Гб SSD", 12720.0)                      # preset 6121, за 12 мес 11 448
 
 
 def _plans(rows):
@@ -1143,17 +1143,18 @@ class TestParseTimewebCloudNuxt:
         assert len(everything) > len(spb) + len(
             _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, MSK))
 
-    def test_uses_shown_price_with_monthly_in_note(self, timeweb_cloud_flat):
-        """Паритет с витриной (15.09): в таблицу — цена карточки по умолчанию
-        (price, «12 мес −10 %»: 3871 = 13 086), помесячная 14 540 — в
-        price_list_rub и в пометке; молча подменять цену нельзя."""
+    def test_uses_monthly_price_with_annual_in_note(self, timeweb_cloud_flat):
+        """Решение клиента 21.09: в таблицу идёт ПОМЕСЯЧНАЯ цена (3871 =
+        14 540) — по ней Светлана сверяет витрину; цена вкладки «12 мес
+        −10 %» (13 086) уходит в пометку. Молча подменять цену нельзя."""
         rows = _parse_timeweb_cloud_nuxt(timeweb_cloud_flat, TODAY, SPB)
         assert all(float(r["price_rub"]) == int(r["price_rub"]) for r in rows)
         assert SPB_E2236_32 in _plans(rows)
-        assert ("E-2236 / 32 / 960", 14540.0) not in _plans(rows)
+        assert ("E-2236 / 32 / 960", 13086.0) not in _plans(rows)
         row = next(r for r in rows if r["plan_id"] == "E-2236 / 32 / 960")
         assert row["price_list_rub"] == 14540.0
-        assert row["price_note"] == "при оплате за 12 мес (−10\u00a0%); помесячно 14\u00a0540"
+        assert row["price_note"] == ("помесячно; при оплате за 12 мес — "
+                                     "13\u00a0086 (−10\u00a0%)")
 
     def test_no_note_when_price_field_missing(self):
         """Нет поля price (или оно совпадает с priceNumber) — цена помесячная,

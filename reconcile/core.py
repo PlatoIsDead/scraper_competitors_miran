@@ -96,10 +96,9 @@ def timeweb_cards(
     shown_prices: dict[str, float] | None = None,
 ) -> dict[str, Card]:
     """Каталог landing-api (независимый от __NUXT_DATA__ JSON): помесячная
-    цена, CPU, RAM, диски. Цена, показанная на карточке (вкладка «12 мес
-    −10 %» по умолчанию), в каталоге отсутствует — берётся из shown_prices
-    (поле price страницы по имени тарифа); без неё карточка сверяется по
-    помесячной цене с пометкой."""
+    цена, CPU, RAM, диски. С 21.09 в таблицу идёт та же помесячная цена, что
+    отдаёт каталог, поэтому shown_prices (цена со страницы по имени тарифа)
+    лишь подтверждает её вторым путём; без него сверка идёт по каталогу."""
     want = {TIMEWEB_API_LOCATIONS.get(loc, loc) for loc in locations}
     cards: dict[str, Card] = {}
     for p in presets:

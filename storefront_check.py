@@ -92,7 +92,7 @@ def diff_timeweb(
                            f"{', '.join(sorted(want))}"}]
 
     # landing-api отдаёт помесячную цену (= priceNumber); в таблице с 15.09
-    # цена вкладки по умолчанию «12 мес −10 %» — сверяем по price_list_rub
+    # в таблице с 21.09 помесячная цена (= priceNumber = price_list_rub)
     ours: dict[str, list[int]] = {}
     for r in rows:
         name = (r.get("plan_id") or "").strip()

@@ -136,14 +136,18 @@ class TestRegcloudCases:
 
 
 class TestTimewebCases:
-    def test_mir_045_and_047_shown_price_with_monthly_note(self, snap):
+    def test_mir_045_and_047_monthly_price_with_annual_note(self, snap):
+        """Цифры из переписки Светланы 11.09: она сверяет витрину по
+        ПОМЕСЯЧНОЙ цене (11 960 и 14 540), годовая — пометкой."""
         p45 = _pairs(snap, "MIR-045", "timeweb")
         p47 = _pairs(snap, "MIR-047", "timeweb")
-        assert p45 == {("E-2236 / 16 / 480", 10764.0)}
-        assert p47 == {("E-2236 / 32 / 960", 13086.0)}
+        assert p45 == {("E-2236 / 16 / 480", 11960.0)}
+        assert p47 == {("E-2236 / 32 / 960", 14540.0)}
         notes = dict(zip(snap["long"]["plan_id"], snap["long"]["price_note"]))
-        assert notes["E-2236 / 16 / 480"] == "при оплате за 12 мес (−10 %); помесячно 11 960"
-        assert notes["E-2236 / 32 / 960"] == "при оплате за 12 мес (−10 %); помесячно 14 540"
+        assert notes["E-2236 / 16 / 480"] == ("помесячно; при оплате за 12 мес "
+                                              "— 10 764 (−10 %)")
+        assert notes["E-2236 / 32 / 960"] == ("помесячно; при оплате за 12 мес "
+                                              "— 13 086 (−10 %)")
 
     @pytest.mark.parametrize("config_id", ["MIR-046", "MIR-048", "MIR-051", "MIR-052", "MIR-053"])
     def test_moscow_only_tariffs_absent_in_spb(self, snap, config_id):
@@ -181,5 +185,5 @@ class TestReconcileOnSnapshots:
     def test_wide_report_carries_notes(self, snap):
         wide = build_wide_df(snap["refs"], snap["matches"], snap["comps"])
         row = wide[wide["config_id"] == "MIR-045"].iloc[0]
-        assert row["timeweb_price"] == 10764.0
-        assert row["timeweb_price_note"].startswith("при оплате за 12 мес")
+        assert row["timeweb_price"] == 11960.0
+        assert row["timeweb_price_note"].startswith("помесячно; при оплате")

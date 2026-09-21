@@ -1709,26 +1709,30 @@ def _parse_timeweb_cloud_nuxt(
 
 
 def _timeweb_shown_price(cfg: dict, list_price: float) -> tuple[float, str]:
-    """(цена карточки, price_note) тарифа timeweb.cloud.
+    """(цена в таблице, price_note) тарифа timeweb.cloud.
 
-    price = «10 764 ₽/мес» при leaseTerm=12 — то, что показано на карточке
-    по умолчанию; priceNumber = помесячная. Пометка: «при оплате за
-    12 мес (−10 %); помесячно 11 960». Совпадают — пометки нет.
+    priceNumber = помесячная цена, price = «10 764 ₽/мес» при leaseTerm=12
+    (вкладка «12 месяцев, скидка 10 %», выбранная на витрине по умолчанию).
+
+    В таблицу идёт ПОМЕСЯЧНАЯ (решение клиента 21.09: Светлана сверяет
+    помесячные цены, отменяет выбор 15.09 в пользу цены вкладки по
+    умолчанию), годовая — пометкой рядом: «помесячно; при оплате за 12 мес —
+    10 764 ₽ (−10 %)». Цены совпали — пометки нет.
     """
     raw = str(cfg.get("price") or "")
     m = re.search(r"([\d\s\u00a0]+)", raw)
-    shown = None
+    term_price = None
     if m:
         digits = re.sub(r"[\s\u00a0]", "", m.group(1))
         if digits:
-            shown = float(digits)
-    if not shown or shown == list_price:
+            term_price = float(digits)
+    if not term_price or term_price == list_price:
         return list_price, ""
     term = cfg.get("leaseTerm")
-    pct = round((1 - shown / list_price) * 100)
+    pct = round((1 - term_price / list_price) * 100)
     term_text = f"за {int(term)} мес" if term else "за период"
-    return shown, (f"при оплате {term_text} (−{pct}\u00a0%); "
-                   f"помесячно {_fmt_rub(list_price)}")
+    return list_price, (f"помесячно; при оплате {term_text} — "
+                        f"{_fmt_rub(term_price)} (−{pct}\u00a0%)")
 
 
 def scrape_timeweb_cloud(
