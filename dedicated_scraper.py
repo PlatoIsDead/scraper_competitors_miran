@@ -654,6 +654,29 @@ def _parse_selectel_flat(flat: list, today: str) -> list[ServerRow]:
 
 
 SELECTEL_PUB_API = "https://api.selectel.ru/servers/v2/pub/service/server"
+# линейки Chipcore/Ryzen/Mac (CL*, AR*, MAC*) лежат в отдельном сервисе:
+# витрина дёргает оба эндпоинта, схема конфигов одна и та же
+SELECTEL_CHIP_API = "https://api.selectel.ru/servers/v2/pub/service/serverchip"
+
+
+def _fetch_selectel_configs(url: str) -> "list | None":
+    """result[] открытого API selectel или None при отказе.
+
+    Ретраи — из-за флапа исходящей сети WSL. is_hidden=false — тот же параметр,
+    с которым ходит витрина.
+    """
+    last_err = None
+    for attempt in range(3):
+        try:
+            r = requests.get(url, timeout=25, params={"is_hidden": "false"},
+                             headers={"User-Agent": HEADERS["User-Agent"]})
+            r.raise_for_status()
+            return r.json().get("result") or []
+        except Exception as e:
+            last_err = e
+            time.sleep(2 * (attempt + 1))
+    print(f"[selectel] Ошибка запроса API {url}: {last_err}")
+    return None
 
 
 def _scrape_selectel_api() -> list[ServerRow]:
@@ -666,20 +689,18 @@ def _scrape_selectel_api() -> list[ServerRow]:
     только msk/spb/nsk) — как на сайте; API же отдаёт available[] по всем ДЦ.
     Если список локаций недоступен — старое правило (все ДЦ) с предупреждением.
     """
-    last_err = None
-    for attempt in range(3):
-        try:
-            r = requests.get(SELECTEL_PUB_API, timeout=25,
-                             headers={"User-Agent": HEADERS["User-Agent"]})
-            r.raise_for_status()
-            configs = r.json().get("result") or []
-            break
-        except Exception as e:
-            last_err = e
-            time.sleep(2 * (attempt + 1))
-    else:
-        print(f"[selectel] Ошибка запроса API: {last_err}")
+    configs = _fetch_selectel_configs(SELECTEL_PUB_API)
+    if configs is None:
         return []
+    # Chipcore/Ryzen/Mac — отдельный сервис; его отказ не должен ронять основную
+    # линейку, но и молчать нельзя: без него из сравнения выпадают все AR*/CL*
+    chip = _fetch_selectel_configs(SELECTEL_CHIP_API)
+    if chip is None:
+        print("[selectel] Линейка Chipcore/Ryzen/Mac недоступна — "
+              "конфигураций AR*/CL*/MAC* в сравнении не будет")
+    else:
+        print(f"[selectel] Chipcore/Ryzen/Mac: {len(chip)} конфигураций")
+        configs = configs + chip
 
     visible_locations = _fetch_selectel_visible_locations()
     if visible_locations:
@@ -1150,6 +1171,22 @@ def _regcloud_price_note(item, price_rub: float) -> tuple[str, "float | None"]:
     return ", ".join(parts), base_price
 
 
+def _regcloud_is_clearance(item) -> bool:
+    """Карточка из «распродажи» reg.cloud.
+
+    Эти карточки есть в разметке страницы, но в основной листинг
+    /dedicated/ не попадают: счётчик сайта 21.09.2026 показывал 110
+    конфигураций, а в DOM их 157 — все 47 лишних несли бейдж
+    «Распродажа» и ни одна из видимых 110 его не несла. Клиент сверяет
+    отчёт с тем, что видит по нашей ссылке (фидбек 11.09: RD-30111,
+    RD-30170, RD-30189 — «конфига нет на сайте»).
+    """
+    for tag_elem in item.find_all(class_="b-dedicated-servers-list-item-cloud__tag_category"):
+        if tag_elem.get_text(" ", strip=True).replace("C", "С").lower() == "распродажа":
+            return True
+    return False
+
+
 def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
     """Parse reg.cloud dedicated page HTML. Pure function — used by tests."""
     soup = BeautifulSoup(html, "lxml")
@@ -1158,8 +1195,12 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
     server_items = soup.find_all("div", class_="b-dedicated-servers-list-item-cloud")
     print(f"[regcloud] Найдено {len(server_items)} элементов серверов")
 
+    clearance = 0
     for item in server_items:
         try:
+            if _regcloud_is_clearance(item):
+                clearance += 1
+                continue
             cpu_elem = item.find("p", class_="b-dedicated-servers-list-item-cloud__cpu-title")
             if not cpu_elem:
                 continue
@@ -1316,6 +1357,9 @@ def _parse_regcloud_html(html: str, today: str) -> list[ServerRow]:
 
         except Exception:
             continue
+
+    if clearance:
+        print(f"[regcloud] Скрыто как на сайте (распродажа): {clearance}")
 
     if not rows:
         print(f"[regcloud] Не удалось извлечь конфигурации. HTML preview:")

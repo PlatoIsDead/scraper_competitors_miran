@@ -80,7 +80,9 @@ def _pairs(snap, config_id, competitor_id=None):
 
 class TestSnapshotsParsed:
     def test_row_counts(self, snap):
-        assert len(snap["reg_rows"]) == 155
+        # 155 карточек в разметке минус 49 «Распродажа» — их листинг
+        # /dedicated/ не показывает (решение 21.09)
+        assert len(snap["reg_rows"]) == 155 - 49
         assert len(snap["tw_rows"]) == 68
         assert len(snap["sel_rows"]) == 90
 
@@ -122,7 +124,10 @@ class TestRegcloudCases:
         __current-price = data-price, а не перечёркнутая."""
         rows = {r["plan_id"]: r for r in snap["reg_rows"]}
         cards = snap["cards"]["reg_cloud"]
-        for plan in ("RD-30324", "RD-54956", "RD-40936"):
+        # RD-40936 несёт оба бейджа — «Сервер дня» и «Распродажа»,
+        # поэтому с 21.09 в листинг он не идёт (см. TestRegcloudClearanceHidden)
+        assert "RD-40936" not in rows
+        for plan in ("RD-30324", "RD-54956"):
             assert rows[plan]["price_rub"] == cards[plan].price
             assert rows[plan]["price_rub"] < rows[plan]["price_list_rub"]
             assert rows[plan]["price_note"].startswith("Сервер дня (скидка только сегодня)")

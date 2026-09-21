@@ -836,6 +836,8 @@ class TestSelectelStorefrontFilter:
         def fake_get(url, *a, **kw):
             if url == ds.SELECTEL_PUB_LOCATION:
                 raise ConnectionError("нет сети")
+            if url == ds.SELECTEL_CHIP_API:
+                return Resp({"result": []})
             assert url == ds.SELECTEL_PUB_API
             return Resp({"result": list(selectel_api_configs.values())})
 
@@ -868,6 +870,8 @@ class TestSelectelStorefrontFilter:
         def fake_get(url, *a, **kw):
             if url == ds.SELECTEL_PUB_LOCATION:
                 return Resp({"result": selectel_locations})
+            if url == ds.SELECTEL_CHIP_API:
+                return Resp({"result": []})
             assert url == ds.SELECTEL_PUB_API
             return Resp({"result": list(selectel_api_configs.values())})
 
@@ -1242,3 +1246,113 @@ def test_scrape_selectel_live():
     from dedicated_scraper import scrape_selectel
     rows = scrape_selectel()
     assert len(rows) >= 100
+
+
+class TestSelectelChipcoreLine:
+    """Линейки Chipcore/Ryzen/Mac (CL*, AR*, MAC*) лежат в отдельном сервисе.
+
+    Фидбек Светланы 11.09: «у селектела тариф в этом семействе похож с нашим
+    MIR116, но нет этого конкурента в сравнении» — речь про AR44-NVMe
+    (Ryzen 9 7950X). Его не было, потому что service/server его не отдаёт.
+    """
+
+    CHIP_CFG = {
+        "name": "AR44-NVMe",
+        "cpu": {"name": "AMD Ryzen 9 7950X", "count": 1, "cores_per_cpu": 16},
+        "ram": [{"size": 128, "count": 1}],
+        "disk": [{"type": "SSD NVMe M.2", "size": 2000, "count": 2}],
+        "is_order": True,
+        "is_preorder": False,
+        "available": [{"location": "loc-msk", "count": 1}],
+        "price_collection": {"RUB": {"month": 22500.0}},
+        "location_price_collection": {"loc-msk": {"RUB": {"month": 23700.0}}},
+    }
+
+    def _fake_requests(self, monkeypatch, chip_result, server_result=None):
+        import dedicated_scraper as ds
+
+        class Resp:
+            def __init__(self, payload): self._payload = payload
+            def raise_for_status(self): pass
+            def json(self): return self._payload
+
+        calls = []
+
+        def fake_get(url, *a, **kw):
+            calls.append(url)
+            if url == ds.SELECTEL_PUB_LOCATION:
+                return Resp({"result": [
+                    {"uuid": "loc-msk", "name": "MSK-1",
+                     "visibility": "everywhere",
+                     "primary_resource_ordering": "enabled"}]})
+            if url == ds.SELECTEL_CHIP_API:
+                if isinstance(chip_result, Exception):
+                    raise chip_result
+                return Resp({"result": chip_result})
+            return Resp({"result": server_result or []})
+
+        monkeypatch.setattr(ds.requests, "get", fake_get)
+        monkeypatch.setattr(ds.time, "sleep", lambda *_: None)
+        return calls
+
+    def test_chip_line_is_fetched_and_parsed(self, monkeypatch):
+        import dedicated_scraper as ds
+        calls = self._fake_requests(monkeypatch, [self.CHIP_CFG])
+        rows = ds._scrape_selectel_api()
+        assert ds.SELECTEL_CHIP_API in calls
+        by_plan = {r["plan_id"]: r for r in rows}
+        assert "AR44-NVMe" in by_plan
+        row = by_plan["AR44-NVMe"]
+        # цена — по локации витрины, а не общая price_collection
+        assert row["price_rub"] == 23700.0
+        assert row["quantity_available"] == 1
+        assert row["cpu_model"] == "AMD Ryzen 9 7950X"
+        assert row["ram_gb"] == 128
+
+    def test_chip_failure_keeps_main_line_and_warns(self, monkeypatch):
+        """Отказ отдельного сервиса не должен ронять основную линейку,
+        но и молчать нельзя — иначе AR*/CL* тихо исчезают из сравнения."""
+        import dedicated_scraper as ds
+        self._fake_requests(monkeypatch, ConnectionError("нет сети"),
+                            server_result=[dict(self.CHIP_CFG, name="EL11-SSD")])
+        printed = []
+        monkeypatch.setattr("builtins.print",
+                            lambda *a, **k: printed.append(" ".join(map(str, a))))
+        rows = ds._scrape_selectel_api()
+        assert [r["plan_id"] for r in rows] == ["EL11-SSD"]
+        assert any("Chipcore" in line for line in printed)
+
+
+class TestRegcloudClearanceHidden:
+    """Карточки «Распродажа» есть в DOM, но не в листинге /dedicated/.
+
+    21.09.2026: счётчик сайта — 110 конфигураций, в разметке 157, и все
+    47 лишних несли этот бейдж. Клиент сверяет отчёт с тем, что видит
+    по нашей ссылке (фидбек 11.09 про RD-30111/30170/30189).
+    """
+
+    SNAPSHOT = (Path(__file__).parent / "fixtures" / "snapshots" / "2026-09-15"
+                / "regcloud_dedicated.html")
+
+    def test_clearance_cards_are_dropped(self):
+        import dedicated_scraper as ds
+        from bs4 import BeautifulSoup
+        html = self.SNAPSHOT.read_text(encoding="utf-8")
+        items = BeautifulSoup(html, "lxml").find_all(
+            "div", class_="b-dedicated-servers-list-item-cloud")
+        clearance = [i for i in items if ds._regcloud_is_clearance(i)]
+        assert len(clearance) == 49, "в снимке 15.09 ровно 49 карточек распродажи"
+
+        rows = ds._parse_regcloud_html(html, "2026-09-15")
+        assert len(rows) == len(items) - len(clearance)
+        assert all("распродажа" not in (r.get("price_note") or "") for r in rows)
+        # RD-30370 — распродажная карточка, в отчёт она попадать не должна
+        assert "RD-30370" not in {r["plan_id"] for r in rows}
+
+    def test_sale_tag_does_not_hide_server_of_the_day(self):
+        """«Сервер дня» остаётся: это обычная карточка листинга со скидкой."""
+        import dedicated_scraper as ds
+        html = self.SNAPSHOT.read_text(encoding="utf-8")
+        rows = ds._parse_regcloud_html(html, "2026-09-15")
+        notes = [r.get("price_note") or "" for r in rows]
+        assert any("Сервер дня" in n for n in notes)
