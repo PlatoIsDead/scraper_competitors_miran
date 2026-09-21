@@ -182,3 +182,22 @@ def test_card_url():
     assert (card_url("reg_cloud", "RD-30111")
             == "https://reg.cloud/dedicated/server_details/30111")
     assert card_url("timeweb", "AMD Ryzen 9 7950X / 128") == ""
+
+
+class TestRegcloudClearanceNotADiscrepancy:
+    """Карточки «Распродажа» не берутся в скрейп (решение 21.09), поэтому
+    сверка с витриной не должна объявлять каждую из них расхождением
+    «на витрине есть, в скрейпе нет» — иначе над таблицей висит плашка
+    про 47 расхождений, которых на самом деле нет."""
+
+    SNAPSHOT = (Path(__file__).parent / "fixtures" / "snapshots" / "2026-09-15"
+                / "regcloud_dedicated.html")
+
+    def test_no_phantom_discrepancies(self):
+        import dedicated_scraper as ds
+        from storefront_check import _regcloud_clearance_ids, diff_regcloud
+
+        html = self.SNAPSHOT.read_text(encoding="utf-8")
+        assert len(_regcloud_clearance_ids(html)) == 49
+        rows = ds._parse_regcloud_html(html, "2026-09-15")
+        assert diff_regcloud(rows, html) == []

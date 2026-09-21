@@ -441,7 +441,7 @@ class TestAppHeadless:
         assert "нет данных" in text
         assert not at.exception
 
-    def test_price_note_rendered_next_to_price(self, tmp_path, monkeypatch):
+    def test_price_note_only_in_match_card(self, tmp_path, monkeypatch):
         """Паритет с витриной (15.09): условия цены из отчёта показываются
         мелким текстом под ценой в таблице и в карточке матча."""
         reports = tmp_path / "data" / "reports"
@@ -463,10 +463,12 @@ class TestAppHeadless:
             encoding="utf-8-sig")
         at = self._run(tmp_path, monkeypatch)
         text = _texts(at)
-        assert "цена по SPB-2; MSK-1 — 11 000" in text
-        assert text.count("скидка 30 %, было 12 900") >= 2  # таблица + карточка
+        # правка 21.09: клиент просил вернуть прежний вид таблицы — условия
+        # цены из её ячеек убраны, в карточке матча остались
+        assert "цена по SPB-2; MSK-1 — 11 000" not in text
+        assert text.count("скидка 30 %, было 12 900") == 1  # только карточка
 
-    def test_reconcile_report_shown_and_button_offered(self, tmp_path, monkeypatch):
+    def test_reconcile_report_moved_to_check_tab(self, tmp_path, monkeypatch):
         """M5: reconcile_<дата>.md показывается под плашкой сверки, кнопка
         «Сверить с сайтами» есть, когда есть matches_<дата>.csv."""
         reports = tmp_path / "data" / "reports"
@@ -488,8 +490,14 @@ class TestAppHeadless:
             "цена на карточке 9 500, в отчёте 9 000 |\n", encoding="utf-8")
         at = self._run(tmp_path, monkeypatch)
         text = _texts(at)
-        assert "цена на карточке 9 500, в отчёте 9 000" in text
+        # над таблицей отчёта сверки больше нет (правка 21.09)
+        assert "цена на карточке 9 500, в отчёте 9 000" not in text
         assert any(b.label == "Сверить с сайтами" for b in at.button)
+        # она переехала во вкладку проверки конкурента
+        at.radio[0].set_value("Проверка · Reg.cloud").run()
+        assert not at.exception, [e.value for e in at.exception]
+        tab = _texts(at)
+        assert "цена на карточке 9 500, в отчёте 9 000" in tab
         assert any("расхождений: 1" in e.label for e in at.expander)
 
     def test_fresh_report_shows_sources_and_no_banner(self, tmp_path, monkeypatch):

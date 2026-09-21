@@ -20,6 +20,26 @@ TIMEWEB_PRESETS_URL = "https://timeweb.cloud/landing-api/dedicated/presets"
 TIMEWEB_LOCATIONS = {"msk": "ru-3", "ru": "ru-1"}
 
 
+def _regcloud_clearance_ids(html: str) -> set[str]:
+    """Коды карточек «Распродажа» — по тому же правилу, что и в скрейпе."""
+    from bs4 import BeautifulSoup
+
+    from dedicated_scraper import _regcloud_is_clearance
+
+    out: set[str] = set()
+    soup = BeautifulSoup(html, "lxml")
+    for item in soup.find_all("div", class_="b-dedicated-servers-list-item-cloud"):
+        if not _regcloud_is_clearance(item):
+            continue
+        code = item.get("data-id") or ""
+        if not code:
+            raw = item.get("data-server-id") or ""
+            code = raw[3:] if raw.startswith("RD-") else ""
+        if code:
+            out.add(f"RD-{code}")
+    return out
+
+
 def diff_regcloud(rows: list[dict], html: str) -> list[dict]:
     """Цена из карточки (data-price) против цены, которую вытащил парсер.
 
@@ -43,6 +63,12 @@ def diff_regcloud(rows: list[dict], html: str) -> list[dict]:
         return [{"kind": "check_failed",
                  "detail": "в разметке листинга нет data-price — вёрстка "
                            "сменилась, сверку цен провести не удалось"}]
+
+    # Карточки «Распродажа» в листинг /dedicated/ не попадают и в скрейп мы их
+    # не берём (решение 21.09) — иначе каждая из них тут превращается в мнимое
+    # расхождение «на витрине есть, в скрейпе нет».
+    for plan_id in _regcloud_clearance_ids(html):
+        card_prices.pop(plan_id, None)
 
     ours = {r.get("plan_id"): r for r in rows if r.get("plan_id")}
     out: list[dict] = []

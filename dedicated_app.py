@@ -509,19 +509,6 @@ def comp_label(cid: str) -> str:
     return COMP_LABELS.get(cid, cid)
 
 
-def build_source_status_html(sources: list[dict]) -> str:
-    """Строки шапки по конкурентам из run_status: точка статуса + подпись
-    «Selectel — 14.09 15:21 МСК, 128 предложений»."""
-    rows = []
-    for s in sources:
-        status = s.get("status")
-        dot = "" if status == "ok" else (" bad" if status == "error" else " warn")
-        rows.append(f'<div class="row"><span class="dot{dot}"></span>'
-                    f'{source_line(s, comp_label(s.get("competitor_id", "")))}'
-                    '</div>')
-    return f'<div class="src-status">{"".join(rows)}</div>'
-
-
 def row_delta_pct(miran, comp_values: list) -> "float | None":
     """Δ Мирана к минимуму рынка: (Миран − мин.конкурент) / мин.конкурент."""
     if miran is None or pd.isna(miran) or not comp_values:
@@ -568,10 +555,10 @@ def build_comparison_html(view: pd.DataFrame, price_cols: list[str],
                 tds.append(f'<td class="{klass}"><span class="empty">—</span></td>')
             else:
                 extra = " best" if col == best_col else ""
-                note = r.get(f"{col}_note") if col != "miran_price" else None
-                note_html = (f'<span class="note">{html.escape(str(note))}</span>'
-                             if isinstance(note, str) and note else "")
-                tds.append(f'<td class="{klass}{extra}">{fmt_price(v)}{note_html}</td>')
+                # условия цены («скидка 30 %», «помесячно…») в таблицу не
+                # идут — клиент просил вернуть прежний вид; они остались
+                # в карточках матчей, в сыром скрейпе и во вкладках проверки
+                tds.append(f'<td class="{klass}{extra}">{fmt_price(v)}</td>')
         tds.append(f'<td class="num">{delta_html}</td>')
         body.append("<tr>" + "".join(tds) + "</tr>")
 
@@ -666,7 +653,8 @@ def storefront_url(competitor_id: str) -> str:
 
 def render_check_view(provider: str, offers_df: pd.DataFrame,
                       long_df: pd.DataFrame, wide_df: pd.DataFrame,
-                      raw_marks: dict, sources: list[dict]) -> None:
+                      raw_marks: dict, sources: list[dict],
+                      date_tag: str = "") -> None:
     """Вкладка глазной сверки одного конкурента: справа — всё, что мы сняли с
     его витрины, в порядке листинга сайта; слева — конфигурации Мирана, которые
     на эти тарифы легли. Отчёт из этой вкладки не строится, она для проверки."""
@@ -711,6 +699,57 @@ def render_check_view(provider: str, offers_df: pd.DataFrame,
     if mark.get("stale"):
         st.warning("Скрейп этого конкурента старее показанного отчёта — цены "
                    "ниже не текущие. Нажми «Запустить сравнение».")
+    # Статус прогона и сверка с витриной: раньше висели над основной
+    # таблицей и мешали клиенту (правка 21.09) — их место здесь.
+    if src:
+        st.caption(source_line(src, comp_label(cid)))
+    check = (src or {}).get("check") or {}
+    if check.get("status") == "failed":
+        st.info("Сверка с витриной не выполнялась: "
+                + str(check.get("detail") or ""))
+    elif check:
+        relevant, rest = split_by_report(
+            check.get("discrepancies") or [], set(by_plan))
+        if relevant:
+            lines = []
+            for d in relevant[:5]:
+                plan = str(d.get("plan_id") or "")
+                link = card_url(cid, plan)
+                label = f"[{plan}]({link})" if link else plan
+                if by_plan.get(plan):
+                    label += " → " + ", ".join(by_plan[plan])
+                prices = []
+                if d.get("site_price") is not None:
+                    prices.append(f"на витрине {int(d['site_price']):,} ₽"
+                                  .replace(",", " "))
+                if d.get("our_price") is not None:
+                    prices.append(f"у нас {int(d['our_price']):,} ₽"
+                                  .replace(",", " "))
+                tail = f" ({', '.join(prices)})" if prices else ""
+                lines.append(f"• {label} — {d.get('detail', '')}{tail}")
+            if len(relevant) > 5:
+                lines.append(f"• и ещё {len(relevant) - 5} расхождений")
+            st.warning(f"Сверка с витриной — расхождений: {len(relevant)}\n\n"
+                       + "\n".join(lines))
+        else:
+            st.success("Сверка с витриной — цены и состав тарифов совпадают "
+                       "с сайтом на момент прогона.")
+        if rest:
+            st.caption(f"Ещё {len(rest)} расхождений по карточкам, которые не "
+                       "совпали ни с одной конфигурацией Мирана: на отчёт они "
+                       "не влияют.")
+
+    reconcile_md = REPORTS_DIR / f"reconcile_{date_tag}.md" if date_tag else None
+    if reconcile_md and reconcile_md.exists():
+        md_text = reconcile_md.read_text(encoding="utf-8")
+        n_bad, n_warn = md_text.count("| ✗ |"), md_text.count("⚠ ")
+        title = ("Сверка пар с карточками — "
+                 + ("часть витрин недоступна" if n_warn
+                    else f"расхождений: {n_bad}" if n_bad
+                    else "все пары совпадают"))
+        with st.expander(title, expanded=bool(n_bad or n_warn)):
+            st.markdown(md_text)
+
     if offers.empty:
         st.info("По этому конкуренту нет сырого скрейпа. Нажми «Запустить "
                 "сравнение» в панели слева.")
@@ -1002,7 +1041,7 @@ with st.sidebar:
 
 if check_provider is not None:
     render_check_view(check_provider, offers_df, long_df, wide_df,
-                      raw_marks, sources)
+                      raw_marks, sources, date_tag)
     st.stop()
 
 # ── Шапка ──
@@ -1033,7 +1072,7 @@ with head_l:
         f'<div class="subline">{len(wide_df)} конфигураций · '
         f'{int(matched_mask_all.sum()) if len(wide_df) else 0} с совпадениями · '
         f'{n_fresh_offers} предложений конкурентов{stale_note}</div>'
-        + (build_source_status_html(sources) if sources else ""),
+        ,
         unsafe_allow_html=True,
     )
 with head_r:
@@ -1075,96 +1114,6 @@ if failed_sources:
         "а потому, что цены не загрузились — нажмите «Запустить сравнение» "
         "ещё раз."
     )
-
-# Сверка с витринами: расхождение между нашей ценой и карточкой конкурента
-# должно всплывать здесь, а не в письме клиента.
-checked = [s for s in sources if s.get("check")]
-if checked:
-    unchecked = [s for s in checked if s["check"]["status"] == "failed"]
-    # план конкурента → конфигурации Мирана, с которыми он совпал
-    matched: dict[str, dict[str, list[str]]] = {}
-    if not long_df.empty:
-        for (cid, plan), grp in long_df.groupby(["competitor_id", "plan_id"]):
-            matched.setdefault(cid, {})[plan] = sorted(set(grp["config_id"]))
-    split = {
-        s["competitor_id"]: split_by_report(
-            s["check"]["discrepancies"], set(matched.get(s["competitor_id"], {})))
-        for s in checked if s["check"]["status"] == "ok"
-    }
-    n_rest = sum(len(rest) for _, rest in split.values())
-    rest_note = (f"Ещё {n_rest} расхождений — по карточкам, которые не совпали "
-                 "ни с одной конфигурацией Мирана: на отчёт они не влияют."
-                 if n_rest else "")
-
-    def _verdict(s: dict) -> str:
-        status = s["check"]["status"]
-        if status == "failed":
-            return "не сверяется"
-        relevant = split.get(s["competitor_id"], ([], []))[0]
-        if relevant:
-            return f"{len(relevant)} расхождений"
-        return "совпадает с витриной"
-
-    verdict = " · ".join(f"{comp_label(s['competitor_id'])}: {_verdict(s)}"
-                         for s in checked)
-    lines = []
-    for cid, (relevant, _) in split.items():
-        for d in relevant[:5]:
-            plan = d.get("plan_id", "")
-            url = card_url(cid, plan)
-            label = f"[{plan}]({url})" if url else plan
-            configs = matched.get(cid, {}).get(plan)
-            if configs:
-                label += " → " + ", ".join(configs)
-            prices = []
-            if d.get("site_price") is not None:
-                prices.append(f"на витрине {int(d['site_price']):,} ₽"
-                              .replace(",", " "))
-            if d.get("our_price") is not None:
-                prices.append(f"у нас {int(d['our_price']):,} ₽"
-                              .replace(",", " "))
-            tail = f" ({', '.join(prices)})" if prices else ""
-            lines.append(f"• {comp_label(cid)} · {label} — {d['detail']}{tail}")
-        if len(relevant) > 5:
-            lines.append(f"• {comp_label(cid)}: и ещё {len(relevant) - 5} "
-                         "расхождений")
-    if lines:
-        st.warning(f"Сверка с витринами — {verdict}\n\n" + "\n".join(lines)
-                   + (f"\n\n{rest_note}" if rest_note else ""))
-    else:
-        st.success(f"Сверка с витринами — {verdict}. Цены и состав тарифов "
-                   "в отчёте совпадают с сайтами конкурентов на момент прогона.")
-        if rest_note:
-            st.caption(rest_note)
-    if unchecked:
-        st.caption("Не сверяются: " + ", ".join(
-            f"{comp_label(s['competitor_id'])} ({s['check'].get('detail', '')})"
-            for s in unchecked))
-
-# Сверка каждой пары с карточкой конкурента (python -m reconcile / кнопка
-# «Сверить с сайтами»): показываем отчёт reconcile_<дата>.md, если он есть.
-reconcile_md = REPORTS_DIR / f"reconcile_{date_tag}.md" if date_tag else None
-if reconcile_md and reconcile_md.exists():
-    md_text = reconcile_md.read_text(encoding="utf-8")
-    n_bad = md_text.count("| ✗ |")
-    n_warn = md_text.count("⚠ ")
-    title = "Сверка пар с карточками конкурентов — "
-    if n_warn:
-        title += "часть витрин недоступна"
-    elif n_bad:
-        title += f"расхождений: {n_bad}"
-    else:
-        title += "все пары совпадают с карточками"
-    expanded = bool(n_bad or n_warn
-                    or st.session_state.get("reconcile_done") == date_tag)
-    with st.expander(title, expanded=expanded):
-        st.markdown(md_text)
-        rec_csv = REPORTS_DIR / f"reconcile_{date_tag}.csv"
-        if rec_csv.exists():
-            st.download_button(
-                "Скачать сверку (CSV)", data=rec_csv.read_bytes(),
-                file_name=rec_csv.name, mime="text/csv",
-                key="dl_reconcile")
 
 if wide_df.empty:
     st.info(f"{EMPTY_STATE_MESSAGE} в панели слева")
