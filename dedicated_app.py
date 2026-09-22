@@ -651,6 +651,76 @@ def storefront_url(competitor_id: str) -> str:
     return ""
 
 
+@st.cache_data(ttl=300)
+def competitor_name(competitor_id: str) -> str:
+    """Имя конкурента как в competitors.json — им же подписана колонка
+    «Конкурент» в reconcile_<дата>.md (reconcile/__main__.py: labels = {id: name})."""
+    from config_loader import load_competitors
+    try:
+        for c in load_competitors():
+            if c.competitor_id == competitor_id:
+                return c.name
+    except Exception:
+        return ""
+    return ""
+
+
+def filter_reconcile_md(md_text: str, comp_name: str) -> str:
+    """reconcile_<дата>.md сводит ВСЕ витрины в одну пару таблиц — вкладка
+    проверки конкретного конкурента должна показывать только его строки,
+    иначе (баг 22.09) в «Проверке Timeweb» видны и Selectel, и reg.cloud."""
+    lines = md_text.splitlines()
+    if not lines:
+        return md_text
+    out = [lines[0]]
+    in_table = False
+    header_idx = sep_idx = None  # позиции последней таблицы, для плейсхолдера
+    rows_in_table = 0
+    n_total = n_bad = 0
+    count_idx = None
+    for line in lines[1:]:
+        stripped = line.strip()
+        if stripped.startswith("- ⚠ "):
+            if stripped.startswith(f"- ⚠ {comp_name}:"):
+                out.append(line)
+            continue
+        if stripped.startswith("Пар в отчёте:"):
+            count_idx = len(out)
+            out.append(line)  # переписан ниже, когда посчитаем n_total/n_bad
+            continue
+        if stripped.startswith("| Конфигурация | Конкурент"):
+            in_table = True
+            header_idx, sep_idx, rows_in_table = len(out), None, 0
+            out.append(line)
+            continue
+        if stripped.startswith("|---"):
+            sep_idx = len(out)
+            out.append(line)
+            continue
+        if in_table and stripped.startswith("|"):
+            parts = [p.strip() for p in stripped.strip("|").split("|")]
+            if len(parts) < 2 or parts[1] != comp_name:
+                continue
+            rows_in_table += 1
+            if len(parts) >= 6:  # основная таблица (с колонкой «Итог»), не кандидаты
+                n_total += 1
+                if parts[5] == "✗":
+                    n_bad += 1
+            out.append(line)
+            continue
+        if in_table and rows_in_table == 0 and header_idx is not None:
+            # ни одной строки этого конкурента — пустая таблица хуже фразы
+            out = out[:header_idx] + ["Нет таких карточек по этому конкуренту."]
+            header_idx = sep_idx = None
+        in_table = False
+        out.append(line)
+    if in_table and rows_in_table == 0 and header_idx is not None:
+        out = out[:header_idx] + ["Нет таких карточек по этому конкуренту."]
+    if count_idx is not None:
+        out[count_idx] = f"Пар в отчёте: {n_total}, расхождений: {n_bad}."
+    return "\n".join(out)
+
+
 def render_check_view(provider: str, offers_df: pd.DataFrame,
                       long_df: pd.DataFrame, wide_df: pd.DataFrame,
                       raw_marks: dict, sources: list[dict],
@@ -741,7 +811,8 @@ def render_check_view(provider: str, offers_df: pd.DataFrame,
 
     reconcile_md = REPORTS_DIR / f"reconcile_{date_tag}.md" if date_tag else None
     if reconcile_md and reconcile_md.exists():
-        md_text = reconcile_md.read_text(encoding="utf-8")
+        md_text = filter_reconcile_md(
+            reconcile_md.read_text(encoding="utf-8"), competitor_name(cid))
         n_bad, n_warn = md_text.count("| ✗ |"), md_text.count("⚠ ")
         title = ("Сверка пар с карточками — "
                  + ("часть витрин недоступна" if n_warn
